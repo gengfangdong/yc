@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IUserDao">
+	<resultMap type="entity.IUser" id="IUser">
+		<result column="User_id" jdbcType="VARCHAR" property="User_id"/>
+		<result column="User_loginname" jdbcType="VARCHAR" property="User_loginname"/>
+		<result column="User_name" jdbcType="VARCHAR" property="User_name"/>
+		<result column="User_phone" jdbcType="VARCHAR" property="User_phone"/>
+		<result column="User_mail" jdbcType="VARCHAR" property="User_mail"/>
+		<result column="User_companyname" jdbcType="VARCHAR" property="User_companyname"/>
+		<result column="User_department" jdbcType="VARCHAR" property="User_department"/>
+		<result column="User_job" jdbcType="VARCHAR" property="User_job"/>
+		<result column="User_hold" jdbcType="VARCHAR" property="User_hold"/>
+		<result column="User_password" jdbcType="VARCHAR" property="User_password"/>
+		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+		<result column="isadmin" jdbcType="VARCHAR" property="isadmin"/>
+	</resultMap>
+	<insert id = "insertIUser" parameterType="IUser">
+		insert into IUSER (USER_ID,USER_LOGINNAME,USER_NAME,USER_PHONE,USER_MAIL,USER_COMPANYNAME,
+		USER_DEPARTMENT,USER_JOB,USER_HOLD,USER_PASSWORD,CREATETIME,ISADMIN) 
+		values(#{User_id},#{User_loginname},#{User_name},#{User_phone},
+		#{User_mail},#{User_companyname},#{User_department},#{User_job},
+		#{User_hold},#{User_password},#{createtime},#{isadmin})
+	</insert>
+	<select id="checkloginname" parameterType="String" resultMap="IUser">
+		select * from IUSER i where i.user_loginname = #{user_loginname}
+	</select>
+	<select id="login" parameterType="IUser" resultType="IUser">
+		select * from IUSER i where i.User_loginname = #{User_loginname} and i.user_password = #{User_password}
+	</select>
+</mapper>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>中央财经大学</title>
+		<link rel="stylesheet" href="../assets/css/amazeui.css" />
+		<link rel="stylesheet" href="../assets/css/common.min.css" />
+		<link rel="stylesheet" href="../assets/css/contact.min.css" />
+		<link rel="stylesheet" href="../assets/css/myStyle.css" />
+		<style>
+			@media only screen and (min-width: 641px) {
+				.am-offcanvas {
+					display: block;
+					position: static;
+					background: none;
+				}
+				.am-offcanvas-bar {
+					position: static;
+					width: auto;
+					background: none;
+					-webkit-transform: translate3d(0, 0, 0);
+					-ms-transform: translate3d(0, 0, 0);
+					transform: translate3d(0, 0, 0);
+				}
+				.am-offcanvas-bar:after {
+					content: none;
+				}
+			}
+			
+			@media only screen and (max-width: 640px) {
+				.am-offcanvas-bar .am-nav>li>a {
+					color: #ccc;
+					border-radius: 0;
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05)
+				}
+				.am-offcanvas-bar .am-nav>li>a:hover {
+					background: #404040;
+					color: #fff
+				}
+				.am-offcanvas-bar .am-nav>li.am-nav-header {
+					color: #777;
+					background: #404040;
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+					text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					font-weight: 400;
+					font-size: 75%
+				}
+				.am-offcanvas-bar .am-nav>li.am-active>a {
+					background: #1a1a1a;
+					color: #fff;
+					box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
+				}
+				.am-offcanvas-bar .am-nav>li+li {
+					margin-top: 0;
+				}
+			}
+			
+			.my-head {
+				margin-top: 40px;
+				text-align: center;
+			}
+			
+			.my-button {
+				position: fixed;
+				top: 0;
+				right: 0;
+				border-radius: 0;
+			}
+			
+			.my-sidebar {
+				padding-right: 0;
+				border-right: 1px solid #eeeeee;
+			}
+			
+			.my-footer {
+				border-top: 1px solid #eeeeee;
+				padding: 10px 0;
+				margin-top: 10px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layout">
+			<!--===========layout-header================-->
+			<div class="layout-header am-hide-sm-only">
+				<!--topbar start-->
+				<div class="topbar" style="background: #FFFFFF;">
+					<div class="container" style="background: #FFFFFF;width: auto!important;">
+						<div class="am-g">
+							<div class="am-u-md-8">
+								<div class="topbar-left">
+									<!--<i class="am-icon-globe"></i>-->
+									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
+										联系电话+86-010-83951120 / 83951097
+									</div>
+								</div>
+							</div>
+							<div class="am-u-md-4">
+								<div class="topbar-right am-text-right am-fr">
+									<a href="login.html" style="color: #000000;">登录</a>
+									<a href="register.html" style="color: #000000;">注册</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--topbar end-->
+
+				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+					<!--header start-->
+					<div class="container" style="width: auto!important;">
+						<div class="header">
+							<div class="am-g">
+								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
+									<div class="logo">
+										<a href="../index.html"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+									</div>
+								</div>
+								<div class="am-u-lg-8 am-u-md-12">
+									<div class="header-right am-fr">
+										<div class="header-contact">
+											<div class="nav-contain" style="border: none;box-shadow: none;">
+												<div class="nav-inner">
+													<ul class="am-nav am-nav-pills am-nav-justify">
+														<li class="">
+															<a href="../index.html">首页</a>
+														</li>
+														<li>
+															<a href="cultureSystem.html">项目概况</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="cultureSystem.html">培养体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="solution.html">解决方案</a>
+																</li>
+																<li class="menu-item">
+																	<a href="teachingMaterialSystem.html">教材体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="taxCollectionFund.html">领税基金</a>
+																</li>
+																<li class="menu-item">
+																	<a href="expertTeam.html">专家团队</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="regulationsClasses.html" style="color: #FF2F2F;">规定班次</a>
+														</li>
+														<li>
+															<a href="customizedClasses.html">定制班次</a>
+														</li>
+														<li>
+															<a href="onlineClasses.html">拼班</a>
+														</li>
+														<li>
+															<a href="incumbencyStudent.html">在职研</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.html">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.html">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="newsNotice.html">新闻公告</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="newsNotice.html">通知公告</a>
+																</li>
+																<li class="menu-item">
+																	<a href="newsTrain.html">培训新闻</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="about.html">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.html">中心概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.html">组织结构</a>
+																</li>
+																<li class="menu-item">
+																	<a href="aboutSchool.html">学校介绍</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--header end-->
+
+				</div>
+			</div>
+
+			<!--mobile header start-->
+			<div class="m-header">
+				<div class="am-g am-show-sm-only">
+					<div class="am-u-sm-2">
+						<div class="menu-bars">
+							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
+							<!-- 侧边栏内容 -->
+							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+								<a href="javascript: void(0)" class="am-menu-toggle"></a>
+
+								<div class="am-offcanvas">
+									<div class="am-offcanvas-bar">
+										<ul class="am-nav am-nav-pills am-nav-justify">
+											<li class="">
+												<a href="../index.html">首页</a>
+											</li>
+											<li>
+												<a href="about.html">关于我们</a>
+											</li>
+											<li>
+												<a href="newsNotice.html">新闻中心</a>
+												<!-- sub-menu start-->
+												<ul class="sub-menu">
+													<li class="menu-item">
+														<a href="newsNotice.html">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.html">培训新闻</a>
+													</li>
+												</ul>
+												<!-- sub-menu end-->
+											</li>
+											<li>
+												<a href="regulationsClasses.html" style="color: #FF2F2F;">规定班次</a>
+											</li>
+											<li>
+												<a href="customizedClasses.html">定制班次</a>
+											</li>
+											<li>
+												<a href="onlineClasses.html">在线拼班</a>
+											</li>
+											<li>
+												<a href="incumbencyStudent.html">在职研</a>
+												<!-- sub-menu start-->
+												<ul class="sub-menu">
+													<li class="menu-item">
+														<a href="incumbencyStudent.html">招生简章</a>
+													</li>
+													<li class="menu-item">
+														<a href="onlineApplication.html">在线报名</a>
+													</li>
+												</ul>
+												<!-- sub-menu end-->
+											</li>
+											<li class="">
+												<a href="login.html" class="">登录</a>
+											</li>
+											<li class="">
+												<a href="register.html" class="">注册</a>
+											</li>
+										</ul>
+
+									</div>
+								</div>
+							</nav>
+
+						</div>
+					</div>
+					<div class="am-u-sm-5 am-u-end">
+						<div class="m-logo">
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+						</div>
+					</div>
+				</div>
+				<!--mobile header end-->
+			</div>
+
+			<!--===========layout-container================-->
+			<div class="layout-container">
+				<div class="page-header news_bannerBg">
+					<div class="am-container">
+						<h1 class="page-header-title">规定班次</h1>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="am-g am-g-fixed myFixedSiderbar">
+				<!--正文-->
+				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+					<div class="breadcrumb-box">
+						<div class="am-container">
+							<ol class="am-breadcrumb">
+								<li>
+									<a href="../index.html">首页</a>
+								</li>
+								<li class="am-active">规定班次</li>
+								<li class="am-active">查看</li>
+							</ol>
+						</div>
+					</div>
+					<div class="am-g">
+						<div class="am-u-sm-11 am-u-sm-centered">
+							<div class="am-cf am-article tableTextAlign">
+								<table class="am-table am-table-bordered am-table-radius onlineTable" style="font-size: 14px;">
+									<!--<thead>
+										<tr>
+											<th>网站名称</th>
+											<th>网址</th>
+											<th>创建时间</th>
+										</tr>
+									</thead>-->
+									<tbody>
+										<tr>
+											<td class="tableLeftTd2">本期培训名称:</td>
+											<td class="tableRightTd2" colspan="2" style="text-align: center;">
+												第四期国税系统税务稽查专业骨干中级培训班
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">培训开课地点:</td>
+											<td class="tableRightTd2" colspan="2">
+												中央财经大学
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr class="">
+											<td class="tableLeftTd2">报名开始日期:</td>
+											<td class="tableRightTd2" colspan="2">
+												2018-11-11
+
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">报名截止日期:</td>
+											<td class="tableRightTd2" colspan="2">2018-12-10</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">预计开课日期:</td>
+											<td class="tableRightTd2" colspan="2">
+												2018-12-11
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">预计结课日期:</td>
+											<td class="tableRightTd2" colspan="2">2018-12-29</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">班级容纳人数:</td>
+											<td class="tableRightTd2" colspan="2">40</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">已经报名人数:</td>
+											<td class="tableRightTd2" colspan="2">34</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">咨询联系电话:</td>
+											<td class="tableRightTd2" colspan="2">010-34567890</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">培训官方通知:</td>
+											<td class="tableRightTd2">详情请下载附件</td>
+											<td class="tableRightTd2">
+												<a href="../doc/培训通知.zip">附件下载</a>
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2">报名表格下载:</td>
+											<td class="tableRightTd2">请点击下载附件</td>
+											<td class="tableRightTd2">
+												<a href="../doc/报名表格.zip">附件下载</a>
+											</td>
+											<!-- <td>2012-10-01</td> -->
+										</tr>
+										<tr>
+											<td class="tableLeftTd2" style="vertical-align: middle;">课程主要大纲:</td>
+											<td class="tableRightTd2" colspan="2">
+												<!--<textarea>
+													为确保培训组织工作的顺利实施，自函到之日起开始接受报名，报名截止时间为每期培训班报到日前10天，额满为止。报名工作以县局以上税务机关为单位统一组织，同时请各报名单位通知参训学员登陆中共国家税务总局党校网站招生招聘——招生信息栏下载本函电子稿,以便注册登记参训名单及接站信息。
+													报名时请报名单位登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——培训报名入口，直接注册报名。报名成功后并请填写《国家税务总局税务干部进修学院2019年培训项目报名表》（见附件3）盖章后传真至0514-87806661 。
+													欢迎各税务机关开展全年培训项目一揽子报名，在年初将拟参加各项目培训的人数、班期一次性发送我院。如不能做到全年培训项目一揽子报名，请按《2019年专业化培训项目总体安排表》分批组织报名。
+													参训学员名册上传方式：报名成功的单位在报到日前10天，请登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——名册上传入口，上传参训学员名册。
+													五、培训费用
+													（一）落地培训费用按每人每天550元的标准（含师资费、食宿费、场地费、资料费等）收取。培训学员住宿为双人标准间，用餐为标准自助餐，上课全部在多媒体教室。培训费用可通过银行汇款或由学员自带。
+													（二）远程同步课堂培训费用：每个教学单元半天培训费2000元。
+													（三）银行汇款账号如下：
+													单位名称：国家税务总局税务干部进修学院
+													账号：32001744336051149933
+													开户银行：建设银行扬州市百合园支行
+													六、联系地址、电话
+													联系地址：江苏省扬州市扬子江北路515号；邮编：225007
+													联系单位：国家税务总局税务干部进修学院教务处
+													报名联系人：陈老师、舒老师；联系电话：0514-87806663、87701292；传真：0514-87806661；电子信箱: yzsyjwc@126.com。
+												</textarea>-->
+												<p>
+													为确保培训组织工作的顺利实施，自函到之日起开始接受报名，报名截止时间为每期培训班报到日前10天，额满为止。
+												</p>
+												<p>
+													报名工作以县局以上税务机关为单位统一组织，同时请各报名单位通知参训学员登陆中共国家税务总局党校网站招生招聘——招生信息栏下载本函电子稿,以便注册登记参训名单及接站信息。
+												</p>
+												<p> 报名时请报名单位登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——培训报名入口，直接注册报名。报名成功后并请填写《国家税务总局税务干部进修学院2019年培训项目报名表》（见附件3）盖章后传真至0514-87806661 。
+												</p>
+												<p>欢迎各税务机关开展全年培训项目一揽子报名，在年初将拟参加各项目培训的人数、班期一次性发送我院。如不能做到全年培训项目一揽子报名，请按《2019年专业化培训项目总体安排表》分批组织报名。
+												</p>
+												<p>参训学员名册上传方式：报名成功的单位在报到日前10天，请登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——名册上传入口，上传参训学员名册。
+												</p>
+												<h4>五、培训费用</h4>
+												<p>（一）落地培训费用按每人每天550元的标准（含师资费、食宿费、场地费、资料费等）收取。培训学员住宿为双人标准间，用餐为标准自助餐，上课全部在多媒体教室。 培训费用可通过银行汇款或由学员自带。
+												</p>
+												<p>（二）远程同步课堂培训费用：每个教学单元半天培训费2000元。</p>
+												<p>（三）银行汇款账号如下： 单位名称：国家税务总局税务干部进修学院 账号：32001744336051149933 开户银行：建设银行扬州市百合园支行</p>
+												<h4>六、联系地址、电话</h4>
+												<p>联系地址：江苏省扬州市扬子江北路515号；</p>
+												<p> 邮编：225007</p>
+												<p>联系单位：国家税务总局税务干部进修学院教务处 </p>
+												<p>报名联系人：陈老师、舒老师；</p>
+												<p>联系电话：0514-87806663、87701292；</p>
+												<p>传真：0514-87806661；</p>
+												<p>电子信箱: yzsyjwc@126.com。</p>
+												<p style="text-align: center;">国家税务总局税务干部进修学院</p>
+												<p style="text-align: center;">2018年10月27日</p>
+										</tr>
+									</tbody>
+								</table>
+								<button type="button" class="am-btn am-btn-primary am-round subBtn">
+									<a href="" style="color: #FFFFFF;">在线报名</a>
+								</button>
+							</div>
+							<hr />
+						</div>
+					</div>
+				</div>
+				<!--侧边栏-->
+				<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
+					<div class="am-offcanvas" id="sidebar">
+						<div class="am-offcanvas-bar">
+							<!--<ul class="am-nav">
+								<li class="sidebar_contactUs">■在职研</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
+									<a href="incumbencyStudent.html" style="color: #000000;">招生简章</a>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
+									<a href="onlineApplication.html" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
+								</li>
+							</ul>-->
+							<ul class="am-nav">
+								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+	                  <i class="am-icon-phone" ></i>
+	                </span>-->
+									<dl>
+										<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-map-marker"></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-envelope-o" ></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+			</div>
+
+			<!--===========layout-footer================-->
+			<div class="layout-footer">
+				<div class="footer">
+					<div style="background-color:#054371" class="footer--bg"></div>
+					<div class="footer--inner">
+						<div class="container">
+							<div class="footer_main">
+								<div class="am-g">
+									<div class="am-u-md-3 ">
+										<div class="footer_main--column">
+											<strong class="footer_main--column_title">友情链接</strong>
+											<ul class="footer_navigation">
+												<li class="footer_navigation--item"><a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a></li>
+												<li class="footer_navigation--item"><a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a></li>
+												<li class="footer_navigation--item"><a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a></li>
+												<li class="footer_navigation--item"><a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a></li>
+												<li class="footer_navigation--item"><a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="am-u-md-9 ">
+										<div class="footer_main--column am-u-md-8">
+											<strong class="footer_main--column_title">联系详情</strong>
+											<ul class="footer_contact_info">
+												<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>yunshipei.com</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
+											</ul>
+										</div>
+										<div class="am-u-md-4 " style="margin-top: 20px;">
+											<div class="footer_main--column">
+												<ul class="footer_navigation">
+													<div class="article-img">
+														<img src="../assets/img/index/wx_code.png" style="width: 150px;" />
+													</div>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
+		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+		<script>
+			function dateClear() {
+				$('#date').attr("value", "");
+			}
+		</script>
+	</body>
+
+</html>

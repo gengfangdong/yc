@@ -1,0 +1,322 @@
+.notice{
+	padding-left: 100px;
+	color: #2281d2;
+}
+.noPadding_li li{
+	padding: 0 0 0 120px!important;
+	margin-top: 0!important;
+}
+.noPadding_li li dl dt{
+	font-size: 16px!important;
+	font-weight: 600;
+}
+.noPadding_li li dl dd{
+	font-size: 14px!important;
+}
+.news{
+	color: #2281d2;
+}
+.rePadding_li li{
+	padding: 0 0px 0 110px!important;
+	margin-top: 0!important;
+}
+.promo_detailed--list_item_pic{
+	width: 100px!important;
+	height: 100px!important;
+	border: none!important;
+}
+.promo_detailed--list_item_pic img{
+	width: 100%;
+}
+.rePadding_li li dl dt{
+	font-size: 16px!important;
+	font-weight: 600;
+}
+.rePadding_li li dl dd{
+	font-size: 14px!important;
+}
+.timeRight{
+	text-align: right;
+}
+.noBorder{
+	border: none!important;	
+	top:-9px!important;
+}
+.footer_list{
+	/*display: flex;*/
+  	/*justify-content: center;*/
+  	/*align-items: center;*/
+	/*text-align: center;*/
+	/*list-style: none;*/
+}
+.footer_list li{
+	/*display: inline-block;
+	position: relative;*/
+	list-style: none;
+}
+.footer_list li a{
+	position: relative;
+	padding: 20px 30px;
+	color: #FFFFFF;
+}
+.footer_logo{
+	text-align: center;
+}
+.container{
+	/*background: #FFFFFF;*/
+}
+.contactUs{
+	padding-top: 20px;
+}
+
+/*about*/
+.about_bannerBg{
+	background: url('../img/banner_bg.png');
+	background-size: 100% 100%;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*news*/
+.newsList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.newsList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	height: 35px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.newsDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.newsList ul li a{
+	color: #2F2E2E;
+}
+.newsList ul li a:hover,.newsList ul li a:focus{
+	color: #095f8a;
+}
+/*newsTrain*/
+.newsPicList{
+	width: 100%;
+	height: 120px;
+	overflow: hidden;
+	padding: 0;
+	padding-bottom: 18px;
+	zoom: 1;
+}
+.newsListPic{
+	float: left;
+	overflow: hidden;
+	margin: 0;
+}
+.newsListPic a{
+	display: block;
+	width: 120px;
+	height: 120px;
+	padding: 0px;
+	overflow: hidden;
+}
+.newsListPic a img{
+	width: 120px;
+	height: 120px;
+	display: block;
+	border: 0;
+}
+.newsListContent{
+	float: left;
+	height: 120px;
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	padding-left: 15px;
+}
+.newsListContent h4{
+	display: block;
+	height: 20px;
+}
+.newsListContent h4 a{
+	display: block;
+	float: left;
+	font-size: 16px;
+	color: #003D90;
+}
+.newsListTime{
+	float: right;
+	font-size: 12px;
+	color: #828282;
+	font-weight: 400;
+	padding: 0 0 0 8px;
+	font-family: "宋体";
+}
+.newsListText{
+	margin: 15px 0 0 0;
+}
+.newsListText a{
+	color: #2F2E2E;
+	text-decoration: none;
+	font-size: 14px;
+}
+.newsListText a span{
+	display: block;
+	color: #003D90;
+	height: 12px;
+	float: right;
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+	z-index: 100;
+}
+
+
+/*newsContent*/
+.news_bannerBg{
+	background: url('../img/banner_bg.png');
+	background-size: 100% 100%;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.myFixedSiderbar{
+	max-width: -moz-fit-content;
+	max-width: -webkit-fit-content;
+	max-width: none;
+	margin-bottom: 20px;
+}
+.mySiderbar{
+	padding-left: 140px;
+	padding-top: 18px;
+}
+.sidebar_contactUs{
+	font-size: 20px;
+	font-weight: 600;
+}
+.am-breadcrumb{
+	text-align: right;
+}
+/*onlineApplication*/
+.onlineInput{
+	width: 100%;
+}
+.tableLeftTd{
+	text-align: center;
+	max-width: 100px;
+	min-width: 85px;
+}
+.tableRightTd{
+	text-align: left;
+	padding: 5px!important;
+}
+
+.subBtn{
+	width: 100px;
+}
+.tableTextAlign{
+	text-align: center;
+}
+#date{
+	cursor: text;
+}
+
+/*regulationsClasses*/
+.regulations_bannerbg{
+	background: url('../img/banner_bg.png');
+	background-size: 100% 100%;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.littleFontSize{
+	font-size: 14px;
+}
+.conditionYearUl{
+	list-style: none;
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: 0;
+	padding-left: 0;
+}
+.conditionYearUl li{
+	float: left;
+	padding-left: 20px;
+	font-size: 14px;
+	color: #000000;
+}
+.conditionYearUl li a{
+	color: #000000;
+}
+.conditionYearUl li a:hover{
+	font-weight: 600;
+	color: #FF2F2F;
+}
+.conditionYearUl .conditionYearLi{
+	padding-left: 0px;
+}
+.conditionProjectUl{
+	list-style: none;
+	height: 30px;
+	padding-left: 0;
+}
+.conditionProjectUl li{
+	float: left;
+	padding-left: 20px;
+	font-size: 14px;
+	color: #000000;
+}
+.conditionProjectUl li a{
+	color: #000000;
+}
+.conditionProjectUl li a:hover{
+	color: #FF2F2F;
+	font-weight: 600;
+}
+.conditionProjectUl li a:active{
+	color: #FF2F2F;
+	font-weight: 600;
+}
+.conditionProjectUl .conditionProjectLi{
+	padding-left: 0px;
+}
+
+.conditionSelectStyle{
+	color: #FF2F2F!important;
+	font-weight: 600;
+}
+
+/*example*/
+.tableLeftTd2{
+	float: right;
+	min-width: 120px;
+}
+.tableRightTd2{
+	/*float: left;*/
+	text-align: left;
+}
+
+/*customizedClasses*/
+.tableLeftTd3{
+	min-width: 120px;
+	width: 100px;
+}
+.tableRightTd3{
+	/*float: left;*/
+	text-align: left;
+}

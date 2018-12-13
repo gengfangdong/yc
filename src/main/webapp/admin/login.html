@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>北京大唐神州技术有限公司</title>
+	</head>
+	<link rel="stylesheet" href="layui-v2.3.0/layui/css/layui.css">
+	<!-- layui 2.3.0 -->
+	<script src="layui-v2.3.0/layui/layui.js"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			min-height: 500px;
+			min-width: 800px;
+		}
+		
+		.header-content {
+			height: 50px;
+			width: 100%;
+			border-bottom: 5px solid #5e2f1d;
+		}
+		
+		.logo img {
+			float: left;
+		}
+		.imgLogo{
+			margin-left: 20px;
+			margin-top: 5px;
+			height: 50px;
+		}
+		.textLogo{
+			width: 200px;
+			height: auto;
+		}
+		.main-content{
+			height: 662px;
+			background-color: #000000;
+		}
+		.main-content img {
+			height: 100%;
+		}
+		.text1{
+			font-size: 24px;
+			padding-bottom: 50px;
+		}
+		.text2{
+			font-size: 28px;
+			padding-bottom: 50px;
+		}
+		.loginTop{
+			
+		}
+		.login {
+			cursor: pointer;
+			font-size: 20px;
+			color: #66BBFF;
+		}
+		
+		.logins {
+			float: right;
+			margin-right: 50px;
+			height: 50px;
+			line-height: 50px;
+		}
+		
+		.logins ul {
+			float: left;
+		}
+		
+		.logins ul li {
+			float: left;
+			list-style-type: none;
+			padding: 0 10px;
+			cursor: pointer;
+		}
+		
+		.logins ul li:hover {
+			color: #F05050;
+		}
+		
+		.logins ul li a:hover {
+			color: #F05050;
+		}
+		
+		a {
+			color: #000000;
+			text-decoration: none;
+		}
+		
+		.foot_content {
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+		}
+		.main-text {
+			font-size: 22px;
+			margin-top: -30%;
+			margin-left: 4%;
+			color: #FFFFFF;
+		}
+		.importantText{
+			display: inline;
+			color: #f5801d;
+		}
+	</style>
+
+	<body>
+		<div class="header-content">
+			<div class="logo">
+				<img src="image/logo.png"  class="imgLogo"/>
+				<img src="image/logo_text.png" class="textLogo"/>
+				<div class="logins">
+					<ul>
+						<li>
+							<a href="#">操作手册</a>
+						</li>
+						<li>
+							<a href="#">业务查询</a>
+						</li>
+						<li class="loginTop" onclick="login();">登录</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main-content">
+			<img src="image/bg3.png" />
+			<div class="main-text">
+				<!--<div class="text1"><div class="importantText">300+</div>余个业务模型，<div class="importantText">100+</div>余个数据算法</div>
+				<div class="text2">让各类纳税人的偷逃税、关联交易、团伙虚开等行为无处遁形</div>
+				<div class="login" onclick="login();" >现在登录>></div>-->
+			</div>
+		</div>
+		<div class="foot_content">
+			<strong>版权© 2016-2025<a href="#">北京大唐神州技术有限公司</a></strong> 保留所有权利。
+		</div>
+	</body>
+	<script type="text/javascript">
+		var num = 1;
+		window.onload = function(){
+			document.getElementsByClassName('main-content')[0].Height = window.screen.height-55-40-20;
+		};
+		function login() {
+			layui.use('layer', function() {
+				var $ = layui.jquery,
+				layer = layui.layer;
+				indexOne = layer.open({
+					type: 2,
+					title: false, //不显示标题栏
+					closeBtn: true,
+					area: ['400px','320px'],
+					shade: 0.8,
+					id: 'LAY_layuipro', //设定一个id，防止重复弹出
+					resize: false,
+					btnAlign: 'c',
+					moveType: 1 ,//拖拽模式，0或者1
+					content: 'logins.html'
+				});
+			});
+			window.setTimeout(function() {
+			var btn1=window.frames['layui-layer-iframe'+num].document.getElementById("cancel");/*实名函数*/
+	      	var count=0;
+	      	num++;
+	      	var handle1=function() {
+	          	layer.close(indexOne);
+	          	btn1.removeEventListener('click',handle1,false/true);
+	     	}
+	     	btn1.addEventListener('click',handle1,false);
+			}, 500);
+		}
+	</script>
+	
+
+</html>

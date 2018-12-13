@@ -1,0 +1,38 @@
+/* 懒人图库 搜集整理 www.lanrentuku.com */
+
+
+#slider {
+    width: 92%;
+   margin-left:4%;
+}
+
+.scroll {
+     width: 100%;
+    overflow: hidden;
+    clear: left;
+	height:500px;
+}
+
+.scrollContainer div.panel {
+    padding: 20px 0 20px 0;
+    height:1020px;
+    width:1148px;
+	overflow:hidden;
+}
+
+
+
+ul.navigation a:hover {
+    background-color: #f6f6f6;
+}
+
+ul.navigation a.selected {
+    background-color: #f7f7f7;
+}
+
+ul.navigation a:focus {
+    outline: none;
+}
+
+.but_submit{float:left}
+.scrollButtons{float:left;margin-right:20px}

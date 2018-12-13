@@ -1,0 +1,314 @@
+.add{
+	margin-top:10px;
+	width:60px;
+	height:25px;
+	line-height: 25px;
+	background-color: #1E9FFF;
+	border: none;
+	border-color: #1E9FFF;
+	border-radius: 5px;
+	color: #FFFFFF;
+}
+.logo-lg{
+	display: block!important;
+}
+/*addNews*/
+.leftTd{
+	width: 12%;
+	text-align: right!important;
+	vertical-align: middle!important;
+}
+.rightTd{
+	width: 70%;
+	text-align: left!important;
+}
+#newsTable tr:hover{
+	background-color: #FFFFFF;
+}
+#newsTitle,#newsCategory{
+	height: 23px;
+	width: 877px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#newsDate{
+	height: 23px;
+	width: 252px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+.newsSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+
+/*addQuali*/
+#qualiTable tr:hover{
+	background-color: #FFFFFF;
+}
+#qualiTitle,#qualiCategory{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#qualiDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+.qualiSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+/*addPerson*/
+.personSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+.placeList li{
+	float: left;
+	margin-right: 15px;
+}
+#personTitle,#personCategory,#personEmail,#personJob,#personPosition{
+	height: 23px;
+	width: 890px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#personDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+/*addSowing*/
+.sowingSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#sowingTitle,#sowingCategory{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#sowingDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+/*addPic*/
+.picSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#picTitle,#picCategory{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#picDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+/*addRecruit*/
+.recruitSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#recruitDepartment,#recruitCategory,#recruitEmail,#recruitJob,#recruitNum{
+	height: 23px;
+	width: 890px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#recruitText{
+	height: 200px;
+	width: 890px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#recruitDate{
+	height: 23px;
+	width: 252px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+/*addChemical*/
+.chemicalSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#chemicalTitle,#chemicalCategory{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#chemicalDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+/*addOre*/
+.oreSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#oreTitle,#oreCategory{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#oreDate{
+	height: 23px;
+	width: 186px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+/*addBranch*/
+.branchSave{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+#branchCategory,#branchPhone,#branchEmail,#branchFax,#branchOrgName,#branchCountry{
+	height: 23px;
+	width: 800px;
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+
+.lay_btn{
+	padding: 0 18px;
+	height: 25px;
+	line-height: 25px;	
+}
+
+
+
+.saveBtn{
+	width: 60px;
+	height: 23px;
+	margin-bottom: 10px;
+	background-color: #1E9FFF;
+	color: #FFFFFF;
+	border: none;
+	border: 1px solid #1E9FFF;
+	border-radius: 5px;
+}
+.lay_btn a:hover{
+	color: #FFFFFF;
+}
+
+#newsAbstract,#newsKeyWords,#personName,#company,#department,#post,#job,#personSex,#personBirthday,#ID_Number,#personPhone{
+	height: 23px;
+	width: 877px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#trainingClassesName,#togetherClassesCompany,#trainingVenue,#togetherClassesStartDate,#togetherClassesEndDate,#classesStartDate,#classesEndDate,#maxClassesNumber,#enrollNumber,#contactNumber,#contactPersonnel{
+	height: 23px;
+	width: 877px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#classesName,#hostDate,#hostDateNum,#planNumOfEntries,#planHostAddress,#contactPersonnel,#contactNumber,#studentListTemplate,#studentList,#numOfParticipants{
+	height: 23px;
+	width: 877px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+#signUpName,#classesName,#usersTel,#usersEmail,#unitName,#departmentInCharge,#userPost,#assumeOffice,#userAddress,#usersPassword,#isPassword{
+	height: 23px;
+	width: 877px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+.conditionSelectStyle{
+	color: #FF2F2F!important;
+	font-weight: 600;
+}

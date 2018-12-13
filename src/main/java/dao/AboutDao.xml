@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AboutDao">
+	<resultMap type="entity.About" id="About">
+		<result column="About_id" jdbcType="VARCHAR" property="About_id"/>
+		<result column="About_titile" jdbcType="VARCHAR" property="About_titile"/>
+		<result column="About_title_page" jdbcType="VARCHAR" property="About_title_page"/>
+		<result column="About_Introduction" jdbcType="VARCHAR" property="About_Introduction"/>
+		<result column="About_KeyWords" jdbcType="VARCHAR" property="About_KeyWords"/>
+		<result column="About_Release_time" jdbcType="VARCHAR" property="About_Release_time"/>
+		<result column="About_status" jdbcType="VARCHAR" property="About_status"/>
+		<result column="About_context" jdbcType="VARCHAR" property="About_context"/>
+		<result column="About_Creater" jdbcType="VARCHAR" property="About_Creater"/>
+		<result column="About_Createtime" jdbcType="VARCHAR" property="About_Createtime"/>
+	</resultMap>
+	<insert id = "insertAbout" parameterType="About">
+		insert into About (About_ID,About_TITILE,About_TITLE_PAGE,About_INTRODUCTION,
+		About_KEYWORDS,About_RELEASE_TIME,About_STATUS,About_CONTEXT,About_CREATER,About_CREATETIME) 
+		values(#{About_id},#{About_titile},#{About_title_page},#{About_Introduction},
+		#{About_KeyWords},#{About_Release_time},#{About_status},#{About_context},
+		#{About_Creater},#{About_Createtime})
+	</insert>
+	<select id = "getAboutAllBypage" resultMap="About">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM ABOUT) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getAboutCount" resultType="int">
+		select count(*) from ABOUT 
+	</select>
+	
+	<select id="getAboutDetailByid" resultMap="About">
+		select * from ABOUT t
+		where t.ABOUT_ID = #{about_id}
+	</select>
+	<update id="updateAbout" parameterType="About">
+		update ABOUT SET 
+			About_TITILE = #{About_titile},
+			About_TITLE_PAGE = #{About_title_page},
+			About_INTRODUCTION = #{About_Introduction},
+			About_KEYWORDS = #{About_KeyWords},
+			About_RELEASE_TIME = #{About_Release_time},
+			About_STATUS = #{About_status},
+			About_CONTEXT = #{About_context},
+			About_CREATER = #{About_Creater},
+			About_CREATETIME = #{About_Createtime}
+		where About_ID = #{About_id}
+	</update>
+	
+	<delete id="deleteAbout" parameterType="String">
+		delete  from ABOUT N
+		WHERE N.ABOUT_ID = #{about_id}
+	</delete>
+</mapper>

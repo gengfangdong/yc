@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		h4{
+			text-align: center;
+		}
+		h6{
+			float: right;
+			color: #757779;
+		}
+		.form_items{
+			width: 300px;
+			margin: 0 auto;
+		}
+		input{
+			width: 300px;
+			height: 30px;
+			border: 1px solid #F1F1F1;
+		}
+		#username{
+			margin-bottom: 20px;
+		}
+		#login{
+			border: 1px solid #000000;
+			background-color: #000000;
+			color: #FFFFFF;
+			margin-bottom: 5px;
+		}
+		#cancel{
+			border: 1px solid #000000;
+			background-color: #FFFFFF;
+			color: #000000;
+		}
+		#cancel:hover{
+			background-color: #000000;
+			color: #FFFFFF;
+		}
+	</style>
+	<body>
+		<div class="layer_form">
+			<h4>登录</h4>
+	        <div class="form_items">
+	            <input type="text" id="username" placeholder="请输入用户名" class="input_long"/>
+	        </div>
+	        <div class="form_items">
+	            <input type="password" id="password" placeholder="请输入密码" class="input_long"/>
+	            <h6>忘记密码请联系管理员</h6>
+	        </div>
+	        <div class="form_items">
+	            <input type="button" id="login" value="登录" class="input_short" onclick="login();"/>
+	            <input type="button" id="cancel" value="取消" class="input_short" />
+	        </div>
+       	</div>
+	</body>
+	<script>
+		function login(){
+			window.open('pages/wise/newsManagement.html', '_blank', 'height='+window.screen.height+', width='+window.screen.width+', top=0, left=0, toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, location=yes, status=yes');
+		}
+	</script>
+</html>

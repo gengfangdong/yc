@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>中央财经大学</title>
+		<link rel="stylesheet" href="../assets/css/amazeui.css" />
+		<link rel="stylesheet" href="../assets/css/common.min.css" />
+		<link rel="stylesheet" href="../assets/css/contact.min.css" />
+		<link rel="stylesheet" href="../assets/css/myStyle.css" />
+		<style>
+			@media only screen and (min-width: 641px) {
+				.am-offcanvas {
+					display: block;
+					position: static;
+					background: none;
+				}
+				.am-offcanvas-bar {
+					position: static;
+					width: auto;
+					background: none;
+					-webkit-transform: translate3d(0, 0, 0);
+					-ms-transform: translate3d(0, 0, 0);
+					transform: translate3d(0, 0, 0);
+				}
+				.am-offcanvas-bar:after {
+					content: none;
+				}
+			}
+			
+			@media only screen and (max-width: 640px) {
+				.am-offcanvas-bar .am-nav>li>a {
+					color: #ccc;
+					border-radius: 0;
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05)
+				}
+				.am-offcanvas-bar .am-nav>li>a:hover {
+					background: #404040;
+					color: #fff
+				}
+				.am-offcanvas-bar .am-nav>li.am-nav-header {
+					color: #777;
+					background: #404040;
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+					text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					font-weight: 400;
+					font-size: 75%
+				}
+				.am-offcanvas-bar .am-nav>li.am-active>a {
+					background: #1a1a1a;
+					color: #fff;
+					box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
+				}
+				.am-offcanvas-bar .am-nav>li+li {
+					margin-top: 0;
+				}
+			}
+			
+			.my-head {
+				margin-top: 40px;
+				text-align: center;
+			}
+			
+			.my-button {
+				position: fixed;
+				top: 0;
+				right: 0;
+				border-radius: 0;
+			}
+			
+			.my-sidebar {
+				padding-right: 0;
+				border-right: 1px solid #eeeeee;
+			}
+			
+			.my-footer {
+				border-top: 1px solid #eeeeee;
+				padding: 10px 0;
+				margin-top: 10px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layout">
+			<!--===========layout-header================-->
+			<div class="layout-header am-hide-sm-only">
+				<!--topbar start-->
+				<div class="topbar" style="background: #FFFFFF;">
+					<div class="container" style="background: #FFFFFF;width: auto!important;">
+						<div class="am-g">
+							<div class="am-u-md-8">
+								<div class="topbar-left">
+									<!--<i class="am-icon-globe"></i>-->
+									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
+										联系电话+86-010-83951120 / 83951097
+									</div>
+								</div>
+							</div>
+							<div class="am-u-md-4">
+								<div class="topbar-right am-text-right am-fr">
+									<a href="login.html" style="color: #000000;">登录</a>
+									<a href="register.html" style="color: #000000;">注册</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--topbar end-->
+
+				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+					<!--header start-->
+					<div class="container" style="width: auto!important;">
+						<div class="header">
+							<div class="am-g">
+								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
+									<div class="logo">
+										<a href="../index.html"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+									</div>
+								</div>
+								<div class="am-u-lg-8 am-u-md-12">
+									<div class="header-right am-fr">
+										<div class="header-contact">
+											<div class="nav-contain" style="border: none;box-shadow: none;">
+												<div class="nav-inner">
+													<ul class="am-nav am-nav-pills am-nav-justify">
+														<li class="">
+															<a href="../index.html" >首页</a>
+														</li>
+														<li>
+															<a href="cultureSystem.html">项目概况</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="cultureSystem.html">培养体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="solution.html">解决方案</a>
+																</li>
+																<li class="menu-item">
+																	<a href="teachingMaterialSystem.html">教材体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="taxCollectionFund.html">领税基金</a>
+																</li>
+																<li class="menu-item">
+																	<a href="expertTeam.html">专家团队</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="regulationsClasses.html">规定班次</a>
+														</li>
+														<li>
+															<a href="customizedClasses.html">定制班次</a>
+														</li>
+														<li>
+															<a href="onlineClasses.html">拼班</a>
+														</li>
+														<li>
+															<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.html" style="color: #FF2F2F;">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.html">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="newsNotice.html">新闻公告</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="newsNotice.html">通知公告</a>
+																</li>
+																<li class="menu-item">
+																	<a href="newsTrain.html">培训新闻</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="about.html">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.html">中心概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.html">组织结构</a>
+																</li>
+																<li class="menu-item">
+																	<a href="aboutSchool.html">学校介绍</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--header end-->
+
+				</div>
+			</div>
+
+			<!--mobile header start-->
+			<div class="m-header">
+				<div class="am-g am-show-sm-only">
+					<div class="am-u-sm-2">
+						<div class="menu-bars">
+							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
+							<!-- 侧边栏内容 -->
+							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+								<a href="javascript: void(0)" class="am-menu-toggle"></a>
+
+								<div class="am-offcanvas">
+									<div class="am-offcanvas-bar">
+										<ul class="am-nav am-nav-pills am-nav-justify">
+											<li class="">
+												<a href="../index.html">首页</a>
+											</li>
+											<li>
+												<a href="about.html">关于我们</a>
+											</li>
+											<li>
+												<a href="newsNotice.html">新闻中心</a>
+												<!-- sub-menu start-->
+												<ul class="sub-menu">
+													<li class="menu-item">
+														<a href="newsNotice.html">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.html">培训新闻</a>
+													</li>
+												</ul>
+												<!-- sub-menu end-->
+											</li>
+											<li>
+												<a href="regulationsClasses.html">规定班次</a>
+											</li>
+											<li>
+												<a href="customizedClasses.html">定制班次</a>
+											</li>
+											<li>
+												<a href="onlineClasses.html">在线拼班</a>
+											</li>
+											<li>
+												<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+												<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.html" style="color: #FF2F2F;">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.html">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+											</li>
+											<li class="">
+												<a href="login.html" class="">登录</a>
+											</li>
+											<li class="">
+												<a href="register.html" class="">注册</a>
+											</li>
+										</ul>
+
+									</div>
+								</div>
+							</nav>
+
+						</div>
+					</div>
+					<div class="am-u-sm-5 am-u-end">
+						<div class="m-logo">
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+						</div>
+					</div>
+				</div>
+				<!--mobile header end-->
+			</div>
+
+			<!--===========layout-container================-->
+			<div class="layout-container">
+				<div class="page-header news_bannerBg">
+					<div class="am-container">
+						<h1 class="page-header-title">在职研</h1>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="am-g am-g-fixed myFixedSiderbar">
+				<!--正文-->
+				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+					<div class="breadcrumb-box">
+						<div class="am-container">
+							<ol class="am-breadcrumb">
+								<li>
+									<a href="../index.html">首页</a>
+								</li>
+								<li class="am-active">在职研</li>
+								<li class="am-active">招生简章</li>
+							</ol>
+						</div>
+					</div>
+					<div class="am-g">
+						<div class="am-u-sm-11 am-u-sm-centered">
+							<div class="am-cf am-article">
+								<div style="text-align: center;">
+									<h1 class="am-article-title">中央财经大学招生简章</h1>
+									<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">
+										<label style="padding-right: 3%;">作者：中央财经大学招生办</label>
+										<label style="padding-left: 3%;">时间：2018-11-17</label>
+									</p>
+								</div>
+								<div style="text-align: center;">
+									<img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" style="max-height: 300px;">
+								</div>
+								<h3 style="color: #FF2F2F;">一、办学单位简况</h3>
+								<p style="text-indent: 25px;">
+									中央财经大学是教育部直属的国家“211工程”重点建设高校和“985国家优势学科创新平台”项目首批试点高校。
+								</p>
+								<p style="text-indent: 25px;">
+									中央财经大学金融学院的前身是组建于1951年的中央财政学院金融系。在60年余的发展历程中，作为新中国最早的金融人才培养基地之一， 学院为社会培养了两万多名金融领域的专门人才，其中不少后来成为各级政府财经管理部门、全国性金融机构和企业集团的负责人和业务骨干。
+								</p>
+								<h3>专业设置</h3>
+								<p style="text-indent: 25px;">
+									硕士研究生专业----金融学、国际金融学、证券投资学、金融工程
+								</p>
+								<h3>系所设置</h3>
+								<p style="text-indent: 25px;">
+									学系----金融学、应用金融、金融工程、国际金融
+								</p>
+								<p style="text-indent: 25px;">
+									科研机构----证券期货研究所、国际金融研究中心、中国银行业研究中心、民泰金融研究所、固定收益证券研究所、互联网金融实验室、城镇化与农村金融研究所、中国资产管理研究中心
+								</p>
+								<h3>系所设置</h3>
+								<p style="text-indent: 25px;">
+									国家级重点学科---金融学
+								</p>
+								<p style="text-indent: 25px;">
+									国家高等教育教学成果一等奖---21世纪中国金融学院专业教育教学改革与发展战略研究
+								</p>
+								<p style="text-indent: 25px;">
+									国家级精品课程---货币银行学
+								</p>
+								<p style="text-indent: 25px;">
+									国家级双语教学示范课程---国际金融
+								</p>
+								<p style="text-indent: 25px;">
+									国家级优秀教学团队---金融学系
+								</p>
+								<p style="text-indent: 25px;">
+									国家级教学名师---李健
+								</p>
+								<p style="text-indent: 25px;">
+									新世纪百千万人才工程（国家级）---王广谦、张礼卿
+								</p>
+								<p style="text-indent: 25px;">
+									国务院政府特殊津贴---王广谦、张礼卿、史建平、李健、贺强
+								</p>
+								<p style="text-indent: 25px;">
+									北京市教学名师---张礼卿、李建军
+								</p>
+								<p style="text-indent: 25px;">
+									北京市优秀教师---贺强教授
+								</p>
+								<p style="text-indent: 25px;">
+									北京市精品课程---国际金融
+								</p>
+								<p style="text-indent: 25px;">
+									教育部跨世纪/新世纪优秀人才支持计划---王广谦 张礼卿 李建军 郭田勇 应展宇 张学勇 刘向丽 谭小芬 王辉
+								</p>
+								<p style="text-indent: 25px;">
+									长江学者讲座教授---胡永泰(Wing Thye Woo)，巴瑞•艾青格林（Barry Eichengreen）
+								</p>
+								<p style="text-indent: 25px;">
+									荣誉教授---约瑟夫•斯蒂格利茨（Joseph E.Stiglitz)， 约翰•威廉姆森（John Williamson）
+								</p>
+								<h3 style="color: #FF2F2F;">二、高级研修班培养特色</h3>
+								<p style="text-indent: 25px;">
+									1、中财名师
+								</p>
+								<p style="text-indent: 25px;">
+									中央财经大学金融学院拥有一支一流的教师队伍，包括国家级教学名师和国家级的优秀教学团队，是全国金融学领域教学的翘楚。
+								</p>
+								<p style="text-indent: 25px;">
+									2、业界导师
+								</p>
+								<p style="text-indent: 25px;">
+									中央财经大学金融学院聘请了一批有成就的政府部门领导、学术界和金融业界精英作为兼职教授和兼职导师。在学员做论文期间，
+									会同时由校内和校外两位导师指导，凸显了我们培养学员过程中的理论与实务相结合。
+								</p>
+								<p style="text-indent: 25px;">
+									3、金融人脉
+								</p>
+								<p style="text-indent: 25px;">
+									以知识、人脉、事业为核心，课程学习与校友活动相结合。我校校友分布涉及财政、税务、银行、证券、房地产、高新技术、投资、贸易等多个行业。
+									学员通过积极参加各项活动，建立高端的人脉资源网络。
+								</p>
+								<p style="text-indent: 25px;">
+									你的同学来自于：
+								</p>
+								<p style="text-indent: 25px;">
+									中国银行 海通证券 财政部 新华社 中国科学院 万达集团
+								</p>
+								<p style="text-indent: 25px;">
+									工商银行 国联证券 外交部 人民日报 中建六局 京东金融
+								</p>
+								<p style="text-indent: 25px;">
+									交通银行 华西证券 商务部 中央电视台 美国汉军 汤森路透
+								</p>
+								<p style="text-indent: 25px;">
+									农业银行 西南证券 银监会 新浪 IBM 国家核电技术公司
+								</p>
+								<p style="text-indent: 25px;">
+									建设银行 世纪证券 证监会 经济参考报 清华同方 普华永道
+								</p>
+								<p style="text-indent: 25px;">
+									汇丰银行 广发证券 统计局 证券日报 首都机场国家开发投资公司
+								</p>
+								<p style="text-indent: 25px;">
+									渣打银行 东兴证券 中国证券业协会 中国消费者报 德勤华永会计师事务所
+								</p>
+								<p style="text-indent: 25px;">
+									东亚银行 中信证券 国家邮政局 北京商报 LG商事 中国电子科技集团公司
+								</p>
+								<p style="text-indent: 25px;">
+									兴业银行 中投证券 国家开发银行 中国进出口银行 安永华明会计师事务所
+								</p>
+								<p style="text-indent: 25px;">
+									中信银行 招商证券 国家知识产权局 中信出版社 清华大学出版社 五矿集团
+								</p>
+								<p style="text-indent: 25px;">
+									华夏银行 信达证券 机械工业信息研究院 国航 首钢 中国环球租赁有限公司
+								</p>
+								<p style="text-indent: 25px;">
+									光大银行 银河证券 北京市金融工作局 凤凰网 爱立信（中国）通信有限公司
+								</p>
+								<p style="text-indent: 25px;">
+									4、移动课堂
+								</p>
+								<p style="text-indent: 25px;">
+									在条件许可的情况下，我院将组织部分学员前往相关企业或金融机构进行参观、访问、座谈与学习，学生可选择性参与。
+								</p>
+								<h3 style="color: #FF2F2F;">三、课程设置</h3>
+								<p style="text-indent: 25px;">
+									 移动课堂---前往金融相关机构与企业参观、访问、学习。
+								</p>
+								<p style="text-indent: 25px;">
+									 授课师资：中央财经大学优质师资、金融业界精英
+								</p>
+								<h3 style="color: #FF2F2F;">四、教学、考核与结业</h3>
+								<p style="text-indent: 25px;">
+									学员只需选修一个专业方向，即可凭学员证旁听所有课程。所有课程均采用自学、课堂授课相结合的方法进行学习。
+									在学习期间内，学校利用周末及业余时间进行集中面授，其余时间由学员按要求自修。
+								</p>
+								<p style="text-indent: 25px;">
+									具有大专以上学历者均可报名参加在职研修班学习。学员学完上述课程，并经学校考核合格者，颁发中央财经大学在职高级研修班结业证书。
+								</p>
+								<p style="text-indent: 25px;">
+									申请同等学力硕士学位的学生需先拥有学士学位，学生进入论文选题、开题、写作和答辩阶段时，学院将为每位同学分配校内和校外导师各一名。
+								</p>
+								<p style="text-indent: 25px;">
+									注：经常缺勤者，学院将取消办理结业等相关事项
+								</p>
+								<h3 style="color: #FF2F2F;">五、报名须知</h3>
+								<p style="text-indent: 25px;">
+									学　　制：2年
+								</p>
+								<p style="text-indent: 25px;">
+									学习费用：
+								</p>
+								<p style="text-indent: 25px;">
+									1、在职高级研修班课程学费：32000元/人。报名时一次交清，由中央财经大学开具发票。
+								</p>
+								<p style="text-indent: 25px;">
+									2、同等学力申请硕士学位学费8000元另计。
+								</p>
+								<p style="text-indent: 25px;">
+									3、教材及参考书按学校提供的书目清单，根据自身需求自购。参加授课期间发生的食宿及交通费用自理。
+								</p>
+								<p style="text-indent: 25px;">
+									退　　学：
+								</p>
+								<p style="text-indent: 25px;">
+									1、开学前申请退学，学费可全额退还，报名费不退；
+								</p>
+								<p style="text-indent: 25px;">
+									2、开学一个月内申请退学，学费退一半，报名费不退；
+								</p>
+								<p style="text-indent: 25px;">
+									3、开学一个月后退学不予退款。
+								</p>
+								<p style="text-indent: 25px;">
+									报名与缴费:
+								</p>
+								<p style="text-indent: 25px;">
+									1、报名日期：即日起开始报名。
+								</p>
+								<p style="text-indent: 25px;">
+									2、缴费方式：学校财务刷卡缴费，自行缴费，具体缴费时间会在开课前使用邮件通知学生本人。
+								</p>
+								<p style="text-indent: 25px;">
+									汇款单位：中央财经大学
+								</p>
+								<p style="text-indent: 25px;">
+									账　　号：0200002919089021427
+								</p>
+								<p style="text-indent: 25px;">
+									银　　行：工商银行北京新街口支行
+								</p>
+								<p style="text-indent: 25px;">
+									留　　言：金融学院在职高级研修班（姓名）
+								</p>
+								<p style="text-indent: 25px;">
+									报名材料：凭本人身份证、学历证、学位证书原件及复印件(A4纸)各一份，报名表（2份）、近期免冠照片1寸、2寸各2张。
+								</p>
+								<p style="text-indent: 25px;">
+									注：凡提供虚假学历或学位证书者，一经查出将取消申请资格，并追究其法律责任，不予退还任何费用。
+								</p>
+								<h3 style="color: #FF2F2F;">联系我们</h3>
+								<p style="text-indent: 25px;">
+									联系老师：王老师&nbsp;李老师
+								</p>
+								<p style="text-indent: 25px;">
+									咨询电话：010-62510986&nbsp;18010485283
+								</p>
+								<p style="text-indent: 25px;">
+									报名邮箱：edu@eduego.com
+								</p>
+							</div>
+							<hr/>
+						</div>
+					</div>
+				</div>
+				<!--侧边栏-->
+				<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
+					<div class="am-offcanvas" id="sidebar">
+						<div class="am-offcanvas-bar">
+							<ul class="am-nav">
+								<li class="sidebar_contactUs">■在职研</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
+									<a href="incumbencyStudent.html" style="font-weight: 600;color: #FF2F2F;">招生简章</a>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
+									<a href="onlineApplication.html" style="color: #000000;">在线报名</a>
+								</li>
+							</ul>
+							<ul class="am-nav">
+								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+	                  <i class="am-icon-phone" ></i>
+	                </span>-->
+									<dl>
+										<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-map-marker"></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-envelope-o" ></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+			</div>
+
+			<!--===========layout-footer================-->
+			<div class="layout-footer">
+				<div class="footer">
+					<div style="background-color:#054371" class="footer--bg"></div>
+					<div class="footer--inner">
+						<div class="container">
+							<div class="footer_main">
+								<div class="am-g">
+									<div class="am-u-md-3 ">
+										<div class="footer_main--column">
+											<strong class="footer_main--column_title">友情链接</strong>
+											<ul class="footer_navigation">
+												<li class="footer_navigation--item"><a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a></li>
+												<li class="footer_navigation--item"><a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a></li>
+												<li class="footer_navigation--item"><a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a></li>
+												<li class="footer_navigation--item"><a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a></li>
+												<li class="footer_navigation--item"><a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="am-u-md-9 ">
+										<div class="footer_main--column am-u-md-8">
+											<strong class="footer_main--column_title">联系详情</strong>
+											<ul class="footer_contact_info">
+												<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>yunshipei.com</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
+											</ul>
+										</div>
+										<div class="am-u-md-4 " style="margin-top: 20px;">
+											<div class="footer_main--column">
+												<ul class="footer_navigation">
+													<div class="article-img">
+														<img src="../assets/img/index/wx_code.png" style="width: 150px;" />
+													</div>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+		<!--<![endif]-->
+
+		<!--[if lt IE 9]>
+		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+	</body>
+
+</html>
