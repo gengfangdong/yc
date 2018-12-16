@@ -35,7 +35,7 @@
     <mvc:default-servlet-handler />  
 	<!-- 设置上传文件最大值   1M=1*1024*1024(B)=1048576 bytes -->  
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-	    <property name="maxUploadSize" value="1048576" />  
+	    <property name="maxUploadSize" value="104857600" />  
 	</bean>
    
    <!-- 对模型视图添加前后缀 -->
@@ -46,6 +46,6 @@
      	<property name="suffix" value=".jsp"/> 
      </bean>
       
-      
+     
 
 </beans>

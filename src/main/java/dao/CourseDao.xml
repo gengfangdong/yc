@@ -70,7 +70,11 @@
 	</select>
 	
 	<select id="getsecond" resultType="String" parameterType="String">
-		select DISTINCT t.second_course FROM COURSE T where t.first_course = #{First_course}
+		select DISTINCT t.second_course FROM COURSE T 
+		
+		<if test="First_course != '' ">
+			where t.first_course = #{First_course}
+		</if>
 	</select>
 	
 </mapper>

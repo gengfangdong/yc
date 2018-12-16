@@ -410,6 +410,57 @@
 					"searching": false,
 					"ordering": false,
 					"autoWidth": false,
+					ajax: {
+		                url: "<%=request.getContextPath()%>/ScheduledShift/getPageByStatus"
+		            },
+		            serverSide: true,
+		            columns: [
+		                
+		                {"data": "scheduled_id",
+		                 "render":function(data,type,row,meta){
+		                	           var startIndex = meta.settings._iDisplayStart;
+		                	     return startIndex+meta.row+1;
+		                }},
+		                {"data": "scheduled_publish",
+		                	"render":function(data,type,row,meta){
+		                		return data;
+		                	}
+		            	},
+		                {"data": "scheduled_name"},
+		                {"data": "datanumber"},
+		                {"data": "scheduled_class_start"},
+		                {"data": "scheduled_start"},
+		                {"data": "scheduled_end"},
+		                {"data": "scheduled_class_pnumber"},
+		                {"data": "scheduled_status",
+		                 "render":function(data,type,row,meta){
+		                	         var status="";
+	                	        	 if(data == "0"){
+	                	        	 status = "未开始";
+	                	        	 }
+	                	         	else if(data == "1"){
+	                	        		 status ="进行中";
+	                	        	 }
+	                	        	 else if(data == "2"){
+	                	        		 status ="已结束";
+	                	         	}
+	                	    	return status;
+		                }},
+		                {"data": null}
+		            ],
+		            "aoColumnDefs":[/* //设置列的属性，此处设置第一列不排序
+		                      {"targets":5,
+		                         "data": null,
+		                        "bSortable": false,
+		                        "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"show\" href=\"#\" onclick=\"addNews(this);\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
+		              }, */{//倒数第一列
+	                        "targets":-1,
+	                        "bSortable": false,
+	                        render: function(data, type, row) {
+	                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.scheduled_id+'\');\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.scheduled_id+'\');\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\" onclick=\"addBranch(this,\''+row.scheduled_id+'\');\">删除</a></p>';
+	                            return html;
+	                        }
+	                    }], 
 					"stripeClasses": ["datatable_odd", "datatable_even"]
 
 				});
@@ -428,7 +479,7 @@
 			});
 			/* 日期控件，执行多个laydate实例 end */
 
-			function addBranch(obj) {
+			function addBranch(obj,id) {
 				var sText = obj.innerHTML;
 				if(sText == '新增') {
 					layui.use('layer', function() {
@@ -441,7 +492,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addPrescribedShift.html',
+							content: 'openPage/addPrescribedShift.jsp',
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -459,7 +510,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addPrescribedShift.html',
+							content: 'openPage/showprescribedShift.jsp?scheduled_id='+id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -472,19 +523,43 @@
 							layer = layui.layer;
 						layer.open({
 							type: 2, //此处以iframe举例
-							title: '修改',
+							title: '修改',	
 							area: ['1063px', '530px'],
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addPrescribedShift.html',
+							content: 'openPage/updateprescribedShift.jsp?scheduled_id='+id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
 							}
 						});
 					})
-				}
+				}else if(sText=='删除'){
+		        	$.ajax({
+						url : '<%=request.getContextPath()%>/ScheduledShift/deleteScheduled',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Scheduled_id:id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								alert("参数错误!");
+							}
+							else if(data.message == "1"){
+								alert("获取规定班次失败!");
+							}
+							else if(data.message == "2"){
+								alert("删除成功!");
+							}
+							
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        }
 
 			}
 		</script>

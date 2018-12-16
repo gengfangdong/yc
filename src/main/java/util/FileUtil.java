@@ -5,6 +5,7 @@ package util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import entity.ApplyUnit;
+import entity.UploadFilevo;
 
 /**
  * @author: my
@@ -84,7 +86,26 @@ public class FileUtil {
 		file.transferTo(new File(name));	   
 		return fileName;
 	}
-	
+	public boolean uploadbatch(List<UploadFilevo> filenamelist,List<MultipartFile> filelist,String path) {
+		
+		for (MultipartFile multipartFile : filelist) {
+			String oldname = multipartFile.getOriginalFilename();
+			String filenewname="";
+			try {
+				filenewname = uploadFile(multipartFile,multipartFile.getOriginalFilename(),path);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+			UploadFilevo uploadFilevo = new UploadFilevo();
+			uploadFilevo.setFilename(filenewname);
+			uploadFilevo.setOldfilename(oldname);
+			filenamelist.add(uploadFilevo);
+		}
+		
+		return true;
+	}
 	public ResponseEntity<byte[]> download(String downloadFilePath,String FileName,HttpHeaders headers ) throws IOException{
 
         File file = new File(downloadFilePath);//新建一个文件

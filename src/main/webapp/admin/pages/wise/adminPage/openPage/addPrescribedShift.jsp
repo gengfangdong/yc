@@ -28,6 +28,7 @@
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../../bootstrap/css/style.css">
+		<link rel="stylesheet" href="../../bootstrap-fileinput-master/css/fileinput.css" media="all">
 		<link rel="stylesheet" href="../../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../../css/myStyle.css">
 		<style type="text/css">
@@ -63,6 +64,14 @@
 			.layui-this a {
 				color: #555555;
 			}
+			#testListAction,#testList{
+				float:right;
+				margin-left:10px;
+				margin-right:10px;
+				font-size:12px;
+				height:28px;
+				line-height:28px;
+			}
 		</style>
 	</head>
 	<body>
@@ -75,7 +84,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										规定班信息
+										规定班次信息
 									</label>
 								</div>
 							</div>
@@ -83,153 +92,76 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">本期培训名称:</td>
+											<td class="leftTd">班次名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
+												<input type="text" id="className" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">发起单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="hostDate" style="width: 100%;" />
+												<input type="text" id="hostCompany" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">培训开课地点:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="hostDateNum" style="width: 100%;" />
+												<input type="text" id="hostAddress" placeholder="请填写培训开课地点" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
+											<input id="hostStartDate" name="projectListDate" placeholder="请选择报名开始日期" type="text" class=""  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
+											<input id="hostEndDate" name="projectListDate" placeholder="请选择报名截止日期" type="text" class=""  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
+											<input id="startClassDate" name="projectListDate" placeholder="请选择开课日期" type="text" class=""  />
 											</td>
-
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
+											<input id="endClassDate" name="projectListDate" placeholder="请选择结课日期" type="text" class="" />
 											</td>
-
 										</tr>
 										<tr>
 											<td class="leftTd">班级容纳人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
+												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;" />
 											</td>
-
 										</tr>
 										<tr>
-											<td class="leftTd">负责人姓名:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="contactPersonnel" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">负责人电话:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="contactNumber" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">负责人邮箱:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd" rowspan="2" style="vertical-align: middle;">定制班相关资料:</td>
-											<td class="rightTd">
-												<a href="../../../../../前台/dist/doc/培训通知.zip" style="color: #666666;">文件一</a>
-											</td>
-											<td>
-												<button type="button" class="layui-btn lay_btn" id="test7" style="width: 95px;">
-												  <i class="layui-icon">&#xe67c;</i>上传
-												</button>
-											</td>
-
-										</tr>
-										<tr>
-											<td class="rightTd">
-												<a href="../../../../../前台/dist/doc/培训通知.zip" style="color: #666666;">文件二</a>
-											</td>
-											<td>
-												<button type="button" class="layui-btn lay_btn" id="test8"  style="width: 95px;">
-												  <i class="layui-icon">&#xe67c;</i>上传
-												</button>
-											</td>
-
+											<div class="layui-upload-list">
+											    <table class="layui-table">
+											      <thead>
+											        <tr><th>文件名</th>
+											        <th>大小</th>
+											        
+											        <th>操作</th>
+											      </tr></thead>
+											      <tbody id="demoList"></tbody>
+											    </table>
+											 </div>
+											 <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<!-- <div class="row" style="height: 30px;line-height: 30px;">
-								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
-										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										参加单位
-									</label>
-								</div>
-							</div>
-							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-								<table id="branchTable" class="table table-bordered table-hover example1_x">
-									<thead>
-										<tr>
-											<th>报名单位名称</th>
-											<th>报名人数</th>
-											<th>联系人</th>
-											<th>电话</th>
-											<th>邮箱</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>北京市海淀区税务局</td>
-											<td>50</td>
-											<td>王五</td>
-											<td>13312341234</td>
-											<td>123456789@qq.com</td>
-										</tr>
-										<tr>
-											<td>北京市海淀区税务局</td>
-											<td>50</td>
-											<td>王五</td>
-											<td>13312341234</td>
-											<td>123456789@qq.com</td>
-										</tr>
-										<tr>
-											<td>北京市海淀区税务局</td>
-											<td>50</td>
-											<td>王五</td>
-											<td>13312341234</td>
-											<td>123456789@qq.com</td>
-										</tr>
-
-									</tbody>
-								</table>
-							</div> -->
+							
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
@@ -238,66 +170,14 @@
 									</label>
 								</div>
 							</div>
-							<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-								<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-									<label for="" class="control-label" style="float: left;">筛选：</label>
-									<ul class="f-sort-ul shaixuan">
-										<li>
-											<a class onclick="changeStyleColor1(this);">分类一</a>
-										</li>
-										<li>
-											<a class onclick="changeStyleColor1(this);">分类二</a>
-										</li>
-										<li>
-											<a class onclick="changeStyleColor1(this);">分类三</a>
-										</li>
-									</ul>
-								</div>
-							</div>
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
-									<thead>
-										<tr>
-											<th>序号</th>
-											<th>选择</th>
-											<th>一级标题</th>
-											<th>二级标题</th>
-											<th>学习天数</th>
-										</tr>
-									</thead>
 									<tbody>
 										<tr>
-											<td>1</td>
-											<td>
-												<input type="checkbox" name="selectClass">
+											<td class="">
+												<textarea name="description" id="syllabus"/></textarea>
 											</td>
-											<td>基础学习</td>
-											<td>税法一</td>
-											<td>16</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>
-												<input type="checkbox" name="selectClass">
-											</td>
-											<td>基础学习</td>
-											<td>税法二</td>
-											<td>16</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>
-												<input type="checkbox" name="selectClass">
-											</td>
-											<td>基础学习</td>
-											<td>税务与会计</td>
-											<td>20</td>
-										</tr>
-										<tr>
-											<td colspan="2">合计</td>
-											<td colspan="3">52</td>
-										</tr>
-
 									</tbody>
 								</table>
 							</div>
@@ -313,36 +193,14 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">其他相关信息:</td>
-											<td class="rightTd" colspan="2">
-												<p>参训学员名册上传方式：报名成功的单位在报到日前10天，请登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——名册上传入口，上传参训学员名册。</p>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="row" style="height: 30px;line-height: 30px;">
-								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
-										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										项目审核信息
-									</label>
-								</div>
-							</div>
-							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-								<table id="branchTable" class="table table-bordered table-hover example1_x">
-									<tbody>
-										<tr>
-											<td class="leftTd">审核结果:</td>
-											<td class="rightTd">
-												<input type="radio" name="isPass" />通过
-												<input type="radio" name="isPass" />不通过
+											<td class="">
+												<textarea name="description" id="otherInformation"/></textarea>
 											</td>
 										</tr>
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="onlineAuditSave();">保存</button>
+									<button class="picSave" onclick="perscribedShift();">保存</button>
 								</div>
 							</div>
 						</div>
@@ -375,6 +233,7 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+		<script src="../../bootstrap-fileinput-master/js/fileinput.js" type="text/javascript"></script>
 		<script src="../../../../layui-v2.3.0/layui/layui.js"></script>
 		<script type="text/javascript">
 			layui.use('element', function() {
@@ -385,55 +244,204 @@
 					console.log(data);
 				});
 			});
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#hostStartDate' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#hostEndDate' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#startClassDate' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#endClassDate' //指定元素
+			  	});
+			});
 		</script>
 		<script>
+		var filelist = [];
 			layui.use('upload', function() {
 				var upload = layui.upload;
 
-				//执行实例
-				var uploadInst = upload.render({
-					elem: '#test1', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
+				//多文件列表示例
+			  var demoListView = $('#demoList')
+			    ,uploadListIns = upload.render({
+			    elem: '#testList'
+			    ,url: '/upload/'
+			    ,accept: 'file'
+			    ,multiple: true
+			    ,auto: false
+			    ,bindAction: '#testListAction'
+			    ,choose: function(obj){   
+			      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+			      //读取本地文件
+			      obj.preview(function(index, file, result){
+			      	filelist.push(file);
+			        var tr = $(['<tr id="upload-'+ index +'">'
+			          ,'<td>'+ file.name +'</td>'
+			          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+			          ,'<td>'
+			            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+			            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+			          ,'</td>'
+			        ,'</tr>'].join(''));
+			        
+			        //单个重传
+			        tr.find('.demo-reload').on('click', function(){
+			          obj.upload(index, file);
+			        });
+			        
+			        //删除
+			        tr.find('.demo-delete').on('click', function(){
+			        	
+			          var temp = files[index];
+			          for(var t=0;t<filelist.length;t++){
+			          	if(filelist[t] == temp){
+			          		delete filelist[t];
+			          		break;
+			          	}
+			          }
+			          delete files[index]; //删除对应的文件
+			          tr.remove();
 
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test3', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test4', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
+			          uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+			        });
+			        
+			        demoListView.append(tr);
+			      });
+			    }
+			    ,done: function(res, index, upload){
+			      if(res.code == 0){ //上传成功
+			        var tr = demoListView.find('tr#upload-'+ index)
+			        ,tds = tr.children();
+			        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+			        tds.eq(3).html(''); //清空操作
+			        return delete this.files[index]; //删除文件队列已经上传成功的文件
+			      }
+			      this.error(index, upload);
+			    }
+			    ,error: function(index, upload){
+			      var tr = demoListView.find('tr#upload-'+ index)
+			      ,tds = tr.children();
+			      tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+			      tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+			    }
+			  });
 			});
+			function perscribedShift(){
+				var className = $("#className").val();
+				var hostCompany = $("#hostCompany").val();
+				var hostAddress = $("#hostAddress").val();
+				var hostStartDate = $("#hostStartDate").val();
+				var hostEndDate = $("#hostEndDate").val();
+				var startClassDate = $("#startClassDate").val();
+				var endClassDate = $("#endClassDate").val();
+				var peopleNum = $("#peopleNum").val();
+				var Scheduled_class_context = CKEDITOR.instances.syllabus.getData();
+				var Scheduled_other_context = CKEDITOR.instances.otherInformation.getData();
+				
+				if(className==""){
+					alert("请输入班次名称！");
+					return;
+				}
+				if(hostCompany==""){
+					alert("请输入发起单位！");
+					return;
+				}
+				if(hostAddress==""){
+					alert("请输入培训开课地点！");
+					return;
+				}
+				if(hostStartDate==""){
+					alert("请选择报名开始日期！");
+					return;
+				}
+				if(hostEndDate==""){
+					alert("请选择报名截止日期！");
+					return;
+				}
+				if(hostStartDate>hostEndDate){
+					alert("报名截止日期应在报名开始日期之后！");
+					return;
+				}
+				if(startClassDate==""){
+					alert("请选择开课日期！");
+					return;
+				}
+				if(endClassDate==""){
+					alert("请选择结课日期！");
+					return;
+				}
+				if(startClassDate>endClassDate){
+					alert("结课日期应在开课日期之后！");
+					return;
+				}
+				if(hostEndDate>startClassDate){
+					alert("开课日期应在报名截止日期之后！");
+					return;
+				}
+				if(peopleNum==""){
+					alert("请输入班级容纳人数！");
+					return;
+				}
+				if(filelist.length == 0){
+					alert("请选择资料上传!");
+					return;
+				}
+				var fd = new FormData();
+				for(var j = 0;j<filelist.length;j++){
+					fd.append('file', filelist[j]);
+				}
+    			fd.append('Scheduled_name', className);
+    			fd.append('Scheduled_initiator', hostCompany);
+    			fd.append('Scheduled_address', hostAddress);
+    			fd.append('Scheduled_start', hostStartDate);
+    			fd.append('Scheduled_end', hostEndDate);
+    			fd.append('Scheduled_class_start', startClassDate);
+    			fd.append('Scheduled_class_end', endClassDate);
+    			fd.append('Scheduled_class_pnumber', peopleNum);
+    			fd.append('Scheduled_class_context', Scheduled_class_context);
+    			fd.append('Scheduled_other_context', Scheduled_other_context);
+				$.ajax({
+					url:'<%=request.getContextPath()%>/ScheduledShift/SaveScheduledShift',
+					type:'post',
+					encType: 'multipart/form-data', //表明上传类型为文件
+					processData: false,  //tell jQuery not to process the data
+        			contentType: false,  //tell jQuery not to set contentType
+					data:						/*"txt_file":filelist,
+						"Scheduled_name":className,
+						"Scheduled_initiator":hostCompany,
+						"Scheduled_address":hostAddress,
+						"Scheduled_start":hostStartDate,
+						"Scheduled_end":hostEndDate,
+						"Scheduled_class_start":startClassDate,
+						"Scheduled_class_end":endClassDate,
+						"Scheduled_class_pnumber":peopleNum,
+						"Scheduled_class_context":Scheduled_class_context,
+						"Scheduled_other_context":Scheduled_other_context*/
+						fd
+					,
+					success:function(data){
+						if(data.success == true){
+							if(data.message == "1"){
+								layer.alert("保存成功!");
+							}
+						}
+						else
+							layer.alert("保存失败!");
+					},
+					error:function(data){
+
+					}
+				})
+			}
 		</script>
 		<script type="text/javascript">
 			//分页
@@ -501,14 +509,15 @@
 				}
 				
 			</script>
+			
+		<script type="text/javascript">
+			 window.onload = function(){
+        		CKEDITOR.replace('syllabus');
+        		CKEDITOR.replace('otherInformation');
+   	 		};
+		</script>
 		<script>
-			/*function branchSave(){
-				var branchCategoryLen = document.getElementById('branchCategory').value.length;
-				if(branchCategoryLen>10){
-					alert('类别字数过长，请输入10个字以内字数！');
-					return;
-				}
-			}*/
+			
 		</script>
 
 	</body>
