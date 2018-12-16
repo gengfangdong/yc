@@ -155,11 +155,11 @@ public class CourseController {
 	@ResponseBody
 	public Map<String,Object> getSecondByFirst(@RequestParam("First_course")String First_course){
 		Map<String,Object> resultMap = new HashMap<String, Object>();
-		if(StringUtil.isblack(First_course)){
+		/*if(StringUtil.isblack(First_course)){
 			resultMap.put("success", false);
 			resultMap.put("msg", "0");//参数错误
 			return resultMap;
-		}
+		}*/
 		
 		List<String> secondList = new ArrayList<String>();
 		secondList = courseService.getsecond(First_course);
