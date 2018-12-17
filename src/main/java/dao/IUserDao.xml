@@ -12,20 +12,64 @@
 		<result column="User_job" jdbcType="VARCHAR" property="User_job"/>
 		<result column="User_hold" jdbcType="VARCHAR" property="User_hold"/>
 		<result column="User_password" jdbcType="VARCHAR" property="User_password"/>
+		<result column="User_address" jdbcType="VARCHAR" property="User_address"/>
+		<result column="User_status" jdbcType="VARCHAR" property="User_status"/>
+		<result column="User_area" jdbcType="VARCHAR" property="User_area"/>
 		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
 		<result column="isadmin" jdbcType="VARCHAR" property="isadmin"/>
+		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
 	</resultMap>
 	<insert id = "insertIUser" parameterType="IUser">
 		insert into IUSER (USER_ID,USER_LOGINNAME,USER_NAME,USER_PHONE,USER_MAIL,USER_COMPANYNAME,
-		USER_DEPARTMENT,USER_JOB,USER_HOLD,USER_PASSWORD,CREATETIME,ISADMIN) 
+		USER_DEPARTMENT,USER_JOB,USER_HOLD,USER_PASSWORD,CREATETIME,ISADMIN,USER_ADDRESS,USER_STATUS,ISDELETE) 
 		values(#{User_id},#{User_loginname},#{User_name},#{User_phone},
 		#{User_mail},#{User_companyname},#{User_department},#{User_job},
-		#{User_hold},#{User_password},#{createtime},#{isadmin})
+		#{User_hold},#{User_password},#{createtime},#{isadmin},#{User_address},#{User_status},#{isdelete})
 	</insert>
 	<select id="checkloginname" parameterType="String" resultMap="IUser">
-		select * from IUSER i where i.user_loginname = #{user_loginname}
+		select * from IUSER i where i.USER_LOGINNAME = #{user_loginname}
 	</select>
 	<select id="login" parameterType="IUser" resultType="IUser">
 		select * from IUSER i where i.User_loginname = #{User_loginname} and i.user_password = #{User_password}
+	</select>
+	<update id="updateIUser" parameterType="IUser">
+		UPDATE IUSER 
+		SET
+			USER_LOGINNAME=#{User_loginname},
+			USER_NAME=#{User_name},USER_PHONE=#{User_phone},USER_MAIL=#{User_mail},USER_COMPANYNAME=#{User_companyname},
+			USER_DEPARTMENT=#{User_department},USER_JOB=#{User_job},USER_HOLD=#{User_hold},USER_PASSWORD=#{User_password},
+			USER_ADDRESS=#{User_address},USER_STATUS=#{User_status} 
+		WHERE USER_ID=#{User_id}
+	</update>
+	<select id="getDetailByid" resultType="IUser" parameterType="String">
+		SELECT * FROM IUSER I WHERE I.ISDELETE = '0' and I.USER_ID = #{User_id}
+	</select>
+	<update id="deleteIUser" parameterType="String">
+		UPDATE IUSER
+		SET
+			ISDELETE = '1'
+		WHERE USER_ID = #{User_id}
+	</update>
+	
+	<select id="getListByPage" parameterType="Integer" resultMap="IUser">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM IUSER WHERE ISDELETE = '0') A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from IUSER I WHERE I.ISDELETE = '0' 
+	</select>
+	
+	<select id="checkLoginNameAndUser_id" parameterType="String" resultType="IUser">
+		SELECT * FROM IUSER I 
+		WHERE I.USER_LOGINNAME = #{user_loginname}
+			AND I.ISDELETE = '0'
+			AND 
+			I.USER_ID &lt;&gt; #{user_id}
 	</select>
 </mapper>

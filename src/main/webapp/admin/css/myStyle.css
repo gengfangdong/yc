@@ -312,3 +312,28 @@
 	color: #FF2F2F!important;
 	font-weight: 600;
 }
+
+
+
+.layui-table th{
+	text-align:center;
+	font-size:12px;
+	font-weight:600;
+}
+.layui-table td{
+	text-align:center;
+	font-size:12px;
+}
+.selectObj{
+	padding:10px 10px 0 20px;
+}
+.selectBtn{
+	border-radius:5px;
+	font-size:12px;
+	height:25px;
+	line-height:25px;
+	margin-top:3px;
+}
+.layui-laypage{
+	float:right;
+}

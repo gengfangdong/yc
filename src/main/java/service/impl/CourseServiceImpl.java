@@ -12,6 +12,7 @@ import entity.About;
 import entity.ApplyShowVo;
 import entity.Course;
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 import entity.Notice;
 import service.CourseService;
 
@@ -80,6 +81,18 @@ public class CourseServiceImpl implements CourseService{
 		datatablesViewPage.setRecordsTotal(recordsTotal);
 		
 		return datatablesViewPage;
+	}
+
+	public LayuiDataTable<Course> gDataTable(int page, int limit, String First_course, String Second_course) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
+		int count = 0;
+		count = courseDao.getCourseCount(First_course, Second_course);
+		List<Course> courses = new ArrayList<Course>();
+		courses = courseDao.getbyfands(First_course, Second_course, (page-1)*limit, limit);
+		cDataTable.setCount(count);
+		cDataTable.setData(courses);
+		return cDataTable;
 	}
 
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import service.IUserService;
 import dao.IUserDao;
+import entity.DatatablesViewPage;
 import entity.IUser;
 
 @Service
@@ -47,6 +48,54 @@ public class IUserServiceImpl implements IUserService{
 		}
 		else
 			return null;
+	}
+
+	public IUser getDetailByid(String User_id) {
+		// TODO Auto-generated method stub
+		List<IUser> iUsers = new ArrayList<IUser>();
+		iUsers = iUserDao.getDetailByid(User_id);
+		if(iUsers != null && iUsers.size()>0){
+			return iUsers.get(0);
+		}
+		return null;
+	}
+
+	public void updateIUser(IUser iUser) {
+		// TODO Auto-generated method stub
+		iUserDao.updateIUser(iUser);
+	}
+
+	public void deleteIUser(String User_id) {
+		// TODO Auto-generated method stub
+		iUserDao.deleteIUser(User_id);
+	}
+
+	public DatatablesViewPage<IUser> GetlistPage(int start, int length) {
+		// TODO Auto-generated method stub
+		DatatablesViewPage<IUser> datatablesViewPage = new DatatablesViewPage<IUser>();
+		
+		List<IUser> iUsers = new ArrayList<IUser>();
+		iUsers = iUserDao.getListByPage(start, start+length);
+		datatablesViewPage.setData(iUsers);
+		int recordsTotal =0;
+		int recordsFiltered = 0;
+		recordsTotal = iUserDao.getCount();
+		recordsFiltered = iUserDao.getCount();
+		datatablesViewPage.setRecordsTotal(recordsTotal);
+		datatablesViewPage.setRecordsFiltered(recordsFiltered);
+		return datatablesViewPage;
+	}
+
+	public boolean checkLoginNameAndUser_id(String user_id, String loginname) {
+		// TODO Auto-generated method stub
+		Boolean ishave = false;
+		List<IUser> iUsers = new ArrayList<IUser>();
+		iUsers = iUserDao.checkLoginNameAndUser_id(loginname, user_id);
+		if (iUsers != null && iUsers.size() > 0) {
+			ishave = true;
+		} else
+			ishave = false;
+		return ishave;
 	}
 	
 }

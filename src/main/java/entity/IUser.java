@@ -18,19 +18,20 @@ public class IUser implements Serializable{
 	private String User_department;//所在部门
 	private String User_job;//任职岗位
 	private String User_hold;//担任职务
+	private String User_address;//地址
 	private String User_password;//密码
 	private String createtime;//创建时间
 	private String isadmin;//是否为管理员  0为否  1为是
+	private String User_status;//0为暂停 1为使用
+	private String User_area;//区域
+	private String isdelete;//是否删除  0为未删除 1为删除
 	public IUser() {
 		super();
 	}
 
-	
-
-	public IUser(String user_id, String user_loginname, String user_name,
-			String user_phone, String user_mail, String user_companyname,
-			String user_department, String user_job, String user_hold,
-			String user_password, String createtime, String isadmin) {
+	public IUser(String user_id, String user_loginname, String user_name, String user_phone, String user_mail,
+			String user_companyname, String user_department, String user_job, String user_hold, String user_address,
+			String user_password, String createtime, String isadmin, String user_status) {
 		super();
 		User_id = user_id;
 		User_loginname = user_loginname;
@@ -41,12 +42,12 @@ public class IUser implements Serializable{
 		User_department = user_department;
 		User_job = user_job;
 		User_hold = user_hold;
+		User_address = user_address;
 		User_password = user_password;
 		this.createtime = createtime;
 		this.isadmin = isadmin;
+		User_status = user_status;
 	}
-
-
 
 	public String getUser_id() {
 		return User_id;
@@ -131,21 +132,44 @@ public class IUser implements Serializable{
 	public String getCreatetime() {
 		return createtime;
 	}
-
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
-
-
-
 	public String getIsadmin() {
 		return isadmin;
 	}
-
-
-
 	public void setIsadmin(String isadmin) {
 		this.isadmin = isadmin;
+	}
+	public String getUser_address() {
+		return User_address;
+	}
+	public void setUser_address(String user_address) {
+		User_address = user_address;
+	}
+
+	public String getUser_status() {
+		return User_status;
+	}
+
+	public void setUser_status(String user_status) {
+		User_status = user_status;
+	}
+
+	public String getUser_area() {
+		return User_area;
+	}
+
+	public void setUser_area(String user_area) {
+		User_area = user_area;
+	}
+
+	public String getIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
 	}
 	
 	

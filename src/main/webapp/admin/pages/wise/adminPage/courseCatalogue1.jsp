@@ -235,6 +235,12 @@
 													</ul>
 												</div>
 											</div>-->
+											<div class="text-c">
+								                用户名称：<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="name"
+								                       name="name">
+								                <button type="submit" class="btn btn-success" onclick="search()"><i class="icon-search"></i> 搜用户
+								                </button>
+								            </div>
 											<div class="row">
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
@@ -249,58 +255,94 @@
 																		</div>
 																	</div>
 																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
-																		<div class="demoTable">
-																		  <!-- 搜索ID： -->
-																		  <div class="layui-inline selectObj">
-																		   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
-																		    <label for="" class="control-label" style="float: left;">一级目录：</label>
-																			<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
-																		   </select>
-																		  </div>
-																		  <div class="layui-inline selectObj">
-																		    <label for="" class="control-label" style="float: left;">二级目录：</label>
-																			<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
-																		   </select>
-																		  </div>
-																		  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
-																		</div>
-																		<!-- <div class="col-sm-10" style="height: 32px;line-height: 32px;">
+																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<label for="" class="control-label" style="float: left;">一级目录：</label>
 																			<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
 																		        <option value="全部">全部</option>
-																		        <option value="热点培训">热点培训</option>
-																		        <option value="单项课程">单项课程</option>
+																		        <!-- <option value="热点培训">热点培训</option>
+																		        <option value="单项课程">单项课程</option> -->
 																		   </select>
 																		</div>
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<label for="" class="control-label" style="float: left;">二级目录：</label>
 																			<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
+																		        <!-- <option value="全部">全部</option>
 																		        <option value="基础班">基础班</option>
 																		        <option value="项目班">项目班</option>
-																		        <option value="师资班">师资班</option>
+																		        <option value="师资班">师资班</option> -->
 																		   </select>
-																		</div> -->
+																		</div>
 																	</div> 
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table class="layui-hide table table-bordered" id="LAY_table_user" lay-filter="user"></table> 
-																				<!-- <table id="secondSelect" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;"> -->
+																				<table id="secondSelect" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 																					<thead>
 																						<tr>
-																							<!-- <th style="text-align: center;">序号</th>
+																							<th style="text-align: center;">序号</th>
 																							<th style="text-align: center;">id</th> 
 																							<th style="text-align: center;">一级目录</th>
 																							<th style="text-align: center;">二级目录</th>
 																							<th style="text-align: center;">三级目录</th>
-																							<th style="text-align: center;">操作</th> -->
+																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
 																					<tbody>
-																						
+																						<tr>
+																							<td style="text-align: center;">1</td>
+																							<td>热点培训</td>
+																							<td>基础班</td>
+																							<td>税收分析基础培训班</td>
+																							<td>
+																								<a href="#" onclick="addBranch(this);">查看</a>
+																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a onclick="isDelete(this);">删除</a>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td style="text-align: center;">2</td>
+																							<td>热点培训</td>
+																							<td>项目班</td>
+																							<td>税收分析项目特训班</td>
+																							<td>
+																								<a href="#" onclick="addBranch(this);">查看</a>
+																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a onclick="isDelete(this);">删除</a>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td style="text-align: center;">3</td>
+																							<td>热点培训</td>
+																							<td>师资班</td>
+																							<td>税收分析高级人才培养师资班</td>
+																							<td>
+																								<a href="#" onclick="addBranch(this);">查看</a>
+																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a onclick="isDelete(this);">删除</a>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td style="text-align: center;">4</td>
+																							<td>单项课程</td>
+																							<td>税收分析</td>
+																							<td>结构性减税对消费的影响</td>
+																							<td>
+																								<a href="#" onclick="addBranch(this);">查看</a>
+																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a onclick="isDelete(this);">删除</a>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td style="text-align: center;">5</td>
+																							<td>单项课程</td>
+																							<td>纳税服务</td>
+																							<td>纳税人需求管理</td>
+																							<td>
+																								<a href="#" onclick="addBranch(this);">查看</a>
+																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a onclick="isDelete(this);">删除</a>
+																							</td>
+																						</tr>
 																					</tbody>
 																				</table>
 																			</div>
@@ -368,14 +410,110 @@
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
 
 		<script>
-		
+		var branchPage;
+		function search() {
+        branchPage.draw();
+    	}
+			$(function() {
+				//设置结束日期为当前日期  
+				var date = new Date();
+				var seperator1 = "-";
+				var seperator2 = ":";
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if(month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if(strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+				/*$("#foundDate").val("万年历");*/
+
+				var dataTableLang = {
+					"sProcessing": "处理中...",
+					"sLengthMenu": "显示 _MENU_ 项结果",
+					"sZeroRecords": "没有匹配结果",
+					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+					"sInfoPostFix": "",
+					"sSearch": "搜索:",
+					"sUrl": "",
+					"sEmptyTable": "表中数据为空",
+					"sLoadingRecords": "载入中...",
+					"sInfoThousands": ",",
+					"oPaginate": {
+						"sFirst": "首页",
+						"sPrevious": "上页",
+						"sNext": "下页",
+						"sLast": "末页"
+					},
+					"oAria": {
+						"sSortAscending": ": 以升序排列此列",
+						"sSortDescending": ": 以降序排列此列"
+					}
+				};
+				//$('#secondSelect').dataTable().fnReloadAjax();
+				if(branchPage == null){
+				branchPage = $('#secondSelect').DataTable({
+					"language": dataTableLang,
+					"paging": true,
+					"info": true,
+					"aLengthMenu": [10],
+					"lengthChange": false,
+					"searching": false,
+					"ordering": false,
+					"autoWidth": false,
+					"retrieve":true,
+					"destroy": true,
+					"sInfoFiltered":'',//设置为空 相当于删除 (从 _MAX_ 条中过滤)
+					
+					ajax: {
+		                url: "<%=request.getContextPath()%>/Course/getlist"
+		            },
+		            serverSide: true,
+		            columns: [
+		                
+		                {"data": "course_id",
+		                 "render":function(data,type,row,meta){
+		                	           var startIndex = meta.settings._iDisplayStart;
+		                	     return startIndex+meta.row+1;
+		                }},
+		                {"data": "course_id"},
+		                {"data": "first_course"},
+		                {"data": "second_course"},
+		                {"data": "third_course"},
+		                {"data": null}
+		            ],
+		            "aoColumnDefs":[{"targets":1,
+		            	visible:false
+		            	},/* //设置列的属性，此处设置第一列不排序
+		                      {"targets":5,
+		                         "data": null,
+		                        "bSortable": false,
+		                        "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"show\" href=\"#\" onclick=\"addNews(this);\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
+		              }, */{//倒数第一列
+	                        "targets":-1,
+	                        "bSortable": false,
+	                        render: function(data, type, row) {
+	                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">删除</a></p>';
+	                            return html;
+	                        }
+	                    }], 
+					"stripeClasses": ["datatable_odd", "datatable_even"]
+
+				});
+			}
+			branchPage.draw();
+				
+			});
 		</script>
 		<script>
-			var firstObj="";
-			var secondObj="";
+			var firstObj;
+			var secondObj;
 			function firstSelect(obj){
 				firstObj = obj.value;
-				
 				if(firstObj=="全部"){
 					firstObj="";
 				}
@@ -383,8 +521,7 @@
 					url:"<%=request.getContextPath()%>/Course/getSecond",
 					type:"post",
 					data:{
-						First_course:firstObj,
-						Second_course:secondObj
+						First_course:firstObj
 					},
 					success:function(data){
 						if(data.success==true){
@@ -405,12 +542,85 @@
 									break;
 								}
 							}
-							secondObj = $("#secondObj").val();
-							if(secondObj=="全部"){
-								secondObj="";
-							}
+							$('#secondSelect').dataTable().fnReloadAjax();
+							var dataTableLang = {
+									"sProcessing": "处理中...",
+									"sLengthMenu": "显示 _MENU_ 项结果",
+									"sZeroRecords": "没有匹配结果",
+									"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+									"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+									"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+									"sInfoPostFix": "",
+									"sSearch": "搜索:",
+									"sUrl": "",
+									"sEmptyTable": "表中数据为空",
+									"sLoadingRecords": "载入中...",
+									"sInfoThousands": ",",
+									"oPaginate": {
+										"sFirst": "首页",
+										"sPrevious": "上页",
+										"sNext": "下页",
+										"sLast": "末页"
+									},
+									"oAria": {
+										"sSortAscending": ": 以升序排列此列",
+										"sSortDescending": ": 以降序排列此列"
+									}
+								};
+
+								var branchPage = $('#secondSelect').DataTable({
+									"language": dataTableLang,
+									"paging": true,
+									"info": true,
+									"aLengthMenu": [10],
+									"lengthChange": false,
+									"searching": false,
+									"ordering": false,
+									"autoWidth": false,
+									"retrieve":true,
+									"destroy":true,
+									ajax: {
+						                url: "<%=request.getContextPath()%>/Course/getlist"
+						            },
+						            serverSide: true,
+						            columns: [
+						                
+						                {"data": "course_id",
+						                 "render":function(data,type,row,meta){
+						                	           var startIndex = meta.settings._iDisplayStart;
+						                	     return startIndex+meta.row+1;
+						                }},
+						                {"data": "course_id"},
+						                {"data": "first_course"},
+						                {"data": "second_course"},
+						                {"data": "third_course"},
+						                {"data": null}
+						            ],
+						            "aoColumnDefs":[{"targets":1,
+						            	visible:false
+						            	},/* //设置列的属性，此处设置第一列不排序
+						                      {"targets":5,
+						                         "data": null,
+						                        "bSortable": false,
+						                        "defaultContent": "<p>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"show\" href=\"#\" onclick=\"addNews(this);\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\">删除</a></p>"
+						              }, */{//倒数第一列
+					                        "targets":-1,
+					                        "bSortable": false,
+					                        render: function(data, type, row) {
+					                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\" onclick=\"addBranch(this,\''+row.course_id+'\');\">删除</a></p>';
+					                            return html;
+					                        }
+					                    }], 
+									"stripeClasses": ["datatable_odd", "datatable_even"]
+
+								});
+							
+							
+							
+							
+							
 						}else{
-							alert("没有数据！");
+							alert("请求失败！");
 						}
 					},
 					error:function(error){
@@ -424,14 +634,7 @@
 			function secondSelect(obj){
 
 				secondObj = obj.value;
-				if(secondObj=="全部"){
-					secondObj="";
-				}
-				for(var i=0;i<$('#firstObj').length;i++){
-					if($($('#firstObj').children()[i]).selected==true){
-						var First_course = $($('#firstObj').children()[i]).val()
-					}
-				}
+				var First_course = $($('#firstObj').children()[i]).val()
 				
 				$.ajax({
 					url:"<%=request.getContextPath()%>/Course/getSecond",
@@ -444,7 +647,7 @@
 						if(data.success==true){
 							document.getElementById("secondObj").innerHTML = '<option value="全部">全部</option>';
 							for(var i=0;i<data.data.length;i++){
-								document.getElementById("secondObj").innerHTML += '<option value='+data.data[i]+'>'+data.data[i]+'</option>';
+								document.getElementById("secondObj").innerHTML += '<option value="+data.data[i]+">'+data.data[i]+'</option>';
 							}
 							var len = $('#secondObj').children().length;
 							for(var j=0;j<len;j++){
@@ -460,7 +663,7 @@
 							
 							/* $("#secondObj").children(); */
 						}else{
-							alert("没有数据！");
+							alert("请求失败！");
 						}
 					},
 					error:function(error){
@@ -481,113 +684,6 @@
 			});
 			/* 日期控件，执行多个laydate实例 end */
 
-			layui.use('table', function(){
-				var table = layui.table;
-			  
-			  //方法级渲染
-			  table.render({
-			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
-			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'course_id', title: 'ID',style:'display:none;'},
-			      {field:'first_course', title: '一级目录'},
-			      {field:'second_course', title: '二级目录'},
-			      {field:'third_course', title: '三级目录'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
-			    ]],
-			    id: 'testReload',
-			    page: true,
-			    height: 315
-			  });
-			  
-			//监听工具条
-			  table.on('tool(user)', function(obj){
-			    var data = obj.data;
-			    if(obj.event === 'detail'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '查看',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
-			    } else if(obj.event === 'del'){
-			      	layer.confirm('真的删除行么', function(index){
-			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
-							type : 'post',
-							dataType:"json",
-							data:{
-								Course_id:data.course_id
-							},
-							success : function(data) {
-								if(data.message == "0"){
-									layer.alert("参数错误!");
-								}
-								else if(data.message == "1"){
-									layer.alert("获取课程目录失败!");
-								}
-								else if(data.message == "2"){
-									layer.alert("删除成功!");
-								}
-								
-							},
-							error : function(error) {
-								console.log('接口不通' + error);
-							}
-						});	
-			        layer.close(index);
-			      });
-			    } else if(obj.event === 'edit'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '修改',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/updateCourseCatalogue.jsp?course_id='+data.course_id,
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
-			    }
-			  });
-			  var $ = layui.$, active = {
-			    reload: function(){
-			      var demoReload = $('#demoReload');
-			      
-			      //执行重载
-			      table.reload('testReload', {
-			        page: {
-			          curr: 1 //重新从第 1 页开始
-			        },
-			        method:'post',
-			        where: {
-			        	    First_course:firstObj,
-							Second_course:secondObj
-			        }
-			      });
-			    }
-			  };
-			  
-			  $('.demoTable .layui-btn').on('click', function(){
-			    var type = $(this).data('type');
-			    active[type] ? active[type].call(this) : '';
-			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
-			});
-			
-			
-			
 			function addBranch(obj,id) {
 				var sText = obj.innerHTML;
 				if(sText == '新增') {
@@ -716,11 +812,6 @@
 				})
                 
 			};
-		</script>
-		<script type="text/html" id="barDemo">
-  			<a class="" lay-event="detail" style="margin-right:10px;">查看</a>
-  			<a class="" lay-event="edit" style="margin-right:10px;">编辑</a>
-  			<a class="" lay-event="del" style="margin-right:10px;">删除</a>
 		</script>
 	</body>
 

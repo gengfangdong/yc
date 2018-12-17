@@ -23,10 +23,10 @@
 			SELECT C.*, ROWNUM RN  
 			FROM (SELECT * FROM COURSE
 				where 1=1 AND ISDELETE = '0'
-				<if test="First_course != null">
+				<if test="First_course != null and First_course != '' ">
 					and FIRST_COURSE = #{First_course}
 				</if>
-				<if test="Second_course != null">
+				<if test="Second_course != null and Second_course != ''">
 					and SECOND_COURSE = #{Second_course}
 				</if>
 			) C  
@@ -38,10 +38,10 @@
 	<select id="getCourseCount" resultType="int">
 		select count(*) from COURSE 
 			where 1=1 AND ISDELETE = '0'
-			<if test="First_course != null">
+			<if test="First_course != null and First_course != ''">
 				and FIRST_COURSE = #{First_course}
 			</if>
-			<if test="Second_course != null">
+			<if test="Second_course != null and Second_course != ''">
 				and SECOND_COURSE = #{Second_course}
 			</if>
 	</select>
@@ -66,14 +66,14 @@
 	</update>
 	
 	<select id="getfirst" resultType="String">
-		select DISTINCT t.FIRST_COURSE FROM COURSE T 
+		select DISTINCT t.FIRST_COURSE FROM COURSE T WHERE T.ISDELETE = '0'
 	</select>
 	
 	<select id="getsecond" resultType="String" parameterType="String">
-		select DISTINCT t.second_course FROM COURSE T 
+		select DISTINCT t.second_course FROM COURSE T WHERE T.ISDELETE = '0'
 		
 		<if test="First_course != '' ">
-			where t.first_course = #{First_course}
+			AND t.first_course = #{First_course}
 		</if>
 	</select>
 	

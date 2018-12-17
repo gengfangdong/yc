@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import entity.Course;
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 import entity.About;
 import service.AboutService;
 import service.CourseService;
@@ -86,6 +87,15 @@ public class CourseController {
 	}
 	
 	
+	/**
+	 * datatable  接口
+	 * @param First_course
+	 * @param Second_course
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
 	@RequestMapping(value = "/getlist")
 	@ResponseBody
 	public DatatablesViewPage<Course> GetlistPage(@RequestParam(value="First_course",required=false)String First_course,
@@ -96,6 +106,17 @@ public class CourseController {
 		datatablesViewPage = courseService.GetlistPage(start, length, First_course, Second_course);
 		datatablesViewPage.setDraw(draw);
 		return datatablesViewPage;
+	}
+	
+	@RequestMapping(value="/getlistLay")
+	@ResponseBody
+	public LayuiDataTable<Course> getListBypageLay(@RequestParam(value="First_course",required=false)String First_course,
+			@RequestParam(value="Second_course",required=false)String Second_course,@RequestParam("page")int page,@RequestParam("limit")int limit){
+		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
+		cDataTable = courseService.gDataTable(page, limit, First_course, Second_course);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
 	}
 	
 	

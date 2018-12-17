@@ -1,8 +1,18 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.List;
-
-public class DatatablesViewPage<T> {
+/**
+ *   dataTables 的数据表格
+ * @author my
+ *
+ * @param <T>
+ */
+public class DatatablesViewPage<T> implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8344279184198408746L;
 	private int draw;
 	private List<T> data;
     private int recordsTotal;   

@@ -162,8 +162,8 @@
 										<tr>
 											<td class="leftTd">使用状态:</td>
 											<td class="rightTd" colspan="2">
-												<input type="radio" name="states" />暂停
-												<input type="radio" name="states" />使用
+												<input type="radio" name="states" value="0" />暂停
+												<input type="radio" name="states" value="1"/>使用
 											</td>
 
 										</tr>
@@ -171,7 +171,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="onlineAuditSave();">保存</button>
+									<button class="picSave" onclick="branchSave();">保存</button>
 								</div>
 							</div>
 						</div>
@@ -309,13 +309,61 @@
 			});
 		</script>
 		<script>
-			/*function branchSave(){
-				var branchCategoryLen = document.getElementById('branchCategory').value.length;
-				if(branchCategoryLen>10){
-					alert('类别字数过长，请输入10个字以内字数！');
-					return;
-				}
-			}*/
+			function branchSave(){
+				var loginname = document.getElementById("signUpName").value;
+				var name = document.getElementById("classesName").value;
+				var phone = document.getElementById("usersTel").value;
+				var mail = document.getElementById("usersEmail").value;
+				var companyname = document.getElementById("unitName").value;
+				var department = document.getElementById("departmentInCharge").value;
+				var job = document.getElementById("userPost").value;
+				var hold = document.getElementById("assumeOffice").value;
+				var address = document.getElementById("userAddress").value;
+				var password = document.getElementById("usersPassword").value;
+				var User_status = document.getElementsByName("states");
+				var states = "";
+				if(User_status[0].checked==true){
+						states = "0";
+					}else if(User_status[1].checked==true){
+						states = "1";
+					}
+				$.ajax({
+					url:'<%=request.getContextPath()%>/IUser/addIUser',
+					type:'post',
+					data:{
+						"User_loginname":loginname,
+						"User_name":name,
+						"User_phone":phone,
+						"User_mail":mail,
+						"User_companyname":companyname,
+						"User_department":department,
+						"User_job":job,
+						"User_hold":hold,
+						"User_address":address,
+						"User_password":password,
+						"User_status":states
+					},
+					success:function(data){
+						if (data.success == true) {
+							if(data.msg == "2"){
+								layer.alert("添加成功!");
+							}
+
+						}
+						else{
+							if(data.msg == "1"){
+								layer.alert("登录名存在!");
+							}else if(data.msg == "0"){
+								layer.alert("参数错误!");
+							}
+						}
+
+					},error:function(data){
+						layer.alert("保存失败!");
+					}
+
+				})
+			}
 		</script>
 
 	</body>

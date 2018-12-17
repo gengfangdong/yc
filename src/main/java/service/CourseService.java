@@ -7,6 +7,7 @@ import java.util.List;
 import entity.About;
 import entity.Course;
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 
 public interface CourseService {
 	public void insertCourse(Course course);
@@ -19,4 +20,7 @@ public interface CourseService {
 	
 	//DataTables 
 	public DatatablesViewPage<Course> GetlistPage(int start,int length,String First_course,String Second_course);
+	
+	//layui
+	public LayuiDataTable<Course> gDataTable(int page,int limit,String First_course,String Second_course);
 }

@@ -243,7 +243,7 @@
 																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
-																					<tbody>
+																					<!-- <tbody>
 																						<tr>
 																							<td style="text-align: center;">1</td>
 																							<td>赵柳</td>
@@ -289,7 +289,7 @@
 																								<a onclick="isDelete(this);">删除</a>
 																							</td>
 																						</tr>
-																					</tbody>
+																					</tbody> -->
 																				</table>
 																			</div>
 																		</div>
@@ -406,6 +406,44 @@
 					"searching": false,
 					"ordering": false,
 					"autoWidth": false,
+					ajax: {
+		                url: "<%=request.getContextPath()%>/IUser/getlistBypage"
+		            },
+		            serverSide: true,
+		            columns: [
+		                
+		                {"data": "user_id",
+		                 "render":function(data,type,row,meta){
+		                	           var startIndex = meta.settings._iDisplayStart;
+		                	     return startIndex+meta.row+1;
+		                }},
+		                {"data": "user_name"},
+		                {"data": "user_phone"},
+		                {"data": "user_companyname"},
+	                	{"data": "user_department"},
+	                	{"data": "user_job"},
+	                	{"data": "user_hold"},
+	                	{"data": "user_status",
+			              "render":function(data,type,row,meta){
+	                	         var status="";
+	                	         if(data == "0"){
+	                	        	 status = "暂停中";
+	                	         }
+	                	         else if(data == "1"){
+	                	        	 status ="使用中";
+	                	         }
+	                	    return status;
+	                	}},
+		                {"data": null}
+		            ],
+		            "aoColumnDefs":[{//倒数第一列
+	                        "targets":-1,
+	                        "bSortable": false,
+	                        render: function(data, type, row) {
+	                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.user_id+'\');\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.user_id+'\');\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\" onclick=\"addBranch(this,\''+row.user_id+'\');\">删除</a></p>';
+	                            return html;
+	                        }
+	                    }], 
 					"stripeClasses": ["datatable_odd", "datatable_even"]
 
 				});
@@ -424,7 +462,7 @@
 			});
 			/* 日期控件，执行多个laydate实例 end */
 
-			function addBranch(obj) {
+			function addBranch(obj,id) {
 				var sText = obj.innerHTML;
 				if(sText == '新增') {
 					layui.use('layer', function() {
@@ -437,7 +475,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addMembershipManagement.html',
+							content: 'openPage/addMembershipManagement.jsp',
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -455,7 +493,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addMembershipManagement.html',
+							content: 'openPage/showMembershipManagement.jsp?user_id='+id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -473,14 +511,39 @@
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
-							content: 'openPage/addMembershipManagement.html',
+							content: 'openPage/updateMembershipManagement.jsp?user_id='+id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
 							}
 						});
 					})
-				}
+				}else if(sText=='删除'){
+		        	$.ajax({
+						url : '<%=request.getContextPath()%>/IUser/deleteIUser',
+						type : 'post',
+						dataType:"json",
+						data:{
+							User_id:id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								alert("参数错误!");
+							}
+							else if(data.message == "1"){
+								alert("获取人员失败!");
+							}
+							else if(data.message == "2"){
+								alert("删除成功!");
+							}
+							
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        }
+		        
 
 			}
 		</script>
