@@ -337,3 +337,7 @@
 .layui-laypage{
 	float:right;
 }
+
+.layui-table-view .layui-table{
+	width:100%!important;
+}

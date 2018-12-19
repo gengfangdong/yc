@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -90,13 +94,6 @@
 											
 										</tr>
 										<tr>
-											<td class="leftTd">岗位:</td>
-											<td class="rightTd">
-												<input type="text" id="post" />
-											</td>
-											
-										</tr>
-										<tr>
 											<td class="leftTd">职务:</td>
 											<td class="rightTd">
 												<input type="text" id="job" />
@@ -106,30 +103,27 @@
 										<tr>
 											<td class="leftTd">性别:</td>
 											<td class="rightTd">
-												<input type="text" id="personSex" />
+												<input type="radio" name="personSex" />男
+												<input type="radio" name="personSex" />女
 											</td>
-											
-										</tr>
-										<tr>
-											<td class="leftTd">出生日期:</td>
-											<td class="rightTd">
-												<input type="text" id="personBirthday" />
-											</td>
-											
 										</tr>
 										<tr>
 											<td class="leftTd">身份证号:</td>
 											<td class="rightTd">
 												<input type="text" id="ID_Number" />
 											</td>
-											
 										</tr>
 										<tr>
-											<td class="leftTd">联系电话:</td>
+											<td class="leftTd">联系方式:</td>
 											<td class="rightTd">
 												<input type="text" id="personPhone" />
 											</td>
-											
+										</tr>
+										<tr>
+											<td class="leftTd">备注:</td>
+											<td class="rightTd">
+												<textarea style="width: 100%;height: 50px;" id="remark"></textarea>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -177,55 +171,7 @@
 			    	console.log(data);
 			  	});
 			});
-		</script>
-		<script>
-			layui.use('upload', function() {
-				var upload = layui.upload;
 			
-				//执行实例
-				var uploadInst = upload.render({
-					elem: '#test1', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				
-				var uploadInst = upload.render({
-					elem: '#test3', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test4', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-			});
 		</script>
 		<script type="text/javascript">
 			//分页
@@ -272,13 +218,44 @@
 			});
 		</script>
 		<script>
-			/*function branchSave(){
-				var branchCategoryLen = document.getElementById('branchCategory').value.length;
-				if(branchCategoryLen>10){
-					alert('类别字数过长，请输入10个字以内字数！');
-					return;
+			function branchSave(){
+				var EUser_name = document.getElementById("personName").value;
+				var EUser_companyname = document.getElementById("company").value;
+				var EUser_department = document.getElementById("department").value;
+				var EUser_hold = document.getElementById("job").value;
+				var EUser_sex = document.getElementsByName("personSex");
+				var sex = "";
+				if(EUser_sex[0].checked == true){
+					sex='0';
 				}
-			}*/
+				else
+					sex='1';
+				var EUser_remark = document.getElementById("remark").value;
+				var EUser_indentitynumber = document.getElementById("ID_Number").value;
+				var EUser_phone = document.getElementById("personPhone").value;
+				$.ajax({
+					url:'<%=request.getContextPath()%>/EUser/addUser',
+					type:'post',
+					data:{
+						"EUser_name":EUser_name,
+						"EUser_companyname":EUser_companyname,
+						"EUser_department":EUser_department,
+						"EUser_hold":EUser_hold,
+						"EUser_sex":sex,
+						"EUser_remark":EUser_remark,
+						"EUser_indentitynumber":EUser_indentitynumber,
+						"EUser_phone":EUser_phone
+					},success:function(data){
+						if(data.success == true){
+							layer.alert("保存成功!");
+						}
+						else
+							layer.alert("身份证已存在!");
+					},error:function(data){
+						layer.alert("接口异常!");
+					}
+				})
+			}
 		</script>
 		
 	</body>

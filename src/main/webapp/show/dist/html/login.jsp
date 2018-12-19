@@ -46,7 +46,7 @@
       		dataType:'json',
 			success : function(data) {
 				if(data.success == true){
-					 window.open('<%=request.getContextPath()%>/show/dist/','_parent');
+					 window.open('<%=request.getContextPath()%>/show/dist/','_blank');
 				}
 				
 			},

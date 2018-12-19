@@ -415,41 +415,55 @@
         var register_password2 = $("#doc-vld-pwd-2").val();
         var testPhone = /^1\d{10}$/;
         var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        var testTel = /^0\d{2,3}-?\d{7,8}$/;
         if(register_phone==""){
             alert("请输入登录名称！");
+            return;
         }else if(testPhone.test(register_phone)==false){
             alert("请输入正确的登录名称！");
+            return;
         }
         if(register_userName==""){
             alert("请输入您的姓名！");
+            return;
         }
         if(register_email==""){
             alert("请输入您的邮箱！");
+            return;
         }else if(testEmail.test(register_email)==false){
             alert("请输入正确的邮箱！");
+            return;
         }
         if(register_company==""){
             alert("请输入您的单位名称！");
+            return;
         }
         if(register_department==""){
             alert("请输入您所在部门！");
+            return;
         }
         if(register_post==""){
             alert("请输入您的任职岗位！");
+            return;
         }
         if(register_job==""){
             alert("请输入您的担任职务！");
+            return;
         }
         if(register_password1==""){
             alert("请输入您的密码！");
+            return;
         }
         if(register_password2==""){
             alert("请输入确认密码！");
+            return;
         }else if(register_password1.length<6){
             alert("请输入长度为6位的密码！")
+            return;
         }
         if(register_password1!=register_password2){
             alert("两次密码输入不相同，请输入相同的密码！");
+            return;
         }
 
         var successRegister = '<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">' +
@@ -478,20 +492,27 @@
         $.ajax({
             url:,
             data:{
-                "User_loginname":"register_phone",
-                "User_name":"register_userName",
-                "User_phone":"register_tel",
-                "User_mail":"register_email",
-                "User_companyname":"register_company",
-                "User_department":"register_department",
-                "User_job":"register_post",
-                "User_hold":"register_job",
-                "User_password":"register_passsword1"
+                "registerPhone":register_phone,
+                "registerUserName":register_userName,
+                "registerTel":register_tel,
+                "registerEmail":register_email,
+                "registerCompany":register_company,
+                "registerDepartment":register_department,
+                "registerPost":register_post,
+                "registerJob":register_job,
+                "registerPassword1":register_passsword1,
+                "registerPassword2":register_password2
             },
             dateType:"json",
             type:"post",
             success:function (data) {
                 $("#alertShow").innerHTML= successRegister;
+                var r = confirm("注册成功！是否登录？");
+                if(r==true){
+                    window.open('login.html');
+                }else{
+                    return;
+                }
 
                 //success
             },error:function(e){

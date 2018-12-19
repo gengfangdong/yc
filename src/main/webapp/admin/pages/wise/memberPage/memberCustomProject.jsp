@@ -125,10 +125,10 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 基本设置<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberMessage.html"><i class="fa fa-square-o"></i> 我的信息</a>
+											<a href="memberMessage.jsp"><i class="fa fa-square-o"></i> 我的信息</a>
 										</li>
 										<li>
-											<a href="memberPersonList.html"><i class="fa fa-square-o"></i> 人员列表</a>
+											<a href="memberPersonList.jsp"><i class="fa fa-square-o"></i> 人员列表</a>
 										</li>
 									</ul>
 								</li>
@@ -136,13 +136,16 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberCustomProject.html" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 定制项目</a>
+											<a href="memberCustomProject.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.html"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="memberOnlineClasses.html" ><i class="fa fa-square-o"></i> 在线拼班</a>
+											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
+										</li>
+										<li>
+										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
 									</ul>
 								</li>
@@ -150,7 +153,7 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberProjectList.html"><i class="fa fa-square-o"></i> 项目列表</a>
+											<a href="memberProjectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
 										</li>
 									</ul>
 								</li>

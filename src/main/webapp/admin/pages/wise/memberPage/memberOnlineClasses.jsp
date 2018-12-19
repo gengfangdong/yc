@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -67,7 +71,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -81,9 +88,6 @@
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
 										<div class="pull-right">
 											<a href="#" class="btn btn-default btn-flat">安全退出</a>
 										</div>
@@ -108,8 +112,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -125,10 +137,10 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 基本设置<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberMessage.html"><i class="fa fa-square-o"></i> 我的信息</a>
+											<a href="memberMessage.jsp"><i class="fa fa-square-o"></i> 我的信息</a>
 										</li>
 										<li>
-											<a href="memberPersonList.html"><i class="fa fa-square-o"></i> 人员列表</a>
+											<a href="memberPersonList.jsp"><i class="fa fa-square-o"></i> 人员列表</a>
 										</li>
 									</ul>
 								</li>
@@ -136,13 +148,16 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberCustomProject.html"><i class="fa fa-square-o"></i> 定制项目</a>
+											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.html"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="memberOnlineClasses.html" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 在线拼班</a>
+											<a href="memberOnlineClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 在线拼班</a>
+										</li>
+										<li>
+										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
 									</ul>
 								</li>
@@ -150,7 +165,7 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberProjectList.html"><i class="fa fa-square-o"></i> 项目列表</a>
+											<a href="memberProjectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
 										</li>
 									</ul>
 								</li>
@@ -486,6 +501,10 @@
 			</script>
 		<script>
 			window.onload = function(){
+				<% if(user == null){%>
+					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');

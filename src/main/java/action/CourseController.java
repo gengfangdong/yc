@@ -108,6 +108,14 @@ public class CourseController {
 		return datatablesViewPage;
 	}
 	
+	/**
+	 * layui 接口
+	 * @param First_course
+	 * @param Second_course
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
 	@RequestMapping(value="/getlistLay")
 	@ResponseBody
 	public LayuiDataTable<Course> getListBypageLay(@RequestParam(value="First_course",required=false)String First_course,

@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <%
 	String about_id = request.getParameter("about_id");

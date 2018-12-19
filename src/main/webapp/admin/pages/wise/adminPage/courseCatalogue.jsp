@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -497,8 +501,7 @@
 			      {field:'handle', title: '操作',toolbar: '#barDemo'}
 			    ]],
 			    id: 'testReload',
-			    page: true,
-			    height: 315
+			    page: true
 			  });
 			  
 			//监听工具条
@@ -582,6 +585,7 @@
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
+			    $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			  });
 			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});

@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -67,7 +71,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -108,8 +115,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -125,10 +140,10 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 基本设置<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberMessage.html"><i class="fa fa-square-o"></i> 我的信息</a>
+											<a href="memberMessage.jsp"><i class="fa fa-square-o"></i> 我的信息</a>
 										</li>
 										<li>
-											<a href="memberPersonList.html" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 人员列表</a>
+											<a href="memberPersonList.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 人员列表</a>
 										</li>
 									</ul>
 								</li>
@@ -136,13 +151,16 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberCustomProject.html"><i class="fa fa-square-o"></i> 定制项目</a>
+											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.html"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="memberOnlineClasses.html" ><i class="fa fa-square-o"></i> 在线拼班</a>
+											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
+										</li>
+										<li>
+										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
 									</ul>
 								</li>
@@ -150,7 +168,7 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberProjectList.html"><i class="fa fa-square-o"></i> 项目列表</a>
+											<a href="memberProjectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
 										</li>
 									</ul>
 								</li>
@@ -197,9 +215,9 @@
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="branchPage" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;" lay-filter="user">
 																					<thead>
-																						<tr>
+																						<!-- <tr>
 																							<th style="text-align: center;">序号</th>
 																							<th style="text-align: center;">姓名</th>
 																							<th style="text-align: center;">单位</th>
@@ -211,10 +229,10 @@
 																							<th style="text-align: center;">身份证号</th>
 																							<th style="text-align: center;">联系电话</th>
 																							<th style="text-align: center;">操作</th>
-																						</tr>
+																						</tr> -->
 																					</thead>
 																					<tbody>
-																						<tr>
+																						<!-- <tr>
 																							<td style="text-align: center;">1</td>
 																							<td>张三</td>
 																							<td>北京市海淀区税务局</td>
@@ -264,7 +282,7 @@
 																								<a href="#" onclick="addBranch(this);">修改</a>
 																								<a onclick="isDelete(this);">删除</a>
 																							</td>
-																						</tr>
+																						</tr> -->
 																					</tbody>
 																				</table>
 																			</div>
@@ -331,63 +349,7 @@
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
 
-		<script>
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-				
-				var branchPage = $('#branchPage').DataTable({
-					"language" : dataTableLang,
-					"paging": true,
-					"info": true,
-					"aLengthMenu": [10],
-					"lengthChange": false,
-					"searching": false,
-					"ordering": false,
-					"autoWidth": false,
-					"stripeClasses": ["datatable_odd","datatable_even"]	
-					
-				});
-				
-			});
-		</script>
+		
 		<script type="text/javascript">
 			layui.use('upload', function() {
 				var upload = layui.upload;
@@ -395,16 +357,142 @@
 				//执行实例
 				var uploadInst = upload.render({
 					elem: '#import', //绑定元素
-					url: '/upload/', //上传接口
+					url: '<%=request.getContextPath()%>/EUser/importfile', //上传接口
+					accept: 'file', //普通文件
 					done: function(res) {
 						//上传完毕回调
+						if(res.code == 1){
+							layer.alert("导入成功!");
+						}
+						else if(res.code == 0){
+							layer.alert("没有数据!");
+						}
+						else if(res.code == 2){
+							layer.alert("导入失败,请检查数据有效性!");
+						}
 					},
 					error: function() {
 						//请求异常回调
 					}
 				});
 			});
+			
+			layui.use('table', function(){
+				var table = layui.table;
+			  
+			  //方法级渲染
+			  table.render({
+			    elem: '#LAY_table_user',
+			    url: '<%=request.getContextPath()%>/EUser/getlistLay',
+			    cols: [[
+				  {type:'numbers',title:"序号"},
+			      {field:'euser_id', title: 'ID',style:'display:none;'},
+			      {field:'euser_name', title: '姓名'},
+			      {field:'euser_sex', title: '性别',templet:'#typeBar'},
+			      {field:'euser_companyname', title: '工作单位'},
+			      {field:'euser_department', title: '部门'},
+			      {field:'euser_hold', title: '职务'},
+			      {field:'euser_indentitynumber', title: '身份证号'},
+			      {field:'euser_phone', title: '联系方式'},
+			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			    ]],
+			    id: 'testReload',
+			    page: true
+			  });
+			  
+			//监听工具条
+			  table.on('tool(user)', function(obj){
+			    var data = obj.data;
+			    if(obj.event === 'detail'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/showPersonList.jsp?euser_id='+data.euser_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    } else if(obj.event === 'del'){
+			      	layer.confirm('真的删除行么', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/EUser/deleteEUser',
+							type : 'post',
+							dataType:"json",
+							data:{
+								EUser_id:data.euser_id
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.alert("参数错误!");
+								}
+								else if(data.message == "1"){
+									layer.alert("获取人员失败!");
+								}
+								else if(data.message == "2"){
+									layer.alert("删除成功!");
+								}
+								
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
+			    } else if(obj.event === 'edit'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '修改',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/updatePersonList.jsp?euser_id='+data.euser_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }
+			  });
+			  var $ = layui.$, active = {
+			    reload: function(){
+			      var demoReload = $('#demoReload');
+			      
+			      //执行重载
+			      table.reload('testReload', {
+			        page: {
+			          curr: 1 //重新从第 1 页开始
+			        },
+			        method:'post',
+			        where: {
+			        	    First_course:firstObj,
+							Second_course:secondObj
+			        }
+			      });
+			    }
+			  };
+			  
+			  $('.demoTable .layui-btn').on('click', function(){
+			    var type = $(this).data('type');
+			    active[type] ? active[type].call(this) : '';
+			  });
+			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+			});
 		</script>
+		<script type="text/html" id="typeBar">
+     		{{#  if(d.euser_sex == 1){ }}
+     			女
+     		{{#  }else if(d.euser_sex==0){ }}
+     			男
+     		{{# } }}
+ 		</script>
+
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
 			layui.use('laydate', function(){
@@ -416,76 +504,48 @@
 				});
 			});
 			/* 日期控件，执行多个laydate实例 end */
-			
-			function addBranch(obj){
-				var sText = obj.innerHTML;
-				if(sText=='新增'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '新增',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [80,200] ,
-					        content: 'openPage/addPersonList.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='查看'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '查看',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [80,200] ,
-					        content: 'openPage/addPersonList.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='修改'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '修改',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [80,200] ,
-					        content: 'openPage/addPersonList.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}
-				
-				
-			}
 		</script>
 		<script>
 			window.onload = function(){
+				<% if(user == null){%>
+					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+			
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
 				treeUls[3].setAttribute('style','display: block;');
 			};
+		</script>
+		<script type="text/html" id="barDemo">
+  			<a class="" lay-event="detail" style="margin-right:10px;cursor: pointer;">查看</a>
+  			<a class="" lay-event="edit" style="margin-right:10px;cursor: pointer;">修改</a>
+  			<a class="" lay-event="del" style="margin-right:10px;cursor: pointer;">删除</a>
+		</script>
+		<script type="text/javascript">
+			function addBranch(obj,id) {
+				var sText = obj.innerHTML;
+				if(sText == '新增') {
+					layui.use('layer', function() {
+						var $ = layui.jquery,
+							layer = layui.layer;
+						layer.open({
+							type: 2, //此处以iframe举例
+							title: '新增',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/addPersonList.jsp',
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+					})
+				}
+			}
 		</script>
 	</body>
 

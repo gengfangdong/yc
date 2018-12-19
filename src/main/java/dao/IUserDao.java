@@ -18,4 +18,5 @@ public interface IUserDao {
 	public List<IUser> getListByPage(@Param("start")int start,@Param("length")int length);
 	public int getCount();
 	public List<IUser> checkLoginNameAndUser_id(@Param("user_loginname")String user_loginname,@Param("user_id")String User_id);
+	public void updateShow(IUser iUser);
 }

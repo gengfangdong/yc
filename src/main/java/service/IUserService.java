@@ -17,4 +17,6 @@ public interface IUserService {
 	
 	public boolean checkLoginNameAndUser_id(String user_id,String loginname);
 	
+	public void updateShow(IUser iUser);
+	
 }

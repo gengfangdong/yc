@@ -176,6 +176,47 @@ public class IUserController {
 		return resultmap;
 	}
 	
+	
+	/**
+	 * 后台登录
+	 * @param username
+	 * @param password
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/loginadmin")
+	@ResponseBody
+	public Map<String,Object> loginAdmin(String username,String password,HttpServletRequest request){
+		// 结果map
+		Map<String, Object> resultmap = new HashMap<String, Object>();
+		
+		if(StringUtil.isblack(username)||StringUtil.isblack(password)){
+			resultmap.put("success", true);
+			resultmap.put("msg", "1");//参数错误
+			return resultmap;
+		}
+		
+		IUser iUser = new IUser();
+		iUser = iUserService.login(username,password);
+		if(iUser == null){
+			resultmap.put("success", false);
+			resultmap.put("msg", "0");//登录失败
+			return resultmap;
+		}
+		iUser.setUser_password("");
+		HttpSession session = request.getSession();
+		session.setAttribute("user", iUser);
+		session.setMaxInactiveInterval(30 * 60);
+		if("0".equals(iUser.getIsadmin())){
+			resultmap.put("msg", "1");//登录失败
+		}
+		else if("1".equals(iUser.getIsadmin())){
+			resultmap.put("msg", "2");//登录失败
+		}
+		resultmap.put("success", true);
+		
+		return resultmap;
+	}
 	/**
 	 * 增加人员
 	 * @param User_loginname
@@ -288,7 +329,7 @@ public class IUserController {
 	@ResponseBody
 	public Map<String, Object> updateIUser(String User_id, String User_loginname, String User_name, String User_phone,
 			String User_mail, String User_companyname, String User_department, String User_job, String User_hold,
-			String User_address, String User_password, String User_status) {
+			String User_address, String User_password, String User_status,HttpServletRequest request) {
 
 		// 返回结果
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -297,6 +338,11 @@ public class IUserController {
 			resultMap.put("msg", "0");// 登录名存在
 			return resultMap;
 		}
+		
+		HttpSession session = request.getSession();
+		IUser user = (IUser) session.getAttribute("user");
+		String user_id = user.getUser_id();
+		
 		// 构建用户
 		IUser iUser = new IUser();
 		
@@ -323,7 +369,6 @@ public class IUserController {
 		iUser.setUser_status(User_status);
 		iUser.setIsdelete("0");//未删除
 		iUser.setCreatetime(news_Createtime);
-
 		iUserService.updateIUser(iUser);
 		resultMap.put("success", true);
 		resultMap.put("msg", "2");// 更新成功!
@@ -373,6 +418,62 @@ public class IUserController {
 		
 	}
 	
+	@RequestMapping("/getdetailShow")
+	@ResponseBody
+	public Map<String,Object> getDetailshow(HttpServletRequest request){
+		// 返回的map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpSession session = request.getSession();
+		IUser user = (IUser) session.getAttribute("user");
+		String user_id = user.getUser_id(); //"user626e64ef8dfe49389fc1a358da95442e";
+		if (StringUtil.isblack(user_id)) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 参数错误
+			return resultMap;
+		}
+		IUser iUser = new IUser();
+		iUser = iUserService.getDetailByid(user_id);
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 没有人员
+			return resultMap;
+		}
+
+		resultMap.put("success", true);
+		resultMap.put("data", iUser);
+		return resultMap;
+	}
 	
+	@RequestMapping("/updateShowIUser")
+	@ResponseBody
+	public Map<String,Object> updateIUser(String User_id,String User_name,String User_area,String User_phone,String User_mail,String User_address){
+		// 返回的map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		//
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String news_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		if (StringUtil.isblack(User_id)) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 参数错误
+			return resultMap;
+		}
+		IUser iUser = new IUser();
+		iUser = iUserService.getDetailByid(User_id);
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 没有人员
+			return resultMap;
+		}
+
+		iUser.setCreatetime(news_Createtime);
+		iUser.setUser_area(User_area);
+		iUser.setUser_name(User_name);
+		iUser.setUser_mail(User_mail);
+		iUser.setUser_phone(User_phone);
+		
+		resultMap.put("success", true);
+		resultMap.put("data", iUser);
+		return resultMap;
+	}
 	
 }

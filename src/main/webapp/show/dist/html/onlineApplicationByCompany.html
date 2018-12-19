@@ -6,6 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<link rel="stylesheet" href="../../../后台/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -378,7 +381,7 @@
 										<tr>
 											<td class="tableLeftTd">报名类别</td>
 											<td class="tableRightTd">
-												<input class="onlineInput" id="entryCategory" type="text"  value="单位" disabled="disabled" style="background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;"/>
+												<input class="onlineInput" id="entryCategory" type="text" value="单位" disabled="disabled" style="background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;" />
 											</td>
 										</tr>
 										<tr class="">
@@ -409,7 +412,14 @@
 										</tr>
 										<tr>
 											<td class="tableLeftTd">报名名单模板</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" id="entryTemplate" placeholder="请填写您所在部门" /></td>
+											<td class="tableRightTd">
+												<button type="button" class="layui-btn lay_btn" style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;" >
+												  <i class="layui-icon">&#xe67c;</i><a href="../doc/培训通知.zip" style="color: #FFFFFF;">下载</a>
+												</button>
+												<button type="button" class="layui-btn lay_btn" id="test11"  style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;">
+												  <i class="layui-icon">&#xe67c;</i>上传
+												</button>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -418,28 +428,28 @@
 							<hr />
 						</div>
 					</div>
-						<div class="am-popup" id="my-popup">
-							<div class="am-popup-inner">
-								<div class="am-popup-hd">
-									<h4 class="am-popup-title">基础学习</h4>
-									<span data-am-modal-close class="am-close">&times;</span>
-								</div>
-								<div class="am-popup-bd">
-									<h4>1．大纲适用对象</h4>
-									<p>本大纲适用于高职高专会计专业所开设纳税基础与实务课程。</p>
-									<h4>2．课程的性质和任务</h4>
-									<p>纳税基础与实务课程是开放教育专科与高职高专会计学专业的一门专业基础课，是开放教育专科与高职高专会计学专业知识结构中的主体部分。本课程的任务是以我国现行税收制度为依据，结合企业的一般经济业务，阐释各税种的基本理论和实务，培养学生从事企业财务会计工作应具备的各税种的基本知识和操作能力。</p>
-									<h4>3．与相关课程的衔接</h4>
-									<p>学习本课程应先修政治经济学、基础会计等课程，中级财务会计课程最好与本课程同时学习或在本课程稍后学习。</p>
-									<h4>4．课程教学基本要求</h4>
-									<p>通过运用多种教学媒体和形式组织教学，学生能够掌握税收法律基本理论与实务知识，具备实际操作能力，以及在今后的工作中熟练应用。</p>
-									<h4>5．教学方法和教学形式建议</h4>
-									<p>本课程是一门实践性和技能性较强的课程，需要运用多种教学媒体、采用多种教学形式组织教学。除文字教材应力求通俗易懂、便于自学以外，IP课件、网上辅导文本应对重点、难点问题进行讲解和说明。辅导教师除督促学生阅读教材和使用IP课件、网上辅导文本外，应特别注意对作业的批改和讲评，有条件的还应安排实训。</p>
-									<h4>6．课程教学要求的层次</h4>
-									<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
-								</div>
+					<div class="am-popup" id="my-popup">
+						<div class="am-popup-inner">
+							<div class="am-popup-hd">
+								<h4 class="am-popup-title">基础学习</h4>
+								<span data-am-modal-close class="am-close">&times;</span>
+							</div>
+							<div class="am-popup-bd">
+								<h4>1．大纲适用对象</h4>
+								<p>本大纲适用于高职高专会计专业所开设纳税基础与实务课程。</p>
+								<h4>2．课程的性质和任务</h4>
+								<p>纳税基础与实务课程是开放教育专科与高职高专会计学专业的一门专业基础课，是开放教育专科与高职高专会计学专业知识结构中的主体部分。本课程的任务是以我国现行税收制度为依据，结合企业的一般经济业务，阐释各税种的基本理论和实务，培养学生从事企业财务会计工作应具备的各税种的基本知识和操作能力。</p>
+								<h4>3．与相关课程的衔接</h4>
+								<p>学习本课程应先修政治经济学、基础会计等课程，中级财务会计课程最好与本课程同时学习或在本课程稍后学习。</p>
+								<h4>4．课程教学基本要求</h4>
+								<p>通过运用多种教学媒体和形式组织教学，学生能够掌握税收法律基本理论与实务知识，具备实际操作能力，以及在今后的工作中熟练应用。</p>
+								<h4>5．教学方法和教学形式建议</h4>
+								<p>本课程是一门实践性和技能性较强的课程，需要运用多种教学媒体、采用多种教学形式组织教学。除文字教材应力求通俗易懂、便于自学以外，IP课件、网上辅导文本应对重点、难点问题进行讲解和说明。辅导教师除督促学生阅读教材和使用IP课件、网上辅导文本外，应特别注意对作业的批改和讲评，有条件的还应安排实训。</p>
+								<h4>6．课程教学要求的层次</h4>
+								<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
 							</div>
 						</div>
+					</div>
 				</div>
 
 				<!--侧边栏-->
@@ -491,8 +501,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span
-					 class="am-sr-only">侧栏导航</span></a>
+				<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
 			</div>
 
 			<!--===========layout-footer================-->
@@ -507,11 +516,21 @@
 										<div class="footer_main--column">
 											<strong class="footer_main--column_title">友情链接</strong>
 											<ul class="footer_navigation">
-												<li class="footer_navigation--item"><a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a></li>
-												<li class="footer_navigation--item"><a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a></li>
-												<li class="footer_navigation--item"><a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a></li>
-												<li class="footer_navigation--item"><a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a></li>
-												<li class="footer_navigation--item"><a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a></li>
+												<li class="footer_navigation--item">
+													<a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a>
+												</li>
 											</ul>
 										</div>
 									</div>
@@ -554,19 +573,36 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
+		<script src="../../../后台/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
+		<script src="../../../后台/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 		<script>
-            $(function(){
-                var myDate = new Date();
-                var year = myDate.getFullYear();
-                var month = myDate.getMonth()+1;
-                var day = myDate.getDate();
-                if(day<10){
-                    day = "0"+day;
+			layui.use('upload', function() {
+				var upload = layui.upload;
+				var uploadInst = upload.render({
+					elem: '#test11', //绑定元素
+					url: '/upload/', //上传接口
+					done: function(res) {
+						//上传完毕回调
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+			});
+		</script>
+		<script>
+			$(function() {
+				var myDate = new Date();
+				var year = myDate.getFullYear();
+				var month = myDate.getMonth() + 1;
+				var day = myDate.getDate();
+				if(day < 10) {
+					day = "0" + day;
 				}
-                var newDay = year + '-' + month + '-' + day;
-                $("#entryDate").val(newDay);
-            })
+				var newDay = year + '-' + month + '-' + day;
+				$("#entryDate").val(newDay);
+			})
 		</script>
 	</body>
 

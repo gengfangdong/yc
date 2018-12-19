@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -7,9 +11,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
-		<link rel="stylesheet" href="../../../admin/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/layui.css" />
-		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
+		<link rel="stylesheet" href="../../../后台/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -108,8 +112,11 @@
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<a href="login.html" style="color: #000000;">登录</a>
-									<a href="register.html" style="color: #000000;">注册</a>
+									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%}; %>
+									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
+									<a href="html/register.jsp" style="color: #000000;">注册</a>
 								</div>
 							</div>
 						</div>
@@ -124,7 +131,7 @@
 							<div class="am-g">
 								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
 									<div class="logo">
-										<a href="../index.html"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+										<a href="../index.jsp"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
 									</div>
 								</div>
 								<div class="am-u-lg-8 am-u-md-12">
@@ -134,77 +141,77 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.html">首页</a>
+															<a href="../index.jsp">首页</a>
 														</li>
 														<li>
-															<a href="cultureSystem.html">项目概况</a>
+															<a href="cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="cultureSystem.html">培养体系</a>
+																	<a href="cultureSystem.jsp">培养体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="solution.html">解决方案</a>
+																	<a href="solution.jsp">解决方案</a>
 																</li>
 																<li class="menu-item">
-																	<a href="teachingMaterialSystem.html">教材体系</a>
+																	<a href="teachingMaterialSystem.jsp">教材体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="taxCollectionFund.html">领税基金</a>
+																	<a href="taxCollectionFund.jsp">领税基金</a>
 																</li>
 																<li class="menu-item">
-																	<a href="expertTeam.html">专家团队</a>
+																	<a href="expertTeam.jsp">专家团队</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.html">规定班次</a>
+															<a href="regulationsClasses.jsp">规定班次</a>
 														</li>
 														<li>
-															<a href="customizedClasses.html">定制班次</a>
+															<a href="customizedClasses.jsp">定制班次</a>
 														</li>
 														<li>
-															<a href="onlineClasses.html">拼班</a>
+															<a href="onlineClasses.jsp">拼班</a>
 														</li>
 														<li>
-															<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+															<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="incumbencyStudent.html">招生简章</a>
+																	<a href="incumbencyStudent.jsp">招生简章</a>
 																</li>
 																<li class="menu-item">
-																	<a href="onlineApplication.html" style="color: #FF2F2F;">在线报名</a>
+																	<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="newsNotice.html">新闻公告</a>
+															<a href="newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="newsNotice.html">通知公告</a>
+																	<a href="newsNotice.jsp">通知公告</a>
 																</li>
 																<li class="menu-item">
-																	<a href="newsTrain.html">培训新闻</a>
+																	<a href="newsTrain.jsp">培训新闻</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.html">关于我们</a>
+															<a href="about.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.html">中心概况</a>
+																	<a href="centerOverview.jsp">中心概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.html">组织结构</a>
+																	<a href="organization.jsp">组织结构</a>
 																</li>
 																<li class="menu-item">
-																	<a href="aboutSchool.html">学校介绍</a>
+																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
@@ -237,51 +244,51 @@
 									<div class="am-offcanvas-bar">
 										<ul class="am-nav am-nav-pills am-nav-justify">
 											<li class="">
-												<a href="../index.html">首页</a>
+												<a href="../index.jsp">首页</a>
 											</li>
 											<li>
-												<a href="about.html">关于我们</a>
+												<a href="about.jsp">关于我们</a>
 											</li>
 											<li>
-												<a href="newsNotice.html">新闻中心</a>
+												<a href="newsNotice.jsp">新闻中心</a>
 												<!-- sub-menu start-->
 												<ul class="sub-menu">
 													<li class="menu-item">
-														<a href="newsNotice.html">通知公告</a>
+														<a href="newsNotice.jsp">通知公告</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.html">培训新闻</a>
+														<a href="newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
 												<!-- sub-menu end-->
 											</li>
 											<li>
-												<a href="regulationsClasses.html">规定班次</a>
+												<a href="regulationsClasses.jsp">规定班次</a>
 											</li>
 											<li>
-												<a href="customizedClasses.html">定制班次</a>
+												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
 											<li>
-												<a href="onlineClasses.html">在线拼班</a>
+												<a href="onlineClasses.jsp">在线拼班</a>
 											</li>
 											<li>
-												<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 												<!-- sub-menu start-->
 												<ul class="sub-menu">
 													<li class="menu-item">
-														<a href="incumbencyStudent.html">招生简章</a>
+														<a href="incumbencyStudent.jsp">招生简章</a>
 													</li>
 													<li class="menu-item">
-														<a href="onlineApplication.html" style="color: #FF2F2F;">在线报名</a>
+														<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 													</li>
 												</ul>
 												<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<a href="login.html" class="">登录</a>
+												<a href="login.jsp" class="">登录</a>
 											</li>
 											<li class="">
-												<a href="register.html" class="">注册</a>
+												<a href="register.jsp" class="">注册</a>
 											</li>
 										</ul>
 
@@ -317,11 +324,11 @@
 						<div class="am-container">
 							<ol class="am-breadcrumb">
 								<li>
-									<a href="../index.html">首页</a>
+									<a href="../index.jsp">首页</a>
 								</li>
 								<li class="am-active">在职研</li>
 								<li class="am-active">在线报名</li>
-								<li class="am-active">单位报名</li>
+								<li class="am-active">个人报名</li>
 							</ol>
 						</div>
 					</div>
@@ -415,17 +422,16 @@
 											<td class="tableLeftTd">报名名单模板</td>
 											<td class="tableRightTd">
 												<button type="button" class="layui-btn lay_btn" style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;" >
-												  <i class="layui-icon">&#xe67c;</i><a href="../doc/table.zip" style="color: #FFFFFF;">下载</a>
+												  <i class="layui-icon">&#xe67c;</i><a href="../doc/培训通知.zip" style="color: #FFFFFF;">下载</a>
 												</button>
 												<button type="button" class="layui-btn lay_btn" id="test11"  style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;">
 												  <i class="layui-icon">&#xe67c;</i>上传
 												</button>
-												<input type="text" name="filename" id="filename" disabled="disabled" style="width: 200px;background:#ffffff;border:1px solid #9a9a9a;" />
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<button type="button" class="am-btn am-btn-primary am-round subBtn" id="save" onclick="save();">提交</button>
+								<button type="button" class="am-btn am-btn-primary am-round subBtn">提交</button>
 							</div>
 							<hr />
 						</div>
@@ -461,10 +467,10 @@
 							<ul class="am-nav">
 								<li class="sidebar_contactUs">■在职研</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									<a href="incumbencyStudent.html" style="color: #000000;">招生简章</a>
+									<a href="incumbencyStudent.jsp" style="color: #000000;">招生简章</a>
 								</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									<a href="onlineApplication.html" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
+									<a href="onlineApplication.jsp" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
 								</li>
 							</ul>
 							<ul class="am-nav">
@@ -575,82 +581,36 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
-		<script src="../../../admin/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
-		<script src="../../../admin/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
+		<script src="../../../后台/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
+		<script src="../../../后台/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 		<script>
-		layui.use('upload', function(){
-			  var $ = layui.jquery,
-			  upload = layui.upload;
-			  
-			  //普通图片上传
-			  var uploadInst = upload.render({
-			    elem: '#test11' ,
-			    url: '<%=request.getContextPath()%>/ApplyUnit/apply',
-			    auto:false,
-			    accept: 'file', //允许上传的文件类型
-			    bindAction: '#save',
-			    /*data:{
-           		 		News_Title:document.getElementById("newsTitle").value,
-						News_Introduction:newsAbstract,
-						News_KeyWords:newsKeyWords,
-						News_Release_time:newsDate,
-						News_status:news_status//,
-						//News_context:news_context
-        		},*/
-			    choose: function(obj){
-			       //预读本地文件示例，不支持ie8
-			      obj.preview(function(index, file, result){
-			        document.getElementById("filename").value=file.name;
-			      });
-			    },
-			    before:function(obj){
-			    	this.data={
-			    	"applyunit_date":document.getElementById("entryDate").value,
-					"applyunit_name":document.getElementById("entryCompany").value,
-					"applyunit_person":document.getElementById("contactPersonnel").value,
-					"applyunit_phone":document.getElementById("contactTel").value,
-					"project_id":"Project0628afcfdc344240abe971bbcdaf0cf5",//document.getElementById("project_id").value,
-					"applyunit_mail":document.getElementById("contactEmail").value
-			    	}//携带额外的数据
-				    obj.preview(function(index, file, result){
-				        $('#demo1').attr('src', result); //图片链接（base64）
-				    });
-			    },
-			    done: function(res){
-			    	
-			      //如果上传失败
-			      if(res.code == 2){
-			        return layer.msg('没有选择图片!');
-			      }
-			      else if(res.code == 3){
-			        return layer.msg('上传失败!');
-			      }
-			      //上传成功
-			      else if(res.code == 1){
-			    	 layer.alert("保存成功!");
-									
-			   	}
-			    },
-			    error: function(res){
-			      //演示失败状态，并实现重传
-			      var demoText = $('#demoText');
-			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-			      demoText.find('.demo-reload').on('click', function(){
-			        uploadInst.upload();
-			      });
-			    }
-			  });
-		 });
+			layui.use('upload', function() {
+				var upload = layui.upload;
+				var uploadInst = upload.render({
+					elem: '#test11', //绑定元素
+					url: '/upload/', //上传接口
+					done: function(res) {
+						//上传完毕回调
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+			});
 		</script>
 		<script>
-			function save(){
-				var filename = document.getElementById("filename").value;
-				if(filename == "" || filename == undefined){
-					layer.alert("请先上传模板文件!");
-					return;
+			$(function() {
+				var myDate = new Date();
+				var year = myDate.getFullYear();
+				var month = myDate.getMonth() + 1;
+				var day = myDate.getDate();
+				if(day < 10) {
+					day = "0" + day;
 				}
-			}
+				var newDay = year + '-' + month + '-' + day;
+				$("#entryDate").val(newDay);
+			})
 		</script>
 	</body>
 

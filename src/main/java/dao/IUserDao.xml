@@ -72,4 +72,9 @@
 			AND 
 			I.USER_ID &lt;&gt; #{user_id}
 	</select>
+	
+	<update id="updateShow" parameterType="IUser">
+		update IUSER I SET I.USER_NAME = #{User_name},I.USER_PHONE=#{User_phone},I.USER_AREA=#{User_area},I.USER_MAIL=#{User_mail},I.USER_ADDRESS=#{User_address}
+		I.CREATETIME = #{createtime} WHERE I.USER_ID = #{User_id}
+	</update>
 </mapper>

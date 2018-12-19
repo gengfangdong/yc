@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -125,10 +129,10 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 基本设置<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberMessage.html"><i class="fa fa-square-o"></i> 我的信息</a>
+											<a href="memberMessage.jsp"><i class="fa fa-square-o"></i> 我的信息</a>
 										</li>
 										<li>
-											<a href="memberPersonList.html"><i class="fa fa-square-o"></i> 人员列表</a>
+											<a href="memberPersonList.jsp"><i class="fa fa-square-o"></i> 人员列表</a>
 										</li>
 									</ul>
 								</li>
@@ -136,13 +140,16 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberCustomProject.html"><i class="fa fa-square-o"></i> 定制项目</a>
+											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.html" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="memberOnlineClasses.html" ><i class="fa fa-square-o"></i> 在线拼班</a>
+											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
+										</li>
+										<li>
+										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
 									</ul>
 								</li>
@@ -150,7 +157,7 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberProjectList.html"><i class="fa fa-square-o"></i> 项目列表</a>
+											<a href="memberProjectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
 										</li>
 									</ul>
 								</li>
@@ -179,111 +186,47 @@
 								<div class="box-body" style="padding: 0px;">
 									<div class="row">
 										<div class="col-sm-12">
-											<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">年度：</label>
-													<ul class="f-sort-ul shaixuan1">
-														<li><a class onclick="changeStyleColor1(this);">2019</a></li>
-														<li><a class onclick="changeStyleColor1(this);">2018</a></li>
-														<li><a class onclick="changeStyleColor1(this);">2017</a></li>
-														<li><a class onclick="changeStyleColor1(this);">2016</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">筛选：</label>
-													<ul class="f-sort-ul shaixuan2">
-														<li><a class onclick="changeStyleColor2(this);">报名进行中</a></li>
-														<li><a class onclick="changeStyleColor2(this);">报名已结束</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">排序：</label>
-													<ul class="f-sort-ul shaixuan3">
-														<li><a class onclick="changeStyleColor3(this);">按开班日期</a></li>
-														<li><a class onclick="changeStyleColor3(this);">按可报名人数</a></li>
-													</ul>
-												</div>
-											</div>
 											<div class="row" >
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
 															<div class="row">
 																<div class="col-sm-12 col-md-12">
-																	<!-- <div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-																			<ul class="f-sort-ul">
-																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
-																			</ul>
+																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
+																		<div class="demoTable">
+																		  <!-- 搜索ID： -->
+																		  <div class="layui-inline selectObj">
+																		   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+																		    <label for="" class="control-label" style="float: left;">班次状态：</label>
+																			<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																		        <option value="全部">全部</option>
+																		        <option value="未开始">未开始</option>
+																		        <option value="进行中">进行中</option>
+																		        <option value="已结束">已结束</option>
+																		   </select>
+																		  </div>
+																		  <div class="layui-inline selectObj">
+																		    <label for="" class="control-label" style="float: left;">是否报名：</label>
+																			<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																		        <option value="全部">全部</option>
+																		        <option value="已报名">已报名</option>
+																		        <option value="未报名">未报名</option>
+																		   </select>
+																		  </div>
+																		  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
 																		</div>
-																	</div> -->
+																	</div> 
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="branchPage" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;" lay-filter="user">
 																					<thead>
 																						<tr>
-																							<th style="text-align: center;">序号</th>
-																							<th style="text-align: center;">班级名称</th>
-																							<th style="text-align: center;">计划举办天数</th>
-																							<th style="text-align: center;">计划参加人数</th>
-																							<th style="text-align: center;">预计开始日期</th>
-																							<th style="text-align: center;">已报名人数</th>
-																							<th style="text-align: center;">可报名人数</th>
-																							<th style="text-align: center;">状态</th>
-																							<th style="text-align: center;">操作</th>
+																							
 																						</tr>
 																					</thead>
 																					<tbody>
-																						<tr>
-																							<td style="text-align: center;">1</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>18</td>
-																							<td>50</td>
-																							<td>2018/12/11</td>
-																							<td>38</td>
-																							<td>12</td>
-																							<td>未报名</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">报名</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>第三期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>18</td>
-																							<td>50</td>
-																							<td>2018/11/11</td>
-																							<td>50</td>
-																							<td>0</td>
-																							<td>已报名</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">报名</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>第二期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>18</td>
-																							<td>50</td>
-																							<td>2018/10/11</td>
-																							<td>50</td>
-																							<td>0</td>
-																							<td>已结束</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">报名</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
+																						
 																					</tbody>
 																				</table>
 																			</div>
@@ -349,64 +292,13 @@
 		<!-- <script type="text/javascript" src="../../My97DatePicker/WdatePicker.js"></script> -->
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
-
+		
 		<script>
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-				
-				var branchPage = $('#branchPage').DataTable({
-					"language" : dataTableLang,
-					"paging": true,
-					"info": true,
-					"aLengthMenu": [10],
-					"lengthChange": false,
-					"searching": false,
-					"ordering": false,
-					"autoWidth": false,
-					"stripeClasses": ["datatable_odd","datatable_even"]	
-					
-				});
-				
-			});
+			var firstObj="";
+			var secondObj="";
 		</script>
+		
+		
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
 			layui.use('laydate', function(){
@@ -419,126 +311,112 @@
 			});
 			/* 日期控件，执行多个laydate实例 end */
 			
-			function addBranch(obj){
-				var sText = obj.innerHTML;
-				if(sText=='新增'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '新增',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,'20%'] ,
-					        content: 'openPage/addRegulationClasses.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='查看'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '查看',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,'20%'] ,
-					        content: 'openPage/addRegulationClasses.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='修改'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '修改',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,'20%'] ,
-					        content: 'openPage/addRegulationClasses.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}
-				
-				
-			}
+			
+			layui.use('table', function(){
+				var table = layui.table;
+			  
+			  //方法级渲染
+			  table.render({
+			    elem: '#LAY_table_user',
+			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    cols: [[
+				  {type:'numbers',title:"序号"},
+			      {field:'course_id', title: 'ID',style:'display:none;'},
+			      {field:'course_name', title: '班次名称'},
+			      {field:'start_class', title: '开班日期'},
+			      {field:'end_class', title: '结课日期'},
+			      {field:'start_entry', title: '开始报名时间'},
+			      {field:'end_entry', title: '结束报名时间'},
+			      {field:'train_address', title: '培训地点'},
+			      {field:'accommodating_population', title: '容纳人数'},
+			      {field:'signUp_person', title: '已报名人数'},
+			      {field:'class_status', title: '班次状态'},
+			      {field:'isEntry', title: '是否已报名'},
+			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			    ]],
+			    id: 'testReload',
+			    page: true
+			  });
+			  
+			//监听工具条
+			  table.on('tool(user)', function(obj){
+			    var data = obj.data;
+			    if(obj.event === 'detail'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '报名',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/addRegulationClasses.jsp',
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    } else if(obj.event === 'del'){
+			      	layer.confirm('确认取消报名？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							type : 'post',
+							dataType:"json",
+							data:{
+								Course_id:data.course_id
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.alert("参数错误!");
+								}
+								else if(data.message == "1"){
+									layer.alert("获取班次名称失败!");
+								}
+								else if(data.message == "2"){
+									layer.alert("报名已取消!");
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
+			    }
+			  });
+			  var $ = layui.$, active = {
+			    reload: function(){
+			      var demoReload = $('#demoReload');
+			      firstObj = document.getElementById("firstObj").value;
+			      secondObj = document.getElementById("secondObj").value;
+			      if(firstObj=="全部"){
+			    	  firstObj="";
+			      }
+			      if(secondObj=="全部"){
+			    	  secondObj="";
+			      }
+			      
+			      //执行重载
+			      table.reload('testReload', {
+			        page: {
+			          curr: 1 //重新从第 1 页开始
+			        },
+			        method:'post',
+			        where: {
+			        	    First_course:firstObj,
+							Second_course:secondObj
+			        }
+			      });
+			    }
+			  };
+			  
+			  $('.demoTable .layui-btn').on('click', function(){
+			    var type = $(this).data('type');
+			    active[type] ? active[type].call(this) : '';
+			  });
+			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+			});
+			
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan1 li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				function changeStyleColor2(obj) {
-					var nLi = $('.shaixuan2 li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				function changeStyleColor3(obj) {
-					var nLi = $('.shaixuan3 li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-			</script>
 		<script>
 			window.onload = function(){
 				var treeUls = document.getElementsByClassName('menu_tree');
@@ -546,6 +424,10 @@
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
 			};
+		</script>
+		<script type="text/html" id="barDemo">
+  			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+  			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
 		</script>
 	</body>
 

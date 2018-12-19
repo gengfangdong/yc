@@ -80,45 +80,45 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="index.html" style="color: #FF2F2F;">首页</a>
+															<a href="index.jsp" style="color: #FF2F2F;">首页</a>
 														</li>
 														<li>
-															<a href="html/cultureSystem.html">项目概况</a>
+															<a href="html/cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="html/cultureSystem.html">培养体系</a>
+																	<a href="html/cultureSystem.jsp">培养体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/solution.html">解决方案</a>
+																	<a href="html/solution.jsp">解决方案</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/teachingMaterialSystem.html">教材体系</a>
+																	<a href="html/teachingMaterialSystem.jsp">教材体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/taxCollectionFund.html">领税基金</a>
+																	<a href="html/taxCollectionFund.jsp">领税基金</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/expertTeam.html">专家团队</a>
+																	<a href="html/expertTeam.jsp">专家团队</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="html/regulationsClasses.html">规定班次</a>
+															<a href="html/regulationsClasses.jsp">规定班次</a>
 														</li>
 														<li>
-															<a href="html/customizedClasses.html">定制班次</a>
+															<a href="html/customizedClasses.jsp">定制班次</a>
 														</li>
 														<li>
-															<a href="html/onlineClasses.html">拼班</a>
+															<a href="html/onlineClasses.jsp">拼班</a>
 														</li>
 														<li>
-															<a href="html/incumbencyStudent.html">在职研</a>
+															<a href="html/incumbencyStudent.jsp">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="html/incumbencyStudent.html">招生简章</a>
+																	<a href="html/incumbencyStudent.jsp">招生简章</a>
 																</li>
 																<li class="menu-item">
 																	<a href="html/onlineApplication.jsp">在线报名</a>
@@ -127,30 +127,30 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="html/newsNotice.html">新闻公告</a>
+															<a href="html/newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="html/newsNotice.html">通知公告</a>
+																	<a href="html/newsNotice.jsp">通知公告</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/newsTrain.html">培训新闻</a>
+																	<a href="html/newsTrain.jsp">培训新闻</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="html/about.html">关于我们</a>
+															<a href="html/about.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="html/centerOverview.html">中心概况</a>
+																	<a href="html/centerOverview.jsp">中心概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/organization.html">组织结构</a>
+																	<a href="html/organization.jsp">组织结构</a>
 																</li>
 																<li class="menu-item">
-																	<a href="html/aboutSchool.html">学校介绍</a>
+																	<a href="html/aboutSchool.jsp">学校介绍</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
@@ -160,9 +160,9 @@
 														<!--<li>
 							                <a href="#">产品中心</a>
 							                <ul class="sub-menu">
-							                  <li class="menu-item"><a href="html/product1.html">产品展示1</a></li>
-							                  <li class="menu-item"><a href="html/product2.html">产品展示2</a></li>
-							                  <li class="menu-item"><a href="html/product3.html">产品展示3</a></li>
+							                  <li class="menu-item"><a href="html/product1.jsp">产品展示1</a></li>
+							                  <li class="menu-item"><a href="html/product2.jsp">产品展示2</a></li>
+							                  <li class="menu-item"><a href="html/product3.jsp">产品展示3</a></li>
 							                </ul>
 							              </li>-->
 
@@ -191,7 +191,7 @@
   											</div>
   										</div>-->
 										</div>
-										<!--<a href="html/incumbencyStudent.html" class="contact-btn">
+										<!--<a href="html/incumbencyStudent.jsp" class="contact-btn">
                       <button type="button" class="am-btn am-btn-secondary am-radius">联系我们</button>
                     </a>-->
 									</div>
@@ -205,28 +205,28 @@
 					<!--<div class="nav-contain">
           <div class="nav-inner">
             <ul class="am-nav am-nav-pills am-nav-justify">
-              <li class=""><a href="./index.html">首页</a></li>
+              <li class=""><a href="./index.jsp">首页</a></li>
               <li>
                 <a href="#">产品中心</a>
                 <ul class="sub-menu">
-                  <li class="menu-item"><a href="html/product1.html">产品展示1</a></li>
-                  <li class="menu-item"><a href="html/product2.html">产品展示2</a></li>
-                  <li class="menu-item"><a href="html/product3.html">产品展示3</a></li>
+                  <li class="menu-item"><a href="html/product1.jsp">产品展示1</a></li>
+                  <li class="menu-item"><a href="html/product2.jsp">产品展示2</a></li>
+                  <li class="menu-item"><a href="html/product3.jsp">产品展示3</a></li>
                 </ul>
               </li>
-              <li><a href="html/regulationsClasses.html">客户案例</a></li>
-              <li><a href="html/customizedClasses.html">解决方案</a></li>
+              <li><a href="html/regulationsClasses.jsp">客户案例</a></li>
+              <li><a href="html/customizedClasses.jsp">解决方案</a></li>
               <li>
-                <a href="html/newsNotice.html">新闻中心</a>
+                <a href="html/newsNotice.jsp">新闻中心</a>
                 <ul class="sub-menu">
-                  <li class="menu-item"><a href="html/news-content.html">公司动态</a></li>
-                  <li class="menu-item"><a href="html/404-dark.html">行业动态</a></li>
-                  <li class="menu-item"><a href="html/404-light.html">精彩专题</a></li>
+                  <li class="menu-item"><a href="html/news-content.jsp">公司动态</a></li>
+                  <li class="menu-item"><a href="html/404-dark.jsp">行业动态</a></li>
+                  <li class="menu-item"><a href="html/404-light.jsp">精彩专题</a></li>
                 </ul>
               </li>
-              <li><a href="html/about.html">关于我们</a></li>
-              <li><a href="html/onlineClasses.html">加入我们</a></li>
-              <li><a href="html/incumbencyStudent.html">联系我们</a></li>
+              <li><a href="html/about.jsp">关于我们</a></li>
+              <li><a href="html/onlineClasses.jsp">加入我们</a></li>
+              <li><a href="html/incumbencyStudent.jsp">联系我们</a></li>
             </ul>
           </div>
         </div>-->
@@ -248,47 +248,47 @@
 									<div class="am-offcanvas-bar">
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.html" class="" style="color: #FF2F2F;">首页</a>
+												<a href="../index.jsp" class="" style="color: #FF2F2F;">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="#" class="">产品中心</a>
 												<ul class="am-menu-sub am-collapse ">
 													<li class="">
-														<a href="html/product1.html" class="">产品展示1</a>
+														<a href="html/product1.jsp" class="">产品展示1</a>
 													</li>
 													<li class="">
-														<a href="html/product2.html" class="">产品展示2</a>
+														<a href="html/product2.jsp" class="">产品展示2</a>
 													</li>
 													<li class="">
-														<a href="html/product3.html" class="">产品展示3</a>
+														<a href="html/product3.jsp" class="">产品展示3</a>
 													</li>
 												</ul>
 											</li>
 											<li class="">
-												<a href="html/regulationsClasses.html" class="">客户案例</a>
+												<a href="html/regulationsClasses.jsp" class="">客户案例</a>
 											</li>
 											<li class="">
-												<a href="html/customizedClasses.html" class="">解决方案</a>
+												<a href="html/customizedClasses.jsp" class="">解决方案</a>
 											</li>
 											<li class="am-parent">
-												<a href="html/newsNotice.html" class="">新闻中心</a>
+												<a href="html/newsNotice.jsp" class="">新闻中心</a>
 												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
-														<a href="newsNotice.html">通知公告</a>
+														<a href="newsNotice.jsp">通知公告</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.html">培训新闻</a>
+														<a href="newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
 											</li>
 											<li class="">
-												<a href="html/about.html" class="">关于我们</a>
+												<a href="html/about.jsp" class="">关于我们</a>
 											</li>
 											<li class="">
-												<a href="html/onlineClasses.html" class="">加入我们</a>
+												<a href="html/onlineClasses.jsp" class="">加入我们</a>
 											</li>
 											<li class="">
-												<a href="html/incumbencyStudent.html" class="">联系我们</a>
+												<a href="html/incumbencyStudent.jsp" class="">联系我们</a>
 											</li>
 											<li class="am-parent">
 												<a href="" class="nav-icon nav-icon-globe">Language</a>
@@ -417,10 +417,10 @@
 								</ul>
 							</div>
 
-							<div class="am-u-md-6" style="max-height: 360px;padding-right: 60px;">
+							<div class="am-u-md-6" style="max-height: 360px;padding-right: 2%;">
 								<div class="promo_detailed--cta">
 									<h2 class="news">■培训新闻</h2>
-									<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 20px;">
+									<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 5%;">
 										<li class="promo_detailed--list_item">
 											<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">
 		                  <!--<i class="am-icon-diamond"></i>-->
@@ -488,13 +488,13 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a  href="html/expertTeam.html"><img src="assets/img/about/content_img3.png" alt="" style="width: 100%;" /></a>
+												<a  href="html/expertTeam.jsp"><img src="assets/img/about/content_img3.png" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/expertTeam.html" style="color: #333333;">国内一流顶尖的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/expertTeam.jsp" style="color: #333333;">国内一流顶尖的</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="html/expertTeam.html" style="font-weight: 400;color: #333333;">讲师团队</a></p>
+												<p style="text-align: center;"><a href="html/expertTeam.jsp" style="font-weight: 400;color: #333333;">讲师团队</a></p>
 											</div>
 										</div>
 									</div>
@@ -502,39 +502,39 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/teachingMaterialSystem.html"><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/teachingMaterialSystem.jsp"><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/teachingMaterialSystem.html" style="color: #333333;">全面实用的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/teachingMaterialSystem.jsp" style="color: #333333;">全面实用的</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="html/teachingMaterialSystem.html.html" style="font-weight: 400;color: #333333;">管理会计体系</a></p>
+												<p style="text-align: center;"><a href="html/teachingMaterialSystem.jsp.jsp" style="font-weight: 400;color: #333333;">管理会计体系</a></p>
 											</div>
 										</div>
 									</div>
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/cultureSystem.html" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/cultureSystem.jsp" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/cultureSystem.html" style="color: #333333;">国内领先的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/cultureSystem.jsp" style="color: #333333;">国内领先的</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="html/cultureSystem.html" style="font-weight: 400;color: #333333;">税务培训基地</a></p>
+												<p style="text-align: center;"><a href="html/cultureSystem.jsp" style="font-weight: 400;color: #333333;">税务培训基地</a></p>
 											</div>
 										</div>
 									</div>
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/taxCollectionFund.html" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/taxCollectionFund.jsp" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/taxCollectionFund.html" style="color: #333333;">聚焦本土</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/taxCollectionFund.jsp" style="color: #333333;">聚焦本土</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="html/taxCollectionFund.html" style="font-weight: 400;color: #333333;">最佳实现</a></p>
+												<p style="text-align: center;"><a href="html/taxCollectionFund.jsp" style="font-weight: 400;color: #333333;">最佳实现</a></p>
 											</div>
 										</div>
 									</div>
@@ -542,13 +542,13 @@
 									<div class="am-u-lg-4 am-u-md-4  am-u-end about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/solution.html" ><img src="assets/img/about/content_img5.png" alt="" style="width: 100%;" /></a>
+												<a href="html/solution.jsp" ><img src="assets/img/about/content_img5.png" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/solution.html" style="color: #333333;">精英小班</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/solution.jsp" style="color: #333333;">精英小班</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="html/solution.html" style="font-weight: 400;color: #333333;">学习社交平台</a></p>
+												<p style="text-align: center;"><a href="html/solution.jsp" style="font-weight: 400;color: #333333;">学习社交平台</a></p>
 											</div>
 										</div>
 									</div>
@@ -584,7 +584,7 @@
 					<div class="container">
 						<div class="footer_main">
 							<div class="am-g">
-								<div class="am-u-md-3 ">
+								<div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
 									<div class="footer_main--column">
 										<strong class="footer_main--column_title">友情链接</strong>
 										<ul class="footer_navigation">
@@ -597,7 +597,7 @@
 									</div>
 								</div>
 
-								<div class="am-u-md-9 ">
+								<div class="am-u-lg-8 am-u-md-8 am-u-sm-8">
 									<div class="footer_main--column am-u-md-8">
 										<strong class="footer_main--column_title">联系详情</strong>
 										<ul class="footer_contact_info">

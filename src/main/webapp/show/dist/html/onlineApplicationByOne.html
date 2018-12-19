@@ -372,15 +372,15 @@
 										<tr>
 											<td class="tableLeftTd">您的姓名</td>
 											<td class="tableRightTd">
-												<input class="onlineInput" type="text" placeholder="请输入您的真实姓名" />
+												<input class="onlineInput" type="text" placeholder="请输入您的真实姓名" id="byOneName" />
 											</td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">您的性别</td>
 											<td class="tableRightTd">
-												<input class="onlineRadio" type="radio" name="sex" value="man" />男
-												<input class="onlineRadio" type="radio" name="sex" value="woman" />女
+												<input class="onlineRadio byOneSex" type="radio" name="sex" value="man" />男
+												<input class="onlineRadio byOneSex" type="radio" name="sex" value="woman" />女
 											</td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
@@ -400,58 +400,58 @@
 										</tr>
 										<tr>
 											<td class="tableLeftTd">身份证号</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" maxlength="16" placeholder="请输入您的16位身份证号码" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneIDNum" type="text" maxlength="16" placeholder="请输入您的16位身份证号码" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">政治面貌</td>
 											<td class="tableRightTd">
-												<input class="onlineRadio" type="radio" name="politicalStatus" value="partyMember" />党员
-												<input class="onlineRadio" type="radio" name="politicalStatus" value="masses" />群众
-												<input class="onlineRadio" type="radio" name="politicalStatus" value="democraticParties" />民主党派
+												<input class="onlineRadio byOnePoliticalStatus" type="radio" name="politicalStatus" value="partyMember" />党员
+												<input class="onlineRadio byOnePoliticalStatus" type="radio" name="politicalStatus" value="masses" />群众
+												<input class="onlineRadio byOnePoliticalStatus" type="radio" name="politicalStatus" value="democraticParties" />民主党派
 											</td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">手机号码</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" maxlength="11" placeholder="请输入您真实的手机号码" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOnePhone" type="text" maxlength="11" placeholder="请输入您真实的手机号码" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">电子邮箱</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" placeholder="请输入您真实的邮箱" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneEmail" type="text" placeholder="请输入您真实的邮箱" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">所在部门</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" placeholder="请填写您所在部门" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneDepartment" type="text" placeholder="请填写您所在部门" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">任职岗位</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" placeholder="请填写您任职的岗位" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOnePost" type="text" placeholder="请填写您任职的岗位" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">任职职务</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" placeholder="请填写您担任的职务" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneJob" type="text" placeholder="请填写您担任的职务" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">通讯地址</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" placeholder="请填写您详细的通讯地址，以便收发快递" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneAddress" type="text" placeholder="请填写您详细的通讯地址，以便收发快递" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">其他信息</td>
 											<td class="tableRightTd">
 												<!--<textarea placeholder="请输入您的学习方向、学习时间等信息"></textarea>-->
-												<input class="onlineInput" type="text" placeholder="请输入您的学习方向、学习时间等信息" />
+												<input class="onlineInput" id="byOneOthers" type="text" placeholder="请输入您的学习方向、学习时间等信息" />
 												<!-- <td>2012-10-01</td> -->
 										</tr>
 									</tbody>
 								</table>
-								<button type="button" class="am-btn am-btn-primary am-round subBtn">提交</button>
+								<button type="button" class="am-btn am-btn-primary am-round subBtn" onclick="byOneSubmit();">提交</button>
 							</div>
 							<hr />
 						</div>
@@ -598,6 +598,122 @@
 				$('#date').attr("value","");
 			}
 		</script>
+	<script>
+		function byOneSubmit() {
+			var names = $('#byOneName').val();
+			var birthday = $("#date").val();
+			var IDNum = $("#byOneIDNum").val();
+			var phone = $("#byOnePhone").val();
+			var email = $("#byOneEmail").val();
+			var department = $("#byOneDepartment").val();
+			var post = $("#byOnePost").val();
+			var job = $("#byOneJob").val();
+			var address = $("#byOneAddress").val();
+			var others = $("#byOneOthers").val();
+
+            var testPhone = /^1\d{10}$/;
+            var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+
+			if(names==""){
+			    alert('请输入您的姓名！');
+			    return;
+			}
+            var sexes = $(".byOneSex");
+            if(sexes[0].checked==true){
+                var sex = $(sexes[0]).val();
+            }else if(sexes[1].checked==true){
+                var sex = $(sexes[1]).val();
+            }else{
+                alert("请选择您的性别！");
+                return;
+            }
+			if(birthday==""){
+			    alert("请选择您的出生日期！");
+			    return;
+			}
+			if(IDNum==""){
+			    alert("请输入您的身份证号！");
+			    return;
+			}else if(IDNum.length<16){
+			    alert("请输入16位的身份证号！");
+			    return;
+			}
+            var politicalStatuses = $(".byOnePoliticalStatus");
+            if(politicalStatuses[0].checked==true){
+                var politicalStatus = $(politicalStatuses[0]).val();
+            }else if(politicalStatuses[1].checked==true){
+                var politicalStatus = $(politicalStatuses[1]).val();
+            }else if(politicalStatuses[2].checked==true){
+                var politicalStatus = $(politicalStatuses[2]).val();
+            }else {
+                alert("请选择您的政治面貌！");
+                return;
+            }
+			if(phone==""){
+			    alert("请输入您的手机号码！");
+			    return;
+			}else if(testPhone.test(phone)==false){
+                alert("请输入有效的手机号码！");
+                return;
+            }
+			if(email==""){
+			    alert("请输入您的电子邮箱！");
+			    return;
+			}else if(testEmail.test(email)==false){
+                alert("请输入有效的邮箱！");
+                return;
+            }
+			if(department==""){
+			    alert("请输入您的所在部门！");
+			    return;
+			}
+			if(post==""){
+			    alert("请输入您的任职岗位！");
+			    return;
+			}
+			if(job==""){
+			    alert("请输入您的任职职务！");
+			    return;
+			}
+			if(address==""){
+			    alert("请输入您的通讯地址！");
+			    return;
+			}
+			if(others==""){
+			    alert("请输入您的学习方向、学习时间等信息！");
+			    return;
+			}
+
+			$.ajax({
+				url:,
+				data:{
+				    "name":names,
+				    "sex":sex,
+					"birthday":birthday,
+					"IDNum":IDNum,
+					"politicalStatus":politicalStatus,
+					"phone":phone,
+					"email":email,
+					"department":department,
+					"post":post,
+					"job":job,
+					"address":address,
+					"others":others
+				},
+				dataType:"json",
+				type:"post",
+				success:function () {
+
+				    //success
+                },
+				error:function () {
+
+				    //error
+                }
+				
+			})
+        }
+	</script>
 	</body>
 
 </html>

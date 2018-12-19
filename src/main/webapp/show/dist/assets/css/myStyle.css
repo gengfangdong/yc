@@ -91,6 +91,7 @@
 	float: left;
 	display: block;
 	height: 35px;
+	font-size: 14px;
 	padding: 0 5px;
 	border-bottom: 1px solid #E8E8E8;
 }
@@ -299,6 +300,204 @@
 .conditionSelectStyle{
 	color: #FF2F2F!important;
 	font-weight: 600;
+}
+/*cultureSystem*/
+.cultureSystemList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.cultureSystemList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	height: 35px;
+	font-size: 14px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.cultureSystemDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.cultureSystemList ul li a{
+	color: #2F2E2E;
+}
+.cultureSystemList ul li a:hover,.cultureSystemList ul li a:focus{
+	color: #095f8a;
+}
+/*expertTeam*/
+.expertTeamList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.expertTeamList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	height: 35px;
+	font-size: 14px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.expertTeamDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.expertTeamList ul li a{
+	color: #2F2E2E;
+}
+.expertTeamList ul li a:hover,.expertTeamList ul li a:focus{
+	color: #095f8a;
+}
+/*solution*/
+.solutionList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.solutionList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	font-size: 14px;
+	height: 35px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.solutionDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.solutionList ul li a{
+	color: #2F2E2E;
+}
+.solutionList ul li a:hover,.solutionList ul li a:focus{
+	color: #095f8a;
+}
+/*taxCollectionFund*/
+.taxCollectionFundList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.taxCollectionFundList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	font-size: 14px;
+	height: 35px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.taxCollectionFundDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.taxCollectionFundList ul li a{
+	color: #2F2E2E;
+}
+.taxCollectionFundList ul li a:hover,.taxCollectionFundList ul li a:focus{
+	color: #095f8a;
+}
+/*teachingMaterialSystem*/
+.teachingMaterialSystemList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.teachingMaterialSystemList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	font-size: 14px;
+	height: 35px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.teachingMaterialSystemDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.teachingMaterialSystemList ul li a{
+	color: #2F2E2E;
+}
+.teachingMaterialSystemList ul li a:hover,.teachingMaterialSystemList ul li a:focus{
+	color: #095f8a;
+}
+/*incumbency*/
+.incumbencyList ul{
+	display: block;
+	font-size: 16px;
+	color: #757575;
+	line-height: 35px;
+}
+.incumbencyList ul li{
+	width: 100%;
+	float: left;
+	display: block;
+	font-size: 14px;
+	height: 35px;
+	padding: 0 5px;
+	border-bottom: 1px solid #E8E8E8;
+}
+.incumbencyDate{
+	display: block;
+	float: right;
+	width: 65px;
+	color: #cbc9c9;
+	font-size: 12px;
+	font-family: '宋体';
+	background: none;
+	height: 48px;
+	line-height: 48px;
+}
+.incumbencyList ul li a{
+	color: #2F2E2E;
+}
+.incumbencyList ul li a:hover,.incumbencyList ul li a:focus{
+	color: #095f8a;
 }
 
 /*example*/

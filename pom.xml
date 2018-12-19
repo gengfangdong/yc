@@ -125,6 +125,19 @@
         <artifactId>logback-ext-spring</artifactId>
         <version>0.1.1</version>
     </dependency>
+    <!-- 解析Excel文件的jar包 -->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>3.14</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>3.14</version>
+	</dependency>
+	<!-- 解析Excel文件的jar包 -->
+    
     <!-- quartz -->
     <dependency>
             <groupId>org.quartz-scheduler</groupId>

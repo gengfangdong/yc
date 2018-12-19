@@ -17,6 +17,18 @@ public class HomePageController {
 		return mv;
 	}
 	
+	@RequestMapping("/admin/pages/wise/adminPage")
+	public ModelAndView adminIndex(ModelAndView mv){
+		mv.setViewName("/admin/pages/wise/adminPage/newsManagement");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/pages/wise/memberPage")
+	public ModelAndView adminindex(ModelAndView mv){
+		mv.setViewName("/admin/pages/wise/memberPage/memberMessage");
+		return mv;
+	}
+	
 	@RequestMapping("/Logout")
 	public ModelAndView Logout(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
 		

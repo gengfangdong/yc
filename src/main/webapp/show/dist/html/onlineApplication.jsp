@@ -1,16 +1,21 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@page import="entity.IUser" %>
-<!DOCTYPE html>
-<html lang="en">
 <%
 	IUser user = (IUser)session.getAttribute("user");
 %>
+<!DOCTYPE html>
+<html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<!-- DataTables -->
+		<link rel="stylesheet" href="../../../admin/plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="../../../admin/plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="../../../admin/bootstrap/css/style.css" /> -->
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -88,6 +93,35 @@
 				margin-top: 10px;
 				text-align: center;
 			}
+			.pagination{
+				height: 31px;
+				border: 1px solid #9a9a9a;
+				border-radius: 5px;
+				font-size: 14px;
+				padding-left: 0;
+				line-height: 14px;
+			}
+			.pagination li{
+				list-style:none;
+				float:left;
+				padding:10px;
+			}
+			.paginata_button{
+				background:#fafafa!important;
+			}
+			.paginata_button a:hover{
+				border:1px solid #9a9a9a;
+				/*background:#fafafa!important;*/
+			}
+			.pagination .active{
+				background:#1e9fff!important;
+			}
+			.previous a,.next a{
+				color:#666!important;
+			}
+			.previous a:hover,.next a:hover{
+				color:#333!important;
+			}
 		</style>
 	</head>
 
@@ -109,8 +143,11 @@
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<a href="login.html" style="color: #000000;">登录</a>
-									<a href="register.html" style="color: #000000;">注册</a>
+									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%}; %>
+									<% if(user == null) {%><a href="login.jsp" style="color: #000000;">登录</a><%}; %>
+									<a href="register.jsp" style="color: #000000;">注册</a>
 								</div>
 							</div>
 						</div>
@@ -125,7 +162,7 @@
 							<div class="am-g">
 								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
 									<div class="logo">
-										<a href="../index.html"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+										<a href="../index.jsp"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
 									</div>
 								</div>
 								<div class="am-u-lg-8 am-u-md-12">
@@ -135,77 +172,77 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.html">首页</a>
+															<a href="../index.jsp">首页</a>
 														</li>
 														<li>
-															<a href="cultureSystem.html">项目概况</a>
+															<a href="cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="cultureSystem.html">培养体系</a>
+																	<a href="cultureSystem.jsp">培养体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="solution.html">解决方案</a>
+																	<a href="solution.jsp">解决方案</a>
 																</li>
 																<li class="menu-item">
-																	<a href="teachingMaterialSystem.html">教材体系</a>
+																	<a href="teachingMaterialSystem.jsp">教材体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="taxCollectionFund.html">领税基金</a>
+																	<a href="taxCollectionFund.jsp">领税基金</a>
 																</li>
 																<li class="menu-item">
-																	<a href="expertTeam.html">专家团队</a>
+																	<a href="expertTeam.jsp">专家团队</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.html">规定班次</a>
+															<a href="regulationsClasses.jsp">规定班次</a>
 														</li>
 														<li>
-															<a href="customizedClasses.html">定制班次</a>
+															<a href="customizedClasses.jsp">定制班次</a>
 														</li>
 														<li>
-															<a href="onlineClasses.html">拼班</a>
+															<a href="onlineClasses.jsp">拼班</a>
 														</li>
 														<li>
-															<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+															<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="incumbencyStudent.html">招生简章</a>
+																	<a href="incumbencyStudent.jsp">招生简章</a>
 																</li>
 																<li class="menu-item">
-																	<a href="onlineApplication.html" style="color: #FF2F2F;">在线报名</a>
+																	<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="newsNotice.html">新闻公告</a>
+															<a href="newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="newsNotice.html">通知公告</a>
+																	<a href="newsNotice.jsp">通知公告</a>
 																</li>
 																<li class="menu-item">
-																	<a href="newsTrain.html">培训新闻</a>
+																	<a href="newsTrain.jsp">培训新闻</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.html">关于我们</a>
+															<a href="about.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.html">中心概况</a>
+																	<a href="centerOverview.jsp">中心概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.html">组织结构</a>
+																	<a href="organization.jsp">组织结构</a>
 																</li>
 																<li class="menu-item">
-																	<a href="aboutSchool.html">学校介绍</a>
+																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
@@ -238,51 +275,51 @@
 									<div class="am-offcanvas-bar">
 										<ul class="am-nav am-nav-pills am-nav-justify">
 											<li class="">
-												<a href="../index.html">首页</a>
+												<a href="../index.jsp">首页</a>
 											</li>
 											<li>
-												<a href="about.html">关于我们</a>
+												<a href="about.jsp">关于我们</a>
 											</li>
 											<li>
-												<a href="newsNotice.html">新闻中心</a>
+												<a href="newsNotice.jsp">新闻中心</a>
 												<!-- sub-menu start-->
 												<ul class="sub-menu">
 													<li class="menu-item">
-														<a href="newsNotice.html">通知公告</a>
+														<a href="newsNotice.jsp">通知公告</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.html">培训新闻</a>
+														<a href="newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
 												<!-- sub-menu end-->
 											</li>
 											<li>
-												<a href="regulationsClasses.html">规定班次</a>
+												<a href="regulationsClasses.jsp">规定班次</a>
 											</li>
 											<li>
-												<a href="customizedClasses.html">定制班次</a>
+												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
 											<li>
-												<a href="onlineClasses.html">在线拼班</a>
+												<a href="onlineClasses.jsp">在线拼班</a>
 											</li>
 											<li>
-												<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 												<!-- sub-menu start-->
 												<ul class="sub-menu">
 													<li class="menu-item">
-														<a href="incumbencyStudent.html">招生简章</a>
+														<a href="incumbencyStudent.jsp">招生简章</a>
 													</li>
 													<li class="menu-item">
-														<a href="onlineApplication.html" style="color: #FF2F2F;">在线报名</a>
+														<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 													</li>
 												</ul>
 												<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<a href="login.html" class="">登录</a>
+												<a href="login.jsp" class="">登录</a>
 											</li>
 											<li class="">
-												<a href="register.html" class="">注册</a>
+												<a href="register.jsp" class="">注册</a>
 											</li>
 										</ul>
 
@@ -318,7 +355,7 @@
 						<div class="am-container">
 							<ol class="am-breadcrumb">
 								<li>
-									<a href="../index.html">首页</a>
+									<a href="../index.jsp">首页</a>
 								</li>
 								<li class="am-active">在职研</li>
 								<li class="am-active">在线报名</li>
@@ -327,98 +364,59 @@
 					</div>
 					<div class="am-g">
 						<div class="am-u-sm-11 am-u-sm-centered">
-							<div class="screeningConditions">
-								<!--<table class="am-table am-table-bordered am-table-striped am-table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>网站名称</th>
-                                            <th>网址</th>
-                                            <th>创建时间</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="am-active">
-                                            <td>Amaze UI(Active)</td>
-                                            <td>http://amazeui.org</td>
-                                            <td>2012-10-01</td>
-                                        </tr>
-                                    </tbody>
-                                </table>-->
-								<!--<div class="conditionYear">
-									<ul class="conditionYearUl">
-										<li class="conditionYearLi">开课年度：</li>
-										<li>
-											<a  onclick="changeStyleColor1(this);">2019</a>
-										</li>
-										<li>
-											<a  onclick="changeStyleColor1(this);">2018</a>
-										</li>
-										<li>
-											<a  onclick="changeStyleColor1(this);">2017</a>
-										</li>
-									</ul>
-								</div>-->
-							</div>
 							<div class="am-cf am-article tableTextAlign">
-								<table class="am-table am-table-bordered am-table-radius am-table-compact am-table-centered littleFontSize">
+								<table id="zaizhiyantable"  class="am-table am-table-bordered am-table-radius am-table-compact am-table-centered littleFontSize">
 									<thead>
 									<tr>
 										<th>序号</th>
 										<th>招生项目</th>
-										<th>发布日期</th>
 										<th>报名</th>
 									</tr>
 									</thead>
-									<tbody>
+								<!-- 	<tbody>			
 									<tr>
 										<td>1</td>
 										<td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第五期国税系统税务稽查专业骨干中级培训班</a></td>
-										<td>2018-12-10</td>
 										<td>
-											<a href="onlineApplicationByCompany.html">单位报名</a>
-											<a href="onlineApplicationByOne.html">个人报名</a>
+											<a href="#">单位报名</a>
+											<a href="onlineApplicationByOne.jsp">个人报名</a>
 										</td>
 									</tr>
 									<tr>
 										<td>2</td>
 										<td data-am-modal="{target: '#my-popup'}"><a  title="点击查看详情">第四期国税系统税务稽查专业骨干中级培训班</a></td>
-										<td>2018-11-10</td>
 										<td>
-											<a href="onlineApplicationByCompany.html">单位报名</a>
-											<a href="onlineApplicationByOne.html">个人报名</a>
+											<a href="#">单位报名</a>
+											<a href="onlineApplicationByOne.jsp">个人报名</a>
 										</td>
 									</tr>
 									<tr>
 										<td>3</td>
 										<td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第三期国税系统税务稽查专业骨干中级培训班</a></td>
-										<td>2018-10-10</td>
 										<td>
-											<a href="onlineApplicationByCompany.html">单位报名</a>
-											<a href="onlineApplicationByOne.html">个人报名</a>
+											<a href="#">单位报名</a>
+											<a href="onlineApplicationByOne.jsp">个人报名</a>
 										</td>
 									</tr>
 									<tr>
 										<td>4</td>
 										<td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第二期国税系统税务稽查专业骨干中级培训班</a></td>
-										<td>2018-09-10</td>
 										<td>
-											<a href="onlineApplicationByCompany.html">单位报名</a>
-											<a href="onlineApplicationByOne.html">个人报名</a>
+											<a href="onlineApplicationByCompany.jsp">单位报名</a>
+											<a href="onlineApplicationByOne.jsp">个人报名</a>
 										</td>
 									</tr>
 									<tr>
 										<td>5</td>
 										<td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第一期国税系统税务稽查专业骨干中级培训班</a></td>
-										<td>2018-08-10</td>
 										<td>
-											<a href="onlineApplicationByCompany.html">单位报名</a>
-											<% if(user != null) {%><a href="onlineApplicationByOne.html">个人报名</a><%} %>
-											<% if(user == null) {%><a href="login.jsp">个人报名</a><%} %>
+											<a href="#">单位报名</a>
+											<a href="onlineApplicationByOne.jsp">个人报名</a>
 										</td>
 									</tr>
-									</tbody>
+									</tbody> -->
 								</table>
-								<div style="height: 40px;">
+								<div style="height: 40px; display:none;">
 									<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
 										<li class="am-pagination-first ">
 											<a href="#" class="">首页</a>
@@ -462,8 +460,8 @@
 									<h4 class="am-popup-title">基础学习</h4>
 									<span data-am-modal-close class="am-close">&times;</span>
 								</div>
-								<div class="am-popup-bd">
-									<h4>1．大纲适用对象</h4>
+								<div class="am-popup-bd" id="my-popup1">
+									<!-- <h4>1．大纲适用对象</h4>
 									<p>本大纲适用于高职高专会计专业所开设纳税基础与实务课程。</p>
 									<h4>2．课程的性质和任务</h4>
 									<p>纳税基础与实务课程是开放教育专科与高职高专会计学专业的一门专业基础课，是开放教育专科与高职高专会计学专业知识结构中的主体部分。本课程的任务是以我国现行税收制度为依据，结合企业的一般经济业务，阐释各税种的基本理论和实务，培养学生从事企业财务会计工作应具备的各税种的基本知识和操作能力。</p>
@@ -474,7 +472,7 @@
 									<h4>5．教学方法和教学形式建议</h4>
 									<p>本课程是一门实践性和技能性较强的课程，需要运用多种教学媒体、采用多种教学形式组织教学。除文字教材应力求通俗易懂、便于自学以外，IP课件、网上辅导文本应对重点、难点问题进行讲解和说明。辅导教师除督促学生阅读教材和使用IP课件、网上辅导文本外，应特别注意对作业的批改和讲评，有条件的还应安排实训。</p>
 									<h4>6．课程教学要求的层次</h4>
-									<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
+									<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p> -->
 								</div>
 							</div>
 						</div>
@@ -487,10 +485,10 @@
 							<ul class="am-nav">
 								<li class="sidebar_contactUs">■在职研</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									<a href="incumbencyStudent.html" style="color: #000000;">招生简章</a>
+									<a href="incumbencyStudent.jsp" style="color: #000000;">招生简章</a>
 								</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									<a href="onlineApplication.html" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
+									<a href="onlineApplication.jsp" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
 								</li>
 							</ul>
 							<ul class="am-nav">
@@ -593,10 +591,140 @@
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+		<!-- DataTables -->
+		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
+		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
+<!-- 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>	 -->
+
+
 		<script>
+			function updatediv(id){
+// 				var Project_id = id;
+// 				Project_id= Project_id.replace("\"","").replace("\"","");
+				$.ajax({
+					url : '<%=request.getContextPath()%>/Project/getProjectdetailByid',
+					type : 'GET',
+					dataType:"json",
+					data:{
+						Project_id:id
+					},
+	                success:function(data){
+	                	if(data.success == true){
+	                		var project_context = data.data.project_context;
+		 					 document.getElementById('my-popup1').innerHTML=project_context;
+	                	}
+	                },
+	                error:function(error){
+	                	console.log('接口不通' + error);
+	                }
+	            })
+	            
+	            
+// 		 		alert(id);
+// 		 		 $("#my-popup1").html=id;
+			}
+		 	
+			
 		 	function dateClear(){
 				$('#date').attr("value","");
 			}
+		 	
+			
+		 	var dataTableLang = {
+					"sProcessing": "处理中...",
+					"sLengthMenu": "显示 _MENU_ 项结果",
+					"sZeroRecords": "没有匹配结果",
+					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+					"sInfoPostFix": "",
+					"sSearch": "搜索:",
+					"sUrl": "",
+					"sEmptyTable": "表中数据为空",
+					"sLoadingRecords": "载入中...",
+					"sInfoThousands": ",",
+					"oPaginate": {
+						"sFirst": "首页",
+						"sPrevious": "上页",
+						"sNext": "下页",
+						"sLast": "末页"
+					},
+					"oAria": {
+						"sSortAscending": ": 以升序排列此列",
+						"sSortDescending": ": 以降序排列此列"
+					}
+				};
+		 	
+		 	
+			
+		 	var zaizhiyantable = $('#zaizhiyantable').DataTable({
+				"language" : dataTableLang,
+				"paging": true,
+				"info": false,
+				"aLengthMenu": [20],
+				"lengthChange": false,
+				"searching": false,
+				"ordering": false,
+				"autoWidth": false,
+				ajax: {
+	                url: "<%=request.getContextPath()%>/Project/getlist"
+	            },
+	            serverSide: true,
+	            columns: [
+	                
+	                {"data": "project_id",
+	                 "render":function(data,type,row,meta){
+	                	           var startIndex = meta.settings._iDisplayStart;
+	                	     return startIndex+meta.row+1;
+	                }
+	                },
+// 	                {"data": "project_id"},
+// <a title="点击查看详情">第五期国税系统税务稽查专业骨干中级培训班</a>
+// <td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第三期国税系统税务稽查专业骨干中级培训班</a></td>
+//  target=\"#my-popup\"
+	                {"data": "project_name"},
+// 	                {"data": "project_date"},
+	                {"data": null}
+	            ],
+	            "aoColumnDefs":[
+	                        	{
+	        					    "targets":-2,
+	        					    "bSortable": false,
+	        					    render: function(data, type, row) {
+// 																												<a href="javascript:changeType();">	onclick="changeType()" href="javascript:void(0);"  <a href="javascript:alert('3')">超链接3</a>
+																															//	 href="javascript:updatediv('+row.project_id+')\"			onclick=\"updatediv('+row.project_id+')\"  href="javascript:void(0);\"													
+	        					        var html ='<a id=\"show\" data-am-modal=\"{target: \'#my-popup\'}\"  title=\"点击查看详情\"    href=\"javascript:updatediv(\''+row.project_id+'\')\">'+row.project_name+'</a>';
+	        					        return html;
+	        					    }},
+    					 			{		
+                        "targets":-1,
+                        "bSortable": false,
+                        render: function(data, type, row) {
+                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\');\">个人报名</a></p>';
+                            return html;
+                        }
+                    }], 
+// 				"stripeClasses": ["datatable_odd","datatable_even"]	
+				
+			});
+			
+		</script>
+		<script type="text/javascript">
+			function addBranch(obj,id){
+				<%
+					if(user == null){
+						
+						%> window.open("login.jsp",'_self');<%}else if(user != null){
+							%> window.open("onlineApplicationByOne.jsp",'_self');<%	
+						}
+				%>
+			}
+		</script>
+		<script>
+//			window.onload = function(){
+//				document.getElementsByClassName('paginate_button');
+//				debugger;
+//			}
 		</script>
 	</body>
 

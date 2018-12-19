@@ -10,5 +10,10 @@ public class Contant {
 		"/ssmtest/About/",
 		"/ssmtest/News/",
 		"/ssmtest/Common/",
-		"/ssmtest/ApplyUnit/"};
+		"/ssmtest/ApplyUnit/",
+		"/ssmtest/Culture/",
+		"/ssmtest/Solution/",
+		"/ssmtest/Teaching/",
+		"/ssmtest/Expert/",
+		"/ssmtest/Tax/",};
 }

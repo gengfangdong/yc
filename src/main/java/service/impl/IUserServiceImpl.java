@@ -97,5 +97,10 @@ public class IUserServiceImpl implements IUserService{
 			ishave = false;
 		return ishave;
 	}
+
+	public void updateShow(IUser iUser) {
+		// TODO Auto-generated method stub
+		iUserDao.updateIUser(iUser);
+	}
 	
 }
