@@ -13,6 +13,7 @@ public interface ClassPlanDao {
 	public void updateClassPlan(ClassPlan classPlan);
 	public void deleteClassPlan(@Param("ClassPlan_id")String classPlan_id);
 	public List<ClassPlan> getlist(@Param("start")int start,@Param("length")int length);
+	public List<ClassPlan> getlistnopage();
 	public int getClassPlanCount();
 	public List<ClassPlan> getDetailByid(@Param("ClassPlan_id")String classPlan_id);
 }

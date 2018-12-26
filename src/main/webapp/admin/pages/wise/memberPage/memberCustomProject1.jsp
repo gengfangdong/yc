@@ -6,7 +6,6 @@
 %>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +19,7 @@
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
 		<!-- zTree -->
 		<link rel="stylesheet" href="../../../zTree_v3/css/zTreeStyle/zTreeStyle.css">
-
+		
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="../../../css/font-awesome-4.7.0/css/font-awesome.min.css">
 		<!-- Ionicons -->
@@ -46,9 +45,8 @@
 			.fzy-border {
 				background: #fff url(../../../image/datePicker.png) no-repeat right;
 				/* background-color: #FCFCFC; */
-			}
-			
-			option {
+			} 
+			option{
 				color: black;
 			}
 		</style>
@@ -58,7 +56,7 @@
 		<div class="wrapper">
 			<header class="main-header" style="background-color: #2a3b4c;height: 50px;position: fixed;width: 100%;">
 				<!-- Logo -->
-				<a href="#" class="logo" style="background-color: #2a3b4c;height: 50px;width: 500px;z-index: 1000000;">
+				<a href="#" class="logo"  style="background-color: #2a3b4c;height: 50px;width: 500px;z-index: 1000000;">
 					<!-- mini logo for sidebar mini 50x50 pixels -->
 					<span class="logo-mini"><img src="" width="40"></span>
 					<!-- logo for regular state and mobile devices -->
@@ -84,7 +82,7 @@
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
 											中央财经大学
-											<small>管理员</small>
+											<small>学员</small>
 										</p>
 									</li>
 
@@ -108,7 +106,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" >
+			<aside class="main-sidebar" style="position: fixed;">
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -132,86 +130,45 @@
 
 					<!-- sidebar menu: : style can be found in sidebar.less -->
 					<ul class="sidebar-menu">
+
 						<li class="treeview active">
 							<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" onclick="hiddenLi(this);">
 								<i class="fa menu-iconss" style="width: 15px;"></i> <span>管理控制台</span>
 							</a>
 							<ul class="treeview-menu treeUl">
 								<li>
-									<a href="#"><i class="fa fa-circle-o"></i> 新闻公告<i class="fa fa-angle-left pull-right"></i></a>
+									<a href="#"><i class="fa fa-circle-o"></i> 基本设置<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="noticeAnnouncement.jsp"><i class="fa fa-square-o"></i> 通知公告</a>
+											<a href="memberMessage.jsp"><i class="fa fa-square-o"></i> 我的信息</a>
 										</li>
 										<li>
-											<a href="newsManagement.jsp"><i class="fa fa-square-o"></i> 新闻管理</a>
+											<a href="memberPersonList.jsp"><i class="fa fa-square-o"></i> 人员列表</a>
 										</li>
-										<li>
-											<a href="rotationPicture.jsp"><i class="fa fa-square-o"></i> 轮播图片</a>
-										</li>
-										<li>
-											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
-										</li>
-
 									</ul>
 								</li>
 								<li>
-									<a href="#"><i class="fa fa-circle-o"></i> 项目概况<i class="fa fa-angle-left pull-right"></i></a>
+									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="cultureSystem.jsp" ><i class="fa fa-square-o"></i> 培养体系</a>
+											<a href="memberCustomProject.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
 										</li>
 										<li>
-											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
+										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
-										<li>
-											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
-										</li>
-
 									</ul>
 								</li>
 								<li>
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="auditOfClassArrangement.jsp"><i class="fa fa-square-o"></i> 拼班审核</a>
-										</li>
-										<li>
-											<a href="customizationAudit.jsp"><i class="fa fa-square-o"></i> 定制审核</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-circle-o"></i> 资源管理<i class="fa fa-angle-left pull-right"></i></a>
-									<ul class="treeview-menu menu_tree">
-										<li>
-											<a href="courseCatalogue.jsp"><i class="fa fa-square-o"></i> 课程目录</a>
-										</li>
-										<li>
-											<a href="classesPlan.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 课程方案</a>
-										</li>
-										<li>
-											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
-										</li>
-										<li>
-											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-circle-o"></i> 在职研<i class="fa fa-angle-left pull-right"></i></a>
-									<ul class="treeview-menu menu_tree">
-										<li>
-											<a href="projectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
-										</li>
-										<li>
-											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
+											<a href="memberProjectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
 										</li>
 									</ul>
 								</li>
@@ -221,17 +178,18 @@
 				</section>
 				<!-- /.sidebar -->
 			</aside>
+
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>资源管理 <small>课程方案</small></h1>
+					<h1>我的项目 <small>定制项目</small></h1>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-dashboard"></i> 首页</li>
-						<li> 资源管理</li>
-						<li class="active">课程方案</li>
+						<li> 我的项目</li>
+						<li class="active">定制项目</li>
 					</ol>
 				</section>
-
+				
 				<section class="content">
 					<div class="row">
 						<div class="col-xs-12">
@@ -239,17 +197,8 @@
 								<div class="box-body" style="padding: 0px;">
 									<div class="row">
 										<div class="col-sm-12">
-											<!--<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">年度：</label>
-													<ul class="f-sort-ul">
-														<li><a href="#" class>2019</a></li>
-														<li><a href="#" class>2018</a></li>
-														<li><a href="#" class>2017</a></li>
-													</ul>
-												</div>
-											</div>-->
-											<div class="row">
+											
+											<div class="row" >
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
@@ -262,22 +211,6 @@
 																			</ul>
 																		</div>
 																	</div>
-																	 <!--<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
-																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-																			<label for="" class="control-label" style="float: left;">年度：</label>
-																			<ul class="f-sort-ul">
-																				<li>
-																					<a href="#" class>2019</a>
-																				</li>
-																				<li>
-																					<a href="#" class>2018</a>
-																				</li>
-																				<li>
-																					<a href="#" class>2017</a>
-																				</li>
-																			</ul>
-																		</div>
-																	</div> -->
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
@@ -285,55 +218,59 @@
 																					<thead>
 																						<tr>
 																							<th style="text-align: center;">序号</th>
-																							<th style="text-align: center;">课程方案</th>
-																							<!--<th style="text-align: center;">课程模块</th>
-																							<th style="text-align: center;">课程内容</th>-->
-																							<!--<th style="text-align: center;">课程天数</th>
-																							<th style="text-align: center;">状态</th>-->
+																							<th style="text-align: center;">班级名称</th>
+																							<th style="text-align: center;">定制类别</th>
+																							<th style="text-align: center;">计划举办天数</th>
+																							<th style="text-align: center;">计划参加人数</th>
+																							<th style="text-align: center;">预计开始日期</th>
+																							<th style="text-align: center;">状态</th>
 																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
-																					<!-- <tbody>
+																					<tbody>
 																						<tr>
 																							<td style="text-align: center;">1</td>
-																							<td>税收经济分析培训班</td>
-																							<td>核心业务模块</td>
-																							<td>大数据背景下如何开展税收分析 </td>
-																							<td>16</td>
-																							<td>发布中</td>
+																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
+																							<td>目录定制</td>
+																							<td>18</td>
+																							<td>20</td>
+																							<td>2018/12/11</td>
+																							<td>未提交</td>
 																							<td>
 																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a href="#" onclick="addBranch(this);">报名</a>
 																								<a onclick="isDelete(this);">删除</a>
 																							</td>
 																						</tr>
 																						<tr>
 																							<td style="text-align: center;">2</td>
-																							<td>收入规划核算培训班</td>
-																							<td>核心业务模块</td>
-																							<td>税收形势分析 </td>
-																							<td>16</td>
-																							<td>暂停中</td>
+																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
+																							<td>自由定制</td>
+																							<td>18</td>
+																							<td>20</td>
+																							<td>2018/11/11</td>
+																							<td>待审核</td>
 																							<td>
 																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a href="#" onclick="addBranch(this);">报名</a>
 																								<a onclick="isDelete(this);">删除</a>
 																							</td>
 																						</tr>
 																						<tr>
 																							<td style="text-align: center;">3</td>
-																							<td>大数据和税收风险管理培训班</td>
-																							<td>核心业务模块</td>
-																							<td>税收政策效应分析</td>
+																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
+																							<td>目录定制</td>
+																							<td>18</td>
 																							<td>20</td>
-																							<td>发布中</td>
+																							<td>2018/10/11</td>
+																							<td>已审核</td>
 																							<td>
 																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
+																								<a href="#" onclick="addBranch(this);">报名</a>
 																								<a onclick="isDelete(this);">删除</a>
 																							</td>
 																						</tr>
-																					</tbody> -->
+																					</tbody>
 																				</table>
 																			</div>
 																		</div>
@@ -386,7 +323,7 @@
 		<!-- zTree -->
 		<script src="../../../zTree_v3/js/jquery.ztree.core.js"></script>
 		<script src="../../../zTree_v3/js/jquery.ztree.excheck.js"></script>
-
+		
 		<!-- Slimscroll -->
 		<script src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 		<!-- FastClick -->
@@ -415,34 +352,34 @@
 				}
 				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
 				/*$("#foundDate").val("万年历");*/
-
+				
 				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
 				};
-
+				
 				var branchPage = $('#branchPage').DataTable({
-					"language": dataTableLang,
+					"language" : dataTableLang,
 					"paging": true,
 					"info": true,
 					"aLengthMenu": [10],
@@ -450,153 +387,95 @@
 					"searching": false,
 					"ordering": false,
 					"autoWidth": false,
-					ajax: {
-		                url: "<%=request.getContextPath()%>/ClassPlan/getlist"
-		            },
-		            serverSide: true,
-		            columns: [
-		                
-		                {"data": "classplan_id",
-		                 "render":function(data,type,row,meta){
-		                	           var startIndex = meta.settings._iDisplayStart;
-		                	     return startIndex+meta.row+1;
-		                }},
-		                {"data": "classplan_name"},
-		                {"data": null}
-		            ],
-		            "aoColumnDefs":[{//倒数第一列
-	                        "targets":-1,
-	                        "bSortable": false,
-	                        render: function(data, type, row) {
-	                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.classplan_id+'\');\">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.classplan_id+'\');\">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"del\"  href=\"#\" onclick=\"addBranch(this,\''+row.classplan_id+'\');\">删除</a></p>';
-	                            return html;
-	                        }
-	                    }], 
-					"stripeClasses": ["datatable_odd", "datatable_even"]
-
+					"stripeClasses": ["datatable_odd","datatable_even"]	
+					
 				});
-
+				
 			});
 		</script>
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
-			layui.use('laydate', function() {
+			layui.use('laydate', function(){
 				var laydate = layui.laydate;
-				lay(".fzy-border").each(function() {
+				lay(".fzy-border").each(function(){
 					laydate.render({
 						elem: this //指定元素
 					});
 				});
 			});
 			/* 日期控件，执行多个laydate实例 end */
-
-			function addBranch(obj,id) {
+			
+			function addBranch(obj){
 				var sText = obj.innerHTML;
-				if(sText == '新增') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '新增',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, 200],
-							content: 'openPage/addClassesPlan.jsp',
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				} else if(sText == '查看') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '查看',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, 200],
-							content: 'openPage/showClassesPlan.jsp?ClassPlan_id='+id,
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				} else if(sText == '修改') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '修改',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, 200],
-							content: 'openPage/updateClassesPlan.jsp?ClassPlan_id='+id,
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				}else if(sText=='删除'){
-		        	$.ajax({
-						url : '<%=request.getContextPath()%>/ClassPlan/deleteClassPlan',
-						type : 'post',
-						dataType:"json",
-						data:{
-							"ClassPlan_id":id
-						},
-						success : function(data) {
-							if(data.message == "0"){
-								alert("参数错误!");
-							}
-							else if(data.message == "1"){
-								alert("获取课程方案失败!");
-							}
-							else if(data.message == "2"){
-								alert("删除成功!");
-							}
-							
-						},
-						error : function(error) {
-							console.log('接口不通' + error);
-						}
-					});	
-		        }
-
+				if(sText=='新增'){
+					layui.use('layer',function(){
+			        	var $ = layui.jquery,
+			        	layer = layui.layer;
+			        	layer.open({
+					        type: 2, //此处以iframe举例
+					        title: '新增',
+					        area: ['1063px', '530px'],
+					        shade: 0,
+					        maxmin: true,
+					        offset: [100,200] ,
+					        content: 'openPage/addCustomProject.jsp',
+					        zIndex: layer.zIndex, //重点1
+					        success: function(layero){
+					          layer.setTop(layero); //重点2
+					        }
+					    });
+			        })
+				}else if(sText=='查看'){
+					layui.use('layer',function(){
+			        	var $ = layui.jquery,
+			        	layer = layui.layer;
+			        	layer.open({
+					        type: 2, //此处以iframe举例
+					        title: '查看',
+					        area: ['1063px', '530px'],
+					        shade: 0,
+					        maxmin: true,
+					        offset: [100,200] ,
+					        content: 'openPage/addCustomProject.html',
+					        zIndex: layer.zIndex, //重点1
+					        success: function(layero){
+					          layer.setTop(layero); //重点2
+					        }
+					    });
+			        })
+				}else if(sText=='修改'){
+					layui.use('layer',function(){
+			        	var $ = layui.jquery,
+			        	layer = layui.layer;
+			        	layer.open({
+					        type: 2, //此处以iframe举例
+					        title: '修改',
+					        area: ['1063px', '530px'],
+					        shade: 0,
+					        maxmin: true,
+					        offset: [100,200] ,
+					        content: 'openPage/addCustomProject.html',
+					        zIndex: layer.zIndex, //重点1
+					        success: function(layero){
+					          layer.setTop(layero); //重点2
+					        }
+					    });
+			        })
+				}
+				
+				
 			}
 		</script>
 		<script>
-			window.onload = function() {
+			window.onload = function(){
 				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
 				
-			<%}%>
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
-				treeUls[0].setAttribute('style', 'display: block;');
-				treeUls[1].setAttribute('style', 'display: block;');
-				treeUls[2].setAttribute('style', 'display: block;');
-                treeUls[3].setAttribute('style','display: block;');
-				treeUls[4].setAttribute('style','display: block;');
-				//左侧导航树高度
-                var leftTreeHeight = document.getElementsByClassName('sidebar')[0].offsetHeight;
-                //屏幕高度
-                var screenHeight = window.screen.height;
-                //可用内容高度
-                var ableHeight = screenHeight - 150;
-                if(ableHeight<leftTreeHeight){
-                	$(".content-wrapper").css("min-height",leftTreeHeight);
-                }else{
-                	$(".content-wrapper").css("min-height",ableHeight);
-                }
+				treeUls[0].setAttribute('style','display: block;');
+				treeUls[1].setAttribute('style','display: block;');
+				treeUls[2].setAttribute('style','display: block;');
 			};
 		</script>
 	</body>

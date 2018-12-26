@@ -25,10 +25,10 @@
 	</resultMap>
 	<insert id = "insertApply" parameterType="Apply">
 		insert into APPLY (APPLY_ID,NAME,SEX,BRITHDAY,INDENTITY_NUMBER,POLITICAL_STATUS,PHONE_NUMBER,MAIL,
-		DEPARTMENT,JOB,ADDRESS,OTHER,PROJECT_ID,POSITION,CREATER,CREATETIME,CHECK_STATUS,ISDELETE,CAOGERY,APPLYDATE) 
+		DEPARTMENT,JOB,ADDRESS,OTHER,PROJECT_ID,POSITION,CREATER,CREATETIME,CHECK_STATUS,ISDELETE,APPLY_CAOGERY,APPLYDATE) 
 		values(#{Apply_id},#{name},#{sex},#{brithday},
 		#{indentity_number},#{political_status},#{phone_number},#{mail},
-		#{department},#{job},#{address},#{other},#{project_id},#{position},#{creater},#{createtime},#{check_status},#{isdelete},#{caogery},#{applydate})
+		#{department},#{job},#{address},#{other},#{project_id},#{position},#{creater},#{createtime},#{check_status},#{isdelete},#{apply_caogery},#{applydate})
 	</insert>
 	
 	<select id="getApplyshow" resultType="Map" parameterType="String">

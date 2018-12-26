@@ -73,7 +73,6 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									
 									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
 										
 									<%}; %>
@@ -118,7 +117,6 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							
 							<% if(user != null) {%>
 							<p><%=user.getUser_loginname()%></p>
 							<a href="#">
@@ -164,7 +162,7 @@
 											<a href="memberOnlineClasses.jsp"><i class="fa fa-square-o"></i> 在线拼班</a>
 										</li>
 										<li>
-										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
+											<a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
 										</li>
 									</ul>
 								</li>
@@ -225,43 +223,60 @@
 																					</label>
 																				</div>
 																			</div>
+																			<input type="hidden" class="form-control searchInput1" id="userId" placeholder="" style="height: 30px;font-size: 12px;background:#fff;width:100%;" value="" hidden="hidden" />
 																			<div class="" id="" style="padding-left: 10px;padding-right: 10px;border-top: 1px solid #F4F4F4;">
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">用户名称：</label>
+																					<label for="" class="control-label" id="userIdLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">登录账号：</label>
 																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" id="username" />
+																					<% if(user != null) {%>
+																					<input type="text" class="form-control searchInput1" id="useraId" placeholder="" style="height: 30px;font-size: 12px;background:#fff;width:100%;" disabled="disabled" value='<%=user.getUser_loginname()%>'/>
+																					<%}; %>
+																					<% if(user == null) {%>
+																					<input type="text" class="form-control searchInput1" id="useraId" placeholder="" style="height: 30px;font-size: 12px;background:#fff;width:100%;" disabled="disabled" value=''/>
+																					<%}; %>
+																					</a>
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">所在区域：</label>
+																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>联系人员：</label>
 																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" id="userarea"/>
-																					</div>
-																					<!-- <label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">用户名：</label>
-																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" />
-																					</div> -->
-																					<!--<label for="" class="col-sm-1 control-label" style="text-align: center;margin-top: 5px;"> —— </label>
-																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput2" placeholder="输入数量" style="height: 30px;font-size: 12px;" />
-																					</div>-->
-																				</div>
-																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">联系电话：</label>
-																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" id="userphone"/>
+																						<input type="text" class="form-control searchInput1" id="username" placeholder="" style="height: 30px;font-size: 12px;width:100%;" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">联系邮箱：</label>
+																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>联系电话：</label>
 																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" id="usermail"/>
+																						<input type="text" class="form-control searchInput1" id="userphone" placeholder="" style="height: 30px;font-size: 12px;width:100%;" maxLength="11" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">详细地址：</label>
+																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>办公电话：</label>
 																					<div class="col-sm-4">
-																						<input type="text" class="form-control searchInput1" placeholder="" style="height: 30px;font-size: 12px;" id="useraddress"/>
+																						<input type="text" class="form-control searchInput1" id="user_phone" placeholder="" style="height: 30px;font-size: 12px;width:100%;" maxLength="11" />
+																					</div>
+																				</div>
+																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
+																					<label for="" class="control-label" id="emailLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">联系邮箱：</label>
+																					<div class="col-sm-4">
+																						<input type="text" class="form-control searchInput1" id="email" placeholder="" style="height: 30px;font-size: 12px;width:100%;" />
+																					</div>
+																				</div>
+																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
+																					<label for="" class="control-label" id="companyLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>工作单位：</label>
+																					<div class="col-sm-4">
+																						<input type="text" class="form-control searchInput1" id="company" placeholder="" style="height: 30px;font-size: 12px;width:100%;" />
+																					</div>
+																				</div>
+																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
+																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>工作部门：</label>
+																					<div class="col-sm-4">
+																						<input type="text" class="form-control searchInput1" id="department" placeholder="" style="height: 30px;font-size: 12px;width:100%;" />
+																					</div>
+																				</div>
+																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
+																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>工作职务：</label>
+																					<div class="col-sm-4">
+																						<input type="text" class="form-control searchInput1" id="post" placeholder="" style="height: 30px;font-size: 12px;width:100%;" />
 																					</div>
 																				</div>
 																				<!--<div class="form-group">
@@ -272,8 +287,8 @@
 																				<div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																					<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																						<ul class="f-sort-ul" style="padding-left: 15%;">
-																							<li><button href="#" class="add saveMessage">保存</button></li>
-																							<li><button href="#" class="add changeMessage">修改</button></li>
+																							<!-- <li><button href="#" class="add changeMessage">修改</button></li> -->
+																							<li><button href="#" class="add saveMessage" onclick="informationSave();">保存</button></li>
 																						</ul>
 																					</div>
 																				</div>
@@ -318,28 +333,28 @@
 																			</div>
 																			<div class="" id="" style="padding-left: 10px;padding-right: 10px;border-top: 1px solid #F4F4F4;">
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">原密码：</label>
+																					<label for="" class="control-label" id="oldPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">原密码：</label>
 																					<div class="col-sm-4">
-																						<input type="password" class="form-control searchInput1" placeholder="请输入原密码" style="height: 30px;font-size: 12px;" id="oldpassword"/>
+																						<input type="password" class="form-control searchInput1" id="oldPassword" placeholder="请输入原密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">新密码：</label>
+																					<label for="" class="control-label" id="newPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">新密码：</label>
 																					<div class="col-sm-4">
-																						<input type="password" class="form-control searchInput1" placeholder="请输入新密码" style="height: 30px;font-size: 12px;" />
+																						<input type="password" class="form-control searchInput1" id="newPassword" placeholder="请输入新密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">新密码：</label>
+																					<label for="" class="control-label" id="confirmPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">确认密码：</label>
 																					<div class="col-sm-4">
-																						<input type="password" class="form-control searchInput1" placeholder="请再次输入新密码" style="height: 30px;font-size: 12px;" />
+																						<input type="password" class="form-control searchInput1" id="confirmPassword" placeholder="请再次输入新密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																					<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																						<ul class="f-sort-ul" style="padding-left: 15%;">
-																							<li><button href="#" class="add savePassword">保存</button></li>
-																							<li><button href="#" class="add changePassword">修改</button></li>
+																							<!-- <li><button href="#" class="add changePassword">修改</button></li> -->
+																							<li><button href="#" class="add savePassword" onclick="passwordSave();">保存</button></li>
 																						</ul>
 																					</div>
 																				</div>
@@ -407,168 +422,198 @@
 		<!-- <script type="text/javascript" src="../../My97DatePicker/WdatePicker.js"></script> -->
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
-
 		<script>
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
+		//基本信息修改保存
+			function informationSave(){
+				var userId = $("#userId").val();
+				var contactPersonName = $("#username").val();
+				var contactPhone = $("#userphone").val();
+				var workTel = $("#user_phone").val();
+				var email = $("#email").val();
+				var company = $("#company").val();
+				var department = $("#department").val();
+				var post = $("#post").val();
+		        var testPhone = /^1\d{10}$/;
+		        var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+		        var testTel = /^0\d{2,3}-?\d{7,8}$/;
+				
+				if(contactPersonName==""){
+					alert("请输入联系人员！");
+					return;
 				}
-				if (strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
+				if(contactPhone==""){
+					alert("请输入联系电话!");
+					return;
+				}else if(contactPhone.length<11){
+					alert("请输入有效的电话号码！");
+					return
+				}else if(contactPhone.length>11){
+					alert("请输入有效的电话号码！");
+					return;
+				}else if(testPhone.test(contactPhone)==false){
+					alert("请输入有效的电话号码！");
+					return;
 				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
+				if(workTel!="" && workTel.length<12){
+					alert("请输入有效的办公电话!");
+					return;
+				}else if(workTel!="" && workTel>12){
+					alert("请输入有效的办公电话！");
+					return;
+				}else if(testTel.test(workTel)==false){
+					alert("请输入有效的办公电话！");
+					return;
+				}
+				if(email!=""&&testEmail.test(email)==false){
+					alert("请输入有效的邮箱！");
+					return;
+				}
+				if(company==""){
+					alert("请输入工作单位!");
+					return;
+				}
+				if(department==""){
+					alert("请输入工作部门!");
+					return;
+				}
+				if(post==""){
+					alert("请输入工作职务!");
+					return;
+				}
+				
+				$.ajax({
+					url:'<%=request.getContextPath()%>/IUser/updateShowIUser',
+					type:"post",
+					data:{
+						User_id:userId,
+						User_name:contactPersonName,
+						User_ydphone:contactPhone,
+						User_phone:workTel,
+						User_mail:email,
+						User_companyname:company,
+						User_department:department,
+						User_hold:post
 					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
+					success:function(data){
+						if(data.success == true){
+							alert("保存成功！");
+						}else if(data.success == false){
+							if(data.message == "1"){
+								alert("人员获取失败！");
+							}
+							else
+								alert("保存失败！");
+						}
+					},
+					error:function(error){
+						alert("接口不通！");
+						console.log('接口不通' + error);
 					}
-				};
-
-				var branchPage = $('#branchPage').DataTable({
-					"language": dataTableLang,
-					"paging": true,
-					"info": true,
-					"aLengthMenu": [10],
-					"lengthChange": false,
-					"searching": false,
-					"ordering": false,
-					"autoWidth": false,
-					"stripeClasses": ["datatable_odd", "datatable_even"]
-
-				});
-
-			});
-		</script>
-		<script type="text/javascript">
-			/* 日期控件，执行多个laydate实例 begin */
-			layui.use('laydate', function() {
-				var laydate = layui.laydate;
-				lay(".fzy-border").each(function() {
-					laydate.render({
-						elem: this //指定元素
-					});
-				});
-			});
-			/* 日期控件，执行多个laydate实例 end */
-
-			function addBranch(obj) {
-				var sText = obj.innerHTML;
-				if (sText == '新增') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '新增',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, '20%'],
-							content: 'openPage/addBranch.html',
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				} else if (sText == '查看') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '查看',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, '20%'],
-							content: 'openPage/addBranch.html',
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				} else if (sText == '修改') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '修改',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, '20%'],
-							content: 'openPage/addBranch.html',
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
+				})
+				
+			}
+			//密码设置修改保存
+			function passwordSave(){
+				var oldPassword = $("#oldPassword").val();
+				var newPassword = $("#newPassword").val();
+				var confirmPassword = $("#confirmPassword").val();
+				
+				if(oldPassword==""){
+					alert("请输入原密码！");
+					return;
+				}else if(oldPassword.length<6){
+					alert("请输入正确的原密码！");
+					return;
 				}
-
+				if(newPassword==""){
+					alert("请输入新密码！");
+					return;
+				}else if(newPassword.length<6){
+					alert("请输入6位新密码！");
+				}
+				if(confirmPassword==""){
+					alert("请再次输入新密码！");
+					return;
+				}else if(confirmPassword<6){
+					alert("请输入6位新密码！");
+					return;
+				}else if(confirmPassword != newPassword){
+					alert("请输入相同的新密码！");
+					return;
+				}
+				
+				$.ajax({
+					url:"",
+					type:"post",
+					data:{
+						oldPassword:oldPassword,
+						newPassword:newPassword
+					},
+					success:function(data){
+						if(success.data == true){
+							alert("密码修改成功！");
+						}else if(success.data == false){
+							alert("密码修改失败！");
+						}
+					},
+					error:function(error){
+						alert("接口不通！");
+						console.log('接口不通' + error);
+					}
+				})
 			}
 		</script>
 		<script>
 			window.onload = function() {
-				<% if(user == null){%>
+				 <% if(user == null){%>
 					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-					
-				<%}%>
+			
+				<%}%> 
+				//左侧列表树
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style', 'display: block;');
 				treeUls[1].setAttribute('style', 'display: block;');
 				treeUls[2].setAttribute('style', 'display: block;');
+				
+				//输入项样式
+				var labelWidth = $("#confirmPasswordLabel").css("width");
+				$("#oldPasswordLabel").css("width",labelWidth);
+				$("#newPasswordLabel").css("width",labelWidth);
+				var labelWidth2 = $("#companyLabel").css("width");
+				$("#userIdLabel").css("width",labelWidth2);
+				$("#userIdLabel").css("text-align","right");
+				$("#emailLabel").css("width",labelWidth2);
+				$("#emailLabel").css("text-align","right");
+				
+				//回显
+				var id = document.getElementById("userId");
 				var name = document.getElementById("username");
-        		var area = document.getElementById("userarea");
         		var phone = document.getElementById("userphone");
-        		var mail = document.getElementById("usermail");
-        		var address = document.getElementById("useraddress");
+        		var workPhone = document.getElementById("user_phone");
+        		var email = document.getElementById("email");
+        		var company = document.getElementById("company");
+        		var department = document.getElementById("department");
+        		var post = document.getElementById("post");
         		$.ajax({
 				url : '<%=request.getContextPath()%>/IUser/getdetailShow',
 				type : 'GET',
 				success:function(data){
+					id.value = data.data.user_id,
 					name.value=data.data.user_name;
-					area.value = data.data.user_area;
-					phone.value = data.data.user_phone;
-					mail.value = data.data.user_mail;
-					address.value = data.data.user_address;
+					phone.value = data.data.user_ydphone;
+					workPhone.value = data.data.user_phone;
+					email.value = data.data.user_mail;
+					company.value = data.data.user_companyname;
+					department.value = data.data.user_department;
+					post.value = data.data.user_hold;
+
 				},error:function(data){
 
 				}
 			});
-			};
 				
+			};
 		</script>
-		
 	</body>
-	
+
 </html>

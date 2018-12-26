@@ -127,6 +127,25 @@ public class CourseController {
 		return cDataTable;
 	}
 	
+	/**
+	 * layui 接口 不分页
+	 * @param First_course
+	 * @param Second_course
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping(value="/getlistLaynp")
+	@ResponseBody
+	public LayuiDataTable<Course> getListLay(@RequestParam(value="First_course",required=false)String First_course,
+			@RequestParam(value="Second_course",required=false)String Second_course){
+		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
+		cDataTable = courseService.gnpDataTable(First_course, Second_course);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	
 	
 	/**
 	 * 获取课程详情

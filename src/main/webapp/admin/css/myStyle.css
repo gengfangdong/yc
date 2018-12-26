@@ -333,6 +333,7 @@
 	height:25px;
 	line-height:25px;
 	margin-top:3px;
+	background-color:#1e9fff;
 }
 .layui-laypage{
 	float:right;
@@ -341,3 +342,14 @@
 .layui-table-view .layui-table{
 	width:100%!important;
 }
+
+
+.layui-table-page .layui-laypage .layui-laypage-curr .layui-laypage-em{
+	background-color:#1e9fff;
+}
+/* .layui-table tr th div{
+	width:100%;
+}
+.layui-table tr td div{
+	width:100%;
+} */

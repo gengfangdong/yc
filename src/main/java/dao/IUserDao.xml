@@ -5,6 +5,7 @@
 		<result column="User_id" jdbcType="VARCHAR" property="User_id"/>
 		<result column="User_loginname" jdbcType="VARCHAR" property="User_loginname"/>
 		<result column="User_name" jdbcType="VARCHAR" property="User_name"/>
+		<result column="User_ydphone" jdbcType="VARCHAR" property="User_ydphone"/>
 		<result column="User_phone" jdbcType="VARCHAR" property="User_phone"/>
 		<result column="User_mail" jdbcType="VARCHAR" property="User_mail"/>
 		<result column="User_companyname" jdbcType="VARCHAR" property="User_companyname"/>
@@ -20,11 +21,11 @@
 		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
 	</resultMap>
 	<insert id = "insertIUser" parameterType="IUser">
-		insert into IUSER (USER_ID,USER_LOGINNAME,USER_NAME,USER_PHONE,USER_MAIL,USER_COMPANYNAME,
+		insert into IUSER (USER_ID,USER_LOGINNAME,USER_NAME,USER_YDPHONE,USER_PHONE,USER_MAIL,USER_COMPANYNAME,
 		USER_DEPARTMENT,USER_JOB,USER_HOLD,USER_PASSWORD,CREATETIME,ISADMIN,USER_ADDRESS,USER_STATUS,ISDELETE) 
-		values(#{User_id},#{User_loginname},#{User_name},#{User_phone},
-		#{User_mail},#{User_companyname},#{User_department},#{User_job},
-		#{User_hold},#{User_password},#{createtime},#{isadmin},#{User_address},#{User_status},#{isdelete})
+		values(#{User_id},#{User_loginname},#{User_name},#{User_ydphone},#{User_phone},
+		#{User_mail,jdbcType=VARCHAR},#{User_companyname},#{User_department},#{User_job,jdbcType=VARCHAR},
+		#{User_hold},#{User_password},#{createtime},#{isadmin},#{User_address,jdbcType=VARCHAR},#{User_status},#{isdelete})
 	</insert>
 	<select id="checkloginname" parameterType="String" resultMap="IUser">
 		select * from IUSER i where i.USER_LOGINNAME = #{user_loginname}
@@ -36,7 +37,8 @@
 		UPDATE IUSER 
 		SET
 			USER_LOGINNAME=#{User_loginname},
-			USER_NAME=#{User_name},USER_PHONE=#{User_phone},USER_MAIL=#{User_mail},USER_COMPANYNAME=#{User_companyname},
+			USER_NAME=#{User_name},USER_PHONE=#{User_phone},
+			USER_YDPHONE = #{User_ydphone},USER_MAIL=#{User_mail},USER_COMPANYNAME=#{User_companyname},
 			USER_DEPARTMENT=#{User_department},USER_JOB=#{User_job},USER_HOLD=#{User_hold},USER_PASSWORD=#{User_password},
 			USER_ADDRESS=#{User_address},USER_STATUS=#{User_status} 
 		WHERE USER_ID=#{User_id}
@@ -74,7 +76,15 @@
 	</select>
 	
 	<update id="updateShow" parameterType="IUser">
-		update IUSER I SET I.USER_NAME = #{User_name},I.USER_PHONE=#{User_phone},I.USER_AREA=#{User_area},I.USER_MAIL=#{User_mail},I.USER_ADDRESS=#{User_address}
-		I.CREATETIME = #{createtime} WHERE I.USER_ID = #{User_id}
+		update IUSER I SET 
+			I.USER_NAME = #{User_name},
+			I.USER_YDPHONE=#{User_ydphone},
+			I.USER_PHONE=#{User_phone},
+			I.USER_COMPANYNAME=#{User_companyname},
+			I.USER_DEPARTMENT=#{User_department},
+			I.USER_HOLD=#{User_hold},
+			I.USER_MAIL=#{User_mail},
+			I.CREATETIME = #{createtime} 
+		WHERE I.USER_ID = #{User_id}
 	</update>
 </mapper>

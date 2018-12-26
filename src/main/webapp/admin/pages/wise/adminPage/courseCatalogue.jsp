@@ -73,7 +73,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -105,7 +108,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" style="position: fixed;">
+			<aside class="main-sidebar">
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -114,8 +117,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -678,6 +689,10 @@
 		</script>
 		<script>
 			window.onload = function() {
+				<% if(user == null){%>
+				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+				
+			<%}%>
 				//左侧树
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style', 'display: block;');

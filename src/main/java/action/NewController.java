@@ -62,7 +62,7 @@ public class NewController {
 		//System.out.println(request.getRealPath("/NewimagePage"));
 		String newsName="";
 		try {
-			newsName = fileUpload.uploadFile(file, fileFileName,request.getRealPath("/NewimagePage")+"/");
+			newsName = fileUpload.uploadFile(file, fileFileName,request.getSession().getServletContext().getRealPath("/NewimagePage")+"/");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

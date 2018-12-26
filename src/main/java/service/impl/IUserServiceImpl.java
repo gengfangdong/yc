@@ -100,7 +100,7 @@ public class IUserServiceImpl implements IUserService{
 
 	public void updateShow(IUser iUser) {
 		// TODO Auto-generated method stub
-		iUserDao.updateIUser(iUser);
+		iUserDao.updateShow(iUser);
 	}
 	
 }

@@ -26,6 +26,9 @@
 		)  
 		WHERE RN &gt; #{start}  
 	</select>
+	<select id="getlistnopage" resultMap="ClassPlan">
+		SELECT * FROM CLASSPLAN C WHERE C.ISDELETE = '0'
+	</select>
 	<update id="deleteClassPlan" parameterType="String">
 		update CLASSPLAN set ISDELETE='1' WHERE CLASSPLAN_ID=#{ClassPlan_id}
 	</update>

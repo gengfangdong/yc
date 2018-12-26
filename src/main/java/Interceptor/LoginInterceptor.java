@@ -1,19 +1,26 @@
 package Interceptor;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.util.StringUtils;
-
 import entity.IUser;
 import Contant.Contant;
+import action.SsuserController;
 public class LoginInterceptor implements HandlerInterceptor{
+	
+	private static Logger logger = Logger.getLogger(SsuserController.class);//参数里面的类名称是logger所在类的名称
 
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object arg2, Exception arg3)
@@ -30,9 +37,23 @@ public class LoginInterceptor implements HandlerInterceptor{
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
+		
+		//往日志中写文件
+		//获取请求的参数
 		// TODO Auto-generated method stub
 		String url = request.getRequestURI();
-		System.out.println(url);
+		/*Map<String,String[]> requestMap = request.getParameterMap();
+		StringBuffer requestBuffer = new StringBuffer();
+		for (Entry<String, String[]> e : requestMap.entrySet()) {
+			String value = Arrays.toString(e.getValue())
+					.replaceAll("\\[|\\]","")
+					.replaceAll("\\s", ",");
+			requestBuffer.append(e.getKey()+":"+value+";");		
+		}
+		String IP = request.getRemoteAddr();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		logger.info("请求时间"+df.format(new Date())+"请求ip-->"+IP+";请求路径为-->"+url+";请求参数为-->"+requestBuffer.toString());
+		System.out.println(url);*/
 		Boolean preflag = false;;
 		String[] preurl = Contant.preHandler;
 		for (String string : preurl) {

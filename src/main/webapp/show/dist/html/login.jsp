@@ -28,6 +28,7 @@
         <input type="password" id="doc-vld-pwd-1" placeholder="输入密码" required/>
       </div>
       <button class="am-btn am-btn-secondary"  onclick="login();"  style="background: #1E9FFF;border-color: #1E9FFF;">登录</button>
+      <button class="am-btn am-btn-secondary"  onclick="register();"  style="background: #1E9FFF;border-color: #1E9FFF;margin:10px auto 0;">注册</button>
     </form>
   </div>
 
@@ -46,7 +47,7 @@
       		dataType:'json',
 			success : function(data) {
 				if(data.success == true){
-					 window.open('<%=request.getContextPath()%>/show/dist/','_blank');
+               		window.open('<%=request.getContextPath()%>/show/dist/','_blank');
 				}
 				
 			},
@@ -54,6 +55,9 @@
 				console.log('接口不通' + error);
 			}
 		});
+  }
+  function register(){
+	  window.open('<%=request.getContextPath()%>/show/dist/html/register.jsp','_self');
   }
   
   </script>

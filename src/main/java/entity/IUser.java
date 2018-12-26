@@ -12,6 +12,7 @@ public class IUser implements Serializable{
 	private String User_id;//用户id
 	private String User_loginname;//登录名称
 	private String User_name;//姓名
+	private String User_ydphone;//移动电话
 	private String User_phone;//座机
 	private String User_mail;//邮箱
 	private String User_companyname;//单位名称
@@ -28,14 +29,15 @@ public class IUser implements Serializable{
 	public IUser() {
 		super();
 	}
-
-	public IUser(String user_id, String user_loginname, String user_name, String user_phone, String user_mail,
-			String user_companyname, String user_department, String user_job, String user_hold, String user_address,
-			String user_password, String createtime, String isadmin, String user_status) {
+	public IUser(String user_id, String user_loginname, String user_name, String user_ydphone, String user_phone,
+			String user_mail, String user_companyname, String user_department, String user_job, String user_hold,
+			String user_address, String user_password, String createtime, String isadmin, String user_status,
+			String user_area, String isdelete) {
 		super();
 		User_id = user_id;
 		User_loginname = user_loginname;
 		User_name = user_name;
+		User_ydphone = user_ydphone;
 		User_phone = user_phone;
 		User_mail = user_mail;
 		User_companyname = user_companyname;
@@ -47,8 +49,15 @@ public class IUser implements Serializable{
 		this.createtime = createtime;
 		this.isadmin = isadmin;
 		User_status = user_status;
+		User_area = user_area;
+		this.isdelete = isdelete;
 	}
-
+	public String getUser_ydphone() {
+		return User_ydphone;
+	}
+	public void setUser_ydphone(String user_ydphone) {
+		User_ydphone = user_ydphone;
+	}
 	public String getUser_id() {
 		return User_id;
 	}
@@ -170,6 +179,15 @@ public class IUser implements Serializable{
 
 	public void setIsdelete(String isdelete) {
 		this.isdelete = isdelete;
+	}
+	@Override
+	public String toString() {
+		return "IUser [User_id=" + User_id + ", User_loginname=" + User_loginname + ", User_name=" + User_name
+				+ ", User_ydphone=" + User_ydphone + ", User_phone=" + User_phone + ", User_mail=" + User_mail
+				+ ", User_companyname=" + User_companyname + ", User_department=" + User_department + ", User_job="
+				+ User_job + ", User_hold=" + User_hold + ", User_address=" + User_address + ", User_password="
+				+ User_password + ", createtime=" + createtime + ", isadmin=" + isadmin + ", User_status=" + User_status
+				+ ", User_area=" + User_area + ", isdelete=" + isdelete + "]";
 	}
 	
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dao.ClassPlanDao;
 import entity.ClassPlan;
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 import service.ClassPlanService;
 @Service
 public class ClassPlanServiceImpl implements ClassPlanService{
@@ -62,6 +63,19 @@ public class ClassPlanServiceImpl implements ClassPlanService{
 			return classPlans.get(0);
 		}
 		return null;
+	}
+
+	public LayuiDataTable<ClassPlan> getListNoPage() {
+		// TODO Auto-generated method stub
+		LayuiDataTable<ClassPlan> cDataTable = new LayuiDataTable<ClassPlan>();
+		
+		List<ClassPlan> classPlans = new ArrayList<ClassPlan>();
+		classPlans = classPlanDao.getlistnopage();
+		int count = 0;
+		count = classPlanDao.getClassPlanCount();
+		cDataTable.setCount(count);
+		cDataTable.setData(classPlans);
+		return cDataTable;
 	}
 
 }

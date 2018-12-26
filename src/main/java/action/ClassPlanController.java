@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import entity.ClassPlan;
 import entity.Course;
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 import entity.About;
 import service.AboutService;
 import service.ClassPlanService;
@@ -101,6 +102,26 @@ public class ClassPlanController {
 		datatablesViewPage.setDraw(draw);
 		return datatablesViewPage;
 	}
+	
+	/**
+	 * 返回课程方案列表  不分页 
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistnopage")
+	@ResponseBody
+	public LayuiDataTable<ClassPlan> GetlistNoPage(@RequestParam("page")int start,@RequestParam("limit")int length){
+		//DataTables  返回实例
+		LayuiDataTable<ClassPlan> cDataTable = new LayuiDataTable<ClassPlan>();
+		cDataTable = classPlanService.getListNoPage();
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	
+	
 	
 	
 	

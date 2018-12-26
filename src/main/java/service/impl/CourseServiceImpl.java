@@ -95,6 +95,19 @@ public class CourseServiceImpl implements CourseService{
 		return cDataTable;
 	}
 
+	public LayuiDataTable<Course> gnpDataTable(String First_course, String Second_course) {
+		// TODO Auto-generated method stub
+
+		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
+		int count = 0;
+		count = courseDao.getCourseCount(First_course, Second_course);
+		List<Course> courses = new ArrayList<Course>();
+		courses = courseDao.getnopage(First_course, Second_course);
+		cDataTable.setCount(count);
+		cDataTable.setData(courses);
+		return cDataTable;
+	}
+
 	
 	
 }

@@ -100,7 +100,7 @@ public class ApplyController {
 		apply.setApply_id(UUIDUtil.getUUid("apply"));
 		apply.setBrithday(brithday);
 		apply.setCheck_status("0");
-		apply.setCreater("admin");
+		apply.setCreater(user.getUser_id());
 		apply.setCreatetime(news_Createtime);
 		apply.setDepartment(department);
 		apply.setIndentity_number(indentity_number);

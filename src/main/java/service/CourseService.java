@@ -23,4 +23,6 @@ public interface CourseService {
 	
 	//layui
 	public LayuiDataTable<Course> gDataTable(int page,int limit,String First_course,String Second_course);
+	//layui
+	public LayuiDataTable<Course> gnpDataTable(String First_course,String Second_course);
 }

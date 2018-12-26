@@ -21,36 +21,20 @@
 	<body>
 		<div class="layout">
 			<!--===========layout-header================-->
-			<div class="layout-header am-hide-sm-only">
+			<div class="layout-header am-hide-sm-only am-hide-xs-only">
 				<!--topbar start-->
 				<div class="topbar" style="background: #FFFFFF;">
 					<div class="container" style="background: #FFFFFF;width: auto!important;">
 						<div class="am-g">
 							<div class="am-u-md-8">
 								<div class="topbar-left">
-									<!--<i class="am-icon-globe"></i>-->
 									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
 										联系电话+86-010-83951120 / 83951097
-										<!--<button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>Language <span class="am-icon-caret-down"></span></button>
-                  <ul class="am-dropdown-content">
-                    <li><a href="#">English</a></li>
-                    <li class="am-divider"></li>
-                    <li><a href="#">Chinese</a></li>
-                  </ul>-->
 									</div>
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<!--Follow us
-                <i class="am-icon-facebook"></i>
-                <i class="am-icon-twitter"></i>
-                <i class="am-icon-google-plus"></i>
-                <i class="am-icon-pinterest"></i>
-                <i class="am-icon-instagram"></i>
-                <i class="am-icon-linkedin"></i>
-                <i class="am-icon-youtube-play"></i>
-                <i class="am-icon-rss"></i>-->
 									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
 									<%}; %>
@@ -155,82 +139,16 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-
-
-														<!--<li>
-							                <a href="#">产品中心</a>
-							                <ul class="sub-menu">
-							                  <li class="menu-item"><a href="html/product1.jsp">产品展示1</a></li>
-							                  <li class="menu-item"><a href="html/product2.jsp">产品展示2</a></li>
-							                  <li class="menu-item"><a href="html/product3.jsp">产品展示3</a></li>
-							                </ul>
-							              </li>-->
-
 													</ul>
 												</div>
 											</div>
-											<!--<div class="header_contacts--item">
-  											<div class="contact_mini">
-  												<i style="color:#7c6aa6" class="contact-icon am-icon-phone"></i>
-  												<strong>0 (855) 233-5385</strong>
-  												<span>周一~周五, 8:00 - 20:00</span>
-  											</div>
-  										</div>
-                      <div class="header_contacts--item">
-  											<div class="contact_mini">
-  												<i style="color:#7c6aa6" class="contact-icon am-icon-envelope-o"></i>
-  												<strong>cn@yunshipei.com</strong>
-  												<span>随时欢迎您的来信！</span>
-  											</div>
-  										</div>
-                      <div class="header_contacts--item">
-  											<div class="contact_mini">
-  												<i style="color:#7c6aa6" class="contact-icon am-icon-map-marker"></i>
-  												<strong>天使大厦,</strong>
-  												<span>海淀区海淀大街27</span>
-  											</div>
-  										</div>-->
 										</div>
-										<!--<a href="html/incumbencyStudent.jsp" class="contact-btn">
-                      <button type="button" class="am-btn am-btn-secondary am-radius">联系我们</button>
-                    </a>-->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!--header end-->
-
-					<!--nav start-->
-					<!--<div class="nav-contain">
-          <div class="nav-inner">
-            <ul class="am-nav am-nav-pills am-nav-justify">
-              <li class=""><a href="./index.jsp">首页</a></li>
-              <li>
-                <a href="#">产品中心</a>
-                <ul class="sub-menu">
-                  <li class="menu-item"><a href="html/product1.jsp">产品展示1</a></li>
-                  <li class="menu-item"><a href="html/product2.jsp">产品展示2</a></li>
-                  <li class="menu-item"><a href="html/product3.jsp">产品展示3</a></li>
-                </ul>
-              </li>
-              <li><a href="html/regulationsClasses.jsp">客户案例</a></li>
-              <li><a href="html/customizedClasses.jsp">解决方案</a></li>
-              <li>
-                <a href="html/newsNotice.jsp">新闻中心</a>
-                <ul class="sub-menu">
-                  <li class="menu-item"><a href="html/news-content.jsp">公司动态</a></li>
-                  <li class="menu-item"><a href="html/404-dark.jsp">行业动态</a></li>
-                  <li class="menu-item"><a href="html/404-light.jsp">精彩专题</a></li>
-                </ul>
-              </li>
-              <li><a href="html/about.jsp">关于我们</a></li>
-              <li><a href="html/onlineClasses.jsp">加入我们</a></li>
-              <li><a href="html/incumbencyStudent.jsp">联系我们</a></li>
-            </ul>
-          </div>
-        </div>-->
-					<!--nav end-->
 				</div>
 			</div>
 
@@ -246,75 +164,83 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
+
+
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp" class="" style="color: #FF2F2F;">首页</a>
+												<a href="index.jsp" style="color: #FF2F2F;">首页</a>
 											</li>
 											<li class="am-parent">
-												<a href="#" class="">产品中心</a>
+												<a href="html/cultureSystem.jsp">项目概况</a>
 												<ul class="am-menu-sub am-collapse ">
 													<li class="">
-														<a href="html/product1.jsp" class="">产品展示1</a>
+														<a href="html/cultureSystem.jsp">培养体系</a>
 													</li>
 													<li class="">
-														<a href="html/product2.jsp" class="">产品展示2</a>
+														<a href="html/solution.jsp">解决方案</a>
 													</li>
 													<li class="">
-														<a href="html/product3.jsp" class="">产品展示3</a>
+														<a href="html/teachingMaterialSystem.jsp" class="">教材体系</a>
+													</li>
+													<li class="">
+														<a href="html/taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="html/expertTeam.jsp" class="">专家团队</a>
 													</li>
 												</ul>
 											</li>
 											<li class="">
-												<a href="html/regulationsClasses.jsp" class="">客户案例</a>
+												<a href="html/regulationsClasses.jsp">规定班次</a>
 											</li>
 											<li class="">
-												<a href="html/customizedClasses.jsp" class="">解决方案</a>
+												<a href="html/customizedClasses.jsp">定制班次</a>
 											</li>
+											<li class="">
+												<a href="html/onlineClasses.jsp">拼班</a>
+											</li>
+
 											<li class="am-parent">
-												<a href="html/newsNotice.jsp" class="">新闻中心</a>
+												<a href="html/incumbencyStudent.jsp">在职研</a>
 												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
-														<a href="newsNotice.jsp">通知公告</a>
+														<a href="html/incumbencyStudent.jsp">招生简章</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
+														<a href="html/onlineApplication.jsp">在线报名</a>
 													</li>
 												</ul>
-											</li>
-											<li class="">
-												<a href="html/about.jsp" class="">关于我们</a>
-											</li>
-											<li class="">
-												<a href="html/onlineClasses.jsp" class="">加入我们</a>
-											</li>
-											<li class="">
-												<a href="html/incumbencyStudent.jsp" class="">联系我们</a>
 											</li>
 											<li class="am-parent">
-												<a href="" class="nav-icon nav-icon-globe">Language</a>
+												<a href="html/newsNotice.jsp">新闻公告</a>
 												<ul class="am-menu-sub am-collapse  ">
-													<li>
-														<a href="#">English</a>
+													<li class="menu-item">
+														<a href="html/newsNotice.jsp">通知公告</a>
 													</li>
-													<li class="">
-														<a href="#">Chinese</a>
+													<li class="menu-item">
+														<a href="html/newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
 											</li>
-											<li class="nav-share-contain">
-												<div class="nav-share-links">
-													<i class="am-icon-facebook"></i>
-													<i class="am-icon-twitter"></i>
-													<i class="am-icon-google-plus"></i>
-													<i class="am-icon-pinterest"></i>
-													<i class="am-icon-instagram"></i>
-													<i class="am-icon-linkedin"></i>
-													<i class="am-icon-youtube-play"></i>
-													<i class="am-icon-rss"></i>
-												</div>
+											<li class="am-parent">
+												<a href="html/about.jsp">关于我们</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="html/centerOverview.jsp">中心概况</a>
+													</li>
+													<li class="menu-item">
+														<a href="html/organization.jsp">组织结构</a>
+													</li>
+													<li class="menu-item">
+														<a href="html/aboutSchool.jsp">学校介绍</a>
+													</li>
+												</ul>
 											</li>
 											<li class="">
-												<a href="html/login.jsp" class="">登录</a>
+												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<%}; %>
+												<% if(user == null) {%><a href="html/login.jsp" >登录</a><%}; %>
 											</li>
 											<li class="">
 												<a href="html/register.jsp" class="">注册</a>
@@ -363,7 +289,7 @@
 			</div>
 
 			<!--promo_detailed start-->
-			<div class="promo_detailed" style="min-height: auto!important;background: #ffffff;">
+			<div class="promo_detailed newsBlock" style="min-height: auto!important;background: #ffffff;">
 				<div class="promo_detailed-container">
 					<div class="container" style="width: auto!important;padding-top: 20px;">
 						<div class="am-g">
@@ -417,10 +343,10 @@
 								</ul>
 							</div>
 
-							<div class="am-u-md-6" style="max-height: 360px;padding-right: 2%;">
+							<div class="am-u-md-6 trainNews" style="max-height: 360px;padding-right: 1rem;padding-left:1rem;">
 								<div class="promo_detailed--cta">
 									<h2 class="news">■培训新闻</h2>
-									<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 5%;">
+									<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 2.5%;">
 										<li class="promo_detailed--list_item">
 											<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">
 		                  <!--<i class="am-icon-diamond"></i>-->
@@ -468,7 +394,7 @@
 					<!--about-container end-->
 					<div class="container" style="margin-top: 20px;width: auto!important;">
 						<div class="section--header first_title_padding_bottom" style="text-align: center;border-bottom: 1px solid #ccc;margin-bottom: 10px;padding-bottom: 5px;">
-							<h2 class="section--title tltle_center title_bottom_border" style="font-weight: 600;font-size: 16px;color: #000;">五大核心优势</h2>
+							<h2 class="section--title tltle_center title_bottom_border" style="font-weight: 600;color: #000;">五大核心优势</h2>
 						</div>
 
 						<div class="news-contaier">
@@ -584,7 +510,7 @@
 					<div class="container">
 						<div class="footer_main">
 							<div class="am-g">
-								<div class="am-u-lg-4 am-u-md-4 am-u-sm-4">
+								<div class="am-u-lg-4 am-u-md-4 am-u-sm-12">
 									<div class="footer_main--column">
 										<strong class="footer_main--column_title">友情链接</strong>
 										<ul class="footer_navigation">
@@ -597,8 +523,8 @@
 									</div>
 								</div>
 
-								<div class="am-u-lg-8 am-u-md-8 am-u-sm-8">
-									<div class="footer_main--column am-u-md-8">
+								<div class="am-u-lg-8 am-u-md-8 am-u-sm-12">
+									<div class="footer_main--column am-u-lg-8 am-u-md-8 am-u-sm-12">
 										<strong class="footer_main--column_title">联系详情</strong>
 										<ul class="footer_contact_info">
 											<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
@@ -607,7 +533,7 @@
 											<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
 										</ul>
 									</div>
-									<div class="am-u-md-4 " style="margin-top: 20px;">
+									<div class="am-u-lg-4 am-u-md-4 am-u-sm-12 " style="margin-top: 20px;">
 										<div class="footer_main--column">
 											<ul class="footer_navigation">
 												<div class="article-img">
@@ -636,5 +562,26 @@
 		<script src="assets/js/amazeui.js" charset="utf-8"></script>
 		<script src="assets/js/common.js" charset="utf-8"></script>
 	</body>
+	<script>
+		$(function(){
+			var windowWidth = $(window).width();
+		    if(windowWidth < 640){
+		        // do something
+		    	var newsBlockHeight = $(".newsBlock").height()+330;
+		        $(".newsBlock").css("height",newsBlockHeight);
+		    }
+		    if(windowWidth >= 640){
+		        // do something
+		    }
+		    
+			var layoutHeight = $(".layout").height();
+			var bodyHeight = $("body").height();
+			var layoutFootHeight=$(".layout-footer").height();
+			if(bodyHeight>(layoutHeight+layoutFootHeight)){
+				$(".layout-footer").css("margin-bottom",layoutHeight+layoutFootHeight-bodyHeight);
+			}
+			
+		})
+	</script>
 
 </html>

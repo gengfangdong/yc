@@ -71,7 +71,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -103,7 +106,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" style="position: fixed;">
+			<aside class="main-sidebar">
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -112,8 +115,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -128,7 +139,7 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 新闻公告<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="noticeAnnouncement.jsp" ><i class="fa fa-square-o"></i> 通知公告</a>
+											<a href="noticeAnnouncement.jsp"><i class="fa fa-square-o"></i> 通知公告</a>
 										</li>
 										<li>
 											<a href="newsManagement.jsp"><i class="fa fa-square-o"></i> 新闻管理</a>
@@ -137,12 +148,30 @@
 											<a href="rotationPicture.jsp"><i class="fa fa-square-o"></i> 轮播图片</a>
 										</li>
 										<li>
-											<a href="projectOverview.jsp"><i class="fa fa-square-o"></i> 项目概况</a>
-										</li>
-										<li>
 											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
 										</li>
-										
+
+									</ul>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-circle-o"></i> 项目概况<i class="fa fa-angle-left pull-right"></i></a>
+									<ul class="treeview-menu menu_tree">
+										<li>
+											<a href="cultureSystem.jsp" ><i class="fa fa-square-o"></i> 培养体系</a>
+										</li>
+										<li>
+											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+										</li>
+										<li>
+											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+										</li>
+										<li>
+											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
+										</li>
+										<li>
+											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
+										</li>
+
 									</ul>
 								</li>
 								<li>
@@ -169,7 +198,7 @@
 											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+											<a href="membershipManagement.jsp" ><i class="fa fa-square-o"></i> 会员管理</a>
 										</li>
 									</ul>
 								</li>
@@ -561,11 +590,27 @@
 			</script>
 		<script>
 			window.onload = function(){
+				<% if(user == null){%>
+				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+				
+			<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
                 treeUls[3].setAttribute('style','display: block;');
+                treeUls[4].setAttribute('style','display: block;');
+              //左侧导航树高度
+                var leftTreeHeight = document.getElementsByClassName('sidebar')[0].offsetHeight;
+                //屏幕高度
+                var screenHeight = window.screen.height;
+                //可用内容高度
+                var ableHeight = screenHeight - 150;
+                if(ableHeight<leftTreeHeight){
+                	$(".content-wrapper").css("min-height",leftTreeHeight);
+                }else{
+                	$(".content-wrapper").css("min-height",ableHeight);
+                }
 			};
 		</script>
 	</body>

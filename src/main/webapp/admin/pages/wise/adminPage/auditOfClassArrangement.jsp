@@ -103,7 +103,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" style="position: fixed;">
+			<aside class="main-sidebar" >
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -513,6 +513,19 @@
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
+				treeUls[3].setAttribute('style','display: block;');
+				treeUls[4].setAttribute('style','display: block;');
+				//左侧导航树高度
+                var leftTreeHeight = document.getElementsByClassName('sidebar')[0].offsetHeight;
+                //屏幕高度
+                var screenHeight = window.screen.height;
+                //可用内容高度
+                var ableHeight = screenHeight - 150;
+                if(ableHeight<leftTreeHeight){
+                	$(".content-wrapper").css("min-height",leftTreeHeight);
+                }else{
+                	$(".content-wrapper").css("min-height",ableHeight);
+                }
 			};
 		</script>
 	</body>

@@ -273,17 +273,56 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
-										<ul class="am-nav am-nav-pills am-nav-justify">
-											<li class="">
+
+
+										<ul class="am-menu-nav am-avg-sm-1">
+											<li>
 												<a href="../index.jsp">首页</a>
 											</li>
-											<li>
-												<a href="about.jsp">关于我们</a>
+											<li class="am-parent">
+												<a href="cultureSystem.jsp" >项目概况</a>
+												<ul class="am-menu-sub am-collapse ">
+													<li class="">
+														<a href="cultureSystem.jsp">培养体系</a>
+													</li>
+													<li class="">
+														<a href="solution.jsp">解决方案</a>
+													</li>
+													<li class="">
+														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+													</li>
+													<li class="">
+														<a href="taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="expertTeam.jsp" class="">专家团队</a>
+													</li>
+												</ul>
 											</li>
-											<li>
-												<a href="newsNotice.jsp">新闻中心</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
+											<li class="">
+												<a href="regulationsClasses.jsp">规定班次</a>
+											</li>
+											<li class="">
+												<a href="customizedClasses.jsp">定制班次</a>
+											</li>
+											<li class="">
+												<a href="onlineClasses.jsp">拼班</a>
+											</li>
+
+											<li class="am-parent">
+												<a href="incumbencyStudent.jsp"  style="color: #FF2F2F;">在职研</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="incumbencyStudent.jsp">招生简章</a>
+													</li>
+													<li class="menu-item">
+														<a href="onlineApplication.jsp"  style="color: #FF2F2F;">在线报名</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="newsNotice.jsp">新闻公告</a>
+												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
 														<a href="newsNotice.jsp">通知公告</a>
 													</li>
@@ -291,32 +330,26 @@
 														<a href="newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
 											</li>
-											<li>
-												<a href="regulationsClasses.jsp">规定班次</a>
-											</li>
-											<li>
-												<a href="customizedClasses.jsp">定制班次</a>
-											</li>
-											<li>
-												<a href="onlineClasses.jsp">在线拼班</a>
-											</li>
-											<li>
-												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
+											<li class="am-parent">
+												<a href="about.jsp">关于我们</a>
+												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
-														<a href="incumbencyStudent.jsp">招生简章</a>
+														<a href="centerOverview.jsp">中心概况</a>
 													</li>
 													<li class="menu-item">
-														<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
+														<a href="organization.jsp">组织结构</a>
+													</li>
+													<li class="menu-item">
+														<a href="aboutSchool.jsp">学校介绍</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<a href="login.jsp" class="">登录</a>
+												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<%}; %>
+												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -331,7 +364,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -350,7 +383,7 @@
 
 			<div class="am-g am-g-fixed myFixedSiderbar">
 				<!--正文-->
-				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+				<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 100px;">
 					<div class="breadcrumb-box">
 						<div class="am-container">
 							<ol class="am-breadcrumb">
@@ -492,7 +525,7 @@
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
+								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">■联系我们</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
 									<!--<span class="promo_detailed--list_item_icon noBorder">
 	                  <i class="am-icon-phone" ></i>
@@ -669,7 +702,7 @@
 				"ordering": false,
 				"autoWidth": false,
 				ajax: {
-	                url: "<%=request.getContextPath()%>/Show/getlistProject"
+	                <%-- url: "<%=request.getContextPath()%>/Project/getlist" --%>
 	            },
 	            serverSide: true,
 	            columns: [
@@ -702,7 +735,7 @@
                         "targets":-1,
                         "bSortable": false,
                         render: function(data, type, row) {
-                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">个人报名</a></p>';
+                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_creater+'\',\''+row.project_createtime+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_creater+'\',\''+row.project_createtime+'\');\">个人报名</a></p>';
                             return html;
                         }
                     }], 
@@ -712,9 +745,9 @@
 			
 		</script>
 		<script type="text/javascript"> 
-			function addBranch(obj,id,name){
+			function addBranch(obj,id,creater,createtime){
 // 				document.getElementById("project_id").value=id;
-// 				alert(name);
+// 				alert(row);
 				var sText = obj.innerHTML;
 				<%
 					if(user == null){
@@ -725,7 +758,7 @@
 								window.open("onlineApplicationByOne.jsp?param="+id,'_self');
 							}<%	
 							%>else if(sText == '单位报名'){
-								window.open("onlineApplicationByCompany.jsp?param="+id+","+name,'_self');
+								window.open("onlineApplicationByCompany.jsp?param="+id,'_self');
 							}<%
 						}
 				%>

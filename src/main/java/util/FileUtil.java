@@ -58,6 +58,7 @@ public class FileUtil {
 		if(path!=null){
 			filePath=path;
 		}
+		System.out.println(path);
 		fileName = createFileName(fileName);
 		return this.uploadFile(file, fileName);
 	}

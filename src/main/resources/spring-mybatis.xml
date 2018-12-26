@@ -38,7 +38,7 @@
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
         <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="wall,stat" />
+        <property name="filters" value="stat" />
     </bean>
     
      

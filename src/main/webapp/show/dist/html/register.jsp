@@ -1,5 +1,9 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +18,9 @@
     <style>
         .register-name {
             color: #14426a;
+        }
+        input{
+        	border-radius:10px!important;
         }
     </style>
 </head>
@@ -36,8 +43,11 @@
                     </div>
                     <div class="am-u-md-4">
                         <div class="topbar-right am-text-right am-fr">
-                            <a href="login.html" style="color: #000000;">登录</a>
-                            <a href="register.html" style="color: #000000;">注册</a>
+                            <% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%}; %>
+									<% if(user == null) {%><a href="login.jsp" style="color: #000000;">登录</a><%}; %>
+									<a href="register.jsp" style="color: #000000;">注册</a>
                         </div>
                     </div>
                 </div>
@@ -63,77 +73,77 @@
                                         <div class="nav-inner">
                                             <ul class="am-nav am-nav-pills am-nav-justify">
                                                 <li class="">
-                                                    <a href="../index.html" style="color: #FF2F2F;">首页</a>
+                                                    <a href="../index.jsp">首页</a>
                                                 </li>
                                                 <li>
-                                                    <a href="cultureSystem.html">项目概况</a>
+                                                    <a href="cultureSystem.jsp">项目概况</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
-                                                            <a href="cultureSystem.html">培养体系</a>
+                                                            <a href="cultureSystem.jsp">培养体系</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="solution.html">解决方案</a>
+                                                            <a href="solution.jsp">解决方案</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="teachingMaterialSystem.html">教材体系</a>
+                                                            <a href="teachingMaterialSystem.jsp">教材体系</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="taxCollectionFund.html">领税基金</a>
+                                                            <a href="taxCollectionFund.jsp">领税基金</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="expertTeam.html">专家团队</a>
+                                                            <a href="expertTeam.jsp">专家团队</a>
                                                         </li>
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li>
-                                                    <a href="regulationsClasses.html">规定班次</a>
+                                                    <a href="regulationsClasses.jsp">规定班次</a>
                                                 </li>
                                                 <li>
-                                                    <a href="customizedClasses.html">定制班次</a>
+                                                    <a href="customizedClasses.jsp">定制班次</a>
                                                 </li>
                                                 <li>
-                                                    <a href="onlineClasses.html">拼班</a>
+                                                    <a href="onlineClasses.jsp">拼班</a>
                                                 </li>
                                                 <li>
-                                                    <a href="incumbencyStudent.html">在职研</a>
+                                                    <a href="incumbencyStudent.jsp">在职研</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
-                                                            <a href="incumbencyStudent.html">招生简章</a>
+                                                            <a href="incumbencyStudent.jsp">招生简章</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="onlineApplication.html">在线报名</a>
+                                                            <a href="onlineApplication.jsp">在线报名</a>
                                                         </li>
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li>
-                                                    <a href="newsNotice.html">新闻公告</a>
+                                                    <a href="newsNotice.jsp">新闻公告</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
-                                                            <a href="newsNotice.html">通知公告</a>
+                                                            <a href="newsNotice.jsp">通知公告</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="newsTrain.html">培训新闻</a>
+                                                            <a href="newsTrain.jsp">培训新闻</a>
                                                         </li>
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li>
-                                                    <a href="about.html">关于我们</a>
+                                                    <a href="about.jsp">关于我们</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
-                                                            <a href="centerOverview.html">中心概况</a>
+                                                            <a href="centerOverview.jsp">中心概况</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="organization.html">组织结构</a>
+                                                            <a href="organization.jsp">组织结构</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="aboutSchool.html">学校介绍</a>
+                                                            <a href="aboutSchool.jsp">学校介绍</a>
                                                         </li>
                                                     </ul>
                                                     <!-- sub-menu end-->
@@ -153,93 +163,113 @@
     </div>
     <!--mobile header start-->
     <div class="m-header">
-        <div class="am-g am-show-sm-only">
-            <div class="am-u-sm-2">
-                <div class="menu-bars">
-                    <a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i
-                            class="am-menu-toggle-icon am-icon-bars"></i></a>
-                    <!-- 侧边栏内容 -->
-                    <nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
-                        <a href="javascript: void(0)" class="am-menu-toggle"></a>
+				<div class="am-g am-show-sm-only">
+					<div class="am-u-sm-2">
+						<div class="menu-bars">
+							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
+							<!-- 侧边栏内容 -->
+							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+								<a href="javascript: void(0)" class="am-menu-toggle"></a>
 
-                        <div class="am-offcanvas">
-                            <div class="am-offcanvas-bar">
-                                <ul class="am-menu-nav am-avg-sm-1">
-                                    <li><a href="./index.html" class="">首页</a></li>
-                                    <li class="am-parent">
-                                        <a href="#" class="">产品中心</a>
-                                        <ul class="am-menu-sub am-collapse ">
-                                            <li class="">
-                                                <a href="product1.html" class="">产品展示1</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="product2.html" class="">产品展示2</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="product3.html" class="">产品展示3</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class=""><a href="example.html" class="">客户案例</a></li>
-                                    <li class=""><a href="solution.html" class="">解决方案</a></li>
-                                    <li class="am-parent">
-                                        <a href="news.html" class="">新闻中心</a>
-                                        <ul class="am-menu-sub am-collapse  ">
-                                            <li class="">
-                                                <a href="news-content.html" class="">公司动态</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="404-dark.html" class="">行业动态</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="404-light.html" class="">精彩专题</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class=""><a href="about.html" class="">关于我们</a></li>
-                                    <li class=""><a href="join.html" class="">加入我们</a></li>
-                                    <li class=""><a href="contact.html" class="">联系我们</a></li>
-                                    <li class="am-parent">
-                                        <a href="" class="nav-icon nav-icon-globe">Language</a>
-                                        <ul class="am-menu-sub am-collapse  ">
-                                            <li>
-                                                <a href="#">English</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#">Chinese</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-share-contain">
-                                        <div class="nav-share-links">
-                                            <i class="am-icon-facebook"></i>
-                                            <i class="am-icon-twitter"></i>
-                                            <i class="am-icon-google-plus"></i>
-                                            <i class="am-icon-pinterest"></i>
-                                            <i class="am-icon-instagram"></i>
-                                            <i class="am-icon-linkedin"></i>
-                                            <i class="am-icon-youtube-play"></i>
-                                            <i class="am-icon-rss"></i>
-                                        </div>
-                                    </li>
-                                    <li class=""><a href="login.html" class="">登录</a></li>
-                                    <li class=""><a href="register.html" class="">注册</a></li>
-                                </ul>
+								<div class="am-offcanvas">
+									<div class="am-offcanvas-bar">
 
-                            </div>
-                        </div>
-                    </nav>
 
-                </div>
-            </div>
-            <div class="am-u-sm-5 am-u-end">
-                <div class="m-logo">
-                    <a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
-                </div>
-            </div>
-        </div>
-        <!--mobile header end-->
-    </div>
+										<ul class="am-menu-nav am-avg-sm-1">
+											<li>
+												<a href="../index.jsp">首页</a>
+											</li>
+											<li class="am-parent">
+												<a href="cultureSystem.jsp" >项目概况</a>
+												<ul class="am-menu-sub am-collapse ">
+													<li class="">
+														<a href="cultureSystem.jsp" >培养体系</a>
+													</li>
+													<li class="">
+														<a href="solution.jsp">解决方案</a>
+													</li>
+													<li class="">
+														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+													</li>
+													<li class="">
+														<a href="taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="expertTeam.jsp" class="">专家团队</a>
+													</li>
+												</ul>
+											</li>
+											<li class="">
+												<a href="regulationsClasses.jsp">规定班次</a>
+											</li>
+											<li class="">
+												<a href="customizedClasses.jsp">定制班次</a>
+											</li>
+											<li class="">
+												<a href="onlineClasses.jsp">拼班</a>
+											</li>
+
+											<li class="am-parent">
+												<a href="incumbencyStudent.jsp">在职研</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="incumbencyStudent.jsp">招生简章</a>
+													</li>
+													<li class="menu-item">
+														<a href="onlineApplication.jsp">在线报名</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="newsNotice.jsp">新闻公告</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="newsNotice.jsp">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.jsp">培训新闻</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="about.jsp">关于我们</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="centerOverview.jsp">中心概况</a>
+													</li>
+													<li class="menu-item">
+														<a href="organization.jsp">组织结构</a>
+													</li>
+													<li class="menu-item">
+														<a href="aboutSchool.jsp">学校介绍</a>
+													</li>
+												</ul>
+											</li>
+											<li class="">
+												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<%}; %>
+												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
+											</li>
+											<li class="">
+												<a href="register.jsp" class="">注册</a>
+											</li>
+										</ul>
+
+									</div>
+								</div>
+							</nav>
+
+						</div>
+					</div>
+					<div class="am-u-sm-5 am-u-end">
+						<div class="m-logo">
+							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+						</div>
+					</div>
+				</div>
+				<!--mobile header end-->
+			</div>
 
 
     <!--===========layout-container================-->
@@ -251,29 +281,29 @@
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_phone" class="register-name register_loginName">登录名称</label>
+                            <label for="register_phone" class="register-name register_loginName"><span style="color:red;">*</span>登录名称</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_phone" minlength="11" maxlength="11"
-                                   placeholder="必输项，请输入您的手机号" required/>
+                                   placeholder="请输入您的手机号" required/>
                         </div>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_userName" class="register-name register_userName">您的姓名</label>
+                            <label for="register_userName" class="register-name register_userName"><span style="color:red;">*</span>联系人姓名</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_userName" minlength="1"
-                                   placeholder="必填项，请输入您的真实姓名" required/>
+                                   placeholder="请输入您的真实姓名" required/>
                         </div>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_tel" class="register-name register_tel">您的座机</label>
+                            <label for="register_tel" class="register-name register_tel"><span style="color:red;">*</span>办公电话</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_tel" minlength="12" maxlength="12"
@@ -284,11 +314,11 @@
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_email" class="register-name register_email">您的邮箱</label>
+                            <label for="register_email" class="register-name register_email">联系邮箱</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_email" minlength="1"
-                                   placeholder="必填项，请输入您的邮箱，如23456789@qq.com" required/>
+                                   placeholder="请输入您的邮箱，如23456789@qq.com" required/>
                         </div>
                     </div>
                 </div>
@@ -296,44 +326,44 @@
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_company" class="register-name register_company">单位名称</label>
+                            <label for="register_company" class="register-name register_company"><span style="color:red;">*</span>工作单位</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_company" minlength="1"
-                                   placeholder="必填项，请输入您当前所在单位的名称" required/>
+                                   placeholder="请输入您当前所在单位的名称" required/>
                         </div>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_department" class="register-name register_department">所在部门</label>
+                            <label for="register_department" class="register-name register_department"><span style="color:red;">*</span>工作部门</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_department" minlength="1"
-                                   placeholder="必填项，请输入您所在的部门" required/>
+                                   placeholder="请输入您所在的部门" required/>
                         </div>
                     </div>
                 </div>
-                <div class="am-form-group">
+                <!-- <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
                             <label for="register_job" class="register-name register_job">任职岗位</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_job" minlength="1"
-                                   placeholder="必填项，请输入您当前任职岗位" required/>
+                                   placeholder="请输入您当前任职岗位" required/>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_post" class="register-name register_post">担任职务</label>
+                            <label for="register_post" class="register-name register_post"><span style="color:red;">*</span>工作职务</label>
                         </div>
                         <div class="am-u-md-10">
                             <input type="text" id="register_post" minlength="1"
-                                   placeholder="必填项，请输入您当前的职务" required/>
+                                   placeholder="请输入您当前的职务" required/>
                         </div>
                     </div>
                 </div>
@@ -341,10 +371,10 @@
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="doc-vld-pwd-1" class="register-name register-pwd">输入密码</label>
+                            <label for="doc-vld-pwd-1" class="register-name register-pwd"><span style="color:red;">*</span>输入密码</label>
                         </div>
                         <div class="am-u-md-10">
-                            <input type="password" id="doc-vld-pwd-1" minlength="6" maxlength="6" placeholder="必填项，请设置您的密码" pattern="^\d{6}$"
+                            <input type="password" id="doc-vld-pwd-1" minlength="6" maxlength="6" placeholder="请设置您的密码" pattern="^\d{6}$"
                                    required/>
                         </div>
                     </div>
@@ -353,10 +383,10 @@
                 <div class="am-form-group">
                     <div class="am-g">
                         <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="doc-vld-pwd-2" class="register-name">确认密码</label>
+                            <label for="doc-vld-pwd-2" class="register-name"><span style="color:red;">*</span>确认密码</label>
                         </div>
                         <div class="am-u-md-10">
-                            <input type="password" id="doc-vld-pwd-2" minlength="6" maxlength="6" placeholder="必填项，请再次输入您的密码"
+                            <input type="password" id="doc-vld-pwd-2" minlength="6" maxlength="6" placeholder="请再次输入您的密码"
                                    data-equal-to="#doc-vld-pwd-1" required/>
                         </div>
                     </div>
@@ -411,12 +441,13 @@
         var register_email = $("#register_email").val();
         var register_company = $("#register_company").val();
         var register_department = $("#register_department").val();
+      //  var register_post = $("#register_post").val();
         var register_post = $("#register_post").val();
-        var register_job = $("#register_job").val();
         var register_password1 = $("#doc-vld-pwd-1").val();
         var register_password2 = $("#doc-vld-pwd-2").val();
         var testPhone = /^1\d{10}$/;
         var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        var testTel = /^0\d{2,3}-?\d{7,8}$/;
         if(register_phone==""){
             alert("请输入登录名称！");
             return;
@@ -428,10 +459,14 @@
             alert("请输入您的姓名！");
             return;
         }
-        if(register_email==""){
-            alert("请输入您的邮箱！");
-            return;
-        }else if(testEmail.test(register_email)==false){
+	if(register_tel==""){
+		alert("请输入办公电话！");
+		return;
+	}else if(testTel.test(register_tel)==false){
+		alert("请输入有效的办公电话！");
+		return;
+	}
+        if(register_email!="" && testEmail.test(register_email)==false){
             alert("请输入正确的邮箱！");
             return;
         }
@@ -443,11 +478,11 @@
             alert("请输入您所在部门！");
             return;
         }
-        if(register_post==""){
+       /*  if(register_post==""){
             alert("请输入您的任职岗位！");
             return;
-        }
-        if(register_job==""){
+        } */
+        if(register_post==""){
             alert("请输入您的担任职务！");
             return;
         }
@@ -499,17 +534,20 @@
                 "User_mail":register_email,
                 "User_companyname":register_company,
                 "User_department":register_department,
-                "User_job":register_post,
-                "User_hold":register_job,
+                "User_job":"",
+                "User_hold":register_post,
                 "User_password":register_password1
             },
             dateType:"json",
             type:"post",
+            async:false, 
             success:function (data) {
                 if(data.success == true){
                    var r = confirm("注册成功！是否登录？");
                     if(r==true){
-                        window.open('login.html',"_self");
+                    	window.open('','_self','');
+                    	window.close();
+                        window.open('login.jsp',"_self");
                     }else{
                         return;
                     }
@@ -525,7 +563,7 @@
                     }
                 }
             },error:function(e){
-                alert("a");
+                alert("注册失败!");
                // $("#alertShow").innerHTML= errorRegister;
                 //error
             }

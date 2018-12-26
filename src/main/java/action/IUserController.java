@@ -133,6 +133,8 @@ public class IUserController {
 		iUser.setIsadmin("0");//非管理员
 		iUser.setIsdelete("0");//未删除
 		iUser.setCreatetime(news_Createtime);
+		iUser.setUser_status("1");//默认为可用
+		iUser.setUser_ydphone(User_loginname);//移动电话
 		
 		iUserService.insertIUser(iUser);
 		resultMap.put("success", true);
@@ -274,7 +276,7 @@ public class IUserController {
 		iUser.setIsdelete("0");//未删除
 		iUser.setUser_status(User_status);
 		iUser.setCreatetime(news_Createtime);
-
+		iUser.setUser_ydphone(User_loginname);
 		iUserService.insertIUser(iUser);
 		resultMap.put("success", true);
 		resultMap.put("msg", "2");// 注册成功!
@@ -425,6 +427,11 @@ public class IUserController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpSession session = request.getSession();
 		IUser user = (IUser) session.getAttribute("user");
+		if (user == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 参数错误
+			return resultMap;
+		}
 		String user_id = user.getUser_id(); //"user626e64ef8dfe49389fc1a358da95442e";
 		if (StringUtil.isblack(user_id)) {
 			resultMap.put("success", false);
@@ -446,7 +453,9 @@ public class IUserController {
 	
 	@RequestMapping("/updateShowIUser")
 	@ResponseBody
-	public Map<String,Object> updateIUser(String User_id,String User_name,String User_area,String User_phone,String User_mail,String User_address){
+	public Map<String,Object> updateIUser(String User_id,String User_name,String User_ydphone,
+			String User_phone,String User_mail,String User_companyname,String User_department,
+			String User_hold){
 		// 返回的map
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		//
@@ -466,13 +475,23 @@ public class IUserController {
 		}
 
 		iUser.setCreatetime(news_Createtime);
-		iUser.setUser_area(User_area);
+		iUser.setUser_companyname(User_companyname);
+		iUser.setUser_department(User_department);
+		iUser.setUser_hold(User_hold);
 		iUser.setUser_name(User_name);
+		iUser.setUser_ydphone(User_ydphone);
 		iUser.setUser_mail(User_mail);
 		iUser.setUser_phone(User_phone);
-		
+		try{
+			iUserService.updateShow(iUser);
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "3");//保存失败!
+			return resultMap;
+		}
 		resultMap.put("success", true);
-		resultMap.put("data", iUser);
+		resultMap.put("message", "2");//保存成功!
 		return resultMap;
 	}
 	

@@ -71,7 +71,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -112,8 +115,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -198,16 +209,18 @@
 																		  <div class="layui-inline selectObj">
 																		   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
 																		    <label for="" class="control-label" style="float: left;">班次状态：</label>
-																			<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
-																		        <option value="未开始">未开始</option>
-																		        <option value="进行中">进行中</option>
-																		        <option value="已结束">已结束</option>
-																		   </select>
+																			<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			        <option value="全部">全部</option>
+																			        <option value="报名未开始">报名未开始</option>
+																			        <option value="报名进行中">报名进行中</option>
+																			        <option value="未开课">未开课</option>
+																			        <option value="课程进行中">课程进行中</option>
+																			        <option value="已结课">已结课</option>
+																			  </select>
 																		  </div>
 																		  <div class="layui-inline selectObj">
 																		    <label for="" class="control-label" style="float: left;">是否报名：</label>
-																			<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			<select id="secondObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
 																		        <option value="全部">全部</option>
 																		        <option value="已报名">已报名</option>
 																		        <option value="未报名">未报名</option>
@@ -318,21 +331,22 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
 			    cols: [[
 				  {type:'numbers',title:"序号"},
-			      {field:'course_id', title: 'ID',style:'display:none;'},
-			      {field:'course_name', title: '班次名称'},
-			      {field:'start_class', title: '开班日期'},
-			      {field:'end_class', title: '结课日期'},
-			      {field:'start_entry', title: '开始报名时间'},
-			      {field:'end_entry', title: '结束报名时间'},
-			      {field:'train_address', title: '培训地点'},
-			      {field:'accommodating_population', title: '容纳人数'},
-			      {field:'signUp_person', title: '已报名人数'},
-			      {field:'class_status', title: '班次状态'},
-			      {field:'isEntry', title: '是否已报名'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+
+			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>'},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>'},
+			      {field:'number', title: '已报名人数'},
+			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus'},
+			      {field:'create_status', title: '是否已报名',templet:'#typeBar'},
+			      {field:'suuid', title: '操作',toolbar: '#barDemo'}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -358,21 +372,25 @@
 			    } else if(obj.event === 'del'){
 			      	layer.confirm('确认取消报名？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/Ssuser/SignOut',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Course_id:data.course_id
+								Project_id:data.scheduledshift.scheduled_id,
+								ssuid:data.suuid
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									layer.alert("参数错误!");
+									layer.alert("班次不存在!");
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.alert("未登录!");
 								}
 								else if(data.message == "2"){
-									layer.alert("报名已取消!");
+									layer.alert("取消报名失败!");
+								}
+								else if(data.message == "3"){
+									layer.alert("取消报名成功!");
 								}
 							},
 							error : function(error) {
@@ -383,16 +401,30 @@
 			      });
 			    }
 			  });
-			  var $ = layui.$, active = {
+			 var $ = layui.$, active = {
 			    reload: function(){
-			      var demoReload = $('#demoReload');
 			      firstObj = document.getElementById("firstObj").value;
 			      secondObj = document.getElementById("secondObj").value;
-			      if(firstObj=="全部"){
-			    	  firstObj="";
-			      }
+			      var status = $("#firstObj").val();
+				  if(status == '报名未开始'){
+						status = 0;
+					}else if(status == '报名进行中'){
+						status = 1;
+					}else if(status == '未开课'){
+						status = 2;
+					}else if(status == '课程进行中'){
+						status = 3;
+					}else if(status == '已结课'){
+						status = 4;
+					}else if(status == '全部'){
+						status = "";
+					}
 			      if(secondObj=="全部"){
 			    	  secondObj="";
+			      }else if(secondObj=="已报名"){
+			    	  secondObj = "1";
+			      }else if(secondObj=="未报名"){
+			    	  secondObj = "2";
 			      }
 			      
 			      //执行重载
@@ -402,8 +434,8 @@
 			        },
 			        method:'post',
 			        where: {
-			        	    First_course:firstObj,
-							Second_course:secondObj
+			        	    scstatus:status,
+							memstatus:secondObj
 			        }
 			      });
 			    }
@@ -419,6 +451,10 @@
 		</script>
 		<script>
 			window.onload = function(){
+				<% if(user == null){%>
+					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
@@ -426,9 +462,45 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
-  			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+  			{{#  if(d.create_status == '0'){ }}
+		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
+	        {{#  } else if(d.create_status == ""){ }}
+				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+			{{#  } }}
+
+  			{{#  if(d.create_status == '0'){ }}
+		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+	        {{#  } else if(d.create_status == ""){ }}
+				
+			{{#  } }}
 		</script>
+
+		<script type="text/html" id="typeBar">
+	     {{#  if(d.create_status == ""){ }}
+	        未报名
+	     {{#  }else if(d.create_status=="0"){ }}
+	     	已报名
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typestatus">
+	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
+	        报名进行中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	报名已结束
+	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
+	     	报名未开始
+	     {{# } }}
+ 		</script>
+
+ 		<script type="text/html" id="typestatus">
+	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
+	        报名进行中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	报名已结束
+	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
+	     	报名未开始
+	     {{# } }}
+ 		</script>
 	</body>
 
 </html>

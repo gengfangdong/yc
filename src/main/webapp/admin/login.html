@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>北京大唐神州技术有限公司</title>
+		<title>中央财经大学</title>
 	</head>
 	<link rel="stylesheet" href="layui-v2.3.0/layui/css/layui.css">
 	<!-- layui 2.3.0 -->
@@ -27,8 +27,8 @@
 		}
 		.imgLogo{
 			margin-left: 20px;
-			margin-top: 5px;
-			height: 50px;
+			margin-top: 6px;
+			height: 40px;
 		}
 		.textLogo{
 			width: 200px;
@@ -113,13 +113,14 @@
 				<img src="image/logo_text.png" class="textLogo"/>
 				<div class="logins">
 					<ul>
-						<li>
+						<!-- <li>
 							<a href="#">操作手册</a>
 						</li>
 						<li>
 							<a href="#">业务查询</a>
-						</li>
+						</li> -->
 						<li class="loginTop" onclick="login();">登录</li>
+						<li class="loginTop" onclick="register();">注册</li>
 					</ul>
 				</div>
 			</div>
@@ -133,7 +134,7 @@
 			</div>
 		</div>
 		<div class="foot_content">
-			<strong>版权© 2016-2025<a href="#">北京大唐神州技术有限公司</a></strong> 保留所有权利。
+			<strong>版权© 2016-2025<a href="#">&nbsp;中央财经大学</a></strong> 保留所有权利。
 		</div>
 	</body>
 	<script type="text/javascript">
@@ -168,6 +169,9 @@
 	     	}
 	     	btn1.addEventListener('click',handle1,false);
 			}, 500);
+		}
+		function register(){
+			window.open('../show/dist/html/register.jsp','_self');
 		}
 	</script>
 	

@@ -103,7 +103,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" style="position: fixed;">
+			<aside class="main-sidebar">
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -128,28 +128,49 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 新闻公告<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="noticeAnnouncement.html" ><i class="fa fa-square-o"></i> 通知公告</a>
+											<a href="noticeAnnouncement.jsp"><i class="fa fa-square-o"></i> 通知公告</a>
 										</li>
 										<li>
-											<a href="newsManagement.html"><i class="fa fa-square-o"></i> 新闻管理</a>
+											<a href="newsManagement.jsp"><i class="fa fa-square-o"></i> 新闻管理</a>
 										</li>
 										<li>
-											<a href="rotationPicture.html"><i class="fa fa-square-o"></i> 轮播图片</a>
+											<a href="rotationPicture.jsp"><i class="fa fa-square-o"></i> 轮播图片</a>
 										</li>
-										
+										<li>
+											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
+										</li>
+
+									</ul>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-circle-o"></i> 项目概况<i class="fa fa-angle-left pull-right"></i></a>
+									<ul class="treeview-menu menu_tree">
+										<li>
+											<a href="cultureSystem.jsp"><i class="fa fa-square-o"></i> 培养体系</a>
+										</li>
+										<li>
+											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+										</li>
+										<li>
+											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+										</li>
+										<li>
+											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
+										</li>
+										<li>
+											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
+										</li>
+
 									</ul>
 								</li>
 								<li>
 									<a href="#"><i class="fa fa-circle-o"></i> 项目管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="auditOfClassArrangement.html"><i class="fa fa-square-o"></i> 拼班审核</a>
+											<a href="auditOfClassArrangement.jsp"><i class="fa fa-square-o"></i> 拼班审核</a>
 										</li>
 										<li>
-											<a href="customizationAudit.html" style="color: #fff;"><i class="fa fa-square-o"></i> 定制审核</a>
-										</li>
-										<li>
-											<a href="prescribedShift.html"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="customizationAudit.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 定制审核</a>
 										</li>
 									</ul>
 								</li>
@@ -157,10 +178,27 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 资源管理<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="courseCatalogue.html"><i class="fa fa-square-o"></i> 课程目录</a>
+											<a href="courseCatalogue.jsp"><i class="fa fa-square-o"></i> 课程目录</a>
 										</li>
 										<li>
-											<a href="membershipManagement.html"><i class="fa fa-square-o"></i> 会员管理</a>
+											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
+										</li>
+										<li>
+											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+										</li>
+										<li>
+											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#"><i class="fa fa-circle-o"></i> 在职研<i class="fa fa-angle-left pull-right"></i></a>
+									<ul class="treeview-menu menu_tree">
+										<li>
+											<a href="projectList.jsp"><i class="fa fa-square-o"></i> 项目列表</a>
+										</li>
+										<li>
+											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
 										</li>
 									</ul>
 								</li>
@@ -214,73 +252,34 @@
 																	</div> -->
 																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-																			<label for="" class="control-label" style="float: left;">筛选：</label>
-																			<ul class="f-sort-ul shaixuan">
-																				<li><a href="#" class onclick="changeStyleColor1(this);">未审核</a></li>
-																				<li><a href="#" class onclick="changeStyleColor1(this);">已通过</a></li>
-																				<li><a href="#" class onclick="changeStyleColor1(this);">未通过</a></li>
-																			</ul>
+																			<div class="layui-inline selectObj">
+																				<label for="" class="control-label" style="float: left;">定制类别：</label>
+																				<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			        <option value="全部">全部</option>
+																			        <option value="方案定制">方案定制</option>
+																			        <option value="课程定制">课程定制</option>
+																			        <option value="自由定制">自由定制</option>
+																				</select>
+																			</div>
+																			<div class="layui-inline selectObj">
+																				<label for="" class="control-label" style="float: left;">状态：</label>
+																				<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			        <option value="全部">全部</option>
+																			        <option value="未审核">未审核</option>
+																			        <option value="已通过">已通过</option>
+																			        <option value="未通过">未通过</option>
+																				</select>
+																			</div>
+																			<button class="layui-btn selectBtn" data-type="reload">搜索</button>
 																		</div>
 																	</div>	
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="branchPage" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" lay-filter="user" style="margin-top: 20px!important;">
 																					<thead>
-																						<tr>
-																							<th style="text-align: center;">序号</th>
-																							<th style="text-align: center;">定制日期</th>
-																							<th style="text-align: center;">标题</th>
-																							<th style="text-align: center;">开班日期</th>
-																							<th style="text-align: center;">发起单位</th>
-																							<th style="text-align: center;">容纳人数</th>
-																							<th style="text-align: center;">状态</th>
-																							<th style="text-align: center;">操作</th>
-																						</tr>
 																					</thead>
 																					<tbody>
-																						<tr>
-																							<td style="text-align: center;">1</td>
-																							<td>2018/11/11</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/12/11</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>50</td>
-																							<td>未审核</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>2018/11/11</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/12/11</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>50</td>
-																							<td>未通过</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>2018/11/11</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/12/11</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>50</td>
-																							<td>已通过</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
 																					</tbody>
 																				</table>
 																			</div>
@@ -347,76 +346,149 @@
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
 
-		<script>
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-				
-				var branchPage = $('#branchPage').DataTable({
-					"language" : dataTableLang,
-					"paging": true,
-					"info": true,
-					"aLengthMenu": [10],
-					"lengthChange": false,
-					"searching": false,
-					"ordering": false,
-					"autoWidth": false,
-					"stripeClasses": ["datatable_odd","datatable_even"]	
-					
-				});
-				
-			});
-		</script>
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
-			layui.use('laydate', function(){
+			layui.use('laydate', function() {
 				var laydate = layui.laydate;
-				lay(".fzy-border").each(function(){
+				lay(".fzy-border").each(function() {
 					laydate.render({
 						elem: this //指定元素
 					});
 				});
 			});
 			/* 日期控件，执行多个laydate实例 end */
+
 			
-			function addBranch(obj){
+			layui.use('table', function(){
+				var table = layui.table;
+			  
+			  //方法级渲染
+			  table.render({
+			    elem: '#LAY_table_user',
+			    url: '<%=request.getContextPath()%>/ScheduledShift/getRegulationClasses',
+			    cols: [[
+				  {type:'numbers',title:"序号",minWidth:40},
+			      {field:'scheduled_id', title: 'ID',style:'display:none;'},
+			      {field:'scheduledshift.scheduled_name', title: '班级名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>'},
+			      {field:'scheduledshift.createtime', title: '定制类别',minWidth:160,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>'},
+			      {field:'dataNumber', title: '计划举办天数'},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '计划参加人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>'},
+			      {field:'scheduledshift.scheduled_start', title: '预计开始时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>'},
+			     {field:'scheduledshift.scheduled_status', title: '状态',templet:'#typestatus'},
+			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			    ]],
+			    id: 'testReload',
+			    page: true
+			  });
+			  
+			//监听工具条
+			  table.on('tool(user)', function(obj){
+			    var data = obj.data;
+			    if(obj.event === 'show'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/addRegulationClasses.jsp',
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    } else if(obj.event === 'delete'){
+			      	layer.confirm('确认删除该行？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							type : 'post',
+							dataType:"json",
+							data:{
+								Course_id:data.course_id
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.alert("参数错误!");
+								}
+								else if(data.message == "1"){
+									layer.alert("获取班次名称失败!");
+								}
+								else if(data.message == "2"){
+									layer.alert("报名已取消!");
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
+			    } else if(obj.event === 'edit'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '修改',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/updateprescribedShift.jsp?course_id='+data.course_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }
+			  });
+			  var $ = layui.$, active = {
+			    reload: function(){
+				    var demoReload = $('#demoReload');
+				    var status = $("#firstObj").val();
+				    var category = $("#secondObj").val();
+					if(status == '报名未开始'){
+						status = 1;
+					}else if(status == '报名进行中'){
+						status = 2;
+					}else if(status == '未开课'){
+						status = 3;
+					}else if(status == '已结课'){
+						status = 4;
+					}else if(status == '全部'){
+						status = "";
+					}
+					if(category=="全部"){
+						category = "";
+					}else if(category=="课程定制"){
+						category = 0;
+					}else if(category=="方案定制"){
+						category = 1;
+					}else if(category=="目录定制"){
+						category = 2;
+					}
+				      
+				      //执行重载
+				      table.reload('testReload', {
+				        page: {
+				          curr: 1 //重新从第 1 页开始
+				        },
+				        method:'post',
+				        where: {
+				        	    status:status,
+				        	    category:category
+				        }
+				      });	
+			    }
+			  };
+			  
+			  $('.demoTable .layui-btn').on('click', function(){
+			    var type = $(this).data('type');
+			    active[type] ? active[type].call(this) : '';
+			  });
+			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+			});
+			
+			
+			function addBranch(obj,id) {
 				var sText = obj.innerHTML;
 				if(sText=='新增'){
 					layui.use('layer',function(){
@@ -436,49 +508,11 @@
 					        }
 					    });
 			        })
-				}else if(sText=='查看'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '查看',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,200] ,
-					        content: 'openPage/addCustomAudit.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='修改'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '修改',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,200] ,
-					        content: 'openPage/addCustomAudit.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
 				}
-				
-				
 			}
 		</script>
 		<script>
-				function changeStyleColor1(obj) {
+				/* function changeStyleColor1(obj) {
 					var nLi = $('.shaixuan li');
 					if($(obj).is('.conditionSelectStyle')) {
 						for(var i = 0; i < nLi.length; i++) {
@@ -496,7 +530,7 @@
 						$(obj).addClass('conditionSelectStyle');
 					}
 //					debugger;
-				}
+				} */
 				
 			</script>
 		<script>
@@ -505,8 +539,53 @@
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
+				treeUls[3].setAttribute('style','display: block;');
+				treeUls[4].setAttribute('style','display: block;');
+				
+                //左侧导航树高度
+                var leftTreeHeight = document.getElementsByClassName('sidebar')[0].offsetHeight;
+                //屏幕高度
+                var screenHeight = window.screen.height;
+                //可用内容高度
+                var ableHeight = screenHeight - 150;
+                if(ableHeight<leftTreeHeight){
+                	$(".content-wrapper").css("min-height",leftTreeHeight);
+                }else{
+                	$(".content-wrapper").css("min-height",ableHeight);
+                }
 			};
 		</script>
+		<script type="text/html" id="barDemo">
+			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">查看</a>
+			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">修改</a>
+			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">结束</a>
+			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">删除</a>
+			{{#  if(d.isEntry == '1'){ }}
+		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
+	        {{#  } else if(d.isEntry == "0"){ }}
+				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+			{{#  } }}
+
+  			{{#  if(d.isEntry == '1'){ }}
+		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+	        {{#  } else if(d.isEntry == "0"){ }}
+				
+			{{#  } }}
+  			
+		</script>
+		<script type="text/html" id="typestatus">
+	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
+	        报名进行中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	未开课
+	     {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
+	     	开课中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+	     	已结课
+	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
+	     	报名未开始
+	     {{# } }}
+ 		</script>
 	</body>
 
 </html>

@@ -1,9 +1,10 @@
 .notice{
-	padding-left: 100px;
+	padding-left: 14%;
 	color: #2281d2;
 }
+
 .noPadding_li li{
-	padding: 0 0 0 120px!important;
+	padding: 0 0 0 16%!important;
 	margin-top: 0!important;
 }
 .noPadding_li li dl dt{
@@ -202,7 +203,7 @@
 	margin-bottom: 20px;
 }
 .mySiderbar{
-	padding-left: 140px;
+	padding-left: 5%;
 	padding-top: 18px;
 }
 .sidebar_contactUs{
@@ -518,4 +519,92 @@
 .tableRightTd3{
 	/*float: left;*/
 	text-align: left;
+}
+
+.selectBtn{
+	border-radius: 5px;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    background-color: #1e9fff;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+	background-color:#1e9fff;
+}
+
+@media screen and (max-width: 640px) {
+    .notice{
+		padding-left: 0;
+		color: #2281d2;
+	}
+	.promo_detailed .promo_detailed--list .promo_detailed--list_item{
+		padding: 0 0 0 0!important;
+	}
+	.promo_detailed--list_item_pic{
+		width:60%!important;
+		height:60%!important;
+		margin-left:20%;
+		border:none!important;
+	}
+	.promo_detailed .am-g .promo_detailed--list .promo_detailed--list_item .promo_detailed--list_item_icon{
+		position:relative;
+	}
+	.trainNews{
+		max-height:1000px!important;
+	}
+	.about_center{
+		width:100%!important;
+	}
+	/* .layout .newsBlock{
+		min-height:600px!important;
+	} */
+	.trainNews .promo_detailed--cta{
+		padding:0;
+	}
+	.page-header.news_bannerBg{
+		height:auto;
+		padding:30px 0;
+	}
+	.mainBody{
+		padding-right:1rem!important;
+	}
+	.mySiderbar ul li{
+		color:#fff;
+		margin-left:1rem;
+	}
+	.mySiderbar ul li dd{
+		margin-right:1rem;
+	}
+	#selectBtn_regulation{
+		margin-left:40%;
+	}
+	.page-header.regulations_bannerbg{
+		height:auto;
+		padding:30px 0;
+	}
+}
+
+@media screen and (min-width: 640px) and (max-width: 1200px) {
+	/* .layout .newsBlock{
+		min-height:auto!important;
+	} */
+	.header .header-right .header-contact{
+		padding:0;
+	}
+	.news_bannerBg{
+		height:auto;
+	}
+}
+
+@media screen and (min-width: 1200px){
+	.rePadding_li li{
+		min-height:140px;
+	}
+	.rePadding_li li dl{
+		padding-top:10px;
+	}
+	#selectBtn_regulation{
+		margin-left:20px;
+	}
+	
 }
