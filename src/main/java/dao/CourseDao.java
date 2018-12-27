@@ -18,5 +18,6 @@ public interface CourseDao {
 	public List<Course> getCourseDetail(@Param("Course_id")String Course_id);
 	public List<Course> getnopage(@Param("First_course")String First_Course,@Param("Second_course")String Second_course);
 	public int getCourseCount(@Param("First_course")String First_Course,@Param("Second_course")String Second_course);
+	public List<Course> getList(@Param("Course_id")String Course_id);
 	
 }

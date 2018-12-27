@@ -209,6 +209,7 @@
 																			<ul class="f-sort-ul">
 																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 																			</ul>
+																			<div class="demoTable">
 																			<div class="layui-inline selectObj">
 																				<label for="" class="control-label" style="float: left;">定制类别：</label>
 																				<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
@@ -230,6 +231,7 @@
 																				</select>
 																			</div>
 																			<button class="layui-btn selectBtn" data-type="reload">搜索</button>
+																			</div>
 																		</div>
 																	</div>
 																	
@@ -330,14 +332,13 @@
 			    url: '<%=request.getContextPath()%>/Constom/LayConstom',
 			    cols: [[
 				  {type:'numbers',title:"序号"},
-			      {field:'course_id', title: 'ID',style:'display:none;'},
-			      {field:'course_name', title: '班级名称'},
-			      {field:'type', title: '定制类别'},
-			      {field:'host_day', title: '计划举办天数'},
-			      {field:'host_personnel', title: '计划参加人数'},
-			      {field:'host_date', title: '预计开始时间'},
-			      {field:'class_status', title: '状态'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'freeco_name', title: '班级名称'},
+			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery'},
+			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum'},
+			      {field:'freeco_pernum', title: '计划参加人数'},
+			      {field:'freeco_data', title: '预计开始时间'},
+			      {field:'freeco_status', title: '状态',templet:'#typestatus'},
+			      {field:'freeco_id', title: '操作',toolbar: '#barDemo'}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -354,7 +355,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/showCustomProject.jsp',
+						content: 'openPage/showCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -476,8 +477,8 @@
 			        },
 			        method:'post',
 			        where: {
-		        	    First_course:firstObj,
-						Second_course:secondObj
+		        	    caogery:category,
+						status:status
 			        }
 			      });
 			    }
@@ -487,7 +488,6 @@
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
 			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});
 			
 			
@@ -553,19 +553,19 @@
 			} 
 		</script>
 		<script type="text/html" id="barDemo">
-			{{#  if(d.status == '0'){ }}
+			{{#  if(d.freeco_status == '0'){ }}
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消定制</a>
-	        {{#  } else if(d.status == "1"){ }}
+	        {{#  } else if(d.freeco_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  } else if(d.status == "2"){ }}
+			{{#  } else if(d.freeco_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
-			{{#  } else if(d.status == "3"){ }}
+			{{#  } else if(d.freeco_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-			{{#  } else if(d.status == "4"){ }}
+			{{#  } else if(d.freeco_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 			{{#  } }}
@@ -582,6 +582,36 @@
 				treeUls[2].setAttribute('style','display: block;');
 			};
 		</script>
+
+		<script type="text/html" id="typestatus">
+	     {{#  if(d.freeco_status == "0"){ }}
+	        未审核
+	     {{#  }else if(d.freeco_status=="1"){ }}
+	     	审核通过
+	     {{#  }else if(d.freeco_status=="2"){ }}
+	     	审核未通过
+	     {{#  }else if(d.freeco_status=="3"){ }}
+	     	开班中
+	     {{#  }else if(d.freeco_status=="4"){ }}
+	     	已结课
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typecaogery">
+	     {{#  if(d.freeco_gaoery == "0"){ }}
+	        方案定制
+	     {{#  }else if(d.freeco_gaoery=="1"){ }}
+	     	课程定制
+	     {{#  }else if(d.freeco_gaoery=="2"){ }}
+	     	自由定制
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typedatanum">
+	     {{#  if(d.freeco_datanum!=null){ }}
+	        {{d.freeco_datanum}}
+	     {{#  }else{ }}
+	     	待定
+	     {{# } }}
+ 		</script>
 	</body>
 
 </html>

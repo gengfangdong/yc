@@ -16,4 +16,5 @@ public interface ClassPlanDao {
 	public List<ClassPlan> getlistnopage();
 	public int getClassPlanCount();
 	public List<ClassPlan> getDetailByid(@Param("ClassPlan_id")String classPlan_id);
+	public List<ClassPlan> getList(@Param("ClassPlan_id")String classPlan_id);
 }

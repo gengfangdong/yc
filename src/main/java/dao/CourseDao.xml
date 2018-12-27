@@ -86,4 +86,12 @@
 		</if>
 	</select>
 	
+	<select id="getList" parameterType="String" resultMap="Course">
+		select * from COURSE T
+		where T.COURSE_ID IN 
+		
+            (#{Course_id})       and T.ISDELETE = '0'
+        
+	</select>
+	
 </mapper>

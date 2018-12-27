@@ -209,6 +209,7 @@
 																			<ul class="f-sort-ul" style="float: left;">
 																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 																				<li><button href="#" class="add" id="import" >导入</button></li>
+																				<li><button href="" class="add" id="export" onclick ><a href="<%=request.getContextPath()%>/EUser/exportUser">导出</a></button></li>
 																			</ul>
 																		</div>
 																	</div>
@@ -515,7 +516,6 @@
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
-				treeUls[3].setAttribute('style','display: block;');
 			};
 		</script>
 		<script type="text/html" id="barDemo">

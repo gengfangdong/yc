@@ -40,4 +40,8 @@
 		select * from CLASSPLAN C WHERE C.CLASSPLAN_ID = #{ClassPlan_id} and C.ISDELETE = '0'
 	</select>
 	
+	<select id="getList" resultType="ClassPlan">
+		select * from CLASSPLAN C WHERE C.CLASSPLAN_ID in (#{ClassPlan_id}) and C.ISDELETE = '0'
+	</select>
+	
 </mapper>
