@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ScheduledshiftDao">
+	<resultMap type="entity.Scheduledshift" id="Scheduledshift">
+		<result column="Scheduled_id" jdbcType="VARCHAR" property="Scheduled_id"/>
+		<result column="Scheduled_name" jdbcType="VARCHAR" property="Scheduled_name"/>
+		<result column="Scheduled_initiator" jdbcType="VARCHAR" property="Scheduled_initiator"/>
+		<result column="Scheduled_address" jdbcType="VARCHAR" property="Scheduled_address"/>
+		<result column="Scheduled_start" jdbcType="VARCHAR" property="Scheduled_start"/>
+		<result column="Scheduled_end" jdbcType="VARCHAR" property="Scheduled_end"/>
+		<result column="Scheduled_class_start" jdbcType="VARCHAR" property="Scheduled_class_start"/>
+		<result column="Scheduled_class_end" jdbcType="VARCHAR" property="Scheduled_class_end"/>
+		<result column="Scheduled_class_pnumber" jdbcType="VARCHAR" property="Scheduled_class_pnumber"/>
+		<result column="Scheduled_class_context" jdbcType="VARCHAR" property="Scheduled_class_context"/>
+		<result column="Scheduled_other_context" jdbcType="VARCHAR" property="Scheduled_other_context"/>
+		<result column="Scheduled_status" jdbcType="VARCHAR" property="Scheduled_status"/>
+		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
+		<result column="creater" jdbcType="VARCHAR" property="creater"/>
+		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+	</resultMap>
+	<insert id = "insertScheduledshift" parameterType="Scheduledshift">
+		insert into SCHEDULEDSHIFT (SCHEDULED_ID,SCHEDULED_NAME,SCHEDULED_INITIATOR,SCHEDULED_ADDRESS,SCHEDULED_START,SCHEDULED_END,SCHEDULED_CLASS_START,SCHEDULED_CLASS_END,
+		SCHEDULED_CLASS_PNUMBER,SCHEDULED_CLASS_CONTEXT,SCHEDULED_OTHER_CONTEXT,SCHEDULED_STATUS,ISDELETE,CREATER,CREATETIME) 
+		values(#{Scheduled_id},#{Scheduled_name},#{Scheduled_initiator},#{Scheduled_address},#{Scheduled_start},
+		#{Scheduled_end},#{Scheduled_class_start},#{Scheduled_class_end},#{Scheduled_class_pnumber},
+		#{Scheduled_class_context},#{Scheduled_other_context},#{Scheduled_status},#{isdelete},#{creater},#{createtime})
+	</insert>
+
+	
+	<select id="getDetailByid" resultMap="Scheduledshift">
+		select * from SCHEDULEDSHIFT t
+		where t.SCHEDULED_ID = #{Scheduled_id} and t.isdelete = '0'
+	</select>
+	<update id="updateSch" parameterType="Scheduledshift">
+		update SCHEDULEDSHIFT SET 
+			SCHEDULED_NAME = #{Scheduled_name},
+			SCHEDULED_INITIATOR = #{Scheduled_initiator},
+			SCHEDULED_ADDRESS = #{Scheduled_address},
+			SCHEDULED_START = #{Scheduled_start},
+			SCHEDULED_END = #{Scheduled_end},
+			SCHEDULED_CLASS_START = #{Scheduled_class_start},
+			SCHEDULED_CLASS_END = #{Scheduled_class_end},
+			SCHEDULED_CLASS_PNUMBER = #{Scheduled_class_pnumber},
+			SCHEDULED_CLASS_CONTEXT = #{Scheduled_class_context},
+			SCHEDULED_OTHER_CONTEXT = #{Scheduled_other_context},
+			CREATER = #{creater},
+			CREATETIME = #{createtime}
+		where SCHEDULED_ID = #{Scheduled_id}
+	</update>
+	
+	<update id="deleteSch" parameterType="String">
+		UPDATE SCHEDULEDSHIFT SET ISDELETE = '1' WHERE  SCHEDULED_ID = #{Scheduled_id}
+	</update>
+	
+	<select id="getListBystatus" resultMap="Scheduledshift">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM SCHEDULEDSHIFT T WHERE T.ISDELETE = '0'
+			<if test="Scheduled_status != '' ">
+				AND T.SCHEDULED_STATUS = #{Scheduled_status}
+			</if>
+			
+			) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getcountBystatus" resultType="int">
+		SELECT COUNT(*) FROM SCHEDULEDSHIFT T WHERE T.ISDELETE = '0'
+		<if test="Scheduled_status != '' ">
+			AND T.SCHEDULED_STATUS = #{Scheduled_status}
+		</if>		
+	</select>
+	
+	<update id="startScheduled">
+		 update SCHEDULEDSHIFT s
+		    set s.SCHEDULED_STATUS = (case
+		                               when SYSDATE &lt;
+		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') then
+		                                '0'
+		                               when SYSDATE &gt;=
+		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;=
+		                                    TO_DATE(SCHEDULED_END, 'YYYY-MM-DD') then
+		                                '1'
+		                               when SYSDATE &gt;
+		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') then
+		                                '2'
+		                             end)
+		  where S.ISDELETE = '0'
+		  and s.SCHEDULED_STATUS &lt;&gt; '2'
+	</update>
+	
+	<select id="getLastNumber" parameterType="String" resultType="java.util.Map">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+					  from scheduledshift cc
+					  left join (select u.project_id, count(u.project_id) as pnum
+				               from (user_project u left join ssuser s on
+				                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+				                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+				                      
+				              group by u.project_id) H
+					    on cc.scheduled_id = H.project_id
+					   and cc.isdelete = '0'
+					 where cc.isdelete = '0'
+					 <if test="scstatus != '' and scstatus != null">
+					 	and cc.scheduled_status = #{scstatus}
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == 1">
+					 	and cc.scheduled_id in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == 2">
+					 	and cc.scheduled_id not in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+		         ) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}
+		
+	</select>
+	<!-- and s.ssu_userid=#{user_id}   , s.ssu_id  , s.ssu_id-->
+	<select id="getCountLastNumber" resultType="int">
+		select count(*) from (select *
+				  from scheduledshift cc
+						  left join (select u.project_id, count(u.project_id) as pnum
+		               from (user_project u left join ssuser s on
+		                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+		                     
+		                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+		                       
+		              group by u.project_id) H
+				    on cc.scheduled_id = H.project_id
+				   and cc.isdelete = '0'
+				 where cc.isdelete = '0'
+				 <if test="scstatus != '' and scstatus != null">
+					 	and cc.scheduled_status = #{scstatus}
+					 </if>
+				 <if test="memstatus != '' and memstatus != null and memstatus == '1'">
+					 	and cc.scheduled_id in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == '2'">
+					 	and cc.scheduled_id not in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+		 )
+	</select>
+	
+	<select id="getAdminLastNumber" parameterType="String" resultType="java.util.Map">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+					  from scheduledshift cc
+					  left join (select u.project_id, count(u.project_id) as pnum
+				               from (user_project u left join ssuser s on
+				                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+				                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+				              group by u.project_id) H
+					    on cc.scheduled_id = H.project_id
+					   and cc.isdelete = '0'
+					 where cc.isdelete = '0' 
+					 <if test="status != '' and status != null">
+					 	and cc.scheduled_status = #{status}
+					 </if>
+					 
+		         ) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}
+		
+	</select>
+	
+	<select id="getAdminCountLastNumber" resultType="int" parameterType="String">
+		select count(*) from (select *
+				  from scheduledshift cc
+						  left join (select u.project_id, count(u.project_id) as pnum
+		               from (user_project u left join ssuser s on
+		                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+		                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+		              group by u.project_id) H
+				    on cc.scheduled_id = H.project_id
+				   and cc.isdelete = '0'
+				 where cc.isdelete = '0' 
+				 <if test="status != '' and status != null">
+					 and cc.scheduled_status = #{status}
+				 </if> )
+	</select>
+</mapper>

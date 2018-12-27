@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SolutionDao">
+	<resultMap type="entity.Solution" id="solution">
+		<result column="Solution_id" jdbcType="VARCHAR" property="Solution_id"/>
+		<result column="Solution_titile" jdbcType="VARCHAR" property="Solution_titile"/>
+		<result column="Solution_title_page" jdbcType="VARCHAR" property="Solution_title_page"/>
+		<result column="Solution_Introduction" jdbcType="VARCHAR" property="Solution_Introduction"/>
+		<result column="Solution_KeyWords" jdbcType="VARCHAR" property="Solution_KeyWords"/>
+		<result column="Solution_Release_time" jdbcType="VARCHAR" property="Solution_Release_time"/>
+		<result column="Solution_status" jdbcType="VARCHAR" property="Solution_status"/>
+		<result column="Solution_context" jdbcType="VARCHAR" property="Solution_context"/>
+		<result column="Solution_Creater" jdbcType="VARCHAR" property="Solution_Creater"/>
+		<result column="Solution_Createtime" jdbcType="VARCHAR" property="Solution_Createtime"/>
+	</resultMap>
+	<insert id = "insertSolution" parameterType="Solution">
+		insert into SOLUTION (SOLUTION_ID,SOLUTION_TITILE,SOLUTION_TITLE_PAGE,SOLUTION_INTRODUCTION,
+		SOLUTION_KEYWORDS,SOLUTION_RELEASE_TIME,SOLUTION_STATUS,SOLUTION_CONTEXT,SOLUTION_CREATER,SOLUTION_CREATETIME) 
+		values(#{Solution_id},#{Solution_titile},#{Solution_title_page},#{Solution_Introduction},
+		#{Solution_KeyWords},#{Solution_Release_time},#{Solution_status},#{Solution_context},
+		#{Solution_Creater},#{Solution_Createtime})
+	</insert>
+	<select id = "getSolutionAllBypage" resultMap="solution">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM SOLUTION) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getSolutionCount" resultType="int">
+		select count(*) from SOLUTION 
+	</select>
+	
+	<select id="getSolutionDetailByid" resultMap="solution">
+		select * from SOLUTION t
+		where t.SOLUTION_ID = #{solution_id}
+	</select>
+	<update id="updateSolution" parameterType="Solution">
+		update SOLUTION SET 
+			SOLUTION_TITILE = #{Solution_titile},
+			SOLUTION_TITLE_PAGE = #{Solution_title_page},
+			SOLUTION_INTRODUCTION = #{Solution_Introduction},
+			SOLUTION_KEYWORDS = #{Solution_KeyWords},
+			SOLUTION_RELEASE_TIME = #{Solution_Release_time},
+			SOLUTION_STATUS = #{Solution_status},
+			SOLUTION_CONTEXT = #{Solution_context},
+			SOLUTION_CREATER = #{Solution_Creater},
+			SOLUTION_CREATETIME = #{Solution_Createtime}
+		where SOLUTION_ID = #{Solution_id}
+	</update>
+	
+	<delete id="deleteSolution" parameterType="String">
+		delete  from SOLUTION N
+		WHERE N.SOLUTION_ID = #{solution_id}
+	</delete>
+</mapper>

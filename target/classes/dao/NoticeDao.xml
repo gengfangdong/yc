@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.NoticeDao">
+	<resultMap type="entity.Notice" id="notice">
+		<result column="Notice_id" jdbcType="VARCHAR" property="Notice_id"/>
+		<result column="Notice_titile" jdbcType="VARCHAR" property="Notice_titile"/>
+		<result column="Notice_title_page" jdbcType="VARCHAR" property="Notice_title_page"/>
+		<result column="Notice_Introduction" jdbcType="VARCHAR" property="Notice_Introduction"/>
+		<result column="Notice_KeyWords" jdbcType="VARCHAR" property="Notice_KeyWords"/>
+		<result column="Notice_Release_time" jdbcType="VARCHAR" property="Notice_Release_time"/>
+		<result column="Notice_status" jdbcType="VARCHAR" property="Notice_status"/>
+		<result column="Notice_context" jdbcType="VARCHAR" property="Notice_context"/>
+		<result column="Notice_Creater" jdbcType="VARCHAR" property="Notice_Creater"/>
+		<result column="Notice_Createtime" jdbcType="VARCHAR" property="Notice_Createtime"/>
+	</resultMap>
+	<insert id = "insertNotice" parameterType="Notice">
+		insert into NOTICE (NOTICE_ID,NOTICE_TITILE,NOTICE_TITLE_PAGE,NOTICE_INTRODUCTION,
+		NOTICE_KEYWORDS,NOTICE_RELEASE_TIME,NOTICE_STATUS,NOTICE_CONTEXT,NOTICE_CREATER,NOTICE_CREATETIME) 
+		values(#{Notice_id},#{Notice_titile},#{Notice_title_page},#{Notice_Introduction},
+		#{Notice_KeyWords},#{Notice_Release_time},#{Notice_status},#{Notice_context},
+		#{Notice_Creater},#{Notice_Createtime})
+	</insert>
+	<select id = "getNoticeAllBypage" resultMap="notice">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM NOTICE) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getNoticeCount" resultType="int">
+		select count(*) from NOTICE 
+	</select>
+	
+	<select id="getNoticeDetailByid" resultMap="notice">
+		select * from NOTICE t
+		where t.NOTICE_ID = #{notice_id}
+	</select>
+	<update id="updateNotice" parameterType="Notice">
+		update NOTICE SET 
+			NOTICE_TITILE = #{Notice_titile},
+			NOTICE_TITLE_PAGE = #{Notice_title_page},
+			NOTICE_INTRODUCTION = #{Notice_Introduction},
+			NOTICE_KEYWORDS = #{Notice_KeyWords},
+			NOTICE_RELEASE_TIME = #{Notice_Release_time},
+			NOTICE_STATUS = #{Notice_status},
+			NOTICE_CONTEXT = #{Notice_context},
+			NOTICE_CREATER = #{Notice_Creater},
+			NOTICE_CREATETIME = #{Notice_Createtime}
+		where NOTICE_ID = #{Notice_id}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="String">
+		delete  from NOTICE N
+		WHERE N.NOTICE_ID = #{notice_id}
+	</delete>
+</mapper>

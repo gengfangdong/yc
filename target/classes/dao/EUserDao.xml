@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.EUserDao">
+	<resultMap type="entity.EUser" id="Euser">
+		<result column="EUser_id" jdbcType="VARCHAR" property="EUser_id"/>
+		<result column="EUser_name" jdbcType="VARCHAR" property="EUser_name"/>
+		<result column="EUser_companyname" jdbcType="VARCHAR" property="EUser_companyname"/>
+		<result column="EUser_department" jdbcType="VARCHAR" property="EUser_department"/>
+		<result column="EUser_remark" jdbcType="VARCHAR" property="EUser_remark"/>
+		<result column="EUser_hold" jdbcType="VARCHAR" property="EUser_hold"/>
+		<result column="EUser_sex" jdbcType="VARCHAR" property="EUser_sex"/>
+		<result column="EUser_indentitynumber" jdbcType="VARCHAR" property="EUser_indentitynumber"/>
+		<result column="EUser_phone" jdbcType="VARCHAR" property="EUser_phone"/>
+		<result column="EUser_isdelete" jdbcType="VARCHAR" property="EUser_isdelete"/>	
+		<result column="EUser_creater" jdbcType="VARCHAR" property="EUser_creater"/>
+		<result column="EUser_createtime" jdbcType="VARCHAR" property="EUser_createtime"/>
+		<result column="EUser_updater" jdbcType="VARCHAR" property="EUser_updater"/>
+		<result column="EUser_updatetime" jdbcType="VARCHAR" property="EUser_updatetime"/>
+	</resultMap>
+	 <insert id="insertEuser" parameterType="EUser">
+		INSERT INTO EUSER(EUSER_ID,EUSER_NAME,EUSER_COMPANYNAME,EUSER_DEPARTMENT,EUSER_REMARK,EUSER_HOLD,
+		EUSER_SEX,EUSER_INDENTITYNUMBER,EUSER_PHONE,EUSER_ISDELETE,EUSER_CREATER,EUSER_CREATETIME,
+		EUSER_UPDATER,EUSER_UPDATETIME) VALUES(#{EUser_id},#{EUser_name},#{EUser_companyname},#{EUser_department},
+		#{EUser_remark},#{EUser_hold},#{EUser_sex},#{EUser_indentitynumber},
+		#{EUser_phone},#{EUser_isdelete},#{EUser_creater},#{EUser_createtime},#{EUser_updater},#{EUser_updatetime})
+	</insert>
+	<update id="updateEuser" parameterType="EUser">
+		UPDATE EUSER
+			SET EUSER_NAME = #{EUser_name},
+				EUSER_COMPANYNAME=#{EUser_companyname},
+				EUSER_DEPARTMENT=#{EUser_department},
+				EUSER_HOLD=#{EUser_hold},
+				EUSER_SEX=#{EUser_sex},
+				EUSER_REMARK=#{EUser_remark},
+				EUSER_INDENTITYNUMBER=#{EUser_indentitynumber},
+				EUSER_PHONE=#{EUser_phone},
+				EUSER_UPDATER=#{EUser_updater},
+				EUSER_UPDATETIME=#{EUser_updatetime}
+			WHERE EUSER_ID = #{EUser_id}
+	</update>
+	
+	<update id="deleteEuser" parameterType="String">
+		UPDATE EUSER
+			SET EUSER_ISDELETE = '1'
+			WHERE EUSER_ID = #{EUser_id}
+	</update>
+	
+	<select id="getEuserBypage" resultMap="Euser">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM EUSER T WHERE T.EUSER_ISDELETE = '0' and T.EUser_creater = #{user_id}			
+			) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getcountBy" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM EUSER T WHERE T.EUSER_ISDELETE = '0' and T.EUser_creater = #{user_id}		
+	</select> 
+	
+	<select id="checkInum" parameterType="String" resultType="EUser">
+		select * from EUser e where e.EUSER_ISDELETE = '0' and e.EUSER_INDENTITYNUMBER = #{EUser_indentitynumber}
+		
+		<if test="EUser_id != null and EUser_id != '' ">
+			and e.EUSER_ID &lt;&gt; #{EUser_id}
+		</if>
+	</select>
+	
+	<insert id="insertByBatch" parameterType="java.util.List">
+        INSERT INTO EUSER(EUSER_ID,EUSER_NAME,EUSER_COMPANYNAME,EUSER_DEPARTMENT,EUSER_REMARK,EUSER_HOLD,
+		EUSER_SEX,EUSER_INDENTITYNUMBER,EUSER_PHONE,EUSER_ISDELETE,EUSER_CREATER,EUSER_CREATETIME,
+		EUSER_UPDATER,EUSER_UPDATETIME) 
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (select #{item.EUser_id},#{item.EUser_name},#{item.EUser_companyname},#{item.EUser_department},
+		#{item.EUser_remark},#{item.EUser_hold},#{item.EUser_sex},#{item.EUser_indentitynumber},
+		#{item.EUser_phone},#{item.EUser_isdelete},#{item.EUser_creater},#{item.EUser_createtime},#{item.EUser_updater},#{item.EUser_updatetime} from dual)
+        </foreach>
+    </insert>
+    
+    <update id="updatebatch" parameterType="java.util.List">
+    begin
+	   <foreach collection="list" separator=";" item="cus">  
+	        UPDATE EUSER
+			SET EUSER_NAME = #{cus.EUser_name},
+				EUSER_COMPANYNAME=#{cus.EUser_companyname},
+				EUSER_DEPARTMENT=#{cus.EUser_department},
+				EUSER_HOLD=#{cus.EUser_hold},
+				EUSER_SEX=#{cus.EUser_sex},
+				EUSER_REMARK=#{cus.EUser_remark},
+				EUSER_INDENTITYNUMBER=#{cus.EUser_indentitynumber},
+				EUSER_PHONE=#{cus.EUser_phone},
+				EUSER_UPDATER=#{cus.EUser_updater},
+				EUSER_UPDATETIME=#{cus.EUser_updatetime}
+			WHERE EUSER_ID = #{cus.EUser_id}
+	    </foreach>
+	    ;end;	
+    </update>
+    <select id ="getDetail" resultType="EUser" parameterType="String">
+    	select * from EUSER e where e.EUSER_ISDELETE = '0' and e.EUSER_ID = #{Euser_id}
+    </select>
+    
+    <select id="getListBycreater" resultType="EUser" parameterType="String">
+    	select * from EUSER A where A.EUSER_CREATER = #{creater} and A.EUSER_ISDELETE = '0'
+    </select>
+    
+    <select id="getList" parameterType="String" resultMap="Euser">
+    	select *　from EUSER e where e.EUSER_ISDELETE = '0' and e.EUser_creater = #{User_id}
+    </select>
+</mapper>

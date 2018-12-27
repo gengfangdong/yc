@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.User_projectDao">
+	<resultMap type="entity.User_project" id="User_project">
+		<result column="USER_ID" jdbcType="VARCHAR" property="User_id"/>
+		<result column="PROJECT_ID" jdbcType="VARCHAR" property="Project_id"/>
+		<result column="ISDELETE" jdbcType="VARCHAR" property="isdelete"/>
+		<result column="STATUS" jdbcType="VARCHAR" property="status"/>
+		<result column="CREATETIME" jdbcType="VARCHAR" property="createtime"/>
+		<result column="UP_ID" jdbcType="VARCHAR" property="Up_id"/>
+		<result column="ssu_id" jdbcType="VARCHAR" property="ssu_id"/>
+	</resultMap>
+	<insert id = "insertUser_project" parameterType="java.util.List">
+		insert into USER_PROJECT(UP_ID,USER_ID,PROJECT_ID,ISDELETE,STATUS,CREATETIME,SSU_ID) 
+		 <foreach collection="list" item="item" index="index" separator="union all">
+            (select #{item.Up_id},#{item.User_id},#{item.Project_id},#{item.isdelete},
+			#{item.status},#{item.createtime},#{item.ssu_id} from dual)
+        </foreach>
+	</insert>
+	
+	<update id="deleteUserProject" parameterType="String">
+		UPDATE USER_PROJECT U
+			SET U.ISDELETE = '1'
+			WHERE 
+				U.ISDELETE = '0'
+				AND U.ssu_id = #{ssuid}
+	</update>
+	
+</mapper>

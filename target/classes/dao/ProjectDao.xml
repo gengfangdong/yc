@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ProjectDao">
+	<resultMap type="entity.Project" id="Project">
+		<result column="Project_id" jdbcType="VARCHAR" property="Project_id"/>
+		<result column="Project_name" jdbcType="VARCHAR" property="Project_name"/>
+		<result column="Project_date" jdbcType="VARCHAR" property="Project_date"/>
+		<result column="Project_context" jdbcType="VARCHAR" property="Project_context"/>
+		<result column="Project_creater" jdbcType="VARCHAR" property="Project_creater"/>
+		<result column="Project_createtime" jdbcType="VARCHAR" property="Project_createtime"/>
+	</resultMap>
+	<insert id = "insertProject" parameterType="Project">
+		insert into Project (Project_id,Project_name,Project_date,Project_context,
+		Project_creater,Project_createtime) 
+		values(#{Project_id},#{Project_name},#{Project_date},#{Project_context},
+		#{Project_creater},#{Project_createtime})
+	</insert>
+	<select id = "getProjectAllBypage" resultMap="Project">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM Project) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getProjectCount" resultType="int">
+		select count(*) from Project 
+	</select>
+	
+	<select id="getProjectDetailByid" resultMap="Project">
+		select * from Project t
+		where t.Project_ID = #{Project_id}
+	</select>
+	<update id="updateProject" parameterType="Project">
+		update Project SET 
+			Project_name = #{Project_name},
+			Project_date = #{Project_date},
+			Project_context = #{Project_context},
+			Project_creater = #{Project_creater},
+			Project_createtime = #{Project_createtime}
+		where Project_id = #{Project_id}
+	</update>
+	
+	<delete id="deleteProject" parameterType="String">
+		delete  from Project N
+		WHERE N.Project_ID = #{Project_id}
+	</delete>
+</mapper>

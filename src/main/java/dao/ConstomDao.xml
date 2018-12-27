@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ConstomDao">
+	<resultMap type="entity.Free_constom" id="Free_constom">
+		<result column="Freeco_ID" jdbcType="VARCHAR" property="Freeco_id"/>
+		<result column="Freeco_NAME" jdbcType="VARCHAR" property="Freeco_name"/>
+		<result column="Freeco_DATA" jdbcType="VARCHAR" property="Freeco_data"/>
+		<result column="Freeco_datanum" jdbcType="VARCHAR" property="Freeco_datanum"/>
+		<result column="Freeco_PERNUM" jdbcType="VARCHAR" property="Freeco_pernum"/>
+		<result column="Freeco_ADDRESS" jdbcType="VARCHAR" property="Freeco_address"/>
+		<result column="Freeco_PERSON" jdbcType="VARCHAR" property="Freeco_person"/>
+		<result column="Freeco_PHONE" jdbcType="VARCHAR" property="Freeco_phone"/>
+		<result column="Freeco_CREATER" jdbcType="VARCHAR" property="Freeco_creater"/>
+		<result column="Freeco_CREATETIME" jdbcType="VARCHAR" property="Freeco_createtime"/>
+		<result column="Freeco_UPDATER" jdbcType="VARCHAR" property="Freeco_updater"/>
+		<result column="Freeco_UPDATETIME" jdbcType="VARCHAR" property="Freeco_updatetime"/>
+		<result column="Freeco_ISDELETE" jdbcType="VARCHAR" property="Freeco_isdelete"/>
+		<result column="Freeco_STATUS" jdbcType="VARCHAR" property="Freeco_status"/>
+		<result column="Freeco_OUTLINE" jdbcType="VARCHAR" property="Freeco_outline"/>
+		<result column="FREECO_GAOERY" jdbcType="VARCHAR" property="Freeco_gaoery"/>
+		<result column="FREECO_NUMFILE" jdbcType="VARCHAR" property="Freeco_numfile"/>
+	</resultMap>
+	<insert id="insertConstom" parameterType="entity.Free_constom">
+		insert into FREE_COSTOM(FREECO_ID,FREECO_NAME,FREECO_DATA,FREECO_DATANUM,FREECO_PERNUM,FREECO_ADDRESS,FREECO_PERSON,
+		FREECO_PHONE,FREECO_CREATER,FREECO_CREATETIME,FREECO_UPDATER,FREECO_UPDATETIME,FREECO_ISDELETE,
+		FREECO_STATUS,FREECO_OUTLINE,FREECO_GAOERY,FREECO_NUMFILE)
+		values(#{Freeco_id},#{Freeco_name},#{Freeco_data},#{Freeco_datanum,jdbcType=VARCHAR},
+		#{Freeco_pernum},#{Freeco_address},#{Freeco_person},#{Freeco_phone},#{Freeco_creater},
+		#{Freeco_createtime},#{Freeco_updater},#{Freeco_updatetime},#{Freeco_isdelete},#{Freeco_status},
+		#{Freeco_outline},#{Freeco_gaoery},#{Freeco_numfile})
+	</insert>
+	
+	<select id="getDetailByid" parameterType="String" resultMap="Free_constom">
+		select * from FREE_COSTOM f where f.FREECO_ID = #{Constom_id} and f.Freeco_ISDELETE = '0'
+	</select>
+	
+	<update id="updateReview" parameterType="String">
+		update FREE_COSTOM
+		　　set FREECO_STATUS = #{status},
+			   Freeco_UPDATER = #{updater},
+				Freeco_UPDATETIME = #{updatetime}
+		where FREECO_ID=#{Constom_id} and Freeco_ISDELETE = '0'
+	</update>
+	
+	<select id="getListBypage" resultMap="Free_constom">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		select count(*) from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+	</select>
+	
+	<update id="deleteConstom" parameterType="String">
+		UPDATE FREE_COSTOM F
+			SET F.Freeco_ISDELETE = '1',
+				F.Freeco_UPDATER = #{updater},
+				F.Freeco_UPDATETIME = #{updatetime}
+				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
+	</update>
+</mapper>

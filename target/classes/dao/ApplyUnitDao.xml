@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ApplyUnitDao">
+	<resultMap type="entity.ApplyUnit" id="ApplyUnit">
+		<result column="applyunit_id" jdbcType="VARCHAR" property="applyunit_id"/>
+		<result column="applyunit_caogery" jdbcType="VARCHAR" property="applyunit_caogery"/>
+		<result column="applyunit_date" jdbcType="VARCHAR" property="applyunit_date"/>
+		<result column="applyunit_name" jdbcType="VARCHAR" property="applyunit_name"/>
+		<result column="applyunit_person" jdbcType="VARCHAR" property="applyunit_person"/>
+		<result column="applyunit_phone" jdbcType="VARCHAR" property="applyunit_phone"/>
+		<result column="applyunit_mail" jdbcType="VARCHAR" property="applyunit_mail"/>
+		<result column="applyunit_file" jdbcType="VARCHAR" property="applyunit_file"/>
+		<result column="creater" jdbcType="VARCHAR" property="applyunit_creater"/>
+		<result column="createtime" jdbcType="VARCHAR" property="applyunit_createtime"/>
+		<result column="project_id" jdbcType="VARCHAR" property="project_id"/>
+		<result column="applyunit_status" jdbcType="VARCHAR" property="applyunit_status"/>
+		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
+	</resultMap>
+	<insert id = "insertApplyUnit" parameterType="ApplyUnit">
+		insert into APPLY_UNIT (APPLYUNIT_ID,APPLYUNIT_CAOGERY,APPLYUNIT_DATE,APPLYUNIT_NAME,APPLYUNIT_PERSON,APPLYUNIT_PHONE,
+		APPLYUNIT_MAIL,APPLYUNIT_FILE,CREATER,CREATETIME,PROJECT_ID,APPLYUNIT_STATUS,ISDELETE) 
+		values(#{applyunit_id},#{applyunit_caogery},#{applyunit_date},#{applyunit_name},
+		#{applyunit_person},#{applyunit_phone},#{applyunit_mail},#{applyunit_file},
+		#{applyunit_creater},#{applyunit_createtime},#{project_id},#{applyunit_status},#{isdelete})
+	</insert>
+	
+	<select id="getApplyUnitDetail" parameterType="String" resultMap="ApplyUnit">
+		SELECT * FROM APPLY_UNIT A WHERE A.APPLYUNIT_ID = #{Applyunit_id} AND A.ISDELETE='0'
+	</select>
+	
+	 <update id="update">
+		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},
+		APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_FILE=#{applyunit_file},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
+	</update> 
+	
+	<update id="deleteapplyunit" parameterType="String">
+		update APPLY_UNIT set ISDELETE='1' WHERE APPLYUNIT_ID=#{applyunit_id}
+	</update>
+</mapper>

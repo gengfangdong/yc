@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.NewsDao">
+	<resultMap type="entity.News" id="news">
+		<result column="News_id" jdbcType="VARCHAR" property="News_id"/>
+		<result column="News_titile" jdbcType="VARCHAR" property="News_titile"/>
+		<result column="News_title_page" jdbcType="VARCHAR" property="News_title_page"/>
+		<result column="News_Introduction" jdbcType="VARCHAR" property="News_Introduction"/>
+		<result column="News_KeyWords" jdbcType="VARCHAR" property="News_KeyWords"/>
+		<result column="News_Release_time" jdbcType="VARCHAR" property="News_Release_time"/>
+		<result column="News_status" jdbcType="VARCHAR" property="News_status"/>
+		<result column="News_context" jdbcType="VARCHAR" property="News_context"/>
+		<result column="News_Creater" jdbcType="VARCHAR" property="News_Creater"/>
+		<result column="News_Createtime" jdbcType="VARCHAR" property="News_Createtime"/>
+	</resultMap>
+	<insert id = "insertNews" parameterType="News">
+		insert into NEWS (NEWS_ID,NEWS_TITILE,NEWS_TITLE_PAGE,NEWS_INTRODUCTION,
+		NEWS_KEYWORDS,NEWS_RELEASE_TIME,NEWS_STATUS,NEWS_CONTEXT,NEWS_CREATER,NEWS_CREATETIME) 
+		values(#{News_id},#{News_titile},#{News_title_page},#{News_Introduction},
+		#{News_KeyWords},#{News_Release_time},#{News_status},#{News_context},
+		#{News_Creater},#{News_Createtime})
+	</insert>
+	<select id = "getNewsAllBypage" resultMap="news">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM NEWS) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getNewsCount" resultType="int">
+		select count(*) from NEWS 
+	</select>
+	
+	<select id="getNewsDetailByid" resultMap="news">
+		select * from NEWS t
+		where t.NEWS_ID = #{news_id}
+	</select>
+	<update id="updateNews" parameterType="News">
+		update NEWS SET 
+			NEWS_TITILE = #{News_titile},
+			NEWS_TITLE_PAGE = #{News_title_page},
+			NEWS_INTRODUCTION = #{News_Introduction},
+			NEWS_KEYWORDS = #{News_KeyWords},
+			NEWS_RELEASE_TIME = #{News_Release_time},
+			NEWS_STATUS = #{News_status},
+			NEWS_CONTEXT = #{News_context},
+			NEWS_CREATER = #{News_Creater},
+			NEWS_CREATETIME = #{News_Createtime}
+		where NEWS_ID = #{News_id}
+	</update>
+	
+	<delete id="deleteNews" parameterType="String">
+		delete  from NEWS N
+		WHERE N.NEWS_ID = #{news_id}
+	</delete>
+</mapper>

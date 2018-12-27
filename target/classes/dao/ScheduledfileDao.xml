@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ScheduledfileDao">
+	<resultMap type="entity.Scheduledfile" id="Scheduledfile">
+		<result column="Scheduled_id" jdbcType="VARCHAR" property="Scheduled_id"/>
+		<result column="Scheduled_file" jdbcType="VARCHAR" property="Scheduled_file"/>
+		<result column="Scheduled_oldfile" jdbcType="VARCHAR" property="Scheduled_oldfile"/>
+		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
+		<result column="creater" jdbcType="VARCHAR" property="creater"/>
+		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+	</resultMap>
+	<insert id = "insertScheduledfile" parameterType="Scheduledfile">
+		insert into SCHEDULED_FILE (SCHEDULED_ID,SCHEDULED_FILE,SCHEDULED_OLDFILE,ISDELETE,CREATER,CREATETIME) 
+		values(#{Scheduled_id},#{Scheduled_file},#{Scheduled_oldfile},#{isdelete},#{creater},#{createtime})
+	</insert>
+
+	
+	<select id="getbyScheduledid" resultMap="Scheduledfile">
+		select * from SCHEDULED_FILE t
+		where t.SCHEDULED_ID = #{Scheduled_id} and t.isdelete = '0'
+	</select>
+	<update id="deleteScheduled" parameterType="String">
+		UPDATE SCHEDULED_FILE SET ISDELETE = '1' WHERE SCHEDULED_ID = #{Scheduled_id}
+	</update>
+	
+	<select id="getByfilename" resultType="String">
+		SELECT T.SCHEDULED_OLDFILE FROM SCHEDULED_FILE T WHERE T.SCHEDULED_FILE = #{filename} and T.isdelete = '0'
+	</select>
+</mapper>

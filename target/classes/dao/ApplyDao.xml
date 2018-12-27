@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ApplyDao">
+	<resultMap type="entity.Apply" id="Apply">
+		<result column="Apply_id" jdbcType="VARCHAR" property="Apply_id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="sex" jdbcType="VARCHAR" property="sex"/>
+		<result column="brithday" jdbcType="VARCHAR" property="brithday"/>
+		<result column="indentity_number" jdbcType="VARCHAR" property="indentity_number"/>
+		<result column="political_status" jdbcType="VARCHAR" property="political_status"/>
+		<result column="phone_number" jdbcType="VARCHAR" property="phone_number"/>
+		<result column="mail" jdbcType="VARCHAR" property="mail"/>
+		<result column="department" jdbcType="VARCHAR" property="department"/>
+		<result column="job" jdbcType="VARCHAR" property="job"/>
+		<result column="address" jdbcType="VARCHAR" property="address"/>
+		<result column="other" jdbcType="VARCHAR" property="other"/>
+		<result column="project_id" jdbcType="VARCHAR" property="project_id"/>
+		<result column="position" jdbcType="VARCHAR" property="position"/>
+		<result column="creater" jdbcType="VARCHAR" property="creater"/>
+		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+		<result column="check_status" jdbcType="VARCHAR" property="check_status"/>
+		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
+		<result column="apply_caogery" jdbcType="VARCHAR" property="apply_caogery"/>
+		<result column="applydate" jdbcType="VARCHAR" property="applydate"/>
+	</resultMap>
+	<insert id = "insertApply" parameterType="Apply">
+		insert into APPLY (APPLY_ID,NAME,SEX,BRITHDAY,INDENTITY_NUMBER,POLITICAL_STATUS,PHONE_NUMBER,MAIL,
+		DEPARTMENT,JOB,ADDRESS,OTHER,PROJECT_ID,POSITION,CREATER,CREATETIME,CHECK_STATUS,ISDELETE,APPLY_CAOGERY,APPLYDATE) 
+		values(#{Apply_id},#{name},#{sex},#{brithday},
+		#{indentity_number},#{political_status},#{phone_number},#{mail},
+		#{department},#{job},#{address},#{other},#{project_id},#{position},#{creater},#{createtime},#{check_status},#{isdelete},#{apply_caogery},#{applydate})
+	</insert>
+	
+	<select id="getApplyshow" resultType="Map" parameterType="String">
+		SELECT * FROM  
+		(
+			SELECT A.*, ROWNUM RN  
+			FROM (
+			SELECT P.*,T.PROJECT_NAME FROM (select A.APPLY_ID AS APPLYID,A.APPLY_CAOGERY AS CAOGERY,
+		       A.NAME          AS APPLYNAME,
+		       A.APPLYDATE    AS APPLYDATE,
+		       A.PROJECT_ID    AS PROJECT_ID
+			  from APPLY A where A.ISDELETE ='0'
+			union ALL
+			select U.APPLYUNIT_ID AS APPLYID,U.APPLYUNIT_CAOGERY AS CAOGERY,
+			       U.APPLYUNIT_NAME    AS APPLYNAME,
+			       U.APPLYUNIT_DATE    AS APPLYDATE,
+			       U.PROJECT_ID        AS PROJECT_ID
+			  from APPLY_UNIT U where U.Isdelete ='0') P,PROJECT T WHERE T.PROJECT_ID = P.PROJECT_ID  ORDER BY P.PROJECT_ID,P.APPLYDATE
+		 	) A  
+			WHERE ROWNUM &lt;= #{length}
+	   )WHERE RN &gt; #{start}  
+	</select>
+	<select id="getApplyshowcount" resultType="int">
+			SELECT count(*) 
+			FROM (
+			SELECT P.*,T.PROJECT_NAME FROM (select A.APPLY_ID AS APPLYID,A.APPLY_CAOGERY AS CAOGERY,
+		       A.NAME          AS APPLYNAME,
+		       A.CREATETIME    AS APPLYDATE,
+		       A.PROJECT_ID    AS PROJECT_ID
+			  from APPLY A where A.ISDELETE ='0'
+			union ALL
+			select U.APPLYUNIT_ID AS APPLYID,U.APPLYUNIT_CAOGERY AS CAOGERY,
+			       U.APPLYUNIT_NAME    AS APPLYNAME,
+			       U.APPLYUNIT_DATE    AS APPLYDATE,
+			       U.PROJECT_ID        AS PROJECT_ID
+			  from APPLY_UNIT U where U.Isdelete ='0') P,PROJECT T WHERE T.PROJECT_ID = P.PROJECT_ID  ORDER BY P.PROJECT_ID,P.APPLYDATE
+		 	) A  
+	</select>
+	
+	<select id="getApplyDetailByid" resultMap="Apply" parameterType="String">
+		SELECT * FROM APPLY A WHERE A.APPLY_ID = #{Apply_id} AND A.ISDELETE='0'
+	</select>
+	
+	<update id="updatestatus">
+		UPDATE APPLY A SET A.CHECK_STATUS=#{status} WHERE A.APPLY_ID=#{Apply_id}
+	</update>
+	<update id="deleteapply">
+		UPDATE APPLY A SET A.ISDELETE='1' WHERE A.APPLY_ID=#{Apply_id}
+	</update>
+	
+	<update id="updateapply" parameterType="Apply">
+		UPDATE APPLY A SET A.NAME=#{name},A.SEX=#{sex} ,A.BRITHDAY=#{brithday} ,A.INDENTITY_NUMBER=#{indentity_number},
+		A.POLITICAL_STATUS=#{political_status},A.PHONE_NUMBER=#{phone_number},A.MAIL=#{mail},A.DEPARTMENT=#{department},A.JOB=#{job},
+		A.ADDRESS=#{address},A.OTHER=#{other},A.POSITION=#{position},A.CHECK_STATUS=#{check_status} WHERE A.APPLY_ID=#{Apply_id}
+	</update>
+</mapper>

@@ -1,0 +1,402 @@
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>中央财经大学</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../../../layui-v2.3.0/layui/css/layui.css">
+		<!-- DataTables -->
+		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
+		<link rel="stylesheet" href="../../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
+		<!-- zTree -->
+		<link rel="stylesheet" href="../../../../zTree_v3/css/zTreeStyle/zTreeStyle.css">
+		
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="../../../../css/font-awesome-4.7.0/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="../../../../css/ionicons-2.0.1/css/ionicons.min.css">
+		<!-- jvectormap -->
+		<link rel="stylesheet" href="../../../../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="../../../../dist/css/AdminLTE.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="../../../../dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="../../../../bootstrap/css/style.css">
+		<link rel="stylesheet" href="../../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../../css/myStyle.css">
+		
+		<style type="text/css">
+			.layui-this{
+				color: #0066CC;
+			}
+			#taxTab{
+				background-color: #FFFFFF;
+				height: 42px;
+			}
+			#taxTab li{
+				border:1px;
+				border-style: solid;
+				border-color:#fff #eee #e6e6e6;
+			}
+			#taxTab li:hover{
+				background-color: #ecf0f5;
+			}
+			#taxTab li a{
+				height: 40px;
+			}
+			#taxTab li a:hover{
+				background-color: #ecf0f5;
+				border: none;
+				color: #222222;
+			}
+			.layui-this a{
+				color: #555555;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="row" >
+				<div class="col-sm-12 col-md-12 layui-tab layui-tab-card">
+			    	<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
+								<table id="taxTable" class="table table-bordered table-hover example1_x">
+									<tbody>
+										<tr>
+											<td class="leftTd">标题:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="taxTitle" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">封面:</td>
+											<td class="rightTd">
+												<div class="layui-upload-list">
+												  <img class="layui-upload-img" id="demo1" style="width:150px;">
+												  <p id="demoText"></p>
+												</div>注：请上传1024*600以上尺寸的图片
+											</td>
+											<td style="width: 20%;">
+												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;">
+												  <i class="layui-icon">&#xe67c;</i>浏览
+												</button>
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">简介:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" placeholder="请输入50字以下文字" id="taxAbstract" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">关键字:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="taxKeyWords" />
+											</td>
+										</tr>
+										<!--<tr>
+											<td class="leftTd">类别:</td>
+											<td class="rightTd">
+												<input type="text" id="taxCategory" />
+											</td>
+										</tr>-->
+										<tr>
+											<td class="leftTd">发布日期:</td>
+											<td class="rightTd" colspan="2">
+												<input id="taxDate" name="taxDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">状态:</td>
+											<td class="rightTd" colspan="2">
+												<input type="radio" value="发布" name="taxStates" class="taxStates" style="margin-right: 5px;" /><span>发布</span>
+												<input type="radio" value="保存" name="taxStates" class="taxStates" style="margin-right: 5px;margin-left: 10px;" /><span>保存</span>
+											</td>
+										</tr>
+										
+										<tr>
+											<td class="leftTd" style="vertical-align: middle;">内容:</td>
+											<td class="rightTd" colspan="2">
+												<textarea name="description" id="taxDescription"/></textarea>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div style="text-align: center;">
+									<button class="taxSave saveBtn" id="taxSave" onclick="save();">保存</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- jQuery 2.1.4 -->
+		<script src="../../../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+		<!-- Bootstrap 3.3.5 -->
+		<script src="../../../../bootstrap/js/bootstrap.min.js"></script>
+		<!-- layui 2.3.0 -->
+		<script src="../../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../../layui-v2.3.0/layui/lay/modules/layer.js"></script>
+		<!-- DataTables -->
+		<script src="../../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
+		<script src="../../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
+		<!-- zTree -->
+		<script src="../../../../zTree_v3/js/jquery.ztree.core.js"></script>
+		<script src="../../../../zTree_v3/js/jquery.ztree.excheck.js"></script>
+		
+		<!-- Slimscroll -->
+		<script src="../../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script src="../../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="../../../../dist/js/app.min.js"></script>
+		<script type="text/javascript" src="../../../../My97DatePicker/WdatePicker.js"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="../../../../dist/js/demo.js"></script>
+		<script src="../../ckeditor/ckeditor.js"></script>
+		<script src="../../ckfinder/ckfinder.js"></script>
+		<script type="text/javascript">
+			layui.use('element', function(){
+			  	var element = layui.element;
+			  
+			  	//一些事件监听
+			  	element.on('tab(demo)', function(data){
+			    	console.log(data);
+			  	});
+			});
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#taxDate' //指定元素
+			  	});
+			});
+		</script>
+		<script type="text/javascript">
+			//分页
+			$(function() {
+				//设置结束日期为当前日期  
+				var date = new Date();
+				var seperator1 = "-";
+				var seperator2 = ":";
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if(month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if(strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+				/*$("#foundDate").val("万年历");*/
+				
+				var dataTableLang = {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+				};
+			});
+		</script>
+		<script>
+		layui.use('upload', function(){
+			  var $ = layui.jquery,
+			  upload = layui.upload;
+			  
+			  //普通图片上传
+			  var uploadInst = upload.render({
+			    elem: '#test1' ,
+			    url: '<%=request.getContextPath()%>/Tax/saveTaxandFile',
+			    auto:false,
+			    bindAction: '#taxSave',
+			    /*data:{
+           		 		Tax_Title:document.getElementById("taxTitle").value,
+						Tax_Introduction:taxAbstract,
+						Tax_KeyWords:taxKeyWords,
+						Tax_Release_time:taxDate,
+						Tax_status:tax_status//,
+						//Tax_context:tax_context
+        		},*/
+			    choose: function(obj){
+			      //预读本地文件示例，不支持ie8
+			      obj.preview(function(index, file, result){
+			        $('#demo1').attr('src', result); //图片链接（base64）
+			      });
+			    },
+			    before:function(obj){
+			    	var taxStatus = document.getElementsByName("taxStates");
+			    	var tax_status="";
+					for(var i=0;i<taxStatus.length;i++){
+						if(taxStatus[i].checked == true){
+							if("发布"==taxStatus[i].value){
+								tax_status = '1';
+							}
+							else
+								tax_status = '0';
+							//tax_status = taxStatus[i].value;
+							break;
+						}
+					}
+			    	this.data={
+			    	"Tax_Title": document.getElementById("taxTitle").value,
+			    	"Tax_Introduction":document.getElementById("taxAbstract").value,
+					"Tax_KeyWords":document.getElementById("taxKeyWords").value,
+					"Tax_Release_time":document.getElementById("taxDate").value,
+					"Tax_status":tax_status,
+					"Tax_context":CKEDITOR.instances.taxDescription.getData()
+			    	}//携带额外的数据
+				    obj.preview(function(index, file, result){
+				        $('#demo1').attr('src', result); //图片链接（base64）
+				    });
+			    },
+			    done: function(res){
+			    	
+			      //如果上传失败
+			      if(res.code == 2){
+			        return layer.msg('没有选择图片!');
+			      }
+			      else if(res.code == 3){
+			        return layer.msg('上传失败!');
+			      }
+			      //上传成功
+			      else if(res.code == 1){
+			    	 layer.alert("保存成功!");
+									
+			   	}
+			    },
+			    error: function(res){
+			      //演示失败状态，并实现重传
+			      var demoText = $('#demoText');
+			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			      demoText.find('.demo-reload').on('click', function(){
+			        uploadInst.upload();
+			      });
+			    }
+			  });
+		 });
+		</script>
+		<script>
+			function taxSave(){
+				/* var taxCategoryLen = document.getElementById('taxCategory').value.length;
+				if(taxCategoryLen>10){
+					alert('类别字数过长，请输入10个字以内字数！');
+					return;
+				} */
+				var tax_context = CKEDITOR.instances.taxDescription.getData();
+				var taxTitle = document.getElementById("taxTitle").value;
+				var taxAbstract = document.getElementById("taxAbstract").value;
+				var taxKeyWords = document.getElementById("taxKeyWords").value;
+				var taxDate = document.getElementById("taxDate").value;
+				var taxStatus = document.getElementsByName("taxStates");
+				var tax_status="";
+				for(var i=0;i<taxStatus.length;i++){
+					if(taxStatus[i].checked == true){
+						tax_status = taxStatus[i].value;
+						break;
+					}
+				}
+	           /*  if (tax_context.length == 0)
+	            {
+	                alert("空白");
+	            }
+	            else
+	            {
+	                alert(tax_context); 
+	            }
+	            alert(taxTitle+"\n"+taxAbstract+"\n"+taxKeyWords+"\n"+taxDate+"\n"+tax_status+"\n"+tax_context); */
+	            
+				
+			}
+		</script>
+		<script>
+			function save(){
+				//debugger;
+				var s=$("#demo1").attr("src");
+				if(s==undefined){
+					layer.alert("请选择封面!");
+				}
+				/*var tax_title_page = filename;
+		    	var tax_context = CKEDITOR.instances.taxDescription.getData();
+				var taxTitle = document.getElementById("taxTitle").value;
+				var taxAbstract = document.getElementById("taxAbstract").value;
+				var taxKeyWords = document.getElementById("taxKeyWords").value;
+				var taxDate = document.getElementById("taxDate").value;
+				var taxStatus = document.getElementsByName("taxStates");
+				var tax_status="";
+				for(var i=0;i<taxStatus.length;i++){
+					if(taxStatus[i].checked == true){
+						if("发布"==taxStatus[i].value){
+							tax_status = '1';
+						}
+						else
+							tax_status = '0';
+						//tax_status = taxStatus[i].value;
+						break;
+					}
+				}
+				alert(taxTitle+"\n"+tax_title_page+"\n"+taxAbstract+"\n"+taxKeyWords+"\n"+taxDate+"\n"+tax_status+"\n"+tax_context);
+				$.ajax({
+					url : '<%=request.getContextPath()%>/Tax/saveTax',
+					type : 'post',
+					dataType:"json",
+					data:{
+						Tax_Title:taxTitle,
+						Tax_Introduction:taxAbstract,
+						Tax_KeyWords:taxKeyWords,
+						Tax_Release_time:taxDate,
+						Tax_status:tax_status,
+						Tax_context:tax_context,
+						filename:tax_title_page
+					},
+					success : function(data) {
+						if(data.message == "1"){
+							layer.alert("保存成功!");
+						}
+						
+					},
+					error : function(error) {
+						console.log('接口不通' + error);
+					}
+				});	*/
+			}
+		</script>
+		<script type="text/javascript">
+			 window.onload = function(){
+        		CKEDITOR.replace('taxDescription');
+   	 		};
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ExpertDao">
+	<resultMap type="entity.Expert" id="expert">
+		<result column="Expert_id" jdbcType="VARCHAR" property="Expert_id"/>
+		<result column="Expert_titile" jdbcType="VARCHAR" property="Expert_titile"/>
+		<result column="Expert_title_page" jdbcType="VARCHAR" property="Expert_title_page"/>
+		<result column="Expert_Introduction" jdbcType="VARCHAR" property="Expert_Introduction"/>
+		<result column="Expert_KeyWords" jdbcType="VARCHAR" property="Expert_KeyWords"/>
+		<result column="Expert_Release_time" jdbcType="VARCHAR" property="Expert_Release_time"/>
+		<result column="Expert_status" jdbcType="VARCHAR" property="Expert_status"/>
+		<result column="Expert_context" jdbcType="VARCHAR" property="Expert_context"/>
+		<result column="Expert_Creater" jdbcType="VARCHAR" property="Expert_Creater"/>
+		<result column="Expert_Createtime" jdbcType="VARCHAR" property="Expert_Createtime"/>
+	</resultMap>
+	<insert id = "insertExpert" parameterType="Expert">
+		insert into EXPERT (EXPERT_ID,EXPERT_TITILE,EXPERT_TITLE_PAGE,EXPERT_INTRODUCTION,
+		EXPERT_KEYWORDS,EXPERT_RELEASE_TIME,EXPERT_STATUS,EXPERT_CONTEXT,EXPERT_CREATER,EXPERT_CREATETIME) 
+		values(#{Expert_id},#{Expert_titile},#{Expert_title_page},#{Expert_Introduction},
+		#{Expert_KeyWords},#{Expert_Release_time},#{Expert_status},#{Expert_context},
+		#{Expert_Creater},#{Expert_Createtime})
+	</insert>
+	<select id = "getExpertAllBypage" resultMap="expert">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM EXPERT) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getExpertCount" resultType="int">
+		select count(*) from EXPERT 
+	</select>
+	
+	<select id="getExpertDetailByid" resultMap="expert">
+		select * from EXPERT t
+		where t.EXPERT_ID = #{expert_id}
+	</select>
+	<update id="updateExpert" parameterType="Expert">
+		update EXPERT SET 
+			EXPERT_TITILE = #{Expert_titile},
+			EXPERT_TITLE_PAGE = #{Expert_title_page},
+			EXPERT_INTRODUCTION = #{Expert_Introduction},
+			EXPERT_KEYWORDS = #{Expert_KeyWords},
+			EXPERT_RELEASE_TIME = #{Expert_Release_time},
+			EXPERT_STATUS = #{Expert_status},
+			EXPERT_CONTEXT = #{Expert_context},
+			EXPERT_CREATER = #{Expert_Creater},
+			EXPERT_CREATETIME = #{Expert_Createtime}
+		where EXPERT_ID = #{Expert_id}
+	</update>
+	
+	<delete id="deleteExpert" parameterType="String">
+		delete  from EXPERT N
+		WHERE N.EXPERT_ID = #{expert_id}
+	</delete>
+</mapper>

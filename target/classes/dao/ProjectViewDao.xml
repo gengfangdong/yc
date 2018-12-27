@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ProjectViewDao">
+	<resultMap type="entity.ProjectView" id="ProjectView">
+		<result column="ProjectView_id" jdbcType="VARCHAR" property="ProjectView_id"/>
+		<result column="ProjectView_titile" jdbcType="VARCHAR" property="ProjectView_titile"/>
+		<result column="ProjectView_title_page" jdbcType="VARCHAR" property="ProjectView_title_page"/>
+		<result column="ProjectView_Introduction" jdbcType="VARCHAR" property="ProjectView_Introduction"/>
+		<result column="ProjectView_KeyWords" jdbcType="VARCHAR" property="ProjectView_KeyWords"/>
+		<result column="ProjectView_Release_time" jdbcType="VARCHAR" property="ProjectView_Release_time"/>
+		<result column="ProjectView_status" jdbcType="VARCHAR" property="ProjectView_status"/>
+		<result column="ProjectView_context" jdbcType="VARCHAR" property="ProjectView_context"/>
+		<result column="ProjectView_Creater" jdbcType="VARCHAR" property="ProjectView_Creater"/>
+		<result column="ProjectView_Createtime" jdbcType="VARCHAR" property="ProjectView_Createtime"/>
+	</resultMap>
+	<insert id = "insertProjectView" parameterType="ProjectView">
+		insert into ProjectView (ProjectView_ID,ProjectView_TITILE,ProjectView_TITLE_PAGE,ProjectView_INTRODUCTION,
+		ProjectView_KEYWORDS,ProjectView_RELEASE_TIME,ProjectView_STATUS,ProjectView_CONTEXT,ProjectView_CREATER,ProjectView_CREATETIME) 
+		values(#{ProjectView_id},#{ProjectView_titile},#{ProjectView_title_page},#{ProjectView_Introduction},
+		#{ProjectView_KeyWords},#{ProjectView_Release_time},#{ProjectView_status},#{ProjectView_context},
+		#{ProjectView_Creater},#{ProjectView_Createtime})
+	</insert>
+	<select id = "getProjectViewAllBypage" resultMap="ProjectView">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM ProjectView) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getProjectViewCount" resultType="int">
+		select count(*) from ProjectView 
+	</select>
+	
+	<select id="getProjectViewDetailByid" resultMap="ProjectView">
+		select * from ProjectView t
+		where t.ProjectView_ID = #{projectView_id}
+	</select>
+	<update id="updateProjectView" parameterType="ProjectView">
+		update ProjectView SET 
+			ProjectView_TITILE = #{ProjectView_titile},
+			ProjectView_TITLE_PAGE = #{ProjectView_title_page},
+			ProjectView_INTRODUCTION = #{ProjectView_Introduction},
+			ProjectView_KEYWORDS = #{ProjectView_KeyWords},
+			ProjectView_RELEASE_TIME = #{ProjectView_Release_time},
+			ProjectView_STATUS = #{ProjectView_status},
+			ProjectView_CONTEXT = #{ProjectView_context},
+			ProjectView_CREATER = #{ProjectView_Creater},
+			ProjectView_CREATETIME = #{ProjectView_Createtime}
+		where ProjectView_ID = #{ProjectView_id}
+	</update>
+	
+	<delete id="deleteProjectView" parameterType="String">
+		delete  from ProjectView N
+		WHERE N.ProjectView_ID = #{projectView_id}
+	</delete>
+</mapper>

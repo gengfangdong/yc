@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SsuserDao">
+	<resultMap type="entity.Ssuser" id="Ssuser">
+		<result column="SSU_ID" jdbcType="VARCHAR" property="Ssu_id"/>
+		<result column="SSU_USERID" jdbcType="VARCHAR" property="Ssu_userid"/>
+		<result column="SSU_SSID" jdbcType="VARCHAR" property="Ssu_ssid"/>
+		<result column="SSU_USERNUMBER" jdbcType="VARCHAR" property="Ssu_usernumber"/>
+		<result column="SSU_USERNAME" jdbcType="VARCHAR" property="Ssu_username"/>
+		<result column="SSU_YDPHONE" jdbcType="VARCHAR" property="Ssu_ydphone"/>
+		<result column="SSU_PHONE" jdbcType="VARCHAR" property="Ssu_phone"/>
+		<result column="SSU_DEPARTMENT" jdbcType="VARCHAR" property="Ssu_department"/>
+		<result column="SSU_CREATER" jdbcType="VARCHAR" property="Ssu_creater"/>
+		<result column="SSU_CREATETIME" jdbcType="VARCHAR" property="Ssu_createtime"/>
+		<result column="SSU_ISDELETE" jdbcType="VARCHAR" property="Ssu_isdelete"/>
+		<result column="SSU_STATUS" jdbcType="VARCHAR" property="Ssu_status"/>
+	</resultMap>
+	<insert id = "insertSsuser" parameterType="Ssuser">
+		insert into SSUSER (SSU_ID,SSU_USERID,SSU_SSID,SSU_USERNUMBER,SSU_USERNAME,SSU_YDPHONE,
+		SSU_PHONE,SSU_DEPARTMENT,SSU_CREATER,SSU_CREATETIME,SSU_ISDELETE,SSU_STATUS) 
+		values(#{Ssu_id},#{Ssu_userid},#{Ssu_ssid},#{Ssu_usernumber},
+		#{Ssu_username},#{Ssu_ydphone},#{Ssu_phone},#{Ssu_department},
+		#{Ssu_creater},#{Ssu_createtime},#{Ssu_isdelete},#{Ssu_status})
+	</insert>
+	
+	<select id="getSsuserByUserId" parameterType="Ssuser" resultType="Ssuser">
+		select *　from SSUSER s where s.SSU_ISDELETE = '0' and s.SSU_USERID = #{User_id}
+	</select>
+	
+	<update id="deleteSsuser" parameterType="String">
+		UPDATE SSUSER U
+			SET U.SSU_ISDELETE = '1'
+		WHERE
+			U.SSU_ID = #{ssuid}
+			AND U.SSU_ISDELETE = '0'
+			AND U.SSU_SSID = #{Project_id}
+			AND U.SSU_USERID = #{User_id}
+	</update>
+</mapper>

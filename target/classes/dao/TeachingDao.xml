@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TeachingDao">
+	<resultMap type="entity.Teaching" id="teaching">
+		<result column="Teaching_id" jdbcType="VARCHAR" property="Teaching_id"/>
+		<result column="Teaching_titile" jdbcType="VARCHAR" property="Teaching_titile"/>
+		<result column="Teaching_title_page" jdbcType="VARCHAR" property="Teaching_title_page"/>
+		<result column="Teaching_Introduction" jdbcType="VARCHAR" property="Teaching_Introduction"/>
+		<result column="Teaching_KeyWords" jdbcType="VARCHAR" property="Teaching_KeyWords"/>
+		<result column="Teaching_Release_time" jdbcType="VARCHAR" property="Teaching_Release_time"/>
+		<result column="Teaching_status" jdbcType="VARCHAR" property="Teaching_status"/>
+		<result column="Teaching_context" jdbcType="VARCHAR" property="Teaching_context"/>
+		<result column="Teaching_Creater" jdbcType="VARCHAR" property="Teaching_Creater"/>
+		<result column="Teaching_Createtime" jdbcType="VARCHAR" property="Teaching_Createtime"/>
+	</resultMap>
+	<insert id = "insertTeaching" parameterType="Teaching">
+		insert into TEACHING (TEACHING_ID,TEACHING_TITILE,TEACHING_TITLE_PAGE,TEACHING_INTRODUCTION,
+		TEACHING_KEYWORDS,TEACHING_RELEASE_TIME,TEACHING_STATUS,TEACHING_CONTEXT,TEACHING_CREATER,TEACHING_CREATETIME) 
+		values(#{Teaching_id},#{Teaching_titile},#{Teaching_title_page},#{Teaching_Introduction},
+		#{Teaching_KeyWords},#{Teaching_Release_time},#{Teaching_status},#{Teaching_context},
+		#{Teaching_Creater},#{Teaching_Createtime})
+	</insert>
+	<select id = "getTeachingAllBypage" resultMap="teaching">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM TEACHING) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getTeachingCount" resultType="int">
+		select count(*) from TEACHING 
+	</select>
+	
+	<select id="getTeachingDetailByid" resultMap="teaching">
+		select * from TEACHING t
+		where t.TEACHING_ID = #{teaching_id}
+	</select>
+	<update id="updateTeaching" parameterType="Teaching">
+		update TEACHING SET 
+			TEACHING_TITILE = #{Teaching_titile},
+			TEACHING_TITLE_PAGE = #{Teaching_title_page},
+			TEACHING_INTRODUCTION = #{Teaching_Introduction},
+			TEACHING_KEYWORDS = #{Teaching_KeyWords},
+			TEACHING_RELEASE_TIME = #{Teaching_Release_time},
+			TEACHING_STATUS = #{Teaching_status},
+			TEACHING_CONTEXT = #{Teaching_context},
+			TEACHING_CREATER = #{Teaching_Creater},
+			TEACHING_CREATETIME = #{Teaching_Createtime}
+		where TEACHING_ID = #{Teaching_id}
+	</update>
+	
+	<delete id="deleteTeaching" parameterType="String">
+		delete  from TEACHING N
+		WHERE N.TEACHING_ID = #{teaching_id}
+	</delete>
+</mapper>

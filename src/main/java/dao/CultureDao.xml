@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CultureDao">
+	<resultMap type="entity.Culture" id="culture">
+		<result column="Culture_id" jdbcType="VARCHAR" property="Culture_id"/>
+		<result column="Culture_titile" jdbcType="VARCHAR" property="Culture_titile"/>
+		<result column="Culture_title_page" jdbcType="VARCHAR" property="Culture_title_page"/>
+		<result column="Culture_Introduction" jdbcType="VARCHAR" property="Culture_Introduction"/>
+		<result column="Culture_KeyWords" jdbcType="VARCHAR" property="Culture_KeyWords"/>
+		<result column="Culture_Release_time" jdbcType="VARCHAR" property="Culture_Release_time"/>
+		<result column="Culture_status" jdbcType="VARCHAR" property="Culture_status"/>
+		<result column="Culture_context" jdbcType="VARCHAR" property="Culture_context"/>
+		<result column="Culture_Creater" jdbcType="VARCHAR" property="Culture_Creater"/>
+		<result column="Culture_Createtime" jdbcType="VARCHAR" property="Culture_Createtime"/>
+	</resultMap>
+	<insert id = "insertCulture" parameterType="Culture">
+		insert into CULTURE (CULTURE_ID,CULTURE_TITILE,CULTURE_TITLE_PAGE,CULTURE_INTRODUCTION,
+		CULTURE_KEYWORDS,CULTURE_RELEASE_TIME,CULTURE_STATUS,CULTURE_CONTEXT,CULTURE_CREATER,CULTURE_CREATETIME) 
+		values(#{Culture_id},#{Culture_titile},#{Culture_title_page},#{Culture_Introduction},
+		#{Culture_KeyWords},#{Culture_Release_time},#{Culture_status},#{Culture_context},
+		#{Culture_Creater},#{Culture_Createtime})
+	</insert>
+	<select id = "getCultureAllBypage" resultMap="culture">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM CULTURE) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getCultureCount" resultType="int">
+		select count(*) from CULTURE 
+	</select>
+	
+	<select id="getCultureDetailByid" resultMap="culture">
+		select * from CULTURE t
+		where t.CULTURE_ID = #{culture_id}
+	</select>
+	<update id="updateCulture" parameterType="Culture">
+		update CULTURE SET 
+			CULTURE_TITILE = #{Culture_titile},
+			CULTURE_TITLE_PAGE = #{Culture_title_page},
+			CULTURE_INTRODUCTION = #{Culture_Introduction},
+			CULTURE_KEYWORDS = #{Culture_KeyWords},
+			CULTURE_RELEASE_TIME = #{Culture_Release_time},
+			CULTURE_STATUS = #{Culture_status},
+			CULTURE_CONTEXT = #{Culture_context},
+			CULTURE_CREATER = #{Culture_Creater},
+			CULTURE_CREATETIME = #{Culture_Createtime}
+		where CULTURE_ID = #{Culture_id}
+	</update>
+	
+	<delete id="deleteCulture" parameterType="String">
+		delete  from CULTURE N
+		WHERE N.CULTURE_ID = #{culture_id}
+	</delete>
+</mapper>

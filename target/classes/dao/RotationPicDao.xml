@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.RotationPicDao">
+	<resultMap type="entity.RotationPic" id="RotationPic">
+		<result column="RotationPic_id" jdbcType="VARCHAR" property="RotationPic_id"/>
+		<result column="RotationPic_titile" jdbcType="VARCHAR" property="RotationPic_titile"/>
+		<result column="RotationPic_title_page" jdbcType="VARCHAR" property="RotationPic_title_page"/>
+		<result column="RotationPic_Introduction" jdbcType="VARCHAR" property="RotationPic_Introduction"/>
+		<result column="RotationPic_KeyWords" jdbcType="VARCHAR" property="RotationPic_KeyWords"/>
+		<result column="RotationPic_Release_time" jdbcType="VARCHAR" property="RotationPic_Release_time"/>
+		<result column="RotationPic_status" jdbcType="VARCHAR" property="RotationPic_status"/>
+		<result column="RotationPic_context" jdbcType="VARCHAR" property="RotationPic_context"/>
+		<result column="RotationPic_Creater" jdbcType="VARCHAR" property="RotationPic_Creater"/>
+		<result column="RotationPic_Createtime" jdbcType="VARCHAR" property="RotationPic_Createtime"/>
+	</resultMap>
+	<insert id = "insertRotationPic" parameterType="RotationPic">
+		insert into RotationPic (RotationPic_ID,RotationPic_TITILE,RotationPic_TITLE_PAGE,RotationPic_INTRODUCTION,
+		RotationPic_KEYWORDS,RotationPic_RELEASE_TIME,RotationPic_STATUS,RotationPic_CONTEXT,RotationPic_CREATER,RotationPic_CREATETIME) 
+		values(#{RotationPic_id},#{RotationPic_titile},#{RotationPic_title_page},#{RotationPic_Introduction},
+		#{RotationPic_KeyWords},#{RotationPic_Release_time},#{RotationPic_status},#{RotationPic_context},
+		#{RotationPic_Creater},#{RotationPic_Createtime})
+	</insert>
+	<select id = "getRotationPicAllBypage" resultMap="RotationPic">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM RotationPic) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getRotationPicCount" resultType="int">
+		select count(*) from RotationPic 
+	</select>
+	
+	<select id="getRotationPicDetailByid" resultMap="RotationPic">
+		select * from RotationPic t
+		where t.RotationPic_ID = #{RotationPic_id}
+	</select>
+	<update id="updateRotationPic" parameterType="RotationPic">
+		update RotationPic SET 
+			RotationPic_TITILE = #{RotationPic_titile},
+			RotationPic_TITLE_PAGE = #{RotationPic_title_page},
+			RotationPic_INTRODUCTION = #{RotationPic_Introduction},
+			RotationPic_KEYWORDS = #{RotationPic_KeyWords},
+			RotationPic_RELEASE_TIME = #{RotationPic_Release_time},
+			RotationPic_STATUS = #{RotationPic_status},
+			RotationPic_CONTEXT = #{RotationPic_context},
+			RotationPic_CREATER = #{RotationPic_Creater},
+			RotationPic_CREATETIME = #{RotationPic_Createtime}
+		where RotationPic_ID = #{RotationPic_id}
+	</update>
+	
+	<delete id="deleteRotationPic" parameterType="String">
+		delete  from RotationPic N
+		WHERE N.RotationPic_ID = #{RotationPic_id}
+	</delete>
+</mapper>

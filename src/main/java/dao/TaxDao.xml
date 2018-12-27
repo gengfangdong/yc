@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.TaxDao">
+	<resultMap type="entity.Tax" id="tax">
+		<result column="Tax_id" jdbcType="VARCHAR" property="Tax_id"/>
+		<result column="Tax_titile" jdbcType="VARCHAR" property="Tax_titile"/>
+		<result column="Tax_title_page" jdbcType="VARCHAR" property="Tax_title_page"/>
+		<result column="Tax_Introduction" jdbcType="VARCHAR" property="Tax_Introduction"/>
+		<result column="Tax_KeyWords" jdbcType="VARCHAR" property="Tax_KeyWords"/>
+		<result column="Tax_Release_time" jdbcType="VARCHAR" property="Tax_Release_time"/>
+		<result column="Tax_status" jdbcType="VARCHAR" property="Tax_status"/>
+		<result column="Tax_context" jdbcType="VARCHAR" property="Tax_context"/>
+		<result column="Tax_Creater" jdbcType="VARCHAR" property="Tax_Creater"/>
+		<result column="Tax_Createtime" jdbcType="VARCHAR" property="Tax_Createtime"/>
+	</resultMap>
+	<insert id = "insertTax" parameterType="Tax">
+		insert into TAX (TAX_ID,TAX_TITILE,TAX_TITLE_PAGE,TAX_INTRODUCTION,
+		TAX_KEYWORDS,TAX_RELEASE_TIME,TAX_STATUS,TAX_CONTEXT,TAX_CREATER,TAX_CREATETIME) 
+		values(#{Tax_id},#{Tax_titile},#{Tax_title_page},#{Tax_Introduction},
+		#{Tax_KeyWords},#{Tax_Release_time},#{Tax_status},#{Tax_context},
+		#{Tax_Creater},#{Tax_Createtime})
+	</insert>
+	<select id = "getTaxAllBypage" resultMap="tax">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM TAX) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getTaxCount" resultType="int">
+		select count(*) from TAX 
+	</select>
+	
+	<select id="getTaxDetailByid" resultMap="tax">
+		select * from TAX t
+		where t.TAX_ID = #{tax_id}
+	</select>
+	<update id="updateTax" parameterType="Tax">
+		update TAX SET 
+			TAX_TITILE = #{Tax_titile},
+			TAX_TITLE_PAGE = #{Tax_title_page},
+			TAX_INTRODUCTION = #{Tax_Introduction},
+			TAX_KEYWORDS = #{Tax_KeyWords},
+			TAX_RELEASE_TIME = #{Tax_Release_time},
+			TAX_STATUS = #{Tax_status},
+			TAX_CONTEXT = #{Tax_context},
+			TAX_CREATER = #{Tax_Creater},
+			TAX_CREATETIME = #{Tax_Createtime}
+		where TAX_ID = #{Tax_id}
+	</update>
+	
+	<delete id="deleteTax" parameterType="String">
+		delete  from TAX N
+		WHERE N.TAX_ID = #{tax_id}
+	</delete>
+</mapper>
