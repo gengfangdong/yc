@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.User_FigClassDao">
+	<resultMap type="entity.User_Figclass" id="User_Figclass">
+		<result column="USERID" jdbcType="VARCHAR" property="Userid"/>
+		<result column="FIGCLASS_ID" jdbcType="VARCHAR" property="figClass_id"/>
+		<result column="STATUS" jdbcType="VARCHAR" property="status"/>
+		<result column="ISDELETE" jdbcType="VARCHAR" property="isdelete"/>
+		<result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+		<result column="CREATETIME" jdbcType="VARCHAR" property="createtime"/>
+		<result column="UPDATER" jdbcType="VARCHAR" property="updater"/>
+		<result column="UPDATETIME" jdbcType="VARCHAR" property="updatetime"/>
+	</resultMap>
+	 <insert id="insertUser_Fig" parameterType="entity.User_Figclass">
+		insert into USER_FIGCLASS(USERID,FIGCLASS_ID,STATUS,ISDELETE,CREATER,CREATETIME,UPDATER,UPDATETIME)
+		<foreach collection="list" index="index" item="item" separator="union all">
+			(select  #{item.Userid},#{item.figClass_id},#{item.status},#{item.isdelete},#{item.creater},#{item.createtime},#{item.updater},#{item.updatetime} from dual)
+		</foreach> 
+	</insert>
+	<select id="getCountByid" parameterType="String" resultType="int">
+		select count(*) from USER_FIGCLASS t where t.creater = #{User_id} and t.figclass_id = #{FigClass_id} and t.isdelete  = '0'
+	</select>
+	<!--<select id="getListByid" parameterType="String" resultMap="Figfile">
+		select * from FIGFILE f where f.FIGCLASS_ID = #{FigClass_id} and f.ISDELETE = '0'
+	</select>
+	
+	<update id="updateReview" parameterType="String">
+		update FREE_COSTOM
+		　　set FREECO_STATUS = #{status},
+			   Freeco_UPDATER = #{updater},
+				Freeco_UPDATETIME = #{updatetime}
+		where FREECO_ID=#{Constom_id} and Freeco_ISDELETE = '0'
+	</update>
+	
+	<select id="getListBypage" resultMap="Free_constom">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		select count(*) from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+	</select>
+	
+	<update id="deleteConstom" parameterType="String">
+		UPDATE FREE_COSTOM F
+			SET F.Freeco_ISDELETE = '1',
+				F.Freeco_UPDATER = #{updater},
+				F.Freeco_UPDATETIME = #{updatetime}
+				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
+	</update> -->
+</mapper>

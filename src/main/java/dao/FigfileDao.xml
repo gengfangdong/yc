@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.FigfileDao">
+	<resultMap type="entity.Figfile" id="Figfile">
+		<result column="FIGCLASS_ID" jdbcType="VARCHAR" property="FigClass_id"/>
+		<result column="OLDFILENAME" jdbcType="VARCHAR" property="oldfilename"/>
+		<result column="NEWFILENAME" jdbcType="VARCHAR" property="newfilename"/>
+		<result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+		<result column="CREATETIME" jdbcType="VARCHAR" property="createtime"/>
+		<result column="ISDELETE" jdbcType="VARCHAR" property="isdelete"/>
+	</resultMap>
+	 <insert id="insertBatch" parameterType="entity.Figfile">
+		insert into FIGFILE(FIGCLASS_ID,OLDFILENAME,NEWFILENAME,CREATER,CREATETIME,ISDELETE)
+		<foreach collection="list" index="index" item="item" separator="union all">
+		 (select #{item.FigClass_id},#{item.oldfilename},#{item.newfilename},#{item.creater},#{item.createtime},#{item.isdelete} from dual)	
+		</foreach>
+	</insert>
+	
+	<select id="getListByid" parameterType="String" resultMap="Figfile">
+		select * from FIGFILE f where f.FIGCLASS_ID = #{FigClass_id} and f.ISDELETE = '0'
+	</select>
+	
+	<!--<update id="updateReview" parameterType="String">
+		update FREE_COSTOM
+		　　set FREECO_STATUS = #{status},
+			   Freeco_UPDATER = #{updater},
+				Freeco_UPDATETIME = #{updatetime}
+		where FREECO_ID=#{Constom_id} and Freeco_ISDELETE = '0'
+	</update>
+	
+	<select id="getListBypage" resultMap="Free_constom">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		select count(*) from FREE_COSTOM F
+			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			<if test="caogery != null and caogery != '' ">
+				and FREECO_GAOERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and FREECO_STATUS = #{status}
+			</if>
+	</select>
+	
+	<update id="deleteConstom" parameterType="String">
+		UPDATE FREE_COSTOM F
+			SET F.Freeco_ISDELETE = '1',
+				F.Freeco_UPDATER = #{updater},
+				F.Freeco_UPDATETIME = #{updatetime}
+				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
+	</update> -->
+</mapper>
