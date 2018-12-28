@@ -224,7 +224,6 @@
 												    <table class="layui-table">
 												      <thead>
 												        <tr><th>文件名</th>
-												        <th>大小</th>
 												        <th>操作</th>
 												      </tr></thead>
 												      <tbody id="demoList"></tbody>
@@ -467,6 +466,19 @@
 						//$(".layui-this").css('display','');
 						//$($(nLiShow[j])[0])[0].innerHTML=type;
 						//$(".layui-this")[0].innerHTML = type;
+						//文件回显start
+						var memotr = "";
+						var files=new Array();
+    					files = data.data.constom.constomFiles;
+    					for(var i = 0 ;i<files.length;i++){
+    						memotr += '<tr id="upload-'+ i +'">'+
+					          '<td>'+ files[i].oldfilename +'</td>'+
+					          '<td>'+
+					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '</td>'+
+					        '</tr>';
+    					}
+    					$("#demoList").append(memotr);
 						
 					}else{
 						if(data.message == "0"){
@@ -509,7 +521,7 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/Course/getlistLaynp',
 			    cols: [[
 			      //{type:'checkbox'},
 				  {type:'numbers',title:"序号",minWidth:90},

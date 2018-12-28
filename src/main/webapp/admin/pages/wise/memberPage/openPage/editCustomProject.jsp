@@ -229,7 +229,6 @@
 												    <table class="layui-table">
 												      <thead>
 												        <tr><th>文件名</th>
-												        <th>大小</th>
 												        <th>操作</th>
 												      </tr></thead>
 												      <tbody id="demoList"></tbody>
@@ -394,7 +393,7 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/Course/getlistLaynp/<%=constom_id%>',
 			    cols: [[
 			      {type:'checkbox'},
 				  {type:'numbers',title:"序号",minWidth:90},
@@ -449,7 +448,7 @@
 			  //方案定制
 			  table.render({
 				    elem: '#LAY_table_user2',
-				    url: '<%=request.getContextPath()%>/Course/getlistLay',
+				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage/<%=constom_id%>',
 				    cols: [[
 					  {field:'radio', title: '选择',toolbar: '#radio2'},
 				      
@@ -491,6 +490,124 @@
 			});
 		</script>
 		<script>
+		var filesa=new Array();
+			window.onload = function(){
+			$.ajax({
+				url:'<%=request.getContextPath()%>/Constom/getDetailByid',
+				type:'post',
+				data:{
+
+					Constom_id:'<%=constom_id%>'
+				},
+				success:function(data){
+					if(data.success == true){
+						$("#classesName").val(data.data.constom.freeco_name);
+						$("#hostDate").val(data.data.constom.freeco_data);
+						$("#planNumOfEntries").val(data.data.constom.freeco_pernum);
+						$("#planHostAddress").val(data.data.constom.freeco_address);
+						$("#contactPersonnel").val(data.data.constom.freeco_person);
+						$("#contactNumber").val(data.data.constom.freeco_phone);
+
+						if(data.data.constom.freeco_gaoery==0){
+							var type="方案定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[0]).addClass('layui-show');
+							}
+									
+						}else if(data.data.constom.freeco_gaoery==1){
+							var type="课程定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[1]).addClass('layui-show');
+							}
+			
+						}else if(data.data.constom.freeco_gaoery==2){
+							var type="自由定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[2]).addClass('layui-show');
+							}
+							$('#hostingDay').val(data.data.constom.freeco_datanum);
+							$('textarea').val(data.data.constom.freeco_outline);
+						}
+						var memotr = "";
+						var files=new Array();
+    					files = data.data.constom.constomFiles;
+    					for(var i = 0 ;i<files.length;i++){
+    						memotr += '<tr id="upload-'+ i +'">'+
+					          '<td>'+ files[i].oldfilename +'</td>'+
+					          '<td>'+
+					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button><button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" onclick="deleteRow(this);">'+
+						          '删除</button>'+
+					          '</td>'+
+					        '</tr>';
+    					}
+    					$("#demoList").append(memotr);
+						
+						
+					}else{
+						if(data.message == "0"){
+							layer.alert("未登录!");
+						}
+						else if(data.message == "1"){
+							layer.alert("定制班次不存在");
+						} 
+
+					}
+				},error:function(data){
+
+				}
+			});
+		}
+		function deleteRow(objs){
+   	 			var tr = objs.parentElement.parentElement;
+   	 			var ttbody = tr.parentNode;
+   	 			var filedeletename = tr.childNodes[0].innerText;
+   	 			for(var oo = 0; oo<filesa.length;oo++){
+   	 				if(filesa[oo].scheduled_oldfile == filedeletename){
+			      			filesa.splice(oo,1);
+			      			break;
+			      	}
+   	 			}
+   	 			ttbody.removeChild(tr);
+   	 		}
 		var filelist = [];
 		layui.use('upload', function() {
 			var upload = layui.upload;
@@ -508,10 +625,17 @@
 		      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
 		      //读取本地文件
 		      obj.preview(function(index, file, result){
-		      	filelist.push(file);
+		      	var filenamea = file.name;
+			    for(var o = 0 ;o<filesa.length;o++){
+			      	if(filesa[o].scheduled_oldfile == filenamea){
+			      		layer.alert("文件已存在!");
+			      		break;
+			      		return ;
+			      	}
+			    }
+			    filelist.push(file);
 		        var tr = $(['<tr id="upload-'+ index +'">'
 		          ,'<td>'+ file.name +'</td>'
-		          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
 		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
@@ -631,20 +755,29 @@
 					alert("请输入有效的联系电话！");
 					return;
 				}
-				
+				var fd = new FormData();
+				for(var j = 0;j<filelist.length;j++){
+					fd.append('file', filelist[j]);
+				}
+    			fd.append('Constom_name', classesName);
+    			fd.append('Constom_data', hostDate);
+    			if(selectList.length>1){
+    				fd.append('Constom_datanum', selectList[0]);
+    			}
+    			
+    			fd.append('Constom_pernum', planNumOfEntries);
+    			fd.append('Constom_address', planHostAddress);
+    			fd.append('Constom_person', contactPersonnel);
+    			fd.append('Constom_phone', contactNumber);
+    			fd.append('Constom_outline', selectList);
+    			fd.append('Constom_gaoery', type);
 				$.ajax({
 					url:'',
 					type:'post',
-					data:{
-						classesName : classesName,
-						hostDate : hostDate,
-						planNumOfEntries : planNumOfEntries,
-						planHostAddress : planHostAddress,
-						contactPersonnel : contactPersonner,
-						contactNumber : contactNumber,
-						type : type,
-						selectList : selectList
-					},
+					encType: 'multipart/form-data', //表明上传类型为文件
+					processData: false,  //tell jQuery not to process the data
+        			contentType: false,  //tell jQuery not to set contentType
+					data:fd,
 					success:function(data){
 						alert("提交成功！");
 					},
@@ -656,97 +789,7 @@
 			}
 		</script>
 		<script type="text/javascript">
-			window.onload = function(){
-			$.ajax({
-				url:'<%=request.getContextPath()%>/Constom/getDetailByid',
-				type:'post',
-				data:{
 
-					Constom_id:'<%=constom_id%>'
-				},
-				success:function(data){
-					if(data.success == true){
-						$("#classesName").val(data.data.constom.freeco_name);
-						$("#hostDate").val(data.data.constom.freeco_data);
-						$("#planNumOfEntries").val(data.data.constom.freeco_pernum);
-						$("#planHostAddress").val(data.data.constom.freeco_address);
-						$("#contactPersonnel").val(data.data.constom.freeco_person);
-						$("#contactNumber").val(data.data.constom.freeco_phone);
-
-						if(data.data.constom.freeco_gaoery==0){
-							var type="方案定制";
-							var nDivShow = $('.layui-tab-item');
-							var nLiShow = $(".layui-tab-title li");
-							for(var i=0;i<nLiShow.length;i++){
-								if($(nLiShow[i]).is(".layui-this")){
-									$(nLiShow[i]).removeClass("layui-this");
-								}
-								if($(nDivShow[i]).is(".layui-show")){
-									$(nDivShow[i]).removeClass("layui-show");
-								}
-							}
-							for (var j = 0; j <nLiShow.length; j++) {
-								if($($(nLiShow[j])[0])[0].innerHTML==type){
-									$(nLiShow[j]).addClass("layui-this");
-								}
-								$(nDivShow[0]).addClass('layui-show');
-							}
-									
-						}else if(data.data.constom.freeco_gaoery==1){
-							var type="课程定制";
-							var nDivShow = $('.layui-tab-item');
-							var nLiShow = $(".layui-tab-title li");
-							for(var i=0;i<nLiShow.length;i++){
-								if($(nLiShow[i]).is(".layui-this")){
-									$(nLiShow[i]).removeClass("layui-this");
-								}
-								if($(nDivShow[i]).is(".layui-show")){
-									$(nDivShow[i]).removeClass("layui-show");
-								}
-							}
-							for (var j = 0; j <nLiShow.length; j++) {
-								if($($(nLiShow[j])[0])[0].innerHTML==type){
-									$(nLiShow[j]).addClass("layui-this");
-								}
-								$(nDivShow[1]).addClass('layui-show');
-							}
-			
-						}else if(data.data.constom.freeco_gaoery==2){
-							var type="自由定制";
-							var nDivShow = $('.layui-tab-item');
-							var nLiShow = $(".layui-tab-title li");
-							for(var i=0;i<nLiShow.length;i++){
-								if($(nLiShow[i]).is(".layui-this")){
-									$(nLiShow[i]).removeClass("layui-this");
-								}
-								if($(nDivShow[i]).is(".layui-show")){
-									$(nDivShow[i]).removeClass("layui-show");
-								}
-							}
-							for (var j = 0; j <nLiShow.length; j++) {
-								if($($(nLiShow[j])[0])[0].innerHTML==type){
-									$(nLiShow[j]).addClass("layui-this");
-								}
-								$(nDivShow[2]).addClass('layui-show');
-							}
-							$('#hostingDay').val(data.data.constom.freeco_datanum);
-							$('textarea').val(data.data.constom.freeco_outline);
-						}
-						
-					}else{
-						if(data.message == "0"){
-							layer.alert("未登录!");
-						}
-						else if(data.message == "1"){
-							layer.alert("定制班次不存在");
-						} 
-
-					}
-				},error:function(data){
-
-				}
-			});
-		}
 		</script>
 		<script type="text/html" id="barDemo">
   			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>

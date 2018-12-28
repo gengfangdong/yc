@@ -409,7 +409,7 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
-			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
+			      {field:'course_id', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false
@@ -610,8 +610,14 @@
 					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
 				}else if(type=="课程定制"){
 					type=1;
-					for(var i=0;i<$('.layui-form-checked').length;i++){
-						selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+					if($("#sample-table-1 th .laytable-cell-checkbox div").is('.layui-form-checked')){
+						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
+							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						}
+					}else{
+						for(var i=0;i<$('.layui-form-checked').length;i++){
+							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						}
 					}
 				}else if(type=="自由定制"){
 					type=2;
@@ -629,7 +635,7 @@
 						alert("请输入纯数字的天数!");
 						return false;
 					}
-					selectList[1] = $("#hostingDay")[0].parentNode.parentNode.children[1].value;
+					selectList[1] = $("textarea")[0].value;
 					
 				}
 				if(classesName==""){
@@ -678,24 +684,41 @@
     			fd.append('Constom_outline', selectList);
     			fd.append('Constom_gaoery', type);
 				$.ajax({
-					url:'<%=request.getContextPath()%>/FigClass/addFig',
+					url:'<%=request.getContextPath()%>/Constom/addConstom',
 					type:'post',
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data
         			contentType: false,  //tell jQuery not to set contentType
 					data:fd,
 					success:function(data){
-						alert("提交成功！");
+						if(data.success == true){
+							if(data.message == "4"){
+								layer.confirm('保存成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						}else{
+							alert("保存失败！");
+						}
 					},
 					error:function(error){
-						
+						layer.confirm('保存失败!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 				
 			}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}} lay-event="show" style="margin-right:10px;">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
   			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>

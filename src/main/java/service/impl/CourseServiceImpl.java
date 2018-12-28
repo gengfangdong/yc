@@ -7,11 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dao.ConstomDao;
 import dao.CourseDao;
 import entity.About;
 import entity.ApplyShowVo;
 import entity.Course;
+import entity.CourseVo;
 import entity.DatatablesViewPage;
+import entity.Free_constom;
 import entity.LayuiDataTable;
 import entity.Notice;
 import service.CourseService;
@@ -21,6 +24,8 @@ public class CourseServiceImpl implements CourseService{
 
 	@Autowired
 	private CourseDao courseDao;
+	@Autowired
+	private ConstomDao constomDao;
 	public void insertCourse(Course course) {
 		// TODO Auto-generated method stub
 		courseDao.insertCourse(course);
@@ -108,6 +113,47 @@ public class CourseServiceImpl implements CourseService{
 		return cDataTable;
 	}
 
+	public LayuiDataTable<CourseVo> gnpDataTableByid(String First_course, String Second_course, String constom_id) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<CourseVo> cDataTable = new LayuiDataTable<CourseVo>();
+		int count = 0;
+		count = courseDao.getCourseCount(First_course, Second_course);
+		List<CourseVo> coursevos = new ArrayList<CourseVo>();
+		List<Course> courses = new ArrayList<Course>();
+		courses = courseDao.getnopage(First_course, Second_course);
+		List<Free_constom> free_constoms = constomDao.getDetailByid(constom_id);
+		Free_constom free_constom = new Free_constom();
+		if(free_constoms!=null&&free_constoms.size()>0){
+			free_constom = free_constoms.get(0);
+		}
+		String outline = free_constom.getFreeco_outline();
+		coursevos = tranfrom(courses, outline);
+		cDataTable.setCount(count);
+		cDataTable.setData(coursevos);
+		return cDataTable;
+	}
+
+	public List<CourseVo> tranfrom(List<Course> courses,String outline){
+		List<CourseVo> courseVos = new ArrayList<CourseVo>();
+		for (Course course : courses) {
+			CourseVo courseVo = new CourseVo();
+			courseVo.setCourse_id(course.getCourse_id());
+			courseVo.setCourse_context(course.getCourse_context());
+			courseVo.setCreater(course.getCreater());
+			courseVo.setCreatetime(course.getCreatetime());
+			courseVo.setFirst_course(course.getFirst_course());
+			courseVo.setIsDelete(course.getIsDelete());
+			courseVo.setSecond_course(course.getSecond_course());
+			courseVo.setThird_course(course.getThird_course());
+			if(outline.indexOf(course.getCourse_id())>=0){
+				courseVo.setLAY_CHECKED(true);
+			}
+			else
+				courseVo.setLAY_CHECKED(false);
+			courseVos.add(courseVo);
+		}
+		return courseVos;
+	}
 	
 	
 }

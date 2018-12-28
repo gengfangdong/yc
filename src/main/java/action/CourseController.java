@@ -3,11 +3,7 @@
  */
 package action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,27 +12,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import entity.Course;
+import entity.CourseVo;
 import entity.DatatablesViewPage;
 import entity.LayuiDataTable;
-import entity.About;
-import service.AboutService;
 import service.CourseService;
-import util.FileUtil;
-import util.StringUtil;
 import util.UUIDUtil;
 
 /**
@@ -116,7 +105,7 @@ public class CourseController {
 	 * @param limit
 	 * @return
 	 */
-	@RequestMapping(value="/getlistLay")
+	@RequestMapping(value="/getlistLay/{comstom_id}")
 	@ResponseBody
 	public LayuiDataTable<Course> getListBypageLay(@RequestParam(value="First_course",required=false)String First_course,
 			@RequestParam(value="Second_course",required=false)String Second_course,@RequestParam("page")int page,@RequestParam("limit")int limit){
@@ -141,6 +130,25 @@ public class CourseController {
 			@RequestParam(value="Second_course",required=false)String Second_course){
 		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
 		cDataTable = courseService.gnpDataTable(First_course, Second_course);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	/**
+	 * layui 接口 不分页  根据id查找
+	 * @param First_course
+	 * @param Second_course
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping(value="/getlistLaynp/{constom_id}")
+	@ResponseBody
+	public LayuiDataTable<CourseVo> getListLay(@RequestParam(value="First_course",required=false)String First_course,
+			@RequestParam(value="Second_course",required=false)String Second_course,
+			@PathVariable String constom_id){
+		LayuiDataTable<CourseVo> cDataTable = new LayuiDataTable<CourseVo>();
+		cDataTable = courseService.gnpDataTableByid(First_course, Second_course,constom_id);
 		cDataTable.setCode(0);
 		cDataTable.setMsg("");
 		return cDataTable;

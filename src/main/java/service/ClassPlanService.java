@@ -1,7 +1,9 @@
 package service;
 
 
+
 import entity.ClassPlan;
+import entity.ClassPlanVo;
 import entity.DatatablesViewPage;
 import entity.LayuiDataTable;
 
@@ -12,4 +14,5 @@ public interface ClassPlanService {
 	public DatatablesViewPage<ClassPlan> getlistBypage(int start,int length);
 	public ClassPlan getDetailByid(String classPlan_id);
 	public LayuiDataTable<ClassPlan> getListNoPage();
+	public LayuiDataTable<ClassPlanVo> getListNoPageById(String constom_id);
 }

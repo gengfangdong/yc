@@ -6,6 +6,7 @@ import java.util.List;
 
 import entity.About;
 import entity.Course;
+import entity.CourseVo;
 import entity.DatatablesViewPage;
 import entity.LayuiDataTable;
 
@@ -25,4 +26,7 @@ public interface CourseService {
 	public LayuiDataTable<Course> gDataTable(int page,int limit,String First_course,String Second_course);
 	//layui
 	public LayuiDataTable<Course> gnpDataTable(String First_course,String Second_course);
+	
+	//layui
+	public LayuiDataTable<CourseVo> gnpDataTableByid(String First_course,String Second_course,String constom_id);
 }

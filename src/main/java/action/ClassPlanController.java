@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import entity.ClassPlan;
+import entity.ClassPlanVo;
 import entity.Course;
 import entity.DatatablesViewPage;
 import entity.LayuiDataTable;
@@ -116,6 +118,24 @@ public class ClassPlanController {
 		//DataTables  返回实例
 		LayuiDataTable<ClassPlan> cDataTable = new LayuiDataTable<ClassPlan>();
 		cDataTable = classPlanService.getListNoPage();
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	
+	/**
+	 * 返回课程方案列表  不分页  定制id
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistnopage/{constom_id}")
+	@ResponseBody
+	public LayuiDataTable<ClassPlanVo> GetlistNoPage(@RequestParam("page")int start,@RequestParam("limit")int length,@PathVariable String constom_id ){
+		//DataTables  返回实例
+		LayuiDataTable<ClassPlanVo> cDataTable = new LayuiDataTable<ClassPlanVo>();
+		cDataTable = classPlanService.getListNoPageById(constom_id);
 		cDataTable.setCode(0);
 		cDataTable.setMsg("");
 		return cDataTable;
