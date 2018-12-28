@@ -149,7 +149,10 @@
 												<label for="" class="control-label" style="float: left;">举办天数：</label>
 												<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
 											</div>	
-											<textarea style="width: 100%;height: 150px;"></textarea>
+											<div style="margin:20px 0 15px 30px;height:32px;">
+												<label for="" class="control-label" style="float: left;text-align:right;width:60px;">备注：</label>
+												<textarea style="width: 93%;height: 150px;float:left;border-radius:5px;"></textarea>
+											</div>
 										
 									</div>
 									
@@ -390,71 +393,6 @@
 						$("#planHostAddress").val(data.data.constom.freeco_address);
 						$("#contactPersonnel").val(data.data.constom.freeco_person);
 						$("#contactNumber").val(data.data.constom.freeco_phone);
-						/*if(data.data.constom.gaoery==0){
-							var type="方案定制";
-							var showDiv2 = '<table id="LAY_table_user2" lay-filter="user2" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;"><thead></thead><tbody></tbody></table>'+
-											'<div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-2" style=" ">'+
-											'<div class="layui-table-box">'+
-											'<div class="layui-table-header">'+
-											'<table cellspacing="0" cellpadding="0" border="0" class="layui-table"><thead>'+
-											'<tr>'+
-											'<th data-field="1" data-unresize="true"><div class="layui-table-cell laytable-cell-2-1 laytable-cell-numbers"><span>序号</span></div></th>'+
-											'<th data-field="plan_id" class="layui-hide"><div class="layui-table-cell laytable-cell-2-plan_id"><span>ID</span></div></th>'+
-											'<th data-field="plan_name"><div class="layui-table-cell laytable-cell-2-plan_name"><span>方案名称</span></div></th>'+
-											'<th data-field="handle"><div class="layui-table-cell laytable-cell-2-handle"><span>操作</span></div></th></tr></thead></table></div>'+
-											
-											'<div class="layui-table-body layui-table-main"><table cellspacing="0" cellpadding="0" border="0" class="layui-table"><tbody>'+
-											'<tr data-index="0" class="">'+
-											'<td data-field="1"><div class="layui-table-cell laytable-cell-2-1 laytable-cell-numbers">1</div></td>'+
-											'<td data-field="plan_id" style="display:none;"><div class="layui-table-cell laytable-cell-2-plan_id">'+data.data.object[0].classplan_id+'</div></td>'+
-											'<td data-field="plan_name"><div class="layui-table-cell laytable-cell-2-plan_name">'+data.data.object[0].classplan_name+'</div></td>'+
-											'<td data-field="handle" data-off="true"><div class="layui-table-cell laytable-cell-2-handle"> <a class="" lay-event="show2" style="margin-right:10px;">查看</a> </div></td></tr>'+
-											'</tbody></table></div>'+
-											'</div>'+
-											'<style>.laytable-cell-2-radio{ width: 235px; }.laytable-cell-2-1{ width: 40px; }.laytable-cell-2-plan_id{ width: 235px; }.laytable-cell-2-plan_name{ width: 235px; }.laytable-cell-2-handle{ width: 235px; }</style></div>';
-											
-						}else if(data.data.constom.gaoery==1){
-							var type="课程定制";
-							var showDiv_tr = '<tr data-index="0" class="">'+
-											'<td data-field="1" data-minwidth="90"><div class="layui-table-cell laytable-cell-2-1 laytable-cell-numbers">1</div></td>'+
-											'<td data-field="first_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-first_course">'+data.data.object[0].first_course+'</div></td>'+
-											'<td data-field="second_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-second_course">'+data.data.object[0].second_course+'</div></td>'+
-											'<td data-field="third_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-thirs_course">'+data.data.object[0].third_course+'</div></td>'+
-											'<td data-field="handle" data-minwidth="90" data-off="true"><div class="layui-table-cell laytable-cell-1-handle"> <a class="" id="'+data.data.object[0].classplan_id+'" lay-event="show" style="margin-right:10px;">查看</a> </div></td></tr>';
-	
-							for(var i=1,j=2;i<data.data.object.length;i++,j++){
-								showDiv_tr += '<tr data-index="0" class="">'+
-											'<td data-field="1" data-minwidth="90"><div class="layui-table-cell laytable-cell-2-1 laytable-cell-numbers">'+j+'</div></td>'+
-											'<td data-field="first_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-first_course">'+data.data.object[i].first_course+'</div></td>'+
-											'<td data-field="second_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-second_course">'+data.data.object[i].second_course+'</div></td>'+
-											'<td data-field="third_course" data-minwidth="120"><div class="layui-table-cell laytable-cell-1-thirs_course">'+data.data.object[i].third_course+'</div></td>'+
-											'<td data-field="handle" data-minwidth="90" data-off="true"><div class="layui-table-cell laytable-cell-1-handle"> <a class="" id="'+data.data.object[i].classplan_id+'" lay-event="show" style="margin-right:10px;">查看</a> </div></td></tr>';
-							}
-							var showDiv1 = '<table id="LAY_table_user" lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;"><thead></thead><tbody></tbody></table>'+
-											'<div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-2" style=" ">'+
-											'<div class="layui-table-box">'+
-											'<div class="layui-table-header">'+
-											'<table cellspacing="0" cellpadding="0" border="0" class="layui-table"><thead>'+
-											'<tr>'+
-											'<th data-field="1" data-unresize="true"><div class="layui-table-cell laytable-cell-2-1 laytable-cell-numbers"><span>序号</span></div></th>'+
-											'<th data-field="plan_id" class="layui-hide"><div class="layui-table-cell laytable-cell-2-plan_id"><span>ID</span></div></th>'+
-											'<th data-field="plan_name"><div class="layui-table-cell laytable-cell-2-plan_name"><span>方案名称</span></div></th>'+
-											'<th data-field="handle"><div class="layui-table-cell laytable-cell-2-handle"><span>操作</span></div></th></tr></thead></table></div>'+
-											
-											'<div class="layui-table-body layui-table-main"><table cellspacing="0" cellpadding="0" border="0" class="layui-table"><tbody>'+showDiv_tr+'</tbody></table></div>'+
-											'</div>'+
-											'<style>.laytable-cell-2-radio{ width: 235px; }.laytable-cell-2-1{ width: 40px; }.laytable-cell-2-plan_id{ width: 235px; }.laytable-cell-2-plan_name{ width: 235px; }.laytable-cell-2-handle{ width: 235px; }</style></div>';
-			
-						}else if(data.data.constom.gaoery==2){
-							var type="自由定制";
-							var showDiv3 = '<div style="margin:20px 0 15px 30px;height:32px;">'+
-											'<label for="" class="control-label" style="float: left;">举办天数：</label>'+
-											'<input type="text" id="hostingDay" value="'+data.data.constom.freeco_datanum+'" style="border:none;border-radius:5px;border:1px solid #a9a9a9;">'+
-										'</div>'+
-										'<textarea style="width: 100%;height: 150px;" value="'+data.data.constom.freeco_outline+'"></textarea>';
-						}
-						$(".layui-this")[0].innerHTML = type;*/
-
 						if(data.data.constom.freeco_gaoery==0){
 							var type="方案定制";
 							var nDivShow = $('.layui-tab-item');
@@ -546,28 +484,7 @@
 		}
 
 		</script>
-		<!-- <script>
-			function changeStyleColor1(obj) {
-				var nLiShow = $('.layui-tab-item');
-				if($(obj).is('.conditionSelectStyle')) {
-					for(var i = 0; i < nLi.length; i++) {
-						if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-							$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-						}
-					}
-					$(obj).addClass('conditionSelectStyle');
-				} else {
-					for(var i = 0; i < nLi.length; i++) {
-						if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-							$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-						}
-					}
-					$(obj).addClass('conditionSelectStyle');
-				}
-//					debugger;
-			}
-			
-		</script> -->
+		
 		<script type="text/javascript">
 			layui.use('element', function() {
 				var element = layui.element;

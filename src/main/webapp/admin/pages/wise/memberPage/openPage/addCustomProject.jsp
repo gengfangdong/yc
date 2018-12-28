@@ -153,7 +153,10 @@
 												<label for="" class="control-label" style="float: left;">举办天数：</label>
 												<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
 											</div>	
-											<textarea style="width: 100%;height: 150px;"></textarea>
+											<div style="margin:20px 0 15px 30px;height:32px;">
+												<label for="" class="control-label" style="float: left;text-align:right;width:60px;">备注：</label>
+												<textarea style="width: 93%;height: 150px;float:left;border-radius:5px;"></textarea>
+											</div>
 										</div>
 									</div>
 									
@@ -398,7 +401,7 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/Course/getlistLaynp',
 			    cols: [[
 			      {type:'checkbox'},
 				  {type:'numbers',title:"序号",minWidth:90},
@@ -486,23 +489,7 @@
 				     }  
 				  });
 			
-				 /* var $ = layui.$, active = {
-				    reload: function(){
-				      var demoReload = $('#demoReload');
-				      
-				      //执行重载
-				      table.reload('testReload2', {
-				        page: {
-				          curr: 1 //重新从第 1 页开始
-				        },
-				        method:'post',
-				        where: {
-				        	    First_course:firstObj,
-								Second_course:secondObj
-				        }
-				      });
-				    }
-				  }; */
+				 
 			  
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
@@ -691,7 +678,7 @@
     			fd.append('Constom_outline', selectList);
     			fd.append('Constom_gaoery', type);
 				$.ajax({
-					url:'<%=request.getContextPath()%>/Constom/addConstom',
+					url:'<%=request.getContextPath()%>/FigClass/addFig',
 					type:'post',
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data

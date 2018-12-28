@@ -88,9 +88,6 @@
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
 										<div class="pull-right">
 											<a href="#" class="btn btn-default btn-flat">安全退出</a>
 										</div>
@@ -151,13 +148,13 @@
 									<a href="#"><i class="fa fa-circle-o"></i> 我的项目<i class="fa fa-angle-left pull-right"></i></a>
 									<ul class="treeview-menu menu_tree">
 										<li>
-											<a href="memberCustomProject.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 定制项目</a>
+											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
 											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
 										</li>
 										<li>
-											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
+											<a href="memberOnlineClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 在线拼班</a>
 										</li>
 										<li>
 										   <a href="memberIncumbencyStudent.jsp"><i class="fa fa-square-o"></i> 在职研</a>
@@ -182,11 +179,11 @@
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>我的项目 <small>定制项目</small></h1>
+					<h1>我的项目 <small>在线拼班</small></h1>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-dashboard"></i> 首页</li>
 						<li> 我的项目</li>
-						<li class="active">定制项目</li>
+						<li class="active">在线拼班</li>
 					</ol>
 				</section>
 				
@@ -197,48 +194,54 @@
 								<div class="box-body" style="padding: 0px;">
 									<div class="row">
 										<div class="col-sm-12">
-											
+											<!-- <ul class="f-sort-ul">
+												<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
+											</ul> -->
+											<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
+												<div class="demoTable">
+													<button href="#" class="add layui-btn" onclick="addBranch(this);" style="margin-left:15px;margin-top:3px;">新增</button>
+												  <!-- 搜索ID： -->
+												  <div class="layui-inline selectObj">
+												   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+												    <label for="" class="control-label" style="float: left;">班次状态：</label>
+													<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												        <option value="待审核">待审核</option>
+												        <option value="报名未开始">报名未开始</option>
+												        <option value="报名进行中">报名进行中</option>
+												        <option value="待开课">待开课</option>
+												        <option value="开课中">开课中</option>
+												        <option value="已结课">已结课</option>
+												   </select>
+												  </div>
+												  <div class="layui-inline selectObj">
+												    <label for="" class="control-label" style="float: left;">是否已报名：</label>
+													<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												        <option value="已报名">已报名</option>
+												        <option value="未报名">未报名</option>
+												   </select>
+												  </div>
+												  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
+												</div>
+											</div> 
 											<div class="row" >
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
 															<div class="row">
 																<div class="col-sm-12 col-md-12">
-																	<div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
+																	<!-- <div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<ul class="f-sort-ul">
 																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 																			</ul>
-																			<div class="demoTable">
-																			<div class="layui-inline selectObj">
-																				<label for="" class="control-label" style="float: left;">定制类别：</label>
-																				<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																			        <option value="全部">全部</option>
-																			        <option value="方案定制">方案定制</option>
-																			        <option value="课程定制">课程定制</option>
-																			        <option value="自由定制">自由定制</option>
-																				</select>
-																			</div>
-																			<div class="layui-inline selectObj">
-																				<label for="" class="control-label" style="float: left;">状态：</label>
-																				<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																			        <option value="全部">全部</option>
-																			        <option value="未审核">未审核</option>
-																			        <option value="已通过">已通过</option>
-																			        <option value="未通过">未通过</option>
-																			        <option value="开课中">开课中</option>
-																			        <option value="已结课">已结课</option>
-																				</select>
-																			</div>
-																			<button class="layui-btn selectBtn" data-type="reload">搜索</button>
-																			</div>
 																		</div>
-																	</div>
-																	
+																	</div> -->
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="LAY_table_user" lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user"  lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 																					<thead>
 																						
 																					</thead>
@@ -309,8 +312,185 @@
 		<!-- <script type="text/javascript" src="../../My97DatePicker/WdatePicker.js"></script> -->
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
-
 		
+		<script>
+			var firstObj="";
+			var secondObj="";
+		</script>
+		
+		<script>
+		layui.use('table', function(){
+			var table = layui.table;
+		  
+		  //方法级渲染
+		  table.render({
+		    elem: '#LAY_table_user',
+		    url: '<%=request.getContextPath()%>/FigClass/LayConstom',
+		    cols: [[
+			  {type:'numbers',title:"序号"},
+		      {field:'figClass_name', title: '班级名称'},
+		      {field:'plan_host_day', title: '计划举办天数'},
+		      {field:'figClass_class_start', title: '预计开始日期'},
+		      {field:'figClass_pernum', title: '班级容纳人数'},
+		      {field:'can_plan_person', title: '可拼人数'},
+		      {field:'figClass_status', title: '班次状态',templet:'#typestatus'},
+		      {field:'isEntry', title: '是否已报名'},
+		      {field:'handle', title: '操作',toolbar: '#barDemo'}
+		    ]],
+		    id: 'testReload',
+		    page: true
+		  });
+		  
+		//监听工具条
+		  table.on('tool(user)', function(obj){
+		    var data = obj.data;
+		    if(obj.event === 'show'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '查看',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/showCustomProject.jsp',
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    } else if(obj.event === 'cancel'){
+		      	layer.confirm('确认取消报名？', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/Course/deleteCourse',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Course_id:data.course_id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								layer.alert("参数错误!");
+							}
+							else if(data.message == "1"){
+								layer.alert("获取班次名称失败!");
+							}
+							else if(data.message == "2"){
+								layer.alert("报名已取消!");
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        layer.close(index);
+		      });
+		    } else if(obj.event === 'delete'){
+		      	layer.confirm('确认删除该条记录？', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/Course/deleteCourse',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Course_id:data.course_id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								layer.alert("参数错误!");
+							}
+							else if(data.message == "1"){
+								layer.alert("获取班次名称失败!");
+							}
+							else if(data.message == "2"){
+								layer.alert("删除成功!");
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        layer.close(index);
+		      });
+		    }else if(obj.event === 'edit'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '修改',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/editCustomProject.jsp',
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }else if(obj.event === 'update'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '上传名单',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/updateCustomProject.jsp',
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }
+		    
+		  });
+		  var $ = layui.$, active = {
+		    reload: function(){
+		    var demoReload = $('#demoReload');
+		    var status = $("#firstObj").val();
+			var isEntry = $("#secondObj").val();
+			if(status == '待审核'){
+				status = 0;
+			}else if(status == '审核未通过'){
+				status = 1;
+			}else if(status == '报名未开始'){
+				status = 2;
+			}else if(status == '报名进行中'){
+				status = 3;
+			}else if(status == '待开课'){
+				status = 4;
+			}else if(status == '开课中'){
+				status = 5;
+			}else if(status == '已结课'){
+				status = 6;
+			}else if(status == '全部'){
+				status = "";
+			}
+	        if(isEntry=="全部"){
+				isEntry = "";
+			}else if(isEntry=="未报名"){
+				isEntry = 0;
+			}else if(isEntry=="已报名"){
+				isEntry = 1;
+			}
+		      //执行重载
+		      table.reload('testReload', {
+		        page: {
+		          	curr: 1 //重新从第 1 页开始
+		        },
+		        method:'post',
+		        where: {
+	        	    status:status,
+					isEntry:isEntry
+		        }
+		      });
+		    }
+		  };
+		  
+		  $('.demoTable .layui-btn').on('click', function(){
+		    var type = $(this).data('type');
+		    active[type] ? active[type].call(this) : '';
+		  });
+		});
+		
+		</script>
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
 			layui.use('laydate', function(){
@@ -322,175 +502,6 @@
 				});
 			});
 			/* 日期控件，执行多个laydate实例 end */
-			
-			layui.use('table', function(){
-				var table = layui.table;
-			  
-			  //方法级渲染
-			  table.render({
-			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Constom/LayConstom',
-			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'freeco_name', title: '班级名称'},
-			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery'},
-			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum'},
-			      {field:'freeco_pernum', title: '计划参加人数'},
-			      {field:'freeco_data', title: '预计开始时间'},
-			      {field:'freeco_status', title: '状态',templet:'#typestatus'},
-			      {field:'freeco_id', title: '操作',toolbar: '#barDemo'}
-			    ]],
-			    id: 'testReload',
-			    page: true
-			  });
-			  
-			//监听工具条
-			  table.on('tool(user)', function(obj){
-			    var data = obj.data;
-			    if(obj.event === 'show'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '查看',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/showCustomProject.jsp?constom_id='+data.freeco_id,
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
-			    } else if(obj.event === 'cancel'){
-			      	layer.confirm('确认取消定制？', function(index){
-			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
-							type : 'post',
-							dataType:"json",
-							data:{
-								Course_id:data.course_id
-							},
-							success : function(data) {
-								if(data.message == "0"){
-									layer.alert("参数错误!");
-								}
-								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
-								}
-								else if(data.message == "2"){
-									layer.alert("定制已取消!该条信息将会被删除!");
-								}
-							},
-							error : function(error) {
-								console.log('接口不通' + error);
-							}
-						});	
-			        layer.close(index);
-			      });
-			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除该条记录？', function(index){
-			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
-							type : 'post',
-							dataType:"json",
-							data:{
-								Course_id:data.course_id
-							},
-							success : function(data) {
-								if(data.message == "0"){
-									layer.alert("参数错误!");
-								}
-								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
-								}
-								else if(data.message == "2"){
-									layer.alert("删除成功!");
-								}
-							},
-							error : function(error) {
-								console.log('接口不通' + error);
-							}
-						});	
-			        layer.close(index);
-			      });
-			    }else if(obj.event === 'edit'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '修改',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/editCustomProject.jsp?constom_id='+data.freeco_id,
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
-			    } else if(obj.event === 'update'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '查看',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/updateCustomProjectNameList.jsp',
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
-			    } 
-			  });
-			  var $ = layui.$, active = {
-			    reload: function(){
-			    var demoReload = $('#demoReload');
-			    var status = $("#firstObj").val();
-				var category = $("#secondObj").val();
-				if(status == '未审核'){
-					status = 0;
-				}else if(status == '未通过'){
-					status = 1;
-				}else if(status == '已通过'){
-					status = 2;
-				}else if(status == '开课中'){
-					status = 3;
-				}else if(status == '已结课'){
-					status = 4;
-				}else if(status == '全部'){
-					status = "";
-				}
-		        if(category=="全部"){
-					category = "";
-				}else if(category=="方案定制"){
-					category = 0;
-				}else if(category=="课程定制"){
-					category = 1;
-				}else if(category=="自由定制"){
-					category = 2;
-				}
-			      //执行重载
-			      table.reload('testReload', {
-			        page: {
-			          	curr: 1 //重新从第 1 页开始
-			        },
-			        method:'post',
-			        where: {
-		        	    caogery:category,
-						status:status
-			        }
-			      });
-			    }
-			  };
-			  
-			  $('.demoTable .layui-btn').on('click', function(){
-			    var type = $(this).data('type');
-			    active[type] ? active[type].call(this) : '';
-			  });
-			});
-			
-			
 			function addBranch(obj){
 				var sText = obj.innerHTML;
 				if(sText=='新增'){
@@ -503,44 +514,8 @@
 					        area: ['1063px', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
-					        content: 'openPage/addCustomProject.jsp',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}/* else if(sText=='查看'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '查看',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,200] ,
-					        content: 'openPage/addCustomProject.html',
-					        zIndex: layer.zIndex, //重点1
-					        success: function(layero){
-					          layer.setTop(layero); //重点2
-					        }
-					    });
-			        })
-				}else if(sText=='修改'){
-					layui.use('layer',function(){
-			        	var $ = layui.jquery,
-			        	layer = layui.layer;
-			        	layer.open({
-					        type: 2, //此处以iframe举例
-					        title: '修改',
-					        area: ['1063px', '530px'],
-					        shade: 0,
-					        maxmin: true,
-					        offset: [100,200] ,
-					        content: 'openPage/addCustomProject.html',
+					        offset: [100,'20%'] ,
+					        content: 'openPage/addOnlieClasses.jsp',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
 					          layer.setTop(layero); //重点2
@@ -548,27 +523,7 @@
 					    });
 			        })
 				}
-				*/
-				
-			} 
-		</script>
-		<script type="text/html" id="barDemo">
-			{{#  if(d.freeco_status == '0'){ }}
-		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消定制</a>
-	        {{#  } else if(d.freeco_status == "1"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  } else if(d.freeco_status == "2"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
-			{{#  } else if(d.freeco_status == "3"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-			{{#  } else if(d.freeco_status == "4"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  } }}
+			}
 		</script>
 		<script>
 			window.onload = function(){
@@ -582,17 +537,38 @@
 				treeUls[2].setAttribute('style','display: block;');
 			};
 		</script>
-
+		<script type="text/html" id="barDemo">
+			{{#  if(d.status == '0'){ }}
+		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+	        {{#  } else if(d.status == "1"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+			{{#  } else if(d.status == "2"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.status == "3"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
+			{{#  } else if(d.status == "4"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.status == "5"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.status == "6"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+			{{#  } }}
+		</script>
 		<script type="text/html" id="typestatus">
-	     {{#  if(d.freeco_status == "0"){ }}
+	     {{#  if(d.figClass_status == "0"){ }}
 	        未审核
-	     {{#  }else if(d.freeco_status=="1"){ }}
+	     {{#  }else if(d.figClass_status=="1"){ }}
 	     	审核通过
-	     {{#  }else if(d.freeco_status=="2"){ }}
+	     {{#  }else if(d.figClass_status=="2"){ }}
 	     	审核未通过
-	     {{#  }else if(d.freeco_status=="3"){ }}
+	     {{#  }else if(d.figClass_status=="3"){ }}
 	     	开班中
-	     {{#  }else if(d.freeco_status=="4"){ }}
+	     {{#  }else if(d.figClass_status=="4"){ }}
 	     	已结课
 	     {{# } }}
  		</script>
@@ -603,13 +579,6 @@
 	     	课程定制
 	     {{#  }else if(d.freeco_gaoery=="2"){ }}
 	     	自由定制
-	     {{# } }}
- 		</script>
- 		<script type="text/html" id="typedatanum">
-	     {{#  if(d.freeco_datanum!=null){ }}
-	        {{d.freeco_datanum}}
-	     {{#  }else{ }}
-	     	待定
 	     {{# } }}
  		</script>
 	</body>

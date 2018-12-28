@@ -33,29 +33,29 @@
 		#{FigClass_updater},#{FigClass_updatetime},#{FigClass_isdelete},#{FigClass_numstatus},#{FigClass_caogery},#{FigClass_outline})
 	</insert>
 	
-	<!-- <select id="getDetailByid" parameterType="String" resultMap="Free_constom">
-		select * from FREE_COSTOM f where f.FREECO_ID = #{Constom_id} and f.Freeco_ISDELETE = '0'
+	<select id="getDetail" parameterType="String" resultMap="FigClass">
+		select * from FIGCLASS f where f.FIGCLASS_ID = #{figClass_id} and f.FIGCLASS_ISDELETE = '0'
 	</select>
 	
-	<update id="updateReview" parameterType="String">
+	<!-- <update id="updateReview" parameterType="String">
 		update FREE_COSTOM
 		　　set FREECO_STATUS = #{status},
 			   Freeco_UPDATER = #{updater},
 				Freeco_UPDATETIME = #{updatetime}
 		where FREECO_ID=#{Constom_id} and Freeco_ISDELETE = '0'
-	</update>
+	</update> -->
 	
-	<select id="getListBypage" resultMap="Free_constom">
+	<select id="getListBypage" resultMap="FigClass">
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (select * from FREE_COSTOM F
-			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			FROM (select * from FIGCLASS F
+			where F.FIGCLASS_ISDELETE = '0'
 			<if test="caogery != null and caogery != '' ">
-				and FREECO_GAOERY = #{caogery}
+				and F.FIGCLASS_STATUS = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
-				and FREECO_STATUS = #{status}
+				and F.FIGCLASS_NUMSTATUS = #{status}
 			</if>
 			) A
 			WHERE ROWNUM &lt;= #{length}
@@ -64,17 +64,19 @@
 	</select>
 	
 	<select id="getListCount" resultType="int">
-		select count(*) from FREE_COSTOM F
-			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+		select count(*) from FIGCLASS F
+			where F.FIGCLASS_ISDELETE = '0' 
 			<if test="caogery != null and caogery != '' ">
-				and FREECO_GAOERY = #{caogery}
+				and F.FIGCLASS_STATUS = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
-				and FREECO_STATUS = #{status}
+				and F.FIGCLASS_NUMSTATUS = #{status}
 			</if>
 	</select>
-	
-	<update id="deleteConstom" parameterType="String">
+	<select id="getFigbyidanduser" parameterType="String">
+		select * from FIGCLASS F where F.FIGCLASS_ISDELETE = '0' AND F.FIGCLASS_ID = #{figClass_id} AND F.FIGCLASS_CREATER = #{User_id} AND F.FIGCLASS_NUMSTATUS = '1'
+	</select>
+	<!-- <update id="deleteConstom" parameterType="String">
 		UPDATE FREE_COSTOM F
 			SET F.Freeco_ISDELETE = '1',
 				F.Freeco_UPDATER = #{updater},

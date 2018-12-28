@@ -94,8 +94,8 @@
 							</div>
 							<div class="layui-tab layui-tab-card" style="border-style: none;box-shadow: none;min-height:250px;">
 								<ul class="layui-tab-title">
-									<li class="layui-this" onclick="noId();">按方案</li>
-									<li onclick="noId();">按课程</li>
+									<li class="layui-this">方案定制</li>
+									<li>课程定制</li>
 									<li>自由定制</li>
 								</ul>
 								<div class="layui-tab-content" style="height: 200px;overflow-y:scroll;">
@@ -154,7 +154,10 @@
 												<label for="" class="control-label" style="float: left;">举办天数：</label>
 												<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
 											</div>	
-											<textarea style="width: 100%;height: 150px;"></textarea>
+											<div style="margin:20px 0 15px 30px;height:32px;">
+												<label for="" class="control-label" style="float: left;text-align:right;width:60px;">备注：</label>
+												<textarea style="width: 93%;height: 150px;float:left;border-radius:5px;"></textarea>
+											</div>
 										</div>
 									</div>
 									
@@ -185,13 +188,13 @@
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">累计举办天数:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="hostDateNum" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">计划参加人数:</td>
 											<td class="rightTd" colspan="2">
@@ -394,12 +397,12 @@
 			    url: '<%=request.getContextPath()%>/Course/getlistLay',
 			    cols: [[
 			      {type:'checkbox'},
-				  {type:'numbers',title:"序号"},
+				  {type:'numbers',title:"序号",minWidth:90},
 			     /*  {field:'course_id', title: 'ID',style:'display:none;'}, */
-			      {field:'first_course', title: '一级目录'},
-			      {field:'second_course', title: '二级目录'},
-			      {field:'third_course', title: '三级目录'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'first_course', title: '一级目录',minWidth:120},
+			      {field:'second_course', title: '二级目录',minWidth:120},
+			      {field:'third_course', title: '三级目录',minWidth:120},
+			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false
