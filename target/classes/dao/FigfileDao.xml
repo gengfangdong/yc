@@ -64,4 +64,8 @@
 				F.Freeco_UPDATETIME = #{updatetime}
 				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
 	</update> -->
+	
+	<select id="getByfilename" resultType="String">
+		SELECT T.OLDFILENAME FROM FIGFILE T WHERE T.NEWFILENAME = #{filename} and T.ISDELETE = '0'
+	</select>
 </mapper>

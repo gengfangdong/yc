@@ -64,6 +64,8 @@ public class ApplyUnitServiceImpl implements ApplyUnitService{
 		// TODO Auto-generated method stub
 		applyUnitDao.deleteapplyunit(applyunit_id);
 	}
-	
+	public List<ApplyUnit> getProjectStatus(String user_id, String project_id) {
+		return applyUnitDao.getProjectStatus(user_id,project_id);
+	}
 	
 }

@@ -4,8 +4,10 @@
 package action;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import entity.Apply;
+import entity.ApplyUnit;
 import entity.DatatablesViewPage;
+import entity.IUser;
+import entity.LayuiDataTable;
 import entity.Project;
+import entity.ProjectVo;
+import service.ApplyService;
+import service.ApplyUnitService;
 import service.ProjectService;
 import util.UUIDUtil;
 
@@ -35,7 +44,12 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectService ProjectService;
-
+	@Autowired
+	private ApplyService applyService;
+	
+	@Autowired
+	private ApplyUnitService applyUnitService;
+	
 	/**
 	 * 项目保存
 	 * 
@@ -82,7 +96,51 @@ public class ProjectController {
 		datatablesViewPage.setDraw(draw);
 		return datatablesViewPage;
 	}
-	
+	/**
+	 * 在职研项目列表获取
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlist1")
+	@ResponseBody
+	public LayuiDataTable<ProjectVo> GetlistPage1(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam("status")String status,HttpServletRequest request){
+		//DataTables  返回实例
+		DatatablesViewPage<Project> datatablesViewPage = new DatatablesViewPage<Project>();
+		LayuiDataTable<ProjectVo> pDataTable = new LayuiDataTable<ProjectVo>();
+		datatablesViewPage = ProjectService.GetlistPage((page-1)*limit, limit);
+		List<ProjectVo> ProjectVoList = new ArrayList<ProjectVo>();
+		String statue="未报名";
+		IUser user =  (IUser) request.getSession().getAttribute("user");
+		for (Project project:datatablesViewPage.getData()) {
+			statue="未报名";
+			ProjectVo projectVo=new ProjectVo();
+			projectVo.setProject_id(project.getProject_id());
+			projectVo.setProject_name(project.getProject_name());
+			projectVo.setProject_context(project.getProject_context());
+			projectVo.setProject_creater(project.getProject_creater());
+			projectVo.setProject_createtime(project.getProject_createtime());
+			projectVo.setProject_date(project.getProject_date());
+			//获取当前登录用户
+			List<Apply> applyList=applyService.getProjectStatus(user.getUser_id(),project.getProject_id());
+			List<ApplyUnit> applyUnitList=applyUnitService.getProjectStatus(user.getUser_id(),project.getProject_id());
+			if (applyList.size()>0) {
+				statue="个人已报名";
+				projectVo.setApply_id(applyList.get(0).getApply_id());
+			}
+			if (applyUnitList.size()>0) {
+				statue="单位已报名";
+				projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
+			}
+			projectVo.setProject_status(statue);
+			ProjectVoList.add(projectVo);
+		}
+		pDataTable.setData(ProjectVoList);
+		pDataTable.setCount(datatablesViewPage.getRecordsTotal());
+		return pDataTable;
+	}
 	/**
 	 * 根据id获取项目的内容
 	 * @param news_id

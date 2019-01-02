@@ -1,5 +1,7 @@
 package action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,8 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +33,6 @@ import entity.EUser;
 import entity.Free_constom;
 import entity.IUser;
 import entity.LayuiDataTable;
-import entity.Scheduledfile;
-import entity.Scheduledshift;
 import entity.UploadFilevo;
 import service.ConstomService;
 import util.ExcelUtil;
@@ -93,8 +101,19 @@ public class ConstomController {
 		free_constom.setFreeco_datanum(Constom_datanum);
 		
 		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
 		//判断是课程方案还是自由
-		if("0".equals(Constom_gaoery)||"1".equals(Constom_gaoery)){
+		if("0".equals(Constom_gaoery)){
+			//课程和方案走同一个方法
+			if(Constom_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[0]+",");
+			day.append(Constom_outline[1]);
+			free_constom.setFreeco_day(day.toString());
+		}else if("1".equals(Constom_gaoery)){
 			//课程和方案走同一个方法
 			if(Constom_outline.length<=0){
 				resultMap.put("success", false);
@@ -322,6 +341,22 @@ public class ConstomController {
 		fDataTable.setMsg("");
 		return fDataTable;
 	}
+	
+	@RequestMapping("/LayConstomad")
+	public LayuiDataTable<Free_constom> getLayBypagead(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
+			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			HttpServletRequest request) {
+		LayuiDataTable<Free_constom> fDataTable = new LayuiDataTable<Free_constom>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if(iUser != null)
+			fDataTable = constomService.getListBypage(status, caogery, page, limit, "");
+		fDataTable.setCode(0);
+		fDataTable.setMsg("");
+		return fDataTable;
+	}
 
 	@RequestMapping("/cancel")
 	public Map<String,Object> cancelConstom(String Constom_id,HttpServletRequest request){
@@ -351,11 +386,11 @@ public class ConstomController {
 	
 	@RequestMapping("/updateConstom")
 	@ResponseBody
-	public Map<String,Object> updateScheduled(String constom_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+	public Map<String,Object> updateConstom(String constom_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
 			String Constom_name,String Constom_data,
 			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
 			String Constom_pernum,String Constom_address,
-			String Constom_person,String Constom_phone,@RequestParam("file")MultipartFile[] files,
+			String Constom_person,String Constom_phone,
 			String[] Constom_outline,String Constom_gaoery,
 			HttpServletRequest request){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -370,7 +405,7 @@ public class ConstomController {
 		FileUtil fileUtil = new FileUtil();
 		if (StringUtil.isblack(constom_id)) {
 			resultMap.put("success", false);
-			resultMap.put("message", "0");//参数错误!
+			resultMap.put("message", "1");//参数错误!
 			return resultMap;
 		}
 		
@@ -380,7 +415,7 @@ public class ConstomController {
 		Free_constom free_constom = constomService.getDetailByid(constom_id);
 		if(free_constom == null){
 			resultMap.put("success", false);
-			resultMap.put("message", "1");//获取定制班次失败!
+			resultMap.put("message", "2");//获取定制班次失败!
 			return resultMap;
 		}
 		List<Constomfile> constomfiles = free_constom.getConstomFiles();
@@ -389,7 +424,7 @@ public class ConstomController {
 			boolean flag = false;
 			if(oldfilename !=null){
 				for (String oldscheduledfile : oldfilename) {
-					if(oldscheduledfile.equals(constomfiles.get(j).getNewfilename())){
+					if(oldscheduledfile.equals(constomfiles.get(j).getOldfilename())){
 						flag = true;
 					}
 				}
@@ -405,7 +440,7 @@ public class ConstomController {
 		for (Constomfile constomfile : deletesList) {
 			if("2".equals(fileUtil.delete(request.getRealPath("/constomfile")+"\\"+constomfile.getNewfilename()))){
 				resultMap.put("success", false);
-				resultMap.put("message", "2");//删除文件失败!
+				resultMap.put("message", "3");//删除文件失败!
 				return resultMap;
 			}
 		}
@@ -444,7 +479,7 @@ public class ConstomController {
 			//课程和方案走同一个方法
 			if(Constom_outline.length<=0){
 				resultMap.put("success", false);
-				resultMap.put("message", "1");//未选择课程或者方案
+				resultMap.put("message", "4");//未选择课程或者方案
 				return resultMap;
 			}
 			for (String string : Constom_outline) {
@@ -455,7 +490,7 @@ public class ConstomController {
 			// 课程和方案走同一个方法
 			if (Constom_outline.length <= 0) {
 				resultMap.put("success", false);
-				resultMap.put("message", "1");// 未选择课程或者方案
+				resultMap.put("message", "4");// 未选择课程或者方案
 				return resultMap;
 			}
 			outline.append(Constom_outline[1] + ",");
@@ -463,9 +498,98 @@ public class ConstomController {
 		if (!"".equals(outline)) {
 			free_constom.setFreeco_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
 		}
+		constomService.updateConstom(free_constom);
 		resultMap.put("success", true);
-		resultMap.put("message", "3");//修改成功!
+		resultMap.put("message", "5");//修改成功!
 		return resultMap;
+	}
+	
+	/**
+	 * 下载定制文件内容
+	 * @param request
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/download/{filename:.+}") //匹配的是href中的download请求 带后缀名的那种
+    public ResponseEntity<byte[]> download(HttpServletRequest request,@PathVariable String filename) throws IOException{
+    	
+    	
+        FileUtil fileUtil = new FileUtil();
+        HttpHeaders headers = new HttpHeaders();
+        String fileoldname = constomService.getByfilename(filename);
+        return fileUtil.download(request.getRealPath("/constomfile")+"\\"+filename, fileoldname,headers);        
+    }
+	
+    @RequestMapping("/exportUser/{constom_id}")
+	public void ExportUser(HttpServletRequest request,HttpServletResponse response,@PathVariable String constom_id){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = constomService.getListUserByid(iUser.getUser_id(), constom_id);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		for(int j=0;j<eUsers.size();j++){
+			EUser eUser = eUsers.get(j);
+			HSSFRow row = sheet.createRow(j+1);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(eUser.getEUser_name());
+			HSSFCell cell1 = row.createCell(1);
+			String sex = eUser.getEUser_sex();
+			if("0".equals(sex)){
+				cell1.setCellValue("男");
+			}else if("1".equals(sex)){
+				cell1.setCellValue("女");
+			}
+			
+			HSSFCell cell2 = row.createCell(2);
+			cell2.setCellValue(eUser.getEUser_companyname());
+			HSSFCell cell3 = row.createCell(3);
+			cell3.setCellValue(eUser.getEUser_department());
+			HSSFCell cell4 = row.createCell(4);
+			cell4.setCellValue(eUser.getEUser_hold());
+			HSSFCell cell5 = row.createCell(5);
+			cell5.setCellValue(eUser.getEUser_indentitynumber());
+			HSSFCell cell6 = row.createCell(6);
+			cell6.setCellValue(eUser.getEUser_phone());
+			HSSFCell cell7 = row.createCell(7);
+			cell7.setCellValue(eUser.getEUser_remark());
+			
+		}
+		
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
 	}
 	
 	

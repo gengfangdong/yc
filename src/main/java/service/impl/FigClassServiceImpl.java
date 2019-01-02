@@ -22,9 +22,15 @@ import entity.FigClass;
 import entity.FigClassVo;
 import entity.FigClassshowVo;
 import entity.Figfile;
+import entity.Free_constom;
 import entity.LayuiDataTable;
+import entity.MemProjectVo;
+import entity.ScheduledShiftShow;
 import entity.User_Figclass;
+import service.ConstomService;
 import service.FigClassService;
+import service.ScheduledshiftService;
+import util.StringUtil;
 @Service
 @Transactional
 public class FigClassServiceImpl implements FigClassService {
@@ -39,6 +45,10 @@ public class FigClassServiceImpl implements FigClassService {
 	private ClassPlanDao classPlanDao;
 	@Autowired
 	private EUserDao eUserDao;
+	@Autowired
+	private ScheduledshiftService sc;
+	@Autowired
+	private ConstomService constomService;
 	@Autowired
 	private User_FigClassDao user_FigClassDao;
 	public void insertFig(FigClass figClass, List<Figfile> figfiles) {
@@ -106,11 +116,21 @@ public class FigClassServiceImpl implements FigClassService {
 			for (FigClass figClass : figClasses) {
 				FigClassshowVo figClassshowVo = tranfrom(figClass);
 				int num = 0;
-				num = user_FigClassDao.getCountByid(user_id, figClassshowVo.getFigClass_id());				
+				num = user_FigClassDao.getCountByid(null, figClassshowVo.getFigClass_id());				
 				int lave = 0;	
 				lave = Integer.valueOf(figClassshowVo.getFigClass_pernum())-num;
 				figClassshowVo.setFigClass_number(lave);
-				figClassshowVo.setUser_status(figClass.getFigClass_numstatus());
+				List<String> ids = new ArrayList<String>();
+				ids = user_FigClassDao.getUserByid(figClassshowVo.getFigClass_id());
+				if(ids != null && ids.size()>=0){
+					if(ids.contains(user_id)){
+						figClassshowVo.setUser_status("1");
+					}
+					else
+						figClassshowVo.setUser_status("0");
+				}
+				else
+					figClassshowVo.setUser_status("0");
 				figClassshowVos.add(figClassshowVo);
 			}
 		}
@@ -211,10 +231,159 @@ public class FigClassServiceImpl implements FigClassService {
 			}
 			eUserDao.insertByBatch(eUsers);
 		}
+		
 		user_FigClassDao.insertUser_Fig(user_Figclasses);
+		/*// 创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		FigClass figClass = new FigClass();
+		figClass = getDetailByid(figClass_id);
+		figClass.setFreeco_numfile("1");
+		figClass.setFreeco_updater(user_id);
+		figClass.setFreeco_updatetime(APPLYDATE);
+		constomDao.uploadfile(free_constom);*/
 		return insert+update;
 	}
 
+	public void deleteFigClass(String figclass_id, String user_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getByfilename(String filename) {
+		// TODO Auto-generated method stub
+		List<String> filenames = new ArrayList<String>();
+		filenames = figfileDao.getByfilename(filename);
+		if(filenames!=null&&filenames.size()>0){
+			return filenames.get(0);
+		}
+		return null;
+	}
+
+	public void updateReview(String figclass_id, String review_result, String updater, String updatetime) {
+		// TODO Auto-generated method stub
+		figClassDao.updateReview(figclass_id, review_result, updater, updatetime);
+	}
+
+	public List<EUser> getListUserByid(String user_id, String figclass_id) {
+		// TODO Auto-generated method stub
+		List<String> ids = new ArrayList<String>();
+		List<EUser> eUsers = new ArrayList<EUser>();
+		ids = user_FigClassDao.getuserlist(user_id, figclass_id);
+		if(ids == null || ids.size()<=0){
+			return null;
+		}
+		else{
+			eUsers = eUserDao.getEUserList(ids);
+		}
+		return eUsers;
+	}
+
+	public LayuiDataTable<MemProjectVo> getMemProjectByuser(String caogery, String status, String user_id,int page,int limit) {
+		// TODO Auto-generated method stub
+		//判断类别信息
+		LayuiDataTable<MemProjectVo> mDataTable = new LayuiDataTable<MemProjectVo>();
+		int count = 0;
+		List<MemProjectVo> memProjectVos = new ArrayList<MemProjectVo>();
+		if("0".equals(caogery)){//定制
+			LayuiDataTable<Free_constom> fDataTable = constomService.getListBypage(status, "", page, limit, user_id);
+			if(fDataTable!=null&&fDataTable.getData().size()>0){
+				for (Free_constom free_constom : fDataTable.getData()) {
+					MemProjectVo memProjectVo = new MemProjectVo();
+					memProjectVo.setProject_id(free_constom.getFreeco_id());
+					memProjectVo.setProject_caogery("0");
+					memProjectVo.setProject_datanum(free_constom.getFreeco_datanum());
+					memProjectVo.setProject_name(free_constom.getFreeco_name());
+					memProjectVo.setProject_pernum(free_constom.getFreeco_pernum());
+					memProjectVo.setProject_start(free_constom.getFreeco_data());
+					memProjectVos.add(memProjectVo);
+				}
+			}
+			mDataTable.setCode(0);
+			mDataTable.setCount(fDataTable.getCount());
+			mDataTable.setData(memProjectVos);
+			mDataTable.setMsg("");
+		}else if("1".equals(caogery)){//规定
+			LayuiDataTable<ScheduledShiftShow> sDataTable = sc.getScByPage(page, limit,user_id,status,"");
+			if(sDataTable!=null&&sDataTable.getData().size()>0){
+				for (ScheduledShiftShow scheduledShiftShow : sDataTable.getData()) {
+					MemProjectVo memProjectVo = new MemProjectVo();
+					memProjectVo.setProject_id(scheduledShiftShow.getSuuid());
+					memProjectVo.setProject_caogery("1");
+					memProjectVo.setProject_datanum(scheduledShiftShow.getDataNumber());
+					memProjectVo.setProject_name(scheduledShiftShow.getScheduledshift().getScheduled_name());
+					memProjectVo.setProject_pernum(scheduledShiftShow.getNumber());
+					memProjectVo.setProject_start(scheduledShiftShow.getScheduledshift().getScheduled_class_start());
+					memProjectVos.add(memProjectVo);
+				}
+			}
+			mDataTable.setCode(0);
+			mDataTable.setCount(sDataTable.getCount());
+			mDataTable.setData(memProjectVos);
+			mDataTable.setMsg("");
+		}else if("2".equals(caogery)){//拼班
+			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage(status, "", page, limit, user_id);
+			if(fDataTable!=null&&fDataTable.getData().size()>0){
+				for (FigClassshowVo figClassshowVo : fDataTable.getData()) {
+					MemProjectVo memProjectVo = new MemProjectVo();
+					memProjectVo.setProject_id(figClassshowVo.getFigClass_id());
+					memProjectVo.setProject_caogery("1");
+					memProjectVo.setProject_datanum(""+StringUtil.getDataSub(figClassshowVo.getFigClass_class_start(), figClassshowVo.getFigClass_class_end()));
+					memProjectVo.setProject_name(figClassshowVo.getFigClass_name());
+					memProjectVo.setProject_pernum(figClassshowVo.getFigClass_pernum());
+					memProjectVo.setProject_start(figClassshowVo.getFigClass_class_start());
+					memProjectVos.add(memProjectVo);
+				}
+			}
+			mDataTable.setCode(0);
+			mDataTable.setCount(fDataTable.getCount());
+			mDataTable.setData(memProjectVos);
+			mDataTable.setMsg("");
+		}else if("".equals(caogery)){//所有
+			List<Map<String,Object>> maps = new ArrayList<Map<String,Object>>();
+			maps = figClassDao.getMemProject(user_id, (page-1)*limit, limit, status);
+			if(maps != null && maps.size()>0){
+				for (Map<String, Object> map : maps) {
+					MemProjectVo memProjectVo = new MemProjectVo();
+					memProjectVo.setProject_id(map.get("PROJECT_ID").toString());
+					String caog = map.get("PROJECT_CAOGERY").toString();
+					memProjectVo.setProject_caogery(caog);
+					
+					memProjectVo.setProject_name(map.get("PROJECT_NAME").toString());
+					if("0".equals(caog)){//定制
+						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
+						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
+					}else if ("1".equals(caog)){//规定
+						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
+						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
+					}else if("2".equals(caog)){//拼班
+						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
+						memProjectVo.setProject_datanum("0");
+					}
+					memProjectVo.setProject_start(map.get("PROJECT_START").toString());
+					memProjectVo.setProject_allnum(map.get("PROJECT_ALLNUM").toString());
+					memProjectVo.setProject_status(map.get("PROJECT_STATUS").toString());
+					memProjectVos.add(memProjectVo);
+					
+				}
+				int counta = 0;
+				counta = figClassDao.getProjectCount(user_id, (page-1)*limit, limit, status);
+				mDataTable.setCode(0);
+				mDataTable.setCount(counta);
+				mDataTable.setData(memProjectVos);
+				mDataTable.setMsg("");
+			}else{
+				mDataTable.setCode(0);
+				mDataTable.setCount(0);
+				mDataTable.setData(memProjectVos);
+				mDataTable.setMsg("");
+			}
+			
+		}
+		return mDataTable;
+	}
+
 	//李  鹏   永
+	
 	
 }

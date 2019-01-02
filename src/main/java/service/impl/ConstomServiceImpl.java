@@ -145,6 +145,15 @@ public class ConstomServiceImpl implements ConstomService {
 			eUserDao.insertByBatch(eUsers);
 		}
 		user_ConstomDao.insertBatch(user_Constoms);
+		//创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		Free_constom free_constom = new Free_constom();
+		free_constom = getDetailByid(Constom_id);
+		free_constom.setFreeco_numfile("1");
+		free_constom.setFreeco_updater(user_id);
+		free_constom.setFreeco_updatetime(APPLYDATE);
+		constomDao.uploadfile(free_constom);
 		return insert+update;
 	}
 
@@ -192,6 +201,37 @@ public class ConstomServiceImpl implements ConstomService {
 		String updatetime = simpleDateFormat.format(new Date());
 		constomfileDao.deleteConstom(Constom_id);
 		constomDao.deleteConstom(Constom_id, User_id, updatetime);
+	}
+
+	public void updateConstom(Free_constom free_constom) {
+		// TODO Auto-generated method stub
+		constomfileDao.deleteConstom(free_constom.getFreeco_id());
+		constomDao.updateConstom(free_constom);
+		constomfileDao.insertBatch(free_constom.getConstomFiles());
+	}
+	
+	public String getByfilename(String filename) {
+		// TODO Auto-generated method stub
+		List<String> filenames = new ArrayList<String>();
+		filenames = constomfileDao.getByfilename(filename);
+		if(filenames!=null&&filenames.size()>0){
+			return filenames.get(0);
+		}
+		return null;
+	}
+
+	public List<EUser> getListUserByid(String user_id, String constom_id) {
+		// TODO Auto-generated method stub
+		List<String> ids = new ArrayList<String>();
+		List<EUser> eUsers = new ArrayList<EUser>();
+		ids = user_ConstomDao.getListUserByid(user_id, constom_id);
+		if(ids == null || ids.size()<=0){
+			return null;
+		}
+		else{
+			eUsers = eUserDao.getEUserList(ids);
+		}
+		return eUsers;
 	}
 	
 }

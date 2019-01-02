@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+	String constom_id = request.getParameter("constom_id");
 %>
 <!DOCTYPE html>
 <html>
@@ -93,7 +94,7 @@
 							</div>
 							<div class="layui-tab layui-tab-card" style="border-style: none;box-shadow: none;min-height:250px;">
 								<ul class="layui-tab-title">
-									<li class="layui-this"">方案定制</li>
+									<li class="layui-this">方案定制</li>
 									<li>课程定制</li>
 									<li>自由定制</li>
 								</ul>
@@ -104,7 +105,7 @@
 												<label for="" class="control-label" style="float: left;">累计天数：<span>16</span>天</label>
 											</div>
 										</div> -->
-										<div class="table-responsive table-responsive_vis" id="sample-table-2" style="padding-left: 10px;padding-right: 10px;">
+										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 											<table id="LAY_table_user2" lay-filter="user2"  class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 												<thead>
 													
@@ -153,7 +154,10 @@
 												<label for="" class="control-label" style="float: left;">举办天数：</label>
 												<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
 											</div>	
-											<textarea style="width: 100%;height: 150px;"></textarea>
+											<div style="margin:20px 0 15px 30px;height:32px;">
+												<label for="" class="control-label" style="float: left;text-align:right;width:60px;">备注：</label>
+												<textarea style="width: 93%;height: 150px;float:left;border-radius:5px;"></textarea>
+											</div>
 										</div>
 									</div>
 									
@@ -180,7 +184,7 @@
 										<tr>
 											<td class="leftTd">预计举办日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input type="text" id="hostDate" style="width: 100%;" />
 											</td>
 
 										</tr>
@@ -225,7 +229,6 @@
 												    <table class="layui-table">
 												      <thead>
 												        <tr><th>文件名</th>
-												        <th>大小</th>
 												        <th>操作</th>
 												      </tr></thead>
 												      <tbody id="demoList"></tbody>
@@ -383,14 +386,6 @@
 					console.log(data);
 				});
 			});
-			layui.use('laydate', function(){
-			  	var laydate = layui.laydate;
-			  
-			  //执行一个laydate实例
-			  	laydate.render({
-			    	elem: '#hostDate' //指定元素
-			  	});
-			});
 			
 			layui.use('table', function(){
 				var table = layui.table;
@@ -398,7 +393,7 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/Course/getlistLaynp/<%=constom_id%>',
 			    cols: [[
 			      {type:'checkbox'},
 				  {type:'numbers',title:"序号",minWidth:90},
@@ -453,7 +448,7 @@
 			  //方案定制
 			  table.render({
 				    elem: '#LAY_table_user2',
-				    url: '<%=request.getContextPath()%>/Course/getlistLay',
+				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage/<%=constom_id%>',
 				    cols: [[
 					  {field:'radio', title: '选择',toolbar: '#radio2'},
 				      
@@ -485,24 +480,6 @@
 						});
 				     }  
 				  });
-			
-				 /* var $ = layui.$, active = {
-				    reload: function(){
-				      var demoReload = $('#demoReload');
-				      
-				      //执行重载
-				      table.reload('testReload2', {
-				        page: {
-				          curr: 1 //重新从第 1 页开始
-				        },
-				        method:'post',
-				        where: {
-				        	    First_course:firstObj,
-								Second_course:secondObj
-				        }
-				      });
-				    }
-				  }; */
 			  
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
@@ -513,6 +490,124 @@
 			});
 		</script>
 		<script>
+		var filesa=new Array();
+			window.onload = function(){
+			$.ajax({
+				url:'<%=request.getContextPath()%>/Constom/getDetailByid',
+				type:'post',
+				data:{
+
+					Constom_id:'<%=constom_id%>'
+				},
+				success:function(data){
+					if(data.success == true){
+						$("#classesName").val(data.data.constom.freeco_name);
+						$("#hostDate").val(data.data.constom.freeco_data);
+						$("#planNumOfEntries").val(data.data.constom.freeco_pernum);
+						$("#planHostAddress").val(data.data.constom.freeco_address);
+						$("#contactPersonnel").val(data.data.constom.freeco_person);
+						$("#contactNumber").val(data.data.constom.freeco_phone);
+
+						if(data.data.constom.freeco_gaoery==0){
+							var type="方案定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[0]).addClass('layui-show');
+							}
+									
+						}else if(data.data.constom.freeco_gaoery==1){
+							var type="课程定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[1]).addClass('layui-show');
+							}
+			
+						}else if(data.data.constom.freeco_gaoery==2){
+							var type="自由定制";
+							var nDivShow = $('.layui-tab-item');
+							var nLiShow = $(".layui-tab-title li");
+							for(var i=0;i<nLiShow.length;i++){
+								if($(nLiShow[i]).is(".layui-this")){
+									$(nLiShow[i]).removeClass("layui-this");
+								}
+								if($(nDivShow[i]).is(".layui-show")){
+									$(nDivShow[i]).removeClass("layui-show");
+								}
+							}
+							for (var j = 0; j <nLiShow.length; j++) {
+								if($($(nLiShow[j])[0])[0].innerHTML==type){
+									$(nLiShow[j]).addClass("layui-this");
+								}
+								$(nDivShow[2]).addClass('layui-show');
+							}
+							$('#hostingDay').val(data.data.constom.freeco_datanum);
+							$('textarea').val(data.data.constom.freeco_outline);
+						}
+						var memotr = "";
+						var files=new Array();
+    					files = data.data.constom.constomFiles;
+    					for(var i = 0 ;i<files.length;i++){
+    						memotr += '<tr id="upload-'+ i +'">'+
+					          '<td>'+ files[i].oldfilename +'</td>'+
+					          '<td>'+
+					          '<button class="layui-btn layui-btn-xs  demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor" style="color:#FFF;margin:0;">下载</a></button><button class="layui-btn layui-btn-xs  demo-delete" onclick="deleteRow(this);">'+
+						          '删除</button>'+
+					          '</td>'+
+					        '</tr>';
+    					}
+    					$("#demoList").append(memotr);
+						
+						
+					}else{
+						if(data.message == "0"){
+							layer.alert("未登录!");
+						}
+						else if(data.message == "1"){
+							layer.alert("定制班次不存在");
+						} 
+
+					}
+				},error:function(data){
+
+				}
+			});
+		}
+		function deleteRow(objs){
+   	 			var tr = objs.parentElement.parentElement;
+   	 			var ttbody = tr.parentNode;
+   	 			var filedeletename = tr.childNodes[0].innerText;
+   	 			for(var oo = 0; oo<filesa.length;oo++){
+   	 				if(filesa[oo].scheduled_oldfile == filedeletename){
+			      			filesa.splice(oo,1);
+			      			break;
+			      	}
+   	 			}
+   	 			ttbody.removeChild(tr);
+   	 		}
 		var filelist = [];
 		layui.use('upload', function() {
 			var upload = layui.upload;
@@ -530,13 +625,20 @@
 		      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
 		      //读取本地文件
 		      obj.preview(function(index, file, result){
-		      	filelist.push(file);
+		      	var filenamea = file.name;
+			    for(var o = 0 ;o<filesa.length;o++){
+			      	if(filesa[o].scheduled_oldfile == filenamea){
+			      		layer.alert("文件已存在!");
+			      		break;
+			      		return ;
+			      	}
+			    }
+			    filelist.push(file);
 		        var tr = $(['<tr id="upload-'+ index +'">'
 		          ,'<td>'+ file.name +'</td>'
-		          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs  demo-delete">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        
@@ -584,28 +686,7 @@
 		});
 		</script>
 		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
-		<script>
+			//修改保存
 			function branchSub(){
 				var classesName = $("#classesName").val();
 				var hostDate = $("#hostDate").val();
@@ -645,9 +726,6 @@
 					selectList[1] = $("#hostingDay")[0].parentNode.parentNode.children[1].value;
 					
 				}
-				
-				debugger;
-				
 				if(classesName==""){
 					alert("请填写班级名称！");
 					return;
@@ -677,8 +755,41 @@
 					alert("请输入有效的联系电话！");
 					return;
 				}
+				var fd = new FormData();
+				for(var j = 0;j<filelist.length;j++){
+					fd.append('file', filelist[j]);
+				}
+    			fd.append('Constom_name', classesName);
+    			fd.append('Constom_data', hostDate);
+    			if(selectList.length>1){
+    				fd.append('Constom_datanum', selectList[0]);
+    			}
+    			
+    			fd.append('Constom_pernum', planNumOfEntries);
+    			fd.append('Constom_address', planHostAddress);
+    			fd.append('Constom_person', contactPersonnel);
+    			fd.append('Constom_phone', contactNumber);
+    			fd.append('Constom_outline', selectList);
+    			fd.append('Constom_gaoery', type);
+				$.ajax({
+					url:'',
+					type:'post',
+					encType: 'multipart/form-data', //表明上传类型为文件
+					processData: false,  //tell jQuery not to process the data
+        			contentType: false,  //tell jQuery not to set contentType
+					data:fd,
+					success:function(data){
+						alert("提交成功！");
+					},
+					error:function(error){
+						
+					}
+				})
 				
 			}
+		</script>
+		<script type="text/javascript">
+
 		</script>
 		<script type="text/html" id="barDemo">
   			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>

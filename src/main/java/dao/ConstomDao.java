@@ -17,4 +17,6 @@ public interface ConstomDao {
 			@Param("caogery")String caogery,@Param("status")String status,@Param("user_id")String user_id);
 	public int getListCount(@Param("caogery")String caogery,@Param("status")String status,@Param("user_id")String user_id);
 	public void deleteConstom(@Param("Constom_id")String constom_id,@Param("updater")String updater,@Param("updatetime")String updatetime);
+	public void updateConstom(Free_constom free_constom);
+	public void uploadfile(Free_constom free_constom);
 }

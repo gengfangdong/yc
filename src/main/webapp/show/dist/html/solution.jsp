@@ -128,8 +128,8 @@
                             <% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
 									<%}; %>
-									<% if(user == null) {%><a href="login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="register.jsp" style="color: #000000;">注册</a>
+									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
+									<a href="html/register.jsp" style="color: #000000;">注册</a>
                         </div>
                     </div>
                 </div>
@@ -246,113 +246,84 @@
 
     <!--mobile header start-->
     <div class="m-header">
-				<div class="am-g am-show-sm-only">
-					<div class="am-u-sm-2">
-						<div class="menu-bars">
-							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
-							<!-- 侧边栏内容 -->
-							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
-								<a href="javascript: void(0)" class="am-menu-toggle"></a>
+        <div class="am-g am-show-sm-only">
+            <div class="am-u-sm-2">
+                <div class="menu-bars">
+                    <a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i
+                            class="am-menu-toggle-icon am-icon-bars"></i></a>
+                    <!-- 侧边栏内容 -->
+                    <nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+                        <a href="javascript: void(0)" class="am-menu-toggle"></a>
 
-								<div class="am-offcanvas">
-									<div class="am-offcanvas-bar">
+                        <div class="am-offcanvas">
+                            <div class="am-offcanvas-bar">
+                                <ul class="am-nav am-nav-pills am-nav-justify">
+                                    <li class="">
+                                        <a href="../index.jsp">首页</a>
+                                    </li>
+                                    <li>
+                                        <a href="about.jsp">关于我们</a>
+                                    </li>
+                                    <li>
+                                        <a href="newsNotice.jsp" style="color: #FF2F2F;">新闻中心</a>
+                                        <!-- sub-menu start-->
+                                        <!--<ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="news-content.jsp">公司动态</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="404-dark.jsp">行业动态</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="404-light.jsp">精彩专题</a>
+                                            </li>
+                                        </ul>-->
+                                        <!-- sub-menu end-->
+                                    </li>
+                                    <li>
+                                        <a href="regulationsClasses.jsp">规定班次</a>
+                                    </li>
+                                    <li>
+                                        <a href="customizedClasses.jsp">定制班次</a>
+                                    </li>
+                                    <li>
+                                        <a href="onlineClasses.jsp">在线拼班</a>
+                                    </li>
+                                    <li>
+                                        <a href="incumbencyStudent.jsp">在职研</a>
+                                        <!-- sub-menu start-->
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="incumbencyStudent.jsp">招生简章</a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="onlineApplication.jsp">在线报名</a>
+                                            </li>
+                                        </ul>
+                                        <!-- sub-menu end-->
+                                    </li>
+                                    <li class="">
+                                        <a href="login.jsp" class="">登录</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="register.jsp" class="">注册</a>
+                                    </li>
+                                </ul>
 
+                            </div>
+                        </div>
+                    </nav>
 
-										<ul class="am-menu-nav am-avg-sm-1">
-											<li>
-												<a href="../index.jsp">首页</a>
-											</li>
-											<li class="am-parent">
-												<a href="cultureSystem.jsp"  style="color: #FF2F2F;">项目概况</a>
-												<ul class="am-menu-sub am-collapse ">
-													<li class="">
-														<a href="cultureSystem.jsp" >培养体系</a>
-													</li>
-													<li class="">
-														<a href="solution.jsp" style="color: #FF2F2F;">解决方案</a>
-													</li>
-													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
-													</li>
-													<li class="">
-														<a href="taxCollectionFund.jsp" class="">领税基金</a>
-													</li>
-													<li class="">
-														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
-												</ul>
-											</li>
-											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
-											</li>
-											<li class="">
-												<a href="customizedClasses.jsp">定制班次</a>
-											</li>
-											<li class="">
-												<a href="onlineClasses.jsp">拼班</a>
-											</li>
-
-											<li class="am-parent">
-												<a href="incumbencyStudent.jsp">在职研</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="incumbencyStudent.jsp">招生简章</a>
-													</li>
-													<li class="menu-item">
-														<a href="onlineApplication.jsp">在线报名</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="newsNotice.jsp">新闻公告</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="newsNotice.jsp">通知公告</a>
-													</li>
-													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
-													</li>
-													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
-													</li>
-													<li class="menu-item">
-														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
-												</ul>
-											</li>
-											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
-												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
-											</li>
-											<li class="">
-												<a href="register.jsp" class="">注册</a>
-											</li>
-										</ul>
-
-									</div>
-								</div>
-							</nav>
-
-						</div>
-					</div>
-					<div class="am-u-sm-5 am-u-end">
-						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
-						</div>
-					</div>
-				</div>
-				<!--mobile header end-->
-			</div>
+                </div>
+            </div>
+            <div class="am-u-sm-5 am-u-end">
+                <div class="m-logo">
+                    <a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+                </div>
+            </div>
+        </div>
+        <!--mobile header end-->
+    </div>
 
     <!--===========layout-container================-->
     <div class="layout-container">
@@ -366,7 +337,7 @@
 
     <div class="am-g am-g-fixed myFixedSiderbar">
         <!--正文-->
-        <div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 100px;">
+        <div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
             <div class="breadcrumb-box">
                 <div class="am-container">
                     <ol class="am-breadcrumb">
@@ -379,19 +350,10 @@
                 </div>
             </div>
    					<div class="am-cf am-article tableTextAlign">
-						<table id="solutionTable"  class="am-table am-table-bordered am-table-radius am-table-compact am-table-centered littleFontSize">
-							<thead>
-							<tr>
-								<th>序号</th>
-								<th>标题</th>
-								<th>时间</th>
-							</tr>
-							</thead>
-						</table>
 					</div>
             <div class="solutionList">
-						<ul>
-							<!-- <li>
+						<ul id="solutionSystemul">
+							<li>
 								<span class="solutionDate">2018-11-29</span> ●&nbsp;&nbsp;
 								<a href="solution_content.jsp">培养体系介绍一</a>
 							</li>
@@ -410,12 +372,14 @@
 							<li>
 								<span class="solutionDate">2018-11-25</span> ●&nbsp;&nbsp;
 								<a href="solution_content.jsp">培养体系介绍五</a>
-							</li> -->
+							</li>
 						</ul>
 
 					</div>
 					<div style="height: 40px;">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
+							<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
+						
 							<!-- <li class="am-pagination-first ">
 								<a href="#" class="">首页</a>
 							</li>
@@ -482,7 +446,7 @@
                         </li>
                     </ul>
                     <ul class="am-nav">
-                        <li class="sidebar_contactUs">■联系我们</li>
+                        <li class="sidebar_contactUs">联系我们</li>
                         <li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
                             <!--<span class="promo_detailed--list_item_icon noBorder">
               <i class="am-icon-phone" ></i>
@@ -580,85 +544,121 @@
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
 		
-<script type="text/javascript">
-
-function showcontext(id) {
-                window.location.href='solution_content.jsp?solution_id='+id;
-}
-
-var dataTableLang = {
-		"sProcessing": "处理中...",
-		"sLengthMenu": "显示 _MENU_ 项结果",
-		"sZeroRecords": "没有匹配结果",
-		"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-		"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-		"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-		"sInfoPostFix": "",
-		"sSearch": "搜索:",
-		"sUrl": "",
-		"sEmptyTable": "表中数据为空",
-		"sLoadingRecords": "载入中...",
-		"sInfoThousands": ",",
-		"oPaginate": {
-			"sFirst": "首页",
-			"sPrevious": "上页",
-			"sNext": "下页",
-			"sLast": "末页"
-		},
-		"oAria": {
-			"sSortAscending": ": 以升序排列此列",
-			"sSortDescending": ": 以降序排列此列"
-		}
-	};
-
-	var solutionTable = $('#solutionTable').DataTable({
-	"language" : dataTableLang,
-	"paging": true,
-	"info": false,
-	"aLengthMenu": [20],
-	"lengthChange": false,
-	"searching": false,
-	"ordering": false,
-	"autoWidth": false,
-	ajax: {
-        url: "<%=request.getContextPath()%>/Show/getlistSolution"
-    },
-    serverSide: true,
-    columns: [
-        
-        {"data": "solution_id",
-         "render":function(data,type,row,meta){
-        	           var startIndex = meta.settings._iDisplayStart;
-        	     return startIndex+meta.row+1;
-        }
-        },
-        {"data": "solution_titile"},
-        {"data": "solution_Release_time"}
-    ],
-    "aoColumnDefs":[
-                	{
-					    "targets":-2,
-					    "bSortable": false,
-					    render: function(data, type, row) {
-					        var html ='<a id=\"show\"   title=\"点击查看详情\"    href=\"javascript:showcontext(\''+row.solution_id+'\')\">'+row.solution_titile+'</a>';
-					        return html;
-					    }},
-			 			{		
-            "targets":-1,
-            "bSortable": false,
-        }], 
-		"stripeClasses": ["datatable_odd","datatable_even"]	
-	
-});
-
-			window.onload = function() {
+	<script >
+		
+// 		$(document).ready(function() {
+// 		    console.log('document ready 1');
+// 		});
+		
+		var datas=new Array()
+		var datas1=new Array()
+		var pageno1=0;
+// 			window.onload = function() {
+		$(document).ready(function() {
 				var osolutionList = document.getElementsByClassName('solutionList')[0];
 				if(osolutionList.children[0].childElementCount) {
 					var solutionListNum = osolutionList.children[0].childElementCount;
 					var solutionListNumHeight = solutionListNum * 35 + 5 + 'px';
 					$('.solutionList').css('height', solutionListNumHeight);
 				}
+				
+				  $.ajax({
+						url : '<%=request.getContextPath()%>/Show/findAllSolution',
+						type : 'post',
+						async:false,
+			      		dataType:'json',
+						success : function(data) {
+							datas=data.data
+// 							if(data.success == true){
+							var zz =new Array(datas.length);
+							for(var i=0;i <datas.length;i++){ 
+								zz[i]= '<span class="solutionDate">'+datas[i].solution_Release_time+'</span> ●&nbsp;&nbsp;<a href=\"solution_content.jsp?solution_id='+datas[i].solution_id+'\">'+datas[i].solution_titile+'</a>'
+						    } //div的字符串数组付给zz
+							var pageno=1 ;              //当前页
+							var pagesize=5;            //每页多少条信息
+							pageno1=pageno;
+							if(zz.length%pagesize==0){
+								var  pageall =zz.length/pagesize ;
+							}else{
+								var  pageall =parseInt(zz.length/pagesize)+1;  
+							}   //一共多少页   
+							
+							datas1=zz;
+							function change(e){
+								pageno=e;
+								if(e<1){ //如果输入页<1页
+									e=1;pageno=1;//就等于第1页 ， 当前页为1
+								}
+							    if(e>pageall){  //如果输入页大于最大页
+									e=pageall;pageno=pageall; //输入页和当前页都=最大页
+								}
+								document.getElementById("solutionSystemul").innerHTML=""//全部清空
+									for(var i=0;i<pagesize;i++){
+										var div =document.createElement("li")//建立div对象
+										div.innerHTML=zz[(e-1)*pagesize+i]//建立显示元素
+										document.getElementById("solutionSystemul").appendChild(div)//加入all中 
+										if(zz[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+							        }
+								var ye="";
+								for(var j=1;j<=pageall;j++){
+							 		if(e==j){
+										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+									}else{
+										ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+									}
+								}
+								document.getElementById("a1").innerHTML=pageall;
+								document.getElementById("a2").innerHTML=pageno;
+								document.getElementById("a3").innerHTML=ye;
+							}
+							change(1);
+// 							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});
+// 			}
+		});
+		
+					
+					
+			function change1(e){
+// 				var pageno1=1 ;              //当前页
+				var pagesize=5;            //每页多少条信息
+				if(datas1.length%pagesize==0){
+					var  pageall =datas1.length/pagesize ;
+				}else{
+					var  pageall =parseInt(datas1.length/pagesize)+1;  
+				}   //一共多少页   
+				pageno1=e;
+				if(e<1){ //如果输入页<1页
+					e=1;pageno1=1;//就等于第1页 ， 当前页为1
+				}
+			    if(e>pageall){  //如果输入页大于最大页
+					e=pageall;pageno1=pageall; //输入页和当前页都=最大页
+				}
+				document.getElementById("solutionSystemul").innerHTML=""//全部清空
+					for(var i=0;i<pagesize;i++){
+						var div =document.createElement("li")//建立div对象
+						div.innerHTML=datas1[(e-1)*pagesize+i]//建立显示元素
+						document.getElementById("solutionSystemul").appendChild(div)//加入all中 
+						if(datas1[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+			        }
+				var ye="";
+				for(var j=1;j<=pageall;j++){
+			 		if(e==j){
+						ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+					}else{
+						ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+					}
+				}
+				document.getElementById("a1").innerHTML=pageall;
+				document.getElementById("a2").innerHTML=pageno1;
+				document.getElementById("a3").innerHTML=ye;
 			}
+			
+			
 		</script>
 </body>
 

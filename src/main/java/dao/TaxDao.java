@@ -15,4 +15,5 @@ public interface TaxDao {
 	public Tax getTaxDetailByid(@Param("tax_id")String tax_id);
 	public void updateTax(Tax tax);
 	public void deleteTax(@Param("tax_id")String tax_id);
+	public List<Tax> findAllTax();
 }

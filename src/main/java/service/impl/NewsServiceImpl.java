@@ -56,6 +56,18 @@ public class NewsServiceImpl implements NewsService{
 		// TODO Auto-generated method stub
 		newsDao.deleteNews(news_id);
 	}
+	public DatatablesViewPage<News> findAllNews() {
+		DatatablesViewPage<News> datatablesViewPage = new DatatablesViewPage<News>();
+		List<News> newsList = new ArrayList<News>();
+		
+		newsList = newsDao.findAllNews();
+		
+		datatablesViewPage.setData(newsList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

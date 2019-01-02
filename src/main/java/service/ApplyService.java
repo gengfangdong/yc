@@ -3,6 +3,9 @@ package service;
 
 import entity.ApplyShowVo;
 import entity.DatatablesViewPage;
+
+import java.util.List;
+
 import entity.Apply;
 
 public interface ApplyService {
@@ -20,5 +23,6 @@ public interface ApplyService {
 	
 	public void deleteapply(String Apply_id);
 	public void updatestatus(String status,String Apply_id);
+	public List<Apply> getProjectStatus(String user_id, String project_id);
 	
 }

@@ -18,7 +18,10 @@
 		</foreach> 
 	</insert>
 	<select id="getCountByid" parameterType="String" resultType="int">
-		select count(*) from USER_FIGCLASS t where t.creater = #{User_id} and t.figclass_id = #{FigClass_id} and t.isdelete  = '0'
+		select count(*) from USER_FIGCLASS t where 
+		<if test="User_id != null and User_id != '' ">
+			t.creater = #{User_id} and
+		</if> t.figclass_id = #{FigClass_id} and t.isdelete  = '0'
 	</select>
 	<!--<select id="getListByid" parameterType="String" resultMap="Figfile">
 		select * from FIGFILE f where f.FIGCLASS_ID = #{FigClass_id} and f.ISDELETE = '0'
@@ -68,4 +71,15 @@
 				F.Freeco_UPDATETIME = #{updatetime}
 				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
 	</update> -->
+	<select id="getuserlist" parameterType="String" resultType="String">
+		select t.USERID from USER_FIGCLASS t where 
+		<if test="User_id != null and User_id != ''">
+			t.creater = #{User_id} and
+		</if> t.figclass_id = #{FigClass_id} and t.isdelete  = '0'
+		
+	</select>
+	
+	<select id="getUserByid" parameterType="String" resultType="String">
+		select distinct(f.creater) from user_figclass f where f.isdelete = '0' and f.figclass_id = #{FigClass_id}	
+	</select>
 </mapper>

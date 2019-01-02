@@ -20,6 +20,7 @@ Freeco_STATUS	N	VARCHAR2(2)	N			课程定制状态0为未审核1为审核通过2
 Freeco_OUTLINE	N	VARCHAR2(500)	N			课程定制大纲
 FREECO_GAOERY
 FREECO_NUMFILE
+FREECO_DAY
  * */
 public class Free_constom implements Serializable{
 	/**
@@ -43,6 +44,7 @@ public class Free_constom implements Serializable{
 	private String Freeco_outline;//课程定制大纲
 	private String Freeco_gaoery;//分类 0为课程1为方案2为自由
 	private String Freeco_numfile;//是否长传名单 0为未上传 1为已上传
+	private String Freeco_day;//方案定制天数
 	private List<Constomfile> constomFiles;//文件list  不在数据库存储
 	public Free_constom() {
 		super();
@@ -154,6 +156,12 @@ public class Free_constom implements Serializable{
 	}
 	public void setConstomFiles(List<Constomfile> constomFiles) {
 		this.constomFiles = constomFiles;
+	}
+	public String getFreeco_day() {
+		return Freeco_day;
+	}
+	public void setFreeco_day(String freeco_day) {
+		Freeco_day = freeco_day;
 	}
 	
 	

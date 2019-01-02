@@ -56,4 +56,7 @@
 		delete  from SOLUTION N
 		WHERE N.SOLUTION_ID = #{solution_id}
 	</delete>
+	<select id = "findAllSolution" resultMap="solution">
+		SELECT * FROM   SOLUTION
+	</select>
 </mapper>

@@ -361,24 +361,29 @@
 							layer.setTop(layero); //重点2
 						}
 					});
-			    } else if(obj.event === 'cancel'){
-			      	layer.confirm('确认取消定制？', function(index){
+			    } else if(obj.event === 'delete'){
+			      	layer.confirm('确认删除？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/Constom/cancel',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Course_id:data.course_id
+								Constom_id:data.freeco_id
 							},
 							success : function(data) {
 								if(data.message == "0"){
 									layer.alert("参数错误!");
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.alert("定制班次不存在!");
 								}
 								else if(data.message == "2"){
-									layer.alert("定制已取消!该条信息将会被删除!");
+									layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 							},
 							error : function(error) {
@@ -387,24 +392,29 @@
 						});	
 			        layer.close(index);
 			      });
-			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除该条记录？', function(index){
+			    } else if(obj.event === 'cancel'){
+			      	layer.confirm('确认取消定制？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/Constom/cancel',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Course_id:data.course_id
+								Constom_id:data.freeco_id
 							},
 							success : function(data) {
 								if(data.message == "0"){
 									layer.alert("参数错误!");
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.alert("定制班次不存在!");
 								}
 								else if(data.message == "2"){
-									layer.alert("删除成功!");
+									layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 							},
 							error : function(error) {
@@ -441,7 +451,57 @@
 							layer.setTop(layero); //重点2
 						}
 					});
-			    } 
+					}else if(obj.event === 'upload'){
+					    layui.layer.open({
+				            title: "文件上传",
+				            content: $('#upload_file_dialog').html(),
+				            area: ['500px', '300px'],
+				            btn: ['发送', '取消'],
+				            yes: function (index, layero) {//发送
+				                var f = document.getElementById("Userfile").files;
+				                if(f.length<=0){
+				                	layui.layer.alert("请选择文件!");
+				                	return;
+				                }
+				                var fd = new FormData();
+								fd.append("file",f[0]);
+								fd.append("Constom_id",data.freeco_id);
+								$.ajax({
+									url:'<%=request.getContextPath()%>/Constom/importUser',
+									type:'post',
+									encType: 'multipart/form-data', //表明上传类型为文件
+									processData: false,  //tell jQuery not to process the data
+				        			contentType: false,  //tell jQuery not to set contentType
+									data:fd,
+									success:function(data){
+										if(data.success == true){
+											if(data.message == "5"){
+												layer.alert("上传成功!");
+											}
+										}
+										else if(data.message == "4"){
+											layer.alert("excel存在身份证重复!");
+										}else if(data.message == "2"){
+											layer.alert(" execl无数据!");
+										}
+									},
+									error:function(data){
+
+									}
+								})
+				            },
+				            btn2:function(index, layero) {//取消
+				                
+				            }
+			       		});
+
+				        //文件上传change事件
+				        $("input[name=uploadfile][type=file]").on("change", function (e) {
+				            var filePath = $(this).val();
+				            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+				            $("#uploadFileName").text(filePath);
+				        });
+				}
 			  });
 			  var $ = layui.$, active = {
 			    reload: function(){
@@ -557,12 +617,18 @@
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消定制</a>
-	        {{#  } else if(d.freeco_status == "1"){ }}
+	        {{#  } else if(d.freeco_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  } else if(d.freeco_status == "2"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
+			{{#  } else if(d.freeco_status == "1"){ }}
+					{{#  if(d.freeco_numfile == '0'){ }}
+						<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+						<input type="file" lay-type="file" id="xxxxx" name="file" class="layui-upload-file">
+					{{#  } else if(d.freeco_numfile == "1"){ }}
+						<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.freeco_id}}">下载名单</a>
+					{{#  } }}
 			{{#  } else if(d.freeco_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.freeco_status == "4"){ }}
@@ -612,6 +678,22 @@
 	     	待定
 	     {{# } }}
  		</script>
+
+
+ 		<script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">文件上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传文件
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            文件上传</label>
+		    </div>
+		</script>
 	</body>
 
 </html>

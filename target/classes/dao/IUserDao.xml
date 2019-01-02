@@ -87,4 +87,10 @@
 			I.CREATETIME = #{createtime} 
 		WHERE I.USER_ID = #{User_id}
 	</update>
+	
+	<update id="updatePassword" parameterType="String">
+		update IUSER S
+			SET S.USER_PASSWORD = #{Password}
+				where s.USER_ID = #{user_id}
+	</update>
 </mapper>

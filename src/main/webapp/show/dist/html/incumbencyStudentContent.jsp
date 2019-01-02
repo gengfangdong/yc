@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+	String rules_id = request.getParameter("rules_id");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -331,7 +332,7 @@
 					</div>
 					<div class="am-g">
 						<div class="am-u-sm-11 am-u-sm-centered">
-							<div class="am-cf am-article">
+							<div class="am-cf am-article"  id="showRulesContent">
 								<div style="text-align: center;">
 									<h1 class="am-article-title">中央财经大学招生简章</h1>
 									<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">
@@ -661,7 +662,6 @@
 			</div>
 		</div>
 
-		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
 		<!--[if (gte IE 9)|!(IE)]><!-->
 		<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 		<!--<![endif]-->
@@ -671,7 +671,30 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
+		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 	</body>
+
+		<script>
+		window.onload = function() {
+		$.ajax({
+			url : '<%=request.getContextPath()%>/Show/getRulesdetailByid',
+			type : 'GET',
+			dataType:"json",
+			data:{
+				rules_id:'<%=rules_id%>'
+			},
+            success:function(data){
+            	if(data.success == true){
+            		var rules_context = data.data.rules_context;
+ 					 document.getElementById('showRulesContent').innerHTML=rules_context;
+            	}
+            },
+            error:function(error){
+            	console.log('接口不通' + error);
+            }
+        })
+	}
+	</script>
 
 </html>

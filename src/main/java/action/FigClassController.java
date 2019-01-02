@@ -1,17 +1,29 @@
 package action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +41,7 @@ import entity.UploadFilevo;
 import service.FigClassService;
 import util.ExcelUtil;
 import util.FileUtil;
+import util.StringUtil;
 import util.UUIDUtil;
 
 @RequestMapping("/FigClass")
@@ -36,6 +49,26 @@ import util.UUIDUtil;
 public class FigClassController {
 	@Autowired
 	private FigClassService figClassService;
+	
+	
+	/**
+	 * 拼板添加
+	 * @param figClass_name
+	 * @param figClass_deparment
+	 * @param figClass_address
+	 * @param figClass_start_date
+	 * @param figClass_end_date
+	 * @param figClass_class_start
+	 * @param figClass_class_end
+	 * @param figClass_pernum
+	 * @param figClass_phone
+	 * @param figClass_person
+	 * @param figClass_caogery
+	 * @param figClass_outline
+	 * @param files
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/addFig")
 	public Map<String,Object> addFigClass(String figClass_name, String figClass_deparment, String figClass_address,
 			String figClass_start_date, String figClass_end_date, String figClass_class_start,
@@ -134,6 +167,13 @@ public class FigClassController {
 		resultMap.put("message", "1");//导入成功
 		return resultMap;
 	}
+	/**
+	 * 名单报名
+	 * @param figClass_id
+	 * @param file
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/importUser")
 	public Map<String,Object> ImportUser(String figClass_id,@RequestParam("file")MultipartFile file,HttpServletRequest request){
 		// 结果map
@@ -209,6 +249,15 @@ public class FigClassController {
 		return resultMap;
 	}
 	
+	/**
+	 * 分页查看 根据类型和状态筛选
+	 * @param page
+	 * @param limit
+	 * @param caogery
+	 * @param status
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/LayFig")
 	public LayuiDataTable<FigClassshowVo> getLayBypage(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
@@ -224,7 +273,30 @@ public class FigClassController {
 		fDataTable.setMsg("");
 		return fDataTable;
 	}
-	
+	/**
+	 * 分页查看 根据类型和状态筛选
+	 * @param page
+	 * @param limit
+	 * @param caogery
+	 * @param status
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/LayFigad")
+	public LayuiDataTable<FigClassshowVo> getLayBypagead(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
+			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			HttpServletRequest request) {
+		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if(iUser != null)
+			fDataTable = figClassService.getListBypage(status, caogery, page, limit, "");
+		fDataTable.setCode(0);
+		fDataTable.setMsg("");
+		return fDataTable;
+	}
 	/**
 	 * 根据id获取详情
 	 * @param Constom_id
@@ -263,4 +335,369 @@ public class FigClassController {
 		resultMap.put("data", figClassVo);// 定制班次详情
 		return resultMap;
 	}
+	
+	/**
+	 * 取消拼班
+	 * @param Figclass_id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/cancel")
+	public Map<String,Object> cancelFigclass(String Figclass_id,HttpServletRequest request){
+		//结果返回的map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		//获取拼班
+		FigClass figClass = new FigClass();
+		figClass = figClassService.getDetailByid(Figclass_id);
+		if(figClass == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 定制班次不存在
+			return resultMap;
+		}
+		figClassService.deleteFigClass(Figclass_id, iUser.getUser_id());
+		resultMap.put("success", true);
+		resultMap.put("message", "2");//取消成功
+		return resultMap;
+	}
+	
+	/**
+	 * 更新带文件的拼班
+	 * @param figClass_id
+	 * @param file
+	 * @param oldfilename
+	 * @param figClass_name
+	 * @param figClass_deparment
+	 * @param figClass_address
+	 * @param figClass_start_date
+	 * @param figClass_end_date
+	 * @param figClass_class_start
+	 * @param figClass_class_end
+	 * @param figClass_pernum
+	 * @param figClass_phone
+	 * @param figClass_person
+	 * @param figClass_caogery
+	 * @param figClass_outline
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateFigClass")
+	@ResponseBody
+	public Map<String,Object> updateFigClass(String figClass_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+			String figClass_name, String figClass_deparment, String figClass_address,
+			String figClass_start_date, String figClass_end_date, String figClass_class_start,
+			String figClass_class_end, String figClass_pernum, String figClass_phone, String figClass_person,String figClass_caogery,
+			String[] figClass_outline,HttpServletRequest request){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		FileUtil fileUtil = new FileUtil();
+		if (StringUtil.isblack(figClass_id)) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//参数错误!
+			return resultMap;
+		}
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String Scheduled_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		//获取定制班次信息
+		FigClass figClass = figClassService.getDetailByid(figClass_id);
+		if(figClass == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "2");//获取定制班次失败!
+			return resultMap;
+		}
+		List<Figfile> figfiles = figClass.getFigFiles();
+		List<Figfile> deletesList = new ArrayList<Figfile>();
+		for(int j = figfiles.size()-1;j>=0;j--){
+			boolean flag = false;
+			if(oldfilename !=null){
+				for (String oldscheduledfile : oldfilename) {
+					if(oldscheduledfile.equals(figfiles.get(j).getNewfilename())){
+						flag = true;
+					}
+				}
+				if(flag == true){
+					flag = false;
+				}
+				else{
+					deletesList.add(figfiles.get(j));
+					figfiles.remove(j);
+				}
+			}
+		}
+		for (Figfile figfile : deletesList) {
+			if("2".equals(fileUtil.delete(request.getRealPath("/figclassfile")+"\\"+figfile.getNewfilename()))){
+				resultMap.put("success", false);
+				resultMap.put("message", "3");//删除文件失败!
+				return resultMap;
+			}
+		}
+		
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+		if(file!=null && file.length>0){
+			List<MultipartFile> filels = Arrays.asList(file);
+			fileUtil.uploadbatch(uploadFilevos, filels, request.getRealPath("/figclassfile"));
+		}
+		
+		
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Figfile figfile = new Figfile();
+			figfile.setCreater(iUser.getUser_id());
+			figfile.setCreatetime(Scheduled_Createtime);
+			figfile.setIsdelete("0");
+			figfile.setOldfilename(uploadfile.getOldfilename());
+			figfile.setNewfilename(uploadfile.getFilename());
+			figfile.setFigClass_id(figClass_id);
+			figfiles.add(figfile);
+		}
+		
+		figClass.setFigClass_address(figClass_address);
+		figClass.setFigClass_caogery(figClass_caogery);
+		figClass.setFigClass_class_end(figClass_class_end);
+		figClass.setFigClass_class_start(figClass_class_start);
+		figClass.setFigClass_deparment(figClass_deparment);
+		figClass.setFigClass_end_date(figClass_end_date);
+		figClass.setFigClass_name(figClass_name);
+		figClass.setFigClass_pernum(figClass_pernum);
+		figClass.setFigClass_person(figClass_person);
+		figClass.setFigClass_phone(figClass_phone);
+		figClass.setFigClass_start_date(figClass_start_date);
+		figClass.setFigClass_updater(iUser.getUser_id());
+		figClass.setFigClass_updatetime(Scheduled_Createtime);
+		StringBuffer outline = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(figClass_caogery)||"1".equals(figClass_caogery)){
+			//课程和方案走同一个方法
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "4");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : figClass_outline) {
+				outline.append(string+",");
+			}
+		}
+		else {
+			// 课程和方案走同一个方法
+			if (figClass_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(figClass_outline[1] + ",");
+		}
+		if (!"".equals(outline)) {
+			figClass.setFigClass_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		//constomService.updateConstom(free_constom);
+		resultMap.put("success", true);
+		resultMap.put("message", "5");//修改成功!
+		return resultMap;
+	}
+	
+	
+	/**
+	 * 下载拼班文件内容
+	 * @param request
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/download/{filename:.+}") //匹配的是href中的download请求 带后缀名的那种
+    public ResponseEntity<byte[]> download(HttpServletRequest request,@PathVariable String filename) throws IOException{
+    	
+    	
+        FileUtil fileUtil = new FileUtil();
+        HttpHeaders headers = new HttpHeaders();
+        String fileoldname = figClassService.getByfilename(filename);
+        return fileUtil.download(request.getRealPath("/figclassfile")+"\\"+filename, fileoldname,headers);        
+    }
+    
+
+	@RequestMapping("/Review")
+	public Map<String,Object> ReviewFigclass(String figclass_id,HttpServletRequest request,String review_result){
+		//结果map
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		
+		//获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		if(iUser == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "0");//未登录
+			return resultMap;
+		}
+		//获取拼班的实体
+		FigClass figClass = new FigClass();
+		figClass = figClassService.getDetailByid(figclass_id);
+		if(figClass == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//当前拼班不存在
+			return resultMap;
+		}
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String updatetime = dateFormat.format(new Date());
+		String updater = iUser.getUser_id();
+		figClassService.updateReview(figclass_id, review_result, updater, updatetime);
+		resultMap.put("success", true);
+		resultMap.put("message", "2");//审核成功!
+		return resultMap;
+	}
+	
+	@RequestMapping("/exportUser/{figclass_id}")
+	public void ExportUser(HttpServletRequest request,HttpServletResponse response,@PathVariable String figclass_id){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = figClassService.getListUserByid(iUser.getUser_id(), figclass_id);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		for(int j=0;j<eUsers.size();j++){
+			EUser eUser = eUsers.get(j);
+			HSSFRow row = sheet.createRow(j+1);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(eUser.getEUser_name());
+			HSSFCell cell1 = row.createCell(1);
+			String sex = eUser.getEUser_sex();
+			if("0".equals(sex)){
+				cell1.setCellValue("男");
+			}else if("1".equals(sex)){
+				cell1.setCellValue("女");
+			}
+			
+			HSSFCell cell2 = row.createCell(2);
+			cell2.setCellValue(eUser.getEUser_companyname());
+			HSSFCell cell3 = row.createCell(3);
+			cell3.setCellValue(eUser.getEUser_department());
+			HSSFCell cell4 = row.createCell(4);
+			cell4.setCellValue(eUser.getEUser_hold());
+			HSSFCell cell5 = row.createCell(5);
+			cell5.setCellValue(eUser.getEUser_indentitynumber());
+			HSSFCell cell6 = row.createCell(6);
+			cell6.setCellValue(eUser.getEUser_phone());
+			HSSFCell cell7 = row.createCell(7);
+			cell7.setCellValue(eUser.getEUser_remark());
+			
+		}
+		
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
+	}
+	
+	@RequestMapping("/exportUserad/{figclass_id}")
+	public void ExportUserad(HttpServletRequest request,HttpServletResponse response,@PathVariable String figclass_id){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = figClassService.getListUserByid(null, figclass_id);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		for(int j=0;j<eUsers.size();j++){
+			EUser eUser = eUsers.get(j);
+			HSSFRow row = sheet.createRow(j+1);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(eUser.getEUser_name());
+			HSSFCell cell1 = row.createCell(1);
+			String sex = eUser.getEUser_sex();
+			if("0".equals(sex)){
+				cell1.setCellValue("男");
+			}else if("1".equals(sex)){
+				cell1.setCellValue("女");
+			}
+			
+			HSSFCell cell2 = row.createCell(2);
+			cell2.setCellValue(eUser.getEUser_companyname());
+			HSSFCell cell3 = row.createCell(3);
+			cell3.setCellValue(eUser.getEUser_department());
+			HSSFCell cell4 = row.createCell(4);
+			cell4.setCellValue(eUser.getEUser_hold());
+			HSSFCell cell5 = row.createCell(5);
+			cell5.setCellValue(eUser.getEUser_indentitynumber());
+			HSSFCell cell6 = row.createCell(6);
+			cell6.setCellValue(eUser.getEUser_phone());
+			HSSFCell cell7 = row.createCell(7);
+			cell7.setCellValue(eUser.getEUser_remark());
+			
+		}
+		
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
+	}
+	
 }

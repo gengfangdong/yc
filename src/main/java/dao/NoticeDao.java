@@ -16,4 +16,5 @@ public interface NoticeDao {
 	public Notice getNoticeDetailByid(@Param("notice_id")String notice_id);
 	public void updateNotice(Notice notice);
 	public void deleteNotice(@Param("notice_id")String notice_id);
+	public List<Notice> findAllNotice();
 }

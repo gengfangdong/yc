@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+	String news_id = request.getParameter("news_id");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -333,7 +334,7 @@
 					</div>
 					<div class="am-g">
 						<div class="am-u-sm-11 am-u-sm-centered">
-							<div class="am-cf am-article">
+							<div class="am-cf am-article"  id="showNewsContent">
 								<div style="text-align: center;">
 									<h1 class="am-article-title">集团为湖南一师优秀贫困大学生再颁助学奖励金</h1>
 									<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">
@@ -363,10 +364,10 @@
 							<ul class="am-nav">
 								<li class="sidebar_contactUs">■新闻公告</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									通知公告
+									<a href="newsNotice.jsp" style="color: #000000;">通知公告</a>
 								</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									培训新闻
+									<a href="newsTrain.jsp" style="font-weight: 600;color: #FF2F2F;">培训新闻</a>
 								</li>
 							</ul>
 							<ul class="am-nav">
@@ -464,5 +465,31 @@
 		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 	</body>
+	
+	<script>
+	
+	window.onload = function() {
+
+		$.ajax({
+			url : '<%=request.getContextPath()%>/Show/getNewdetailByid',
+			type : 'GET',
+			dataType:"json",
+			data:{
+				news_id:'<%=news_id%>'
+			},
+            success:function(data){
+            	if(data.success == true){
+            		var news_context = data.data.news_context;
+ 					 document.getElementById('showNewsContent').innerHTML=news_context;
+            	}
+            },
+            error:function(error){
+            	console.log('接口不通' + error);
+            }
+        })
+		
+	}
+	
+	</script>
 
 </html>

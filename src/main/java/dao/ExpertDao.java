@@ -15,4 +15,5 @@ public interface ExpertDao {
 	public Expert getExpertDetailByid(@Param("expert_id")String expert_id);
 	public void updateExpert(Expert expert);
 	public void deleteExpert(@Param("expert_id")String expert_id);
+	public List<Expert> findAllExpert();
 }

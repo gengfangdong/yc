@@ -56,6 +56,19 @@ public class SolutionServiceImpl implements SolutionService{
 		// TODO Auto-generated method stub
 		solutionDao.deleteSolution(solution_id);
 	}
+	public DatatablesViewPage<Solution> findAllSolution() {
+		DatatablesViewPage<Solution> datatablesViewPage = new DatatablesViewPage<Solution>();
+		
+		List<Solution> SolutionList = new ArrayList<Solution>();
+		
+		SolutionList = solutionDao.findAllSolution();
+		
+		datatablesViewPage.setData(SolutionList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

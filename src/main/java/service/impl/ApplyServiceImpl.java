@@ -102,7 +102,9 @@ public class ApplyServiceImpl implements ApplyService{
 		// TODO Auto-generated method stub
 		applyDao.updatestatus(status, Apply_id);
 	}
-
+	public List<Apply> getProjectStatus(String user_id, String project_id) {
+		return applyDao.getProjectStatus(user_id,project_id);
+	}
 
 	
 	

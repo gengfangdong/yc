@@ -23,6 +23,9 @@ public class EUserServiceImpl implements EUserService{
 	public Boolean checkInu(String EUser_indentitynumber,String EUser_id) {
 		// TODO Auto-generated method stub
 		List<EUser> eUsers = new ArrayList<EUser>();
+		if("".equals(EUser_id)){
+			eUsers = eUserDao.checkInum(EUser_indentitynumber, "");
+		}
 		eUsers = eUserDao.checkInum(EUser_indentitynumber, EUser_id);
 		if(eUsers != null && eUsers.size()>0){
 			return true;

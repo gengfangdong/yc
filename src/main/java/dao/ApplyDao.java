@@ -23,4 +23,5 @@ public interface ApplyDao {
 	public void updatestatus(@Param("status")String status,@Param("Apply_id")String Apply_id);
 	
 	public void updateapply(Apply apply);
+	public List<Apply> getProjectStatus(@Param("user_id")String user_id, @Param("project_id")String project_id);
 }

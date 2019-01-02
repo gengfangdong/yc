@@ -29,4 +29,6 @@ public interface CourseService {
 	
 	//layui
 	public LayuiDataTable<CourseVo> gnpDataTableByid(String First_course,String Second_course,String constom_id);
+	public LayuiDataTable<CourseVo> gnpDataTableBYfid(int page, int limit, String first_course, String second_course,
+			String figClass_id);
 }

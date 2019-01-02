@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import dao.ClassPlanDao;
 import dao.ConstomDao;
+import dao.FigClassDao;
 import entity.ClassPlan;
 import entity.ClassPlanVo;
 import entity.ConstomVo;
 import entity.DatatablesViewPage;
+import entity.FigClass;
 import entity.Free_constom;
 import entity.LayuiDataTable;
 import service.ClassPlanService;
@@ -22,6 +24,8 @@ public class ClassPlanServiceImpl implements ClassPlanService{
 	private ClassPlanDao classPlanDao;
 	@Autowired
 	private ConstomDao constomDao;
+	@Autowired
+	private FigClassDao figClassDao;
 
 	public void insertClassPlan(ClassPlan classPlan) {
 		// TODO Auto-generated method stub
@@ -123,6 +127,35 @@ public class ClassPlanServiceImpl implements ClassPlanService{
 		classPlanVo.setCreatetime(classPlan.getCreatetime());
 		classPlanVo.setIsdelete(classPlan.getIsdelete());
 		return classPlanVo;
+	}
+
+	public LayuiDataTable<ClassPlanVo> getListNoPageByIdf(String figClass_id) {
+		// TODO Auto-generated method stub
+		List<ClassPlanVo> classPlanVos = new ArrayList<ClassPlanVo>();
+		LayuiDataTable<ClassPlanVo> cDataTable = new LayuiDataTable<ClassPlanVo>();
+		List<ClassPlan> classPlans = new ArrayList<ClassPlan>();
+		classPlans = classPlanDao.getlistnopage();
+		int count = 0;
+		count = classPlanDao.getClassPlanCount();
+		if (classPlans != null && classPlans.size() > 0) {
+			for (ClassPlan classPlan : classPlans) {
+				ClassPlanVo classPlanVo = tranfrom(classPlan);
+				List<FigClass> figClasses = figClassDao.getDetail(figClass_id);
+				FigClass figClass = new FigClass();
+				if (figClasses != null && figClasses.size() > 0) {
+					figClass = figClasses.get(0);
+				}
+				String outline = figClass.getFigClass_outline();
+				if (outline.indexOf(classPlan.getClassplan_id()) >= 0) {
+					classPlanVo.setLAY_CHECKED(true);
+				} else
+					classPlanVo.setLAY_CHECKED(false);
+				classPlanVos.add(classPlanVo);
+			}
+		}
+		cDataTable.setCount(count);
+		cDataTable.setData(classPlanVos);
+		return cDataTable;
 	}
 
 }

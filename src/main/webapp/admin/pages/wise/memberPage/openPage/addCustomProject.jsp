@@ -463,6 +463,7 @@
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
@@ -480,7 +481,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: '../../adminPage/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -570,28 +571,7 @@
 		  });
 		});
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
+	
 		<script>
 			function branchSub(){
 				var classesName = $("#classesName").val();
@@ -608,14 +588,15 @@
 				if(type=="方案定制"){
 					type=0;
 					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+					selectList[1] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
 				}else if(type=="课程定制"){
 					type=1;
-					if($("#sample-table-1 th .laytable-cell-checkbox div").is('.layui-form-checked')){
+					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
 						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
 					}else{
-						for(var i=0;i<$('.layui-form-checked').length;i++){
+						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
 					}
@@ -673,9 +654,12 @@
 				}
     			fd.append('Constom_name', classesName);
     			fd.append('Constom_data', hostDate);
-    			if(selectList.length>1){
-    				fd.append('Constom_datanum', selectList[0]);
+    			if(type == '2'){
+    				if(selectList.length>1){
+        				fd.append('Constom_datanum', selectList[0]);
+        			}
     			}
+    			
     			
     			fd.append('Constom_pernum', planNumOfEntries);
     			fd.append('Constom_address', planHostAddress);
@@ -718,13 +702,25 @@
 			}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id={{d.course_id}} lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}} lay-event="show">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
-  			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>
+  			<a class="" lay-event="show2">查看</a>
 		</script>
 		<script type="text/html" id="radio2">
 			<input type="radio" name="planRadio" value="{{d.id}}" />
+		</script>
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
 		</script>
 
 	</body>

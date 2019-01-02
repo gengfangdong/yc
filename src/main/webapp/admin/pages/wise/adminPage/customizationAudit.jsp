@@ -71,7 +71,10 @@
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
-									<span class="hidden-xs">liwei</span>
+									<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+										
+									<%}; %>
+									<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 								</a>
 								<ul class="dropdown-menu">
 									<!-- User image -->
@@ -112,8 +115,16 @@
 							<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="pull-left info">
-							<p>o1234675</p>
-							<a href="#"><i class="fa fa-circle text-success"></i> liwen</a>
+							<% if(user != null) {%>
+							<p><%=user.getUser_loginname()%></p>
+							<a href="#">
+								<i class="fa fa-circle text-success"></i> 
+								<%=user.getUser_name()%>&nbsp;
+							</a>
+										
+							<%}; %>
+							<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
+							</a>
 						</div>
 					</div>
 
@@ -365,17 +376,16 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/ScheduledShift/getRegulationClasses',
+			    url: '<%=request.getContextPath()%>/Constom/LayConstomad',
 			    cols: [[
-				  {type:'numbers',title:"序号",minWidth:40},
-			      {field:'scheduled_id', title: 'ID',style:'display:none;'},
-			      {field:'scheduledshift.scheduled_name', title: '班级名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>'},
-			      {field:'scheduledshift.createtime', title: '定制类别',minWidth:160,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>'},
-			      {field:'dataNumber', title: '计划举办天数'},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '计划参加人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>'},
-			      {field:'scheduledshift.scheduled_start', title: '预计开始时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>'},
-			     {field:'scheduledshift.scheduled_status', title: '状态',templet:'#typestatus'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+				  {type:'numbers',title:"序号"},
+			      {field:'freeco_name', title: '班级名称'},
+			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery'},
+			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum'},
+			      {field:'freeco_pernum', title: '计划参加人数'},
+			      {field:'freeco_data', title: '预计开始时间'},
+			      {field:'freeco_status', title: '状态',templet:'#typestatus'},
+			      {field:'freeco_id', title: '操作',toolbar: '#barDemo'}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -392,7 +402,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp',
+						content: 'openPage/showCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -432,7 +442,21 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/updateprescribedShift.jsp?course_id='+data.course_id,
+						content: 'openPage/editCustomProject.jsp?constom_id='+data.freeco_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }else if(obj.event === 'review'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '审核',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/reviewCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -484,7 +508,6 @@
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
 			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});
 			
 			
@@ -535,6 +558,10 @@
 			</script>
 		<script>
 			window.onload = function(){
+				<% if(user == null){%>
+					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
+				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
@@ -556,36 +583,52 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
-			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">查看</a>
-			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">修改</a>
-			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">结束</a>
-			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  if(d.isEntry == '1'){ }}
-		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
-	        {{#  } else if(d.isEntry == "0"){ }}
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+			{{#  if(d.freeco_status == '0'){ }}  
+		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+				<a class="" lay-event="review" style="margin-right:10px; cursor: pointer;">审核</a>
+	        {{#  } else if(d.freeco_status == "1"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+			{{#  } else if(d.freeco_status == "2"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
+			{{#  } else if(d.freeco_status == "3"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.freeco_status == "4"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 			{{#  } }}
-
-  			{{#  if(d.isEntry == '1'){ }}
-		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-	        {{#  } else if(d.isEntry == "0"){ }}
-				
-			{{#  } }}
-  			
 		</script>
+
 		<script type="text/html" id="typestatus">
-	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
-	        报名进行中
-	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
-	     	未开课
-	     {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
-	     	开课中
-	     {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+	     {{#  if(d.freeco_status == "0"){ }}
+	        未审核
+	     {{#  }else if(d.freeco_status=="1"){ }}
+	     	审核通过
+	     {{#  }else if(d.freeco_status=="2"){ }}
+	     	审核未通过
+	     {{#  }else if(d.freeco_status=="3"){ }}
+	     	开班中
+	     {{#  }else if(d.freeco_status=="4"){ }}
 	     	已结课
-	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
-	     	报名未开始
 	     {{# } }}
  		</script>
+ 		<script type="text/html" id="typecaogery">
+	     {{#  if(d.freeco_gaoery == "0"){ }}
+	        方案定制
+	     {{#  }else if(d.freeco_gaoery=="1"){ }}
+	     	课程定制
+	     {{#  }else if(d.freeco_gaoery=="2"){ }}
+	     	自由定制
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typedatanum">
+	     {{#  if(d.freeco_datanum!=null){ }}
+	        {{d.freeco_datanum}}
+	     {{#  }else{ }}
+	     	待定
+	     {{# } }}
 	</body>
 
 </html>

@@ -333,7 +333,7 @@
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
+			    url: '<%=request.getContextPath()%>/Course/getlistLay/<%=figClass_id%>',
 			    cols: [[
 			      {type:'checkbox'},
 				  {type:'numbers',title:"序号",minWidth:90},
@@ -388,7 +388,7 @@
 			  //方案定制
 			  table.render({
 				    elem: '#LAY_table_user2',
-				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage',
+				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopagef/<%=figClass_id%>',
 				    cols: [[
 							  //{field:'radio', title: '选择',toolbar: '#radio2'},
 							  {type:'numbers',title:"序号"},

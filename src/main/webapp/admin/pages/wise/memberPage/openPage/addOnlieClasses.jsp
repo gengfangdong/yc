@@ -656,8 +656,14 @@
 					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
 				}else if(type=="课程定制"){
 					type=1;
-					for(var i=0;i<$('.layui-form-checked').length;i++){
-						selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
+						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
+							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						}
+					}else{
+						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
+							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						}
 					}
 				}else if(type=="自由定制"){
 					type=2;
@@ -754,7 +760,7 @@
 			}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}} lay-event="show" style="margin-right:10px;">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
   			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>

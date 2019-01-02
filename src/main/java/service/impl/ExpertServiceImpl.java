@@ -56,6 +56,19 @@ public class ExpertServiceImpl implements ExpertService{
 		// TODO Auto-generated method stub
 		expertDao.deleteExpert(expert_id);
 	}
+	public DatatablesViewPage<Expert> findAllExpert() {
+		DatatablesViewPage<Expert> datatablesViewPage = new DatatablesViewPage<Expert>();
+		
+		List<Expert> expertList = new ArrayList<Expert>();
+		
+		expertList = expertDao.findAllExpert();
+		
+		datatablesViewPage.setData(expertList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

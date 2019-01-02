@@ -494,6 +494,37 @@ public class IUserController {
 		resultMap.put("message", "2");//保存成功!
 		return resultMap;
 	}
+	@RequestMapping("/updatePassword")
+	public Map<String,Object> updatePassword(HttpServletRequest request,String oldpassword,String newpassword){
+		// 结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		
+		iUser = iUserService.getDetailByid(iUser.getUser_id());
+		if(!oldpassword.equals(iUser.getUser_password())){
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//旧密码不正确
+			return resultMap;
+		}
+		try{
+			iUserService.updatePassword(newpassword,iUser.getUser_id());
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "2");//修改失败
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "3");//修改成功
+		return resultMap;
+	}
 	
 	
 }

@@ -13,4 +13,6 @@ public interface TeachingService {
 	public void updateTeaching(Teaching teaching);
 	//删除教材
 	public void deleteTeaching(String teaching_id);
+	//查询所有教材
+	public DatatablesViewPage<Teaching> findAllTeaching();
 }

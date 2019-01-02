@@ -1,6 +1,7 @@
 package service;
 
 
+
 import entity.DatatablesViewPage;
 import entity.IUser;
 
@@ -18,5 +19,5 @@ public interface IUserService {
 	public boolean checkLoginNameAndUser_id(String user_id,String loginname);
 	
 	public void updateShow(IUser iUser);
-	
+	public void updatePassword(String password,String user_id);
 }

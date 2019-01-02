@@ -27,4 +27,7 @@
 		SET C.isdelete = '1'
 		 	WHERE C.Freeco_id = #{Constom_id}
 	</update>
+	<select id="getByfilename" resultType="String">
+		SELECT T.OLDFILENAME FROM CONSTOMFILE T WHERE T.NEWFILENAME = #{filename} and T.ISDELETE = '0'
+	</select>
 </mapper>

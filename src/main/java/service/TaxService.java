@@ -13,4 +13,6 @@ public interface TaxService {
 	public void updateTax(Tax tax);
 	//删除领税
 	public void deleteTax(String tax_id);
+	//查询所有领税
+	public DatatablesViewPage<Tax> findAllTax();
 }

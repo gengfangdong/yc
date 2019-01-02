@@ -56,6 +56,19 @@ public class CultureServiceImpl implements CultureService{
 		// TODO Auto-generated method stub
 		cultureDao.deleteCulture(culture_id);
 	}
+	public DatatablesViewPage<Culture> findAllCulture() {
+		DatatablesViewPage<Culture> datatablesViewPage = new DatatablesViewPage<Culture>();
+		
+		List<Culture> cultureList = new ArrayList<Culture>();
+		
+		cultureList = cultureDao.findAllCulture();
+		
+		datatablesViewPage.setData(cultureList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

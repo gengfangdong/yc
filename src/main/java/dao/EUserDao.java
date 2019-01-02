@@ -21,4 +21,5 @@ public interface EUserDao {
 	public List<EUser> getListBycreater(@Param("creater")String Creater);
 	public void updatebatch(List<EUser> eUsers);
 	public List<EUser> getList(@Param("User_id")String User_id);
+	public List<EUser> getEUserList(List<String> ids);
 }

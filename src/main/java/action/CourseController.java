@@ -105,9 +105,28 @@ public class CourseController {
 	 * @param limit
 	 * @return
 	 */
-	@RequestMapping(value="/getlistLay/{comstom_id}")
+	@RequestMapping(value="/getlistLay/{figClass_id}")
 	@ResponseBody
-	public LayuiDataTable<Course> getListBypageLay(@RequestParam(value="First_course",required=false)String First_course,
+	public LayuiDataTable<CourseVo> getListBypageLay(@PathVariable String figClass_id,@RequestParam(value="First_course",required=false)String First_course,
+			@RequestParam(value="Second_course",required=false)String Second_course,@RequestParam("page")int page,@RequestParam("limit")int limit){
+		LayuiDataTable<CourseVo> cDataTable = new LayuiDataTable<CourseVo>();
+		cDataTable = courseService.gnpDataTableBYfid(page, limit, First_course, Second_course,figClass_id);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	
+	/**
+	 * layui 接口
+	 * @param First_course
+	 * @param Second_course
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping(value="/getlistLay")
+	@ResponseBody
+	public LayuiDataTable<Course> getListBypageLaya(@RequestParam(value="First_course",required=false)String First_course,
 			@RequestParam(value="Second_course",required=false)String Second_course,@RequestParam("page")int page,@RequestParam("limit")int limit){
 		LayuiDataTable<Course> cDataTable = new LayuiDataTable<Course>();
 		cDataTable = courseService.gDataTable(page, limit, First_course, Second_course);

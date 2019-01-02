@@ -15,4 +15,5 @@ public interface SolutionDao {
 	public Solution getSolutionDetailByid(@Param("solution_id")String solution_id);
 	public void updateSolution(Solution solution);
 	public void deleteSolution(@Param("solution_id")String solution_id);
+	public List<Solution> findAllSolution();
 }

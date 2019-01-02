@@ -56,4 +56,8 @@
 		delete  from CULTURE N
 		WHERE N.CULTURE_ID = #{culture_id}
 	</delete>
+	
+	<select id = "findAllCulture" resultMap="culture">
+		SELECT * FROM   CULTURE
+	</select>
 </mapper>

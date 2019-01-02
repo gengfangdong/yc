@@ -306,7 +306,7 @@
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
 																					<label for="" class="control-label" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">会员名单模板：</label>
 																					<div class="col-sm-10">
-																						<button href="../../../../前台/dist/doc/报名表格.zip" class="add saveMessage" style="margin-top: 5px;"><a href="../../../../前台/dist/doc/报名表格.zip" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载</a></button>
+																						<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="add saveMessage" style="margin-top: 5px;"><a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载</a></button>
 																						<span style="font-size: 12px;padding-left: 20px;">注：本模板用于在“人员列表”模块中导入本单位培训人员名单</span>
 																					</div>
 																				</div>
@@ -543,17 +543,24 @@
 				}
 				
 				$.ajax({
-					url:"",
+					url:"<%=request.getContextPath()%>/IUser/updatePassword",
 					type:"post",
 					data:{
-						oldPassword:oldPassword,
-						newPassword:newPassword
+						oldpassword:oldPassword,
+						newpassword:newPassword
 					},
 					success:function(data){
-						if(success.data == true){
+						if(data.success == true){
 							alert("密码修改成功！");
-						}else if(success.data == false){
-							alert("密码修改失败！");
+						}else if(data.success == false){
+							if(data.message == "0"){
+								alert("未登录！");
+							}else if(data.message == "1"){
+								alert("旧密码不对！");
+							}else if(data.message == "2"){
+								alert("密码修改失败！");
+							}
+							
 						}
 					},
 					error:function(error){

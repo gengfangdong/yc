@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import dao.ConstomDao;
 import dao.CourseDao;
+import dao.FigClassDao;
 import entity.About;
 import entity.ApplyShowVo;
 import entity.Course;
 import entity.CourseVo;
 import entity.DatatablesViewPage;
+import entity.FigClass;
 import entity.Free_constom;
 import entity.LayuiDataTable;
 import entity.Notice;
@@ -26,6 +28,8 @@ public class CourseServiceImpl implements CourseService{
 	private CourseDao courseDao;
 	@Autowired
 	private ConstomDao constomDao;
+	@Autowired
+	private FigClassDao figClassDao;
 	public void insertCourse(Course course) {
 		// TODO Auto-generated method stub
 		courseDao.insertCourse(course);
@@ -153,6 +157,27 @@ public class CourseServiceImpl implements CourseService{
 			courseVos.add(courseVo);
 		}
 		return courseVos;
+	}
+
+	public LayuiDataTable<CourseVo> gnpDataTableBYfid(int page, int limit, String first_course, String second_course,
+			String figClass_id) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<CourseVo> cDataTable = new LayuiDataTable<CourseVo>();
+		int count = 0;
+		count = courseDao.getCourseCount(first_course, second_course);
+		List<CourseVo> coursevos = new ArrayList<CourseVo>();
+		List<Course> courses = new ArrayList<Course>();
+		courses = courseDao.getnopage(first_course, second_course);
+		List<FigClass> figClasses = figClassDao.getDetail(figClass_id);
+		FigClass figClass = new FigClass();
+		if (figClasses != null && figClasses.size() > 0) {
+			figClass = figClasses.get(0);
+		}
+		String outline = figClass.getFigClass_outline();
+		coursevos = tranfrom(courses, outline);
+		cDataTable.setCount(count);
+		cDataTable.setData(coursevos);
+		return cDataTable;
 	}
 	
 	

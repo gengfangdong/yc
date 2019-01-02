@@ -361,7 +361,7 @@
 	        	var department = document.getElementById("companyInformation").value;
 	        	var fd = new FormData();
 				fd.append('file', filea);
-    			fd.append('Ssu_ssid', 'schbac5e6e142cf4651b6c7bf1fff2bf898');
+    			fd.append('Ssu_ssid', '<%=scheduled_id%>');
     			fd.append('Ssu_usernumber', number);
     			fd.append('Ssu_username', name);
     			fd.append('Ssu_ydphone', phone);
@@ -407,7 +407,7 @@
         			url:'<%=request.getContextPath()%>/ScheduledShift/getDetailByid',
         			type:"POST",
         			data:{
-        				"Scheduled_id":'schbac5e6e142cf4651b6c7bf1fff2bf898'
+        				"Scheduled_id":'<%=scheduled_id%>'
         			},
         			success:function(data){
         				if(data.success == true){

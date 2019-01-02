@@ -141,6 +141,24 @@ public class ClassPlanController {
 		return cDataTable;
 	}
 	
+	/**
+	 * 返回课程方案列表  不分页  拼班id
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistnopagef/{figClass_id}")
+	@ResponseBody
+	public LayuiDataTable<ClassPlanVo> GetlistNoPageByf(@RequestParam("page")int start,@RequestParam("limit")int length,@PathVariable String figClass_id ){
+		//DataTables  返回实例
+		LayuiDataTable<ClassPlanVo> cDataTable = new LayuiDataTable<ClassPlanVo>();
+		cDataTable = classPlanService.getListNoPageByIdf(figClass_id);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	
 	
 	
 	

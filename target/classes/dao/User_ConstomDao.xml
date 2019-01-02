@@ -13,11 +13,16 @@
 	</resultMap>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into USER_CONSTOM(USERID,CONSTOM_ID,STATUS,ISDELETE,CREATER,CREATETIME,UPDATER,UPDATETIME)
-		<foreach collection="user_ConstomList" index="index" item="item" separator="union all">
+		<foreach collection="list" index="index" item="item" separator="union all">
 			(select 
 				#{item.Userid},#{item.Constom_id},#{item.status},#{item.isdelete},
 				#{item.creater},#{item.createtime},#{item.updater},#{item.updatetime}
 			from dual)
 		</foreach>
 	</insert>
+	
+	
+	<select id="getListUserByid" resultType="String">
+		select t.userid from USER_CONSTOM t where t.creater=#{user_id} and t.constom_id=#{constom_id} and t.isdelete='0'
+	</select>
 </mapper>

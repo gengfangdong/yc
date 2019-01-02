@@ -56,6 +56,19 @@ public class TeachingServiceImpl implements TeachingService{
 		// TODO Auto-generated method stub
 		teachingDao.deleteTeaching(teaching_id);
 	}
+	public DatatablesViewPage<Teaching> findAllTeaching() {
+		DatatablesViewPage<Teaching> datatablesViewPage = new DatatablesViewPage<Teaching>();
+		
+		List<Teaching> teachingList = new ArrayList<Teaching>();
+		
+		teachingList = teachingDao.findAllTeaching();
+		
+		datatablesViewPage.setData(teachingList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

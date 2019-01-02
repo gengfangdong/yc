@@ -14,5 +14,5 @@ public interface ApplyUnitDao {
 	public void update(ApplyUnit applyUnit);
 	
 	public List<ApplyUnit> getApplyUnitDetail(@Param("Applyunit_id")String Applyunit_id);
-	
+	public List<ApplyUnit> getProjectStatus(@Param("user_id")String user_id, @Param("project_id")String project_id);
 }

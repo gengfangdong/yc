@@ -56,4 +56,7 @@
 		delete  from EXPERT N
 		WHERE N.EXPERT_ID = #{expert_id}
 	</delete>
+	<select id = "findAllExpert" resultMap="expert">
+		SELECT * FROM   EXPERT
+	</select>
 </mapper>

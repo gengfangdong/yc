@@ -15,4 +15,5 @@ public interface NewsDao {
 	public News getNewsDetailByid(@Param("news_id")String news_id);
 	public void updateNews(News news);
 	public void deleteNews(@Param("news_id")String news_id);
+	public List<News> findAllNews();
 }

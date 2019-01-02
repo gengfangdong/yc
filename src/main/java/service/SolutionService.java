@@ -13,4 +13,6 @@ public interface SolutionService {
 	public void updateSolution(Solution solution);
 	//删除解决
 	public void deleteSolution(String solution_id);
+	//查询所有解决
+	public DatatablesViewPage<Solution> findAllSolution();
 }

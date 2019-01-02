@@ -13,4 +13,6 @@ public interface ExpertService {
 	public void updateExpert(Expert expert);
 	//删除专家
 	public void deleteExpert(String expert_id);
+	//查询所有专家
+	public DatatablesViewPage<Expert> findAllExpert();
 }

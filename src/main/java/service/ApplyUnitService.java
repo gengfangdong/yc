@@ -10,4 +10,5 @@ public interface ApplyUnitService {
 	public ApplyUnit getApplyUnitDetail(String Applyunit_id);
 	public void update(ApplyUnit applyUnit);
 	public void deleteapplyunit(String applyunit_id);
+	public List<ApplyUnit> getProjectStatus(String user_id, String project_id);
 }

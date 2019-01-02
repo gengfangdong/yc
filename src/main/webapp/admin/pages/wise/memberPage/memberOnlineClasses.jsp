@@ -440,7 +440,57 @@
 						layer.setTop(layero); //重点2
 					}
 				});
-		    }
+		    }else if(obj.event === 'Userupload'){
+					    layui.layer.open({
+				            title: "文件上传",
+				            content: $('#upload_file_dialog').html(),
+				            area: ['500px', '300px'],
+				            btn: ['发送', '取消'],
+				            yes: function (index, layero) {//发送
+				                var f = document.getElementById("Userfile").files;
+				                if(f.length<=0){
+				                	layui.layer.alert("请选择文件!");
+				                	return;
+				                }
+				                var fd = new FormData();
+								fd.append("file",f[0]);
+								fd.append("figClass_id",data.figClass_id);
+								$.ajax({
+									url:'<%=request.getContextPath()%>/FigClass/importUser',
+									type:'post',
+									encType: 'multipart/form-data', //表明上传类型为文件
+									processData: false,  //tell jQuery not to process the data
+				        			contentType: false,  //tell jQuery not to set contentType
+									data:fd,
+									success:function(data){
+										if(data.success == true){
+											if(data.message == "5"){
+												layer.alert("上传成功!");
+											}
+										}
+										else if(data.message == "4"){
+											layer.alert("excel存在身份证重复!");
+										}else if(data.message == "2"){
+											layer.alert(" execl无数据!");
+										}
+									},
+									error:function(data){
+
+									}
+								})
+				            },
+				            btn2:function(index, layero) {//取消
+				                
+				            }
+			       		});
+
+				        //文件上传change事件
+				        $("input[name=uploadfile][type=file]").on("change", function (e) {
+				            var filePath = $(this).val();
+				            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+				            $("#uploadFileName").text(filePath);
+				        });
+				}
 		    
 		  });
 		  var $ = layui.$, active = {
@@ -545,13 +595,18 @@
 				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消拼班</a>
 	        {{#  } else if(d.figClass_status == "1"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  if(d.user_status == '0'){ }}
+			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+	        	{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+				{{#  } }}
 			{{#  } else if(d.figClass_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
+				<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">提交名单</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "5"){ }}
@@ -582,6 +637,20 @@
 	     	已报名
 	     {{# } }}
 	     </script>
+	     <script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">文件上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传文件
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            文件上传</label>
+		    </div>
+		</script>
 	</body>
 
 </html>

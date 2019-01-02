@@ -229,7 +229,7 @@
 												      <tbody id="demoList"></tbody>
 												    </table>
 												 </div>
-												 <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+												 
 											</td>
 										</tr>
 									</tbody>
@@ -474,7 +474,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -546,7 +546,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -599,7 +599,7 @@
 								shade: 0,
 								maxmin: true,
 								offset: [0, 0],
-								content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+								content: '。。/admin/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 								zIndex: layer.zIndex, //重点1
 								success: function(layero) {
 									layer.setTop(layero); //重点2

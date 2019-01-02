@@ -19,15 +19,16 @@
 		<result column="Freeco_OUTLINE" jdbcType="VARCHAR" property="Freeco_outline"/>
 		<result column="FREECO_GAOERY" jdbcType="VARCHAR" property="Freeco_gaoery"/>
 		<result column="FREECO_NUMFILE" jdbcType="VARCHAR" property="Freeco_numfile"/>
+		<result column="FREECO_DAY" jdbcType="VARCHAR" property="Freeco_day"/>
 	</resultMap>
 	<insert id="insertConstom" parameterType="entity.Free_constom">
 		insert into FREE_COSTOM(FREECO_ID,FREECO_NAME,FREECO_DATA,FREECO_DATANUM,FREECO_PERNUM,FREECO_ADDRESS,FREECO_PERSON,
 		FREECO_PHONE,FREECO_CREATER,FREECO_CREATETIME,FREECO_UPDATER,FREECO_UPDATETIME,FREECO_ISDELETE,
-		FREECO_STATUS,FREECO_OUTLINE,FREECO_GAOERY,FREECO_NUMFILE)
+		FREECO_STATUS,FREECO_OUTLINE,FREECO_GAOERY,FREECO_NUMFILE,FREECO_DAY)
 		values(#{Freeco_id},#{Freeco_name},#{Freeco_data},#{Freeco_datanum,jdbcType=VARCHAR},
 		#{Freeco_pernum},#{Freeco_address},#{Freeco_person},#{Freeco_phone},#{Freeco_creater},
 		#{Freeco_createtime},#{Freeco_updater},#{Freeco_updatetime},#{Freeco_isdelete},#{Freeco_status},
-		#{Freeco_outline},#{Freeco_gaoery},#{Freeco_numfile})
+		#{Freeco_outline},#{Freeco_gaoery},#{Freeco_numfile},#{Freeco_day,jdbcType=VARCHAR})
 	</insert>
 	
 	<select id="getDetailByid" parameterType="String" resultMap="Free_constom">
@@ -47,7 +48,10 @@
 		(  
 			SELECT A.*, ROWNUM RN  
 			FROM (select * from FREE_COSTOM F
-			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			where F.FREECO_ISDELETE = '0' 
+			<if test="user_id != null and user_id != '' ">
+				and F.FREECO_CREATER = #{user_id}
+			</if>
 			<if test="caogery != null and caogery != '' ">
 				and FREECO_GAOERY = #{caogery}
 			</if>
@@ -62,7 +66,10 @@
 	
 	<select id="getListCount" resultType="int">
 		select count(*) from FREE_COSTOM F
-			where F.FREECO_ISDELETE = '0' and F.FREECO_CREATER = #{user_id}
+			where F.FREECO_ISDELETE = '0' 
+			<if test="user_id != null and user_id != '' ">
+				and F.FREECO_CREATER = #{user_id}
+			</if>
 			<if test="caogery != null and caogery != '' ">
 				and FREECO_GAOERY = #{caogery}
 			</if>
@@ -77,5 +84,30 @@
 				F.Freeco_UPDATER = #{updater},
 				F.Freeco_UPDATETIME = #{updatetime}
 				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
+	</update>
+	
+	<update id="updateConstom" parameterType="entity.Free_constom">
+		update FREE_COSTOM F
+			SET F.Freeco_NAME = #{Freeco_name},
+				F.Freeco_DATA = #{Freeco_data},
+				F.Freeco_datanum = #{Freeco_datanum,jdbcType=VARCHAR},
+				F.Freeco_PERNUM = #{Freeco_pernum},
+				F.Freeco_ADDRESS = #{Freeco_address},
+				F.Freeco_PERSON = #{Freeco_person},
+				F.Freeco_PHONE = #{Freeco_phone},
+				F.Freeco_OUTLINE = #{Freeco_outline},
+				F.FREECO_GAOERY = #{Freeco_gaoery},
+				F.Freeco_UPDATER = #{Freeco_updater},
+				F.Freeco_UPDATETIME = #{Freeco_updatetime}
+				WHERE F.FREECO_ID=#{Freeco_id} and F.Freeco_ISDELETE = '0'
+	</update>
+	
+	<update id="uploadfile" parameterType="entity.Free_constom">
+		update FREE_COSTOM F
+			SET F.FREECO_NUMFILE = #{Freeco_numfile},
+				
+				F.Freeco_UPDATER = #{Freeco_updater},
+				F.Freeco_UPDATETIME = #{Freeco_updatetime}
+				WHERE F.FREECO_ID=#{Freeco_id} and F.Freeco_ISDELETE = '0'
 	</update>
 </mapper>

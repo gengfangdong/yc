@@ -15,4 +15,5 @@ public interface CultureDao {
 	public Culture getCultureDetailByid(@Param("culture_id")String culture_id);
 	public void updateCulture(Culture culture);
 	public void deleteCulture(@Param("culture_id")String culture_id);
+	public List<Culture> findAllCulture();
 }

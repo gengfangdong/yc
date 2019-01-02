@@ -56,4 +56,7 @@
 		delete  from TAX N
 		WHERE N.TAX_ID = #{tax_id}
 	</delete>
+	<select id = "findAllTax" resultMap="tax">
+		SELECT * FROM   TAX
+	</select>
 </mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.RulesDao">
+	<resultMap type="entity.Rules" id="rules">
+		<result column="Rules_id" jdbcType="VARCHAR" property="Rules_id"/>
+		<result column="Rules_titile" jdbcType="VARCHAR" property="Rules_titile"/>
+		<result column="Rules_title_page" jdbcType="VARCHAR" property="Rules_title_page"/>
+		<result column="Rules_Introduction" jdbcType="VARCHAR" property="Rules_Introduction"/>
+		<result column="Rules_KeyWords" jdbcType="VARCHAR" property="Rules_KeyWords"/>
+		<result column="Rules_Release_time" jdbcType="VARCHAR" property="Rules_Release_time"/>
+		<result column="Rules_status" jdbcType="VARCHAR" property="Rules_status"/>
+		<result column="Rules_context" jdbcType="VARCHAR" property="Rules_context"/>
+		<result column="Rules_Creater" jdbcType="VARCHAR" property="Rules_Creater"/>
+		<result column="Rules_Createtime" jdbcType="VARCHAR" property="Rules_Createtime"/>
+	</resultMap>
+	<insert id = "insertRules" parameterType="Rules">
+		insert into RULES (RULES_ID,RULES_TITILE,RULES_TITLE_PAGE,RULES_INTRODUCTION,
+		RULES_KEYWORDS,RULES_RELEASE_TIME,RULES_STATUS,RULES_CONTEXT,RULES_CREATER,RULES_CREATETIME) 
+		values(#{Rules_id},#{Rules_titile},#{Rules_title_page},#{Rules_Introduction},
+		#{Rules_KeyWords},#{Rules_Release_time},#{Rules_status},#{Rules_context},
+		#{Rules_Creater},#{Rules_Createtime})
+	</insert>
+	<select id = "getRulesAllBypage" resultMap="rules">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM RULES) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}  
+	</select>
+	
+	<select id="getRulesCount" resultType="int">
+		select count(*) from RULES 
+	</select>
+	
+	<select id="getRulesDetailByid" resultMap="rules">
+		select * from RULES t
+		where t.RULES_ID = #{rules_id}
+	</select>
+	<update id="updateRules" parameterType="Rules">
+		update RULES SET 
+			RULES_TITILE = #{Rules_titile},
+			RULES_TITLE_PAGE = #{Rules_title_page},
+			RULES_INTRODUCTION = #{Rules_Introduction},
+			RULES_KEYWORDS = #{Rules_KeyWords},
+			RULES_RELEASE_TIME = #{Rules_Release_time},
+			RULES_STATUS = #{Rules_status},
+			RULES_CONTEXT = #{Rules_context},
+			RULES_CREATER = #{Rules_Creater},
+			RULES_CREATETIME = #{Rules_Createtime}
+		where RULES_ID = #{Rules_id}
+	</update>
+	
+	<delete id="deleteRules" parameterType="String">
+		delete  from RULES N
+		WHERE N.RULES_ID = #{rules_id}
+	</delete>
+	
+	<select id = "findAllRules" resultMap="rules">
+		SELECT * FROM  RULES
+	</select>
+</mapper>

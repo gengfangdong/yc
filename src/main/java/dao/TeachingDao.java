@@ -15,4 +15,5 @@ public interface TeachingDao {
 	public Teaching getTeachingDetailByid(@Param("teaching_id")String teaching_id);
 	public void updateTeaching(Teaching teaching);
 	public void deleteTeaching(@Param("teaching_id")String teaching_id);
+	public List<Teaching> findAllTeaching();
 }

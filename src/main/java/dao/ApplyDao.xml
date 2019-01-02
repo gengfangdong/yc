@@ -84,4 +84,9 @@
 		A.POLITICAL_STATUS=#{political_status},A.PHONE_NUMBER=#{phone_number},A.MAIL=#{mail},A.DEPARTMENT=#{department},A.JOB=#{job},
 		A.ADDRESS=#{address},A.OTHER=#{other},A.POSITION=#{position},A.CHECK_STATUS=#{check_status} WHERE A.APPLY_ID=#{Apply_id}
 	</update>
+	<select id = "getProjectStatus" resultMap="Apply">
+		SELECT * FROM  
+			 Apply   
+			WHERE CREATER = #{user_id} AND PROJECT_ID=#{project_id}
+	</select>
 </mapper>

@@ -13,4 +13,6 @@ public interface NewsService {
 	public void updateNews(News news);
 	//删除新闻
 	public void deleteNews(String news_id);
+	//查询全部新闻
+	public DatatablesViewPage<News> findAllNews();
 }

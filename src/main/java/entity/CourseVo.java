@@ -81,4 +81,13 @@ public class CourseVo implements Serializable{
 	public void setLAY_CHECKED(Boolean lAY_CHECKED) {
 		LAY_CHECKED = lAY_CHECKED;
 	}
+	@Override
+	public String toString() {
+		return "CourseVo [Course_id=" + Course_id + ", First_course=" + First_course + ", Second_course="
+				+ Second_course + ", Third_course=" + Third_course + ", Course_context=" + Course_context + ", Creater="
+				+ Creater + ", Createtime=" + Createtime + ", isDelete=" + isDelete + ", LAY_CHECKED=" + LAY_CHECKED
+				+ "]";
+	}
+	
+	
 }

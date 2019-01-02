@@ -240,83 +240,53 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
-
-
-										<ul class="am-menu-nav am-avg-sm-1">
-											<li>
+										<ul class="am-nav am-nav-pills am-nav-justify">
+											<li class="">
 												<a href="../index.jsp">首页</a>
 											</li>
-											<li class="am-parent">
-												<a href="cultureSystem.jsp" >项目概况</a>
-												<ul class="am-menu-sub am-collapse ">
-													<li class="">
-														<a href="cultureSystem.jsp" >培养体系</a>
-													</li>
-													<li class="">
-														<a href="solution.jsp">解决方案</a>
-													</li>
-													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
-													</li>
-													<li class="">
-														<a href="taxCollectionFund.jsp" class="">领税基金</a>
-													</li>
-													<li class="">
-														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
-												</ul>
+											<li>
+												<a href="about.jsp">关于我们</a>
 											</li>
-											<li class="">
+											<li>
+												<a href="newsNotice.jsp" style="color: #FF2F2F;">新闻中心</a>
+												<!-- sub-menu start-->
+												<!--<ul class="sub-menu">
+													<li class="menu-item">
+														<a href="news-content.jsp">公司动态</a>
+													</li>
+													<li class="menu-item">
+														<a href="404-dark.jsp">行业动态</a>
+													</li>
+													<li class="menu-item">
+														<a href="404-light.jsp">精彩专题</a>
+													</li>
+												</ul>-->
+												<!-- sub-menu end-->
+											</li>
+											<li>
 												<a href="regulationsClasses.jsp">规定班次</a>
 											</li>
-											<li class="">
+											<li>
 												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
-											<li class="">
-												<a href="onlineClasses.jsp">拼班</a>
+											<li>
+												<a href="onlineClasses.jsp">在线拼班</a>
 											</li>
-
-											<li class="am-parent">
+											<li>
 												<a href="incumbencyStudent.jsp">在职研</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="incumbencyStudent.jsp">招生简章</a>
-													</li>
-													<li class="menu-item">
-														<a href="onlineApplication.jsp">在线报名</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="newsNotice.jsp"  style="color: #FF2F2F;">新闻公告</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="newsNotice.jsp"  style="color: #FF2F2F;">通知公告</a>
-													</li>
-													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
-													</li>
-													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
-													</li>
-													<li class="menu-item">
-														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
-												</ul>
+												<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.jsp">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.jsp">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
-												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
+												<a href="login.jsp" class="">登录</a>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -331,7 +301,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -350,7 +320,7 @@
 
 			<div class="am-g am-g-fixed myFixedSiderbar">
 				<!--正文-->
-				<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 100px;">
+				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
 					<div class="breadcrumb-box">
 						<div class="am-container">
 							<ol class="am-breadcrumb">
@@ -361,8 +331,9 @@
 							</ol>
 						</div>
 					</div>
-					<div class="newsList">
-						<ul>
+					<div class="newsList" >
+						<ul id="newsNoticeUl">
+						
 							<li>
 								<span class="newsDate">2018-11-29</span> ●&nbsp;&nbsp;
 								<a href="news_content.jsp">集团为湖南一师优秀贫困大学生再颁助学奖励金</a>
@@ -388,7 +359,9 @@
 					</div>
 					<div style="height: 40px;">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
-							<li class="am-pagination-first ">
+						 	<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
+						
+							<!-- <li class="am-pagination-first ">
 								<a href="#" class="">首页</a>
 							</li>
 
@@ -418,7 +391,7 @@
 
 							<li class="am-pagination-last ">
 								<a href="#" class="">尾页</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 
@@ -437,7 +410,7 @@
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs">■联系我们</li>
+								<li class="sidebar_contactUs">联系我们</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
 									<!--<span class="promo_detailed--list_item_icon noBorder">
 	                  <i class="am-icon-phone" ></i>
@@ -530,7 +503,7 @@
 		<![endif]-->
 		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
-		<script>
+		<!-- <script>
 			window.onload=function(){
 				var oNewsList = document.getElementsByClassName('newsList')[0];
 				if(oNewsList.children[0].childElementCount){
@@ -539,6 +512,113 @@
 					$('.newsList').css('height',newsListNumHeight);
 				}
 			}
+		</script> -->
+			<script >
+		var datas=new Array()
+		var datas1=new Array()
+		var pageno1=0;
+		$(document).ready(function() {
+				var oNewsList = document.getElementsByClassName('newsList')[0];
+				if(oNewsList.children[0].childElementCount){
+					var newsListNum = oNewsList.children[0].childElementCount;
+					var newsListNumHeight = newsListNum*35+5 +'px';
+					$('.newsList').css('height',newsListNumHeight);
+				}
+				
+				  $.ajax({
+						url : '<%=request.getContextPath()%>/Show/findAllNotice',
+						type : 'post',
+						async:false,
+			      		dataType:'json',
+						success : function(data) {
+							datas=data.data
+// 							if(data.success == true){
+							var zz =new Array(datas.length);
+							for(var i=0;i <datas.length;i++){ 
+								zz[i]= '<span class="newsDate">'+datas[i].notice_Release_time+'</span> ●&nbsp;&nbsp;<a href=\"newsNotice_content.jsp?notice_id='+datas[i].notice_id+'\">'+datas[i].notice_titile+'</a>'
+						    } //div的字符串数组付给zz
+							var pageno=1 ;              //当前页
+							var pagesize=5;            //每页多少条信息
+							pageno1=pageno;
+							if(zz.length%pagesize==0){
+								var  pageall =zz.length/pagesize ;
+							}else{
+								var  pageall =parseInt(zz.length/pagesize)+1;  
+							}   //一共多少页   
+							
+							datas1=zz;
+							function change(e){
+								pageno=e;
+								if(e<1){ //如果输入页<1页
+									e=1;pageno=1;//就等于第1页 ， 当前页为1
+								}
+							    if(e>pageall){  //如果输入页大于最大页
+									e=pageall;pageno=pageall; //输入页和当前页都=最大页
+								}
+								document.getElementById("newsNoticeUl").innerHTML=""//全部清空
+									for(var i=0;i<pagesize;i++){
+										var div =document.createElement("li")//建立div对象
+										div.innerHTML=zz[(e-1)*pagesize+i]//建立显示元素
+										document.getElementById("newsNoticeUl").appendChild(div)//加入all中 
+										if(zz[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+							        }
+								var ye="";
+								for(var j=1;j<=pageall;j++){
+							 		if(e==j){
+										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+									}else{
+										ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+									}
+								}
+								document.getElementById("a1").innerHTML=pageall;
+								document.getElementById("a2").innerHTML=pageno;
+								document.getElementById("a3").innerHTML=ye;
+							}
+							change(1);
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});
+		});
+		
+					
+					
+			function change1(e){
+				var pagesize=5;            //每页多少条信息
+				if(datas1.length%pagesize==0){
+					var  pageall =datas1.length/pagesize ;
+				}else{
+					var  pageall =parseInt(datas1.length/pagesize)+1;  
+				}   //一共多少页   
+				pageno1=e;
+				if(e<1){ //如果输入页<1页
+					e=1;pageno1=1;//就等于第1页 ， 当前页为1
+				}
+			    if(e>pageall){  //如果输入页大于最大页
+					e=pageall;pageno1=pageall; //输入页和当前页都=最大页
+				}
+				document.getElementById("newsNoticeUl").innerHTML=""//全部清空
+					for(var i=0;i<pagesize;i++){
+						var div =document.createElement("li")//建立div对象
+						div.innerHTML=datas1[(e-1)*pagesize+i]//建立显示元素
+						document.getElementById("newsNoticeUl").appendChild(div)//加入all中 
+						if(datas1[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+			        }
+				var ye="";
+				for(var j=1;j<=pageall;j++){
+			 		if(e==j){
+						ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+					}else{
+						ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+					}
+				}
+				document.getElementById("a1").innerHTML=pageall;
+				document.getElementById("a2").innerHTML=pageno1;
+				document.getElementById("a3").innerHTML=ye;
+			}
+			
+			
 		</script>
 	</body>
 

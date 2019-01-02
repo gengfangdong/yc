@@ -11,18 +11,25 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import entity.IUser;
+import entity.LayuiDataTable;
+import entity.MemProjectVo;
+import service.FigClassService;
 import util.FileUtil;
 import util.PropertiesUtil;
 
 @RestController
 @RequestMapping("/Common")
 public class CommonController {
+	@Autowired
+	private FigClassService figClssService;
 
 	@RequestMapping("/uploadFile")
 	@ResponseBody
@@ -67,4 +74,15 @@ public class CommonController {
             os.close();  
         }  
     }
+	@RequestMapping("/memProject")
+	public LayuiDataTable<MemProjectVo> getAllProject(@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
+			@RequestParam(value="status",required=false,defaultValue="")String status,
+			@RequestParam("page")int page,@RequestParam("limit")int limit,HttpServletRequest request){
+		//获取登录人
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user"); 
+		LayuiDataTable<MemProjectVo> layuiDataTable = new LayuiDataTable<MemProjectVo>();
+		layuiDataTable = figClssService.getMemProjectByuser(caogery, status, iUser.getUser_id(), page, limit);
+		return layuiDataTable;
+	}
 }

@@ -108,4 +108,12 @@
     <select id="getList" parameterType="String" resultMap="Euser">
     	select *　from EUSER e where e.EUSER_ISDELETE = '0' and e.EUser_creater = #{User_id}
     </select>
+    
+    
+    <select id="getEUserList" parameterType="java.util.List" resultMap="Euser">
+	   select *　from EUSER e where e.EUSER_ISDELETE = '0' and 
+	   e.EUSER_ID IN <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	      #{item}
+	      </foreach>
+	</select>
 </mapper>

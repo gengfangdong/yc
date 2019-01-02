@@ -102,5 +102,10 @@ public class IUserServiceImpl implements IUserService{
 		// TODO Auto-generated method stub
 		iUserDao.updateShow(iUser);
 	}
+
+	public void updatePassword(String password, String user_id) {
+		// TODO Auto-generated method stub
+		iUserDao.updatePassword(password, user_id);
+	}
 	
 }

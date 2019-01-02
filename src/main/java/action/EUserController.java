@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,6 +35,7 @@ import entity.EUser;
 import entity.IUser;
 import entity.LayuiDataTable;
 import service.EUserService;
+import service.impl.EUserServiceImpl;
 import util.ExcelUtil;
 import util.StringUtil;
 import util.UUIDUtil;
@@ -50,8 +52,7 @@ public class EUserController {
 	private static Logger logger = Logger.getLogger(EUserController.class);
 	
 	@Autowired
-	private EUserService eUserService;
-	
+	private EUserService eUserService;   
 	/**
 	 * 单独新增一个人员
 	 * @param EUser_name
@@ -66,7 +67,7 @@ public class EUserController {
 	 */
 	@RequestMapping("/addUser")
 	@ResponseBody
-	private Map<String,Object> insertEUser(String EUser_name,String EUser_companyname,String EUser_department,
+	public Map<String,Object> insertEUser(String EUser_name,String EUser_companyname,String EUser_department,
 			String EUser_hold,String EUser_sex,String EUser_remark,String EUser_indentitynumber,String EUser_phone,HttpServletRequest request){
 		//结果map
 		Map<String,Object> resultMap = new HashMap<String, Object>();
@@ -77,8 +78,12 @@ public class EUserController {
 			resultMap.put("message", "1");//未登录
 			return resultMap;
 		}
+		if(eUserService == null){
+			System.out.println("NULL");
+			//eUserService = new EUserServiceImpl();
+		}
 		//判断身份证号是否重复  稍后写
-		if(eUserService.checkInu(EUser_indentitynumber, null)){
+		if(eUserService.checkInu(EUser_indentitynumber, "")){
 			resultMap.put("success", false);
 			resultMap.put("message", "0");//身份证号重复
 			return resultMap;
@@ -189,7 +194,7 @@ public class EUserController {
 	 */
 	@RequestMapping("/updateUser")
 	@ResponseBody
-	private Map<String,Object> updateEUser(String EUser_id,String EUser_name,String EUser_companyname,String EUser_department,
+	public Map<String,Object> updateEUser(String EUser_id,String EUser_name,String EUser_companyname,String EUser_department,
 			String EUser_hold,String EUser_sex,String EUser_remark,String EUser_indentitynumber,String EUser_phone,HttpServletRequest request){
 		//结果map
 		Map<String,Object> resultMap = new HashMap<String, Object>();

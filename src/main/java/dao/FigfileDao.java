@@ -11,4 +11,5 @@ import entity.Figfile;
 public interface FigfileDao {
 	public void insertBatch(List<Figfile> figfiles);
 	public List<Figfile> getListByid(@Param("FigClass_id")String figClass_id);
+	public List<String> getByfilename(@Param("filename")String filename);
 }

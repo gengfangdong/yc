@@ -56,6 +56,19 @@ public class TaxServiceImpl implements TaxService{
 		// TODO Auto-generated method stub
 		taxDao.deleteTax(tax_id);
 	}
+	public DatatablesViewPage<Tax> findAllTax() {
+		DatatablesViewPage<Tax> datatablesViewPage = new DatatablesViewPage<Tax>();
+				
+				List<Tax> taxList = new ArrayList<Tax>();
+				
+				taxList = taxDao.findAllTax();
+				
+				datatablesViewPage.setData(taxList);
+				datatablesViewPage.setRecordsFiltered(1);
+				datatablesViewPage.setRecordsTotal(1);
+				
+				return datatablesViewPage;
+			}
 	
 	
 	

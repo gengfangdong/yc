@@ -13,4 +13,5 @@ public interface CultureService {
 	public void updateCulture(Culture culture);
 	//删除培养
 	public void deleteCulture(String culture_id);
+	public DatatablesViewPage<Culture> findAllCulture();
 }

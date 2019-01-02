@@ -14,4 +14,6 @@ public interface NoticeService {
 	public void updateNotice(Notice notice);
 	//删除新闻
 	public void deleteNotice(String notice_id);
+	//查询所有通知
+	public DatatablesViewPage<Notice> findAllNotice();
 }

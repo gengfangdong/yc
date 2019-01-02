@@ -295,22 +295,19 @@
 						<div class="am-g">
 							<div class="am-u-md-6">
 								<h2 class="notice">■通知公告</h2>
-								<ul class="promo_detailed--list noPadding_li">
+								<ul class="promo_detailed--list noPadding_li" id="newsNoticeUl">
 									<li class="promo_detailed--list_item">
-										<!--<span class="promo_detailed--list_item_icon">
-	                  <i class="am-icon-diamond"></i>
-	                </span>-->
 										<dl>
-											<dt>东岳集团举行2019产业链合作年会，绘就千亿...</dt>
+											<dt><a href="newsNotice_content.jsp">东岳集团举行2019产业链合作年会，绘就千亿...</a></dt>
 											<dd>
 												2018-11-19
 											</dd>
 										</dl>
 									</li>
-									<li class="promo_detailed--list_item">
-										<!--<span class="promo_detailed--list_item_icon">
+									<!-- <li class="promo_detailed--list_item">
+										<span class="promo_detailed--list_item_icon">
 	                  <i class="am-icon-dollar" style="margin-left: 15px;"></i>
-	                </span>-->
+	                </span>
 										<dl>
 											<dt>集团为湖南一师优秀贫困大学生再颁助学奖励...</dt>
 											<dd>
@@ -319,9 +316,9 @@
 										</dl>
 									</li>
 									<li class="promo_detailed--list_item">
-										<!--<span class="promo_detailed--list_item_icon">
+										<span class="promo_detailed--list_item_icon">
 	                  <i class="am-icon-bank" style="margin-left: 10px;"></i>
-	                </span>-->
+	                </span>
 										<dl>
 											<dt>新华联董事局主席傅军：建议加大创新型企业...</dt>
 											<dd>
@@ -330,28 +327,27 @@
 										</dl>
 									</li>
 									<li class="promo_detailed--list_item">
-										<!--<span class="promo_detailed--list_item_icon">
+										<span class="promo_detailed--list_item_icon">
 	                  <i class="am-icon-bank" style="margin-left: 10px;"></i>
-	                </span>-->
+	                </span>
 										<dl>
 											<dt>傅军委员：应鼓励更多创新型“独角兽”企业...</dt>
 											<dd>
 												2018-03-07
 											</dd>
 										</dl>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 
 							<div class="am-u-md-6 trainNews" style="max-height: 360px;padding-right: 1rem;padding-left:1rem;">
 								<div class="promo_detailed--cta">
 									<h2 class="news">■培训新闻</h2>
-									<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 2.5%;">
+										<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 2.5%;" id="showNewsList">
 										<li class="promo_detailed--list_item">
 											<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">
-		                  <!--<i class="am-icon-diamond"></i>-->
-		                  <img src="assets/img/index/f03.png" />
-		                </span>
+		             				     		<img src="assets/img/index/f03.png" />
+		         			    		   </span>
 											<dl>
 												<dt>微软重登全球市值第一，退居次席的苹果最近有点烦</dt>
 												<dd>
@@ -562,7 +558,194 @@
 		<script src="assets/js/amazeui.js" charset="utf-8"></script>
 		<script src="assets/js/common.js" charset="utf-8"></script>
 	</body>
-	<script>
+	
+		<script >
+		var datas=new Array()
+		var datas1=new Array()
+		var pageno1=0;
+		$(document).ready(function() {
+// 				var oNewsList = document.getElementsByClassName('newsList')[0];
+// 				if(oNewsList.children[0].childElementCount){
+// 					var newsListNum = oNewsList.children[0].childElementCount;
+// 					var newsListNumHeight = newsListNum*35+5 +'px';
+// 					$('.newsList').css('height',newsListNumHeight);
+// 				}
+				
+				  $.ajax({
+						url : '<%=request.getContextPath()%>/Show/findAllNotice',
+						type : 'post',
+						async:false,
+			      		dataType:'json',
+						success : function(data) {
+							datas=data.data
+							var zz =new Array(datas.length);
+							
+							var content='东岳集团举行2019产业链合作年会，绘就千亿'
+							var size=content.length
+							for(var i=0;i <datas.length;i++){ 
+								
+								var msg=datas[i].notice_titile
+								var content = filterHTMLTag(msg)
+								function filterHTMLTag(msg) {
+							        var msg = msg.replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
+							        msg = msg.replace(/[|]*\n/, '') //去除行尾空格
+							        msg = msg.replace(/&npsp;/ig, ''); //去掉npsp
+							        return msg;
+								}
+								if(content.length>22){
+					  				var content=content.substring(0, 22)+'...'
+					  			}else{
+					  				var content=content
+					  			}
+// 							东岳集团举行2019产业链合作年会，绘就千亿...
+								zz[i]= '<dl><dt><a href="html/newsNotice_content.jsp?notice_id='+datas[i].notice_id+'">'+content+'</a></dt><dd>'+datas[i].notice_Release_time+'</dd></dl>'
+						    } //div的字符串数组付给zz
+							var pageno=1 ;              //当前页
+							var pagesize=4;            //每页多少条信息
+							pageno1=pageno;
+							if(zz.length%pagesize==0){
+								var  pageall =zz.length/pagesize ;
+							}else{
+								var  pageall =parseInt(zz.length/pagesize)+1;  
+							}   //一共多少页   
+							
+							datas1=zz;
+							function change(e){
+								pageno=e;
+								if(e<1){ //如果输入页<1页
+									e=1;pageno=1;//就等于第1页 ， 当前页为1
+								}
+							    if(e>pageall){  //如果输入页大于最大页
+									e=pageall;pageno=pageall; //输入页和当前页都=最大页
+								}
+								document.getElementById("newsNoticeUl").innerHTML=""//全部清空
+									for(var i=0;i<pagesize;i++){
+										var div =document.createElement("li")//建立div对象
+										div.setAttribute("class","promo_detailed--list_item");
+										div.innerHTML=zz[(e-1)*pagesize+i]//建立显示元素
+										document.getElementById("newsNoticeUl").appendChild(div)//加入all中 
+										if(zz[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+							        }
+							}
+							change(1);
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});
+		});
+		
+		
+// 		<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">
+//   		<img src="assets/img/index/f03.png" />
+// 	   </span>
+// 	<dl>
+// 		<dt>微软重登全球市值第一，退居次席的苹果最近有点烦</dt>
+// 		<dd>
+// 			在苹果的阴影下生活10年之后，微软终于超过苹果，再次成为全球市值最高的公司。
+// 		</dd>
+// 		<dd class="timeRight">
+// 			2小时前
+// 		</dd>
+// 		</dl>
+		
+			 $.ajax({
+						url : '<%=request.getContextPath()%>/Show/findAllNews',
+						type : 'post',
+						async:false,
+			      		dataType:'json',
+						success : function(data) {
+							datas=data.data
+// 							if(data.success == true){
+							var zz =new Array(datas.length);
+							
+							var content="   11月18日上午，集团在北京新华联国际文化交流中心召开重点企业工作会议，促进2018年整体经营目标的实现。集团领导傅军、丁伟、马晨山、肖文慧、冯建军、苏波、张必书、张皓若、刘静、杨运辉、蒋赛、曾敏、苟永平..."
+// 							var length=content.substring(0, 108)
+// 							var length=content.toString()
+							
+							for(var i=0;i <datas.length;i++){ 
+								
+								var msg=datas[i].news_context
+		
+								var content = filterHTMLTag(msg)
+								
+								function filterHTMLTag(msg) {
+							        var msg = msg.replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
+							        msg = msg.replace(/[|]*\n/, '') //去除行尾空格
+							        msg = msg.replace(/&npsp;/ig, ''); //去掉npsp
+							        return msg;
+								}
+								
+								if(content.length>22){
+					  				var content=content.substring(0, 22)+'...'
+					  			}else{
+					  				var content=content
+					  			}
+//						 		<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">
+//					   		<img src="assets/img/index/f03.png" />
+//					 	   </span>
+//					 	<dl>
+//					 		<dt>微软重登全球市值第一，退居次席的苹果最近有点烦</dt>
+//					 		<dd>
+//					 			在苹果的阴影下生活10年之后，微软终于超过苹果，再次成为全球市值最高的公司。
+//					 		</dd>
+//					 		<dd class="timeRight">
+//					 			2小时前
+//					 		</dd>
+//					 		</dl>
+					  			
+						  		zz[i]=
+											'<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">'+
+												'<a href=\"html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+														'<img src="<%=request.getContextPath()%>/Show/News_title_page_Show?news_id='+datas[i].news_id+'" title=\"'+datas[i].news_titile+'\" alt=\"'+datas[i].news_titile+'\" style="height: 100px;width: 100px;" />'+
+												'</a>'+
+											'</span>'+'<dl>'+'<dt>'+
+												'<a href=\"html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+datas[i].news_titile+'</a>'+
+														'</dt><dd>'+'<a href=\"html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+														content+
+														'</a>'+'</dd>'+'<dd class="timeRight">'+
+														'<a href=\"html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+														datas[i].news_Release_time+'</a>'+
+												'</dd>'+
+											'</dl>'
+										
+							} //div的字符串数组付给zz
+							var pageno=1 ;              //当前页
+							var pagesize=2;            //每页多少条信息
+							pageno1=pageno;
+							if(zz.length%pagesize==0){
+								var  pageall =zz.length/pagesize ;
+							}else{
+								var  pageall =parseInt(zz.length/pagesize)+1;  
+							}   //一共多少页   
+							
+							datas1=zz;
+							function change(e){
+								pageno=e;
+								if(e<1){ //如果输入页<1页
+									e=1;pageno=1;//就等于第1页 ， 当前页为1
+								}
+							    if(e>pageall){  //如果输入页大于最大页
+									e=pageall;pageno=pageall; //输入页和当前页都=最大页
+								}
+								document.getElementById("showNewsList").innerHTML=""//全部清空
+									for(var i=0;i<pagesize;i++){
+									 	var div =document.createElement("li")//建立div对象
+									 	div.setAttribute("class","promo_detailed--list_item");
+										div.innerHTML=zz[(e-1)*pagesize+i]//建立显示元素 
+// 										var div=zz[(e-1)*pagesize+i]//建立显示元素
+										document.getElementById("showNewsList").appendChild(div)//加入all中 
+										if(zz[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+							        }
+							}
+							change(1);
+// 							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});
+		
 		$(function(){
 			var windowWidth = $(window).width();
 		    if(windowWidth < 640){

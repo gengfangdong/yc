@@ -56,4 +56,8 @@
 		delete  from NOTICE N
 		WHERE N.NOTICE_ID = #{notice_id}
 	</delete>
+	
+	<select id = "findAllNotice" resultMap="notice">
+		SELECT * FROM  NOTICE order by NOTICE_RELEASE_TIME desc
+	</select>
 </mapper>

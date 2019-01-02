@@ -240,83 +240,50 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
-
-
-										<ul class="am-menu-nav am-avg-sm-1">
-											<li>
+										<ul class="am-nav am-nav-pills am-nav-justify">
+											<li class="">
 												<a href="../index.jsp">首页</a>
 											</li>
-											<li class="am-parent">
-												<a href="cultureSystem.jsp">项目概况</a>
-												<ul class="am-menu-sub am-collapse ">
-													<li class="">
-														<a href="cultureSystem.jsp">培养体系</a>
-													</li>
-													<li class="">
-														<a href="solution.jsp">解决方案</a>
-													</li>
-													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
-													</li>
-													<li class="">
-														<a href="taxCollectionFund.jsp" class="">领税基金</a>
-													</li>
-													<li class="">
-														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
-												</ul>
+											<li>
+												<a href="about.jsp">关于我们</a>
 											</li>
-											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
-											</li>
-											<li class="">
-												<a href="customizedClasses.jsp">定制班次</a>
-											</li>
-											<li class="">
-												<a href="onlineClasses.jsp">拼班</a>
-											</li>
-
-											<li class="am-parent">
-												<a href="incumbencyStudent.jsp">在职研</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="incumbencyStudent.jsp">招生简章</a>
-													</li>
-													<li class="menu-item">
-														<a href="onlineApplication.jsp">在线报名</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="newsNotice.jsp"  style="color: #FF2F2F;">新闻公告</a>
-												<ul class="am-menu-sub am-collapse  ">
+											<li>
+												<a href="newsNotice.jsp" style="color: #FF2F2F;">新闻中心</a>
+												<!-- sub-menu start-->
+												<ul class="sub-menu">
 													<li class="menu-item">
 														<a href="newsNotice.jsp">通知公告</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.jsp"  style="color: #FF2F2F;">培训新闻</a>
+														<a href="newsTrain.jsp" style="color: #FF2F2F;">培训新闻</a>
 													</li>
 												</ul>
+												<!-- sub-menu end-->
 											</li>
-											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
-													</li>
-													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
-													</li>
-													<li class="menu-item">
-														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
-												</ul>
+											<li>
+												<a href="regulationsClasses.jsp">规定班次</a>
+											</li>
+											<li>
+												<a href="customizedClasses.jsp">定制班次</a>
+											</li>
+											<li>
+												<a href="onlineClasses.jsp">在线拼班</a>
+											</li>
+											<li>
+												<a href="incumbencyStudent.jsp">在职研</a>
+												<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.jsp">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.jsp">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
-												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
+												<a href="login.jsp" class="">登录</a>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -331,7 +298,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -350,7 +317,7 @@
 
 			<div class="am-g am-g-fixed myFixedSiderbar">
 				<!--正文-->
-				<div class="am-u-md-9 am-u-md-push-3 newsRight  mainBody" style="padding-right: 100px;">
+				<div class="am-u-md-9 am-u-md-push-3 newsRight" style="padding-right: 100px;">
 					<div class="breadcrumb-box">
 						<div class="am-container">
 							<ol class="am-breadcrumb">
@@ -361,7 +328,8 @@
 							</ol>
 						</div>
 					</div>
-					<div class="newsList" style="padding-top: 20px;">
+					<div class="newsList" style="padding-top: 20px;" id="showNewsList">
+						<input type="hidden" id="hiddenContent" ></input>
 						<div class="newsPicList" >
 							<div class="newsListPic">
 								<a href="news_content.jsp" target="_blank" title="集团在京召开重点企业工作会议，力促年度整体经营目标实现 ">
@@ -387,36 +355,41 @@
 							</div>
 							<div class="clear"></div>
 						</div>
-						<div class="newsPicList">
-							<div class="newsListPic">
-								<a href="news_content.jsp" target="_blank" title="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 ">
-									<span>
-										<img src="../assets/img/markets/f04.png" title="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 " alt="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 " style="height: 100px;width: 100px;" />
-									</span>
+
+					<div class="newsPicList">
+						<div class="newsListPic">
+							<a
+								href="news_content.jsp?news_id=news06d2df87d572409ab81aaf6eba8afe2a"
+								target="_blank" title="新闻1"> <span><img
+									src="/ssmtest/Show/News_title_page_Show?news_id=news06d2df87d572409ab81aaf6eba8afe2a"
+									title="新闻1" alt="新闻1" style="height: 100px; width: 100px;" /></span>
+							</a>
+						</div>
+						<div class="newsListContent">
+							<h4>
+								<a
+									href="news_content.jsp?news_id=news06d2df87d572409ab81aaf6eba8afe2a"
+									target="_blank" title="新闻1">新闻1</a> <span class="newsListTime">2018-12-25</span>
+							</h4>
+							<div class="newsListText">
+								<a
+									href="news_content.jsp?news_id=news06d2df87d572409ab81aaf6eba8afe2a"
+									target="_blank" title="新闻1">
+									【学习进行时】12月18日，习近平出席庆祝改革开放40周年大会并发表重要讲话。在讲话中，他提出了改革开放40年实践的九点启示。这九点启↵↵↵示对当下和未来有什么样的指导意义？新华社《学习进行时》原创品牌栏目今天推出文章，为您解读。↵↵改革开...
+								</a> <a
+									href="news_content.jsp?news_id=news06d2df87d572409ab81aaf6eba8afe2a"
+									target="_blank" title="新闻1"> <span>[详细]</span>
 								</a>
 							</div>
-							<div class="newsListContent">
-								<h4>
-									<a href="news_content.jsp" target="_blank" title="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 ">东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 </a>
-									<span class="newsListTime">2018-11-19</span>
-								</h4>
-								<div class="newsListText">
-									<a href="news_content.jsp" title="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 " target="_blank">
-										"   日前，以“改革与创新”为主题的东岳集团2019产业链合作年会在改革开放最前沿城市深圳举行。
-										东岳集团与来自格力、美的、海信、SKC、康尼派克斯、TT、阿克苏等全球30多个国家和地区的知名企业的550多名..."
-									</a>
-									<a href="news_content.jsp" title="东岳集团举行2019产业链合作年会，绘就千亿园区蓝图 " target="_blank">
-										<span>[详细]</span>
-									</a>
-								</div>
-							</div>
-							<div class="clear"></div>
 						</div>
-						
+						<div class="clear"></div>
 					</div>
+
+				</div>
 					<div style="height: 40px;">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
-							<li class="am-pagination-first ">
+							<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
+							<!-- <li class="am-pagination-first ">
 								<a href="#" class="">首页</a>
 							</li>
 
@@ -446,7 +419,7 @@
 
 							<li class="am-pagination-last ">
 								<a href="#" class="">尾页</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					
@@ -465,7 +438,7 @@
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs">■联系我们</li>
+								<li class="sidebar_contactUs">联系我们</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
 									<!--<span class="promo_detailed--list_item_icon noBorder">
 	                  <i class="am-icon-phone" ></i>
@@ -558,8 +531,168 @@
 		<![endif]-->
 		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
-		<script>
-			window.onload=function(){
+		
+			<script >
+		
+		var datas=new Array()
+		var datas1=new Array()
+		var pageno1=0;
+// 			window.onload = function() {
+		$(document).ready(function() {
+				
+				  $.ajax({
+						url : '<%=request.getContextPath()%>/Show/findAllNews',
+						type : 'post',
+						async:false,
+			      		dataType:'json',
+						success : function(data) {
+							datas=data.data
+// 							if(data.success == true){
+							var zz =new Array(datas.length);
+							
+							var content="   11月18日上午，集团在北京新华联国际文化交流中心召开重点企业工作会议，促进2018年整体经营目标的实现。集团领导傅军、丁伟、马晨山、肖文慧、冯建军、苏波、张必书、张皓若、刘静、杨运辉、蒋赛、曾敏、苟永平..."
+// 							var length=content.substring(0, 108)
+// 							var length=content.toString()
+							
+							for(var i=0;i <datas.length;i++){ 
+								
+								var msg=datas[i].news_context
+		
+								var content = filterHTMLTag(msg)
+								
+								function filterHTMLTag(msg) {
+							        var msg = msg.replace(/<\/?[^>]*>/g, ''); //去除HTML Tag
+							        msg = msg.replace(/[|]*\n/, '') //去除行尾空格
+							        msg = msg.replace(/&npsp;/ig, ''); //去掉npsp
+							        return msg;
+								}
+								
+								if(content.length>120){
+					  				var content=content.substring(0, 120)+'...'
+					  			}else{
+					  				var content=content
+					  			}
+					  			
+						  		zz[i]=
+											'<div class="newsListPic">'+
+												'<a href=\"news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+													'<span>'+
+														'<img src="<%=request.getContextPath()%>/Show/News_title_page_Show?news_id='+datas[i].news_id+'" title=\"'+datas[i].news_titile+'\" alt=\"'+datas[i].news_titile+'\" style="height: 100px;width: 100px;" />'+
+													'</span>'+
+												'</a>'+
+											'</div>'+
+											'<div class="newsListContent">'+
+												'<h4>'+
+												'<a href=\"news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+datas[i].news_titile+'</a>'+
+													'<span class="newsListTime">'+datas[i].news_Release_time+'</span>'+
+												'</h4>'+
+												'<div class="newsListText">'+
+														'<a href=\"news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+														content+
+														'</a>'+
+														'<a href=\"news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+															'<span>[详细]</span>'+
+														'</a>'+
+												'</div>'+
+											'</div>'+
+											'<div class="clear"></div>'
+										
+							} //div的字符串数组付给zz
+							var pageno=1 ;              //当前页
+							var pagesize=2;            //每页多少条信息
+							pageno1=pageno;
+							if(zz.length%pagesize==0){
+								var  pageall =zz.length/pagesize ;
+							}else{
+								var  pageall =parseInt(zz.length/pagesize)+1;  
+							}   //一共多少页   
+							
+							datas1=zz;
+							function change(e){
+								pageno=e;
+								if(e<1){ //如果输入页<1页
+									e=1;pageno=1;//就等于第1页 ， 当前页为1
+								}
+							    if(e>pageall){  //如果输入页大于最大页
+									e=pageall;pageno=pageall; //输入页和当前页都=最大页
+								}
+								document.getElementById("showNewsList").innerHTML=""//全部清空
+									for(var i=0;i<pagesize;i++){
+									 	var div =document.createElement("div")//建立div对象
+									 	div.setAttribute("class","newsPicList");
+										div.innerHTML=zz[(e-1)*pagesize+i]//建立显示元素 
+// 										var div=zz[(e-1)*pagesize+i]//建立显示元素
+										document.getElementById("showNewsList").appendChild(div)//加入all中 
+										if(zz[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+							        }
+								var ye="";
+								for(var j=1;j<=pageall;j++){
+							 		if(e==j){
+										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+									}else{
+										ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+									}
+								}
+								document.getElementById("a1").innerHTML=pageall;
+								document.getElementById("a2").innerHTML=pageno;
+								document.getElementById("a3").innerHTML=ye;
+							}
+							change(1);
+// 							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});
+				  
+				  var aNewsRightWidth = $('.newsRight').width()-150;
+					$('.newsListContent').css('width',aNewsRightWidth);
+					var oNewsList = document.getElementsByClassName('newsList')[0];
+					if(oNewsList.children[0]){
+						var newsListLen = $('.newsPicList').length;
+						var newsListNumHeight = newsListLen*120+5 +'px';
+						$('.newsList').css('height',newsListNumHeight);
+					}
+// 			}
+		});
+		
+					
+					
+ 			function change1(e){
+// 				var pageno1=1 ;              //当前页
+				var pagesize=2;            //每页多少条信息
+				if(datas1.length%pagesize==0){
+					var  pageall =datas1.length/pagesize ;
+				}else{
+					var  pageall =parseInt(datas1.length/pagesize)+1;  
+				}   //一共多少页   
+				pageno1=e;
+				if(e<1){ //如果输入页<1页
+					e=1;pageno1=1;//就等于第1页 ， 当前页为1
+				}
+			    if(e>pageall){  //如果输入页大于最大页
+					e=pageall;pageno1=pageall; //输入页和当前页都=最大页
+				}
+				document.getElementById("showNewsList").innerHTML=""//全部清空
+					for(var i=0;i<pagesize;i++){
+						var div =document.createElement("div")//建立div对象
+						div.setAttribute("class","newsPicList");
+						div.innerHTML=datas1[(e-1)*pagesize+i]//建立显示元素
+						document.getElementById("showNewsList").appendChild(div)//加入all中 
+						if(datas1[(e-1)*pagesize+i+1]==null) break;//超出范围跳出
+			        }
+				var ye="";
+				for(var j=1;j<=pageall;j++){
+			 		if(e==j){
+						ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+					}else{
+						ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+					}
+				}
+				document.getElementById("a1").innerHTML=pageall;
+				document.getElementById("a2").innerHTML=pageno1;
+				document.getElementById("a3").innerHTML=ye;
+				
 				var aNewsRightWidth = $('.newsRight').width()-150;
 				$('.newsListContent').css('width',aNewsRightWidth);
 				var oNewsList = document.getElementsByClassName('newsList')[0];
@@ -569,6 +702,7 @@
 					$('.newsList').css('height',newsListNumHeight);
 				}
 			}
+			
 		</script>
 	</body>
 

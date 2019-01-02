@@ -59,7 +59,19 @@ public class NoticeServiceImpl implements NoticeService{
 		// TODO Auto-generated method stub
 		noticeDao.deleteNotice(notice_id);
 	}
-	
+	public DatatablesViewPage<Notice> findAllNotice() {
+		DatatablesViewPage<Notice> datatablesViewPage = new DatatablesViewPage<Notice>();
+		
+		List<Notice> noticeList = new ArrayList<Notice>();
+		
+		noticeList = noticeDao.findAllNotice();
+		
+		datatablesViewPage.setData(noticeList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 }

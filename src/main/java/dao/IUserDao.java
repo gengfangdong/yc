@@ -19,4 +19,5 @@ public interface IUserDao {
 	public int getCount();
 	public List<IUser> checkLoginNameAndUser_id(@Param("user_loginname")String user_loginname,@Param("user_id")String User_id);
 	public void updateShow(IUser iUser);
+	public void updatePassword(@Param("Password")String password,@Param("user_id")String user_id);
 }

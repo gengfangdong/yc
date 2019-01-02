@@ -36,4 +36,9 @@
 	<update id="deleteapplyunit" parameterType="String">
 		update APPLY_UNIT set ISDELETE='1' WHERE APPLYUNIT_ID=#{applyunit_id}
 	</update>
+	<select id = "getProjectStatus" resultMap="ApplyUnit">
+		SELECT * FROM  
+			 APPLY_UNIT   
+			WHERE CREATER = #{user_id} AND PROJECT_ID=#{project_id}
+	</select>
 </mapper>

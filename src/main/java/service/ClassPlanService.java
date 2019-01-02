@@ -15,4 +15,5 @@ public interface ClassPlanService {
 	public ClassPlan getDetailByid(String classPlan_id);
 	public LayuiDataTable<ClassPlan> getListNoPage();
 	public LayuiDataTable<ClassPlanVo> getListNoPageById(String constom_id);
+	public LayuiDataTable<ClassPlanVo> getListNoPageByIdf(String figClass_id);
 }

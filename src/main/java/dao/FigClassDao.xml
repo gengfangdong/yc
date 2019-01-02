@@ -52,7 +52,7 @@
 			FROM (select * from FIGCLASS F
 			where F.FIGCLASS_ISDELETE = '0'
 			<if test="caogery != null and caogery != '' ">
-				and F.FIGCLASS_STATUS = #{caogery}
+				and F.FIGCLASS_CAOGERY = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
 				and F.FIGCLASS_NUMSTATUS = #{status}
@@ -67,7 +67,7 @@
 		select count(*) from FIGCLASS F
 			where F.FIGCLASS_ISDELETE = '0' 
 			<if test="caogery != null and caogery != '' ">
-				and F.FIGCLASS_STATUS = #{caogery}
+				and F.FIGCLASS_CAOGERY = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
 				and F.FIGCLASS_NUMSTATUS = #{status}
@@ -76,11 +76,140 @@
 	<select id="getFigbyidanduser" parameterType="String">
 		select * from FIGCLASS F where F.FIGCLASS_ISDELETE = '0' AND F.FIGCLASS_ID = #{figClass_id} AND F.FIGCLASS_CREATER = #{User_id} AND F.FIGCLASS_NUMSTATUS = '1'
 	</select>
-	<!-- <update id="deleteConstom" parameterType="String">
-		UPDATE FREE_COSTOM F
-			SET F.Freeco_ISDELETE = '1',
-				F.Freeco_UPDATER = #{updater},
-				F.Freeco_UPDATETIME = #{updatetime}
-				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
-	</update> -->
+	 <update id="deleteFig" parameterType="String">
+		UPDATE FIGCLASS F
+			SET F.FIGCLASS_ISDELETE = '1',
+				F.FIGCLASS_UPDATER = #{User_id},
+				F.FIGCLASS_UPDATETIME = #{updatetime}
+				WHERE F.FIGCLASS_ID=#{FigClass_id} and F.FIGCLASS_ISDELETE = '0'
+	</update> 
+	
+	<update id="updateReview" parameterType="String">
+		UPDATE FIGCLASS F
+			SET F.FIGCLASS_STATUS = #{result_review},
+				F.FIGCLASS_UPDATER = #{updater},
+				F.FIGCLASS_UPDATETIME = #{updatetime}
+				WHERE F.FIGCLASS_ID=#{figclass_id} and F.FIGCLASS_ISDELETE = '0'
+	</update>
+
+	<select id="getMemProject" parameterType="String" resultType="Map">
+	SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (
+				select e.freeco_id as project_id,
+						e.freeco_name as project_name,
+						e.freeco_data as project_start,
+						 '0' as project_end,
+						'2' as project_caogery,
+						e.freeco_pernum as project_pernum,
+						e.freeco_status as project_status,
+						'0' as project_allnum
+					from free_costom e
+					where e.freeco_isdelete = '0'
+						<if test="status != null and status != ''">
+							and e.freeco_status = #{status}
+						</if>
+						<if test="user_id != null and user_id != ''">
+							and e.freeco_creater = #{user_id}
+						</if>
+						
+				union
+					select s.scheduled_id as project_id,
+						s.scheduled_name as project_name,
+						s.scheduled_class_start as project_start,
+						 s.scheduled_class_end as project_end,
+						'1' as project_caogery,
+						s.scheduled_class_pnumber as project_pernum,
+						s.scheduled_status as project_status,
+						'0' as project_allnum
+					from scheduledshift s
+					where s.isdelete = '0'
+					<if test="status != null and status != ''">
+						and s.scheduled_status = #{status}
+					</if>
+					<if test="user_id != null and user_id != ''">
+						and s.creater = #{user_id}
+					</if>
+				union
+					select f.figclass_id as project_id,
+						f.figclass_name as project_name,
+						f.figclass_class_start as project_start,
+						f.figclass_class_end as project_end,
+						'0' as project_caogery,
+						f.figclass_pernum as project_pernum,
+						f.figclass_status as project_status,
+						'0' as project_allnum
+					from figclass f
+					where f.figclass_isdelete = '0'
+					<if test="status != null and status != ''">
+						and f.figclass_status = #{status}
+					</if>
+					<if test="user_id != null and user_id != ''">
+						and f.figclass_creater = #{user_id}
+					</if>
+			) A
+			WHERE ROWNUM &lt;= #{limit}
+		)  
+		WHERE RN &gt; #{start} 
+
+
+	</select>
+	
+	<select id="getProjectCount" resultType="int"> 
+			SELECT count(*)
+			FROM (
+				select e.freeco_id as project_id,
+						e.freeco_name as project_name,
+						e.freeco_data as project_start,
+						 '0' as project_end,
+						'2' as project_caogery,
+						e.freeco_pernum as project_pernum,
+						e.freeco_status as project_status,
+						'0' as project_allnum
+					from free_costom e
+					where e.freeco_isdelete = '0'
+						<if test="status != null and status != ''">
+							and e.freeco_status = #{status}
+						</if>
+						<if test="user_id != null and user_id != ''">
+							and e.freeco_creater = #{user_id}
+						</if>
+						
+				union
+					select s.scheduled_id as project_id,
+						s.scheduled_name as project_name,
+						s.scheduled_class_start as project_start,
+						 s.scheduled_class_end as project_end,
+						'1' as project_caogery,
+						s.scheduled_class_pnumber as project_pernum,
+						s.scheduled_status as project_status,
+						'0' as project_allnum
+					from scheduledshift s
+					where s.isdelete = '0'
+					<if test="status != null and status != ''">
+						and s.scheduled_status = #{status}
+					</if>
+					<if test="user_id != null and user_id != ''">
+						and s.creater = #{user_id}
+					</if>
+				union
+					select f.figclass_id as project_id,
+						f.figclass_name as project_name,
+						f.figclass_class_start as project_start,
+						f.figclass_class_end as project_end,
+						'0' as project_caogery,
+						f.figclass_pernum as project_pernum,
+						f.figclass_status as project_status,
+						'0' as project_allnum
+					from figclass f
+					where f.figclass_isdelete = '0'
+					<if test="status != null and status != ''">
+						and f.figclass_status = #{status}
+					</if>
+					<if test="user_id != null and user_id != ''">
+						and f.figclass_creater = #{user_id}
+					</if>
+			) A
+	</select>
 </mapper>

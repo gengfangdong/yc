@@ -56,4 +56,7 @@
 		delete  from TEACHING N
 		WHERE N.TEACHING_ID = #{teaching_id}
 	</delete>
+	<select id = "findAllTeaching" resultMap="teaching">
+		SELECT * FROM   TEACHING
+	</select>
 </mapper>
