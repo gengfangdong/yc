@@ -476,13 +476,39 @@
 									success:function(data){
 										if(data.success == true){
 											if(data.message == "5"){
-												layer.alert("上传成功!");
+												layer.confirm('上传成功!', { title:'提示'}, function(index){
+													  
+													window.parent.location.reload();
+													var index1 = parent.layer.getFrameIndex(window.name);
+													parent.layer.close(index1);
+													console.log(error);
+												});
 											}
 										}
 										else if(data.message == "4"){
-											layer.alert("excel存在身份证重复!");
+											layer.confirm('excel存在身份证重复!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
 										}else if(data.message == "2"){
-											layer.alert(" execl无数据!");
+											layer.confirm('excel无数据!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}else if(data.message == "3"){
+											layer.confirm('上传名单数量超出计划人数!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
 										}
 									},
 									error:function(data){
@@ -511,9 +537,9 @@
 				if(status == '未审核'){
 					status = 0;
 				}else if(status == '未通过'){
-					status = 1;
-				}else if(status == '已通过'){
 					status = 2;
+				}else if(status == '已通过'){
+					status = 1;
 				}else if(status == '开课中'){
 					status = 3;
 				}else if(status == '已结课'){

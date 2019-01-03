@@ -36,4 +36,7 @@
 			AND U.SSU_SSID = #{Project_id}
 			AND U.SSU_USERID = #{User_id}
 	</update>
+	<select id="getListUserByid" resultType="String">
+		SELECT * FROM USER_PROJECT  s where s.ISDELETE = '0' and s.SSU_ID = #{ssuid}
+	</select>
 </mapper>

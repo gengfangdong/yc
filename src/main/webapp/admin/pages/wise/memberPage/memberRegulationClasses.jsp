@@ -13,7 +13,7 @@
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
 		<!-- DataTables -->
 		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
@@ -32,7 +32,7 @@
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../bootstrap/css/style.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../css/myStyle.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -286,7 +286,7 @@
 		<!-- Bootstrap 3.3.5 -->
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
-		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.4.5/layui/layui.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -333,20 +333,20 @@
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+				  {type:'numbers',title:"序号",minWidth:60},
+			      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;',minWidth:60},
 
-			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>'},
-			      {field:'number', title: '已报名人数'},
-			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus'},
-			      {field:'create_status', title: '是否已报名',templet:'#typeBar'},
-			      {field:'suuid', title: '操作',toolbar: '#barDemo'}
+			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:90},
+			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:90},
+			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:90},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
+			      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:90},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90},
+			      {field:'number', title: '已报名人数',minWidth:100},
+			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:90},
+			      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:120},
+			      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:200}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -355,7 +355,7 @@
 			//监听工具条
 			  table.on('tool(user)', function(obj){
 			    var data = obj.data;
-			    if(obj.event === 'detail'){
+			    if(obj.event === 'bm'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '报名',
@@ -363,7 +363,21 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
+						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id+'&num='+data.number,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }else if(obj.event === 'detail'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/showprescribedShift.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -462,10 +476,12 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
+			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
   			{{#  if(d.create_status == '0'){ }}
-		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
+		       
+				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
 	        {{#  } else if(d.create_status == ""){ }}
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+				<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
 			{{#  } }}
 
   			{{#  if(d.create_status == '0'){ }}

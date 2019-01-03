@@ -11,9 +11,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
-		<link rel="stylesheet" href="../../../后台/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/layui.css" />
-		<link rel="stylesheet" href="../../../后台/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
+		<link rel="stylesheet" href="../../../admin/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -581,8 +581,8 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
-		<script src="../../../后台/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
-		<script src="../../../后台/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
+		<script src="../../../admin/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
+		<script src="../../../admin/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 		<script>
 			layui.use('upload', function() {

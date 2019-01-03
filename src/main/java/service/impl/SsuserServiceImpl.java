@@ -117,5 +117,20 @@ public class SsuserServiceImpl implements SsuserService {
 		//2、批量将user_project表中的数据置为已删除
 		user_projectDao.deleteUserProject(ssuid);
 	}
+	public List<EUser> getListUserByid(String user_id, String ssuid) {
+		// TODO Auto-generated method stub
+		List<String> ssusers = new ArrayList<String>();
+		ssusers = ssuserDao.getListUserByid(user_id, ssuid);
+		if(ssusers != null && ssusers.size()>0){
+			List<EUser> eUsers = new ArrayList<EUser>();
+			eUsers = eUserDao.getEUserList(ssusers);
+			return eUsers;
+		}
+		return null;
+	}
+	public int getCount(String project_id) {
+		// TODO Auto-generated method stub
+		return user_projectDao.getCount(project_id);
+	}
 
 }

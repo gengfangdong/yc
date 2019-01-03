@@ -53,6 +53,10 @@
 	<!-- 设置上传文件最大值   1M=1*1024*1024(B)=1048576 bytes -->  
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
 	    <property name="maxUploadSize" value="104857600" />  
+	    <property name="maxInMemorySize"><!--设置了输入最大内存,所以文件太大上传时无法读入内存,只能在服务器中生成一个临时文件-->
+			<!-- <value>4096</value> -->
+			<value>32505856</value>
+	    </property>
 	</bean>
    
    <!-- 对模型视图添加前后缀 -->

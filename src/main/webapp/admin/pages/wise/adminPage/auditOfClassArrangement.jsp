@@ -411,23 +411,20 @@
 						}
 					});
 			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除该行？', function(index){
+			      	layer.confirm('确认删除拼班？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/FigClass/deleteFig/'+data.figClass_id,
 							type : 'post',
 							dataType:"json",
-							data:{
-								Course_id:data.course_id
-							},
 							success : function(data) {
 								if(data.message == "0"){
 									layer.alert("参数错误!");
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.alert("删除失败!");
 								}
 								else if(data.message == "2"){
-									layer.alert("报名已取消!");
+									layer.alert("拼班已删除!");
 								}
 							},
 							error : function(error) {
@@ -603,8 +600,9 @@
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				
 			{{#  } }}
+			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 		</script>
 
 		<script type="text/html" id="typestatus">

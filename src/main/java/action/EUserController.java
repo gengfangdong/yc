@@ -139,11 +139,15 @@ public class EUserController {
 			resultMap.put("code", 0);
 			return resultMap;
 		}
-		
+		Map<String,Object> idnummap = new HashMap<String, Object>();
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
 		for (List<Object> list2 : list) {
-			
+			if(idnummap.get(list2.get(5).toString())!=null){
+				resultMap.put("success", false);
+				resultMap.put("code", 4);
+				return resultMap;
+			}
 			EUser eUser = new EUser();
 			eUser.setEUser_id(UUIDUtil.getUUid("eus"));
 			eUser.setEUser_name(list2.get(0).toString());//姓名
@@ -153,6 +157,7 @@ public class EUserController {
 			}else if("女".equals(sex)){
 				eUser.setEUser_sex("1");//性别
 			}
+			
 			eUser.setEUser_isdelete("0");
 			eUser.setEUser_companyname(list2.get(2).toString());//工作单位
 			eUser.setEUser_department(list2.get(3).toString());//部门
@@ -164,10 +169,17 @@ public class EUserController {
 			eUser.setEUser_createtime(APPLYDATE);
 			eUser.setEUser_updatetime(APPLYDATE);
 			eUser.setEUser_updater(user.getUser_id());
+/*			//判断身份证号是否重复  稍后写
+			if(eUserService.checkInu(list2.get(5).toString(), "")){
+				resultMap.put("success", false);
+				resultMap.put("code", 3);//身份证号重复
+				return resultMap;
+			}*/
+			idnummap.put(list2.get(5).toString(), eUser);
 			eUsers.add(eUser);
 		}
 		try{
-			eUserService.insertByBatch(eUsers);
+			eUserService.importEUser(eUsers,user.getUser_id());
 		}catch(Exception e){
 			e.printStackTrace();
 			resultMap.put("success", true);

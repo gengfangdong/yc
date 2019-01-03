@@ -13,4 +13,5 @@ import entity.User_project;
 public interface User_projectDao {
 	public void insertUser_project(List<User_project> user_projects);
 	public void deleteUserProject(@Param("ssuid")String ssuid);
+	public int getCount(@Param("project_id")String project_id);
 }

@@ -1,5 +1,7 @@
 package service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +82,15 @@ public class ApplyServiceImpl implements ApplyService{
 			for (Map<String, Object> map : maps) {
 				ApplyShowVo applyShowVo = new ApplyShowVo();
 				applyShowVo.setApplyshow_caogery((String) map.get("CAOGERY"));
-				applyShowVo.setApplyshow_date((String) map.get("APPLYDATE"));
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+				
+				try {
+					applyShowVo.setApplyshow_date(simpleDateFormat.format(simpleDateFormat.parse((String) map.get("APPLYDATE"))));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					applyShowVo.setApplyshow_date("时间待定!");
+				}
 				applyShowVo.setApplyshow_id((String) map.get("APPLYID"));
 				applyShowVo.setApplyshow_project((String) map.get("PROJECT_NAME"));
 				applyShowVo.setApplyshow_user((String) map.get("APPLYNAME"));

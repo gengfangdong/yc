@@ -49,13 +49,34 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (select * from FIGCLASS F
-			where F.FIGCLASS_ISDELETE = '0'
+			FROM (select *
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>)
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				           )
+				</if>
 			<if test="caogery != null and caogery != '' ">
-				and F.FIGCLASS_CAOGERY = #{caogery}
+				and fg.FIGCLASS_CAOGERY = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
-				and F.FIGCLASS_NUMSTATUS = #{status}
+				and fg.FIGCLASS_STATUS = #{status}
 			</if>
 			) A
 			WHERE ROWNUM &lt;= #{length}
@@ -64,13 +85,34 @@
 	</select>
 	
 	<select id="getListCount" resultType="int">
-		select count(*) from FIGCLASS F
-			where F.FIGCLASS_ISDELETE = '0' 
+		select count(*)
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>)
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				           )
+				</if>
 			<if test="caogery != null and caogery != '' ">
-				and F.FIGCLASS_CAOGERY = #{caogery}
+				and fg.FIGCLASS_CAOGERY = #{caogery}
 			</if>
 			<if test="status != null and status != '' ">
-				and F.FIGCLASS_NUMSTATUS = #{status}
+				and fg.FIGCLASS_STATUS = #{status}
 			</if>
 	</select>
 	<select id="getFigbyidanduser" parameterType="String">
@@ -101,10 +143,12 @@
 						e.freeco_name as project_name,
 						e.freeco_data as project_start,
 						 '0' as project_end,
-						'2' as project_caogery,
+						'0' as project_caogery,
 						e.freeco_pernum as project_pernum,
 						e.freeco_status as project_status,
-						'0' as project_allnum
+						'0' as project_allnum,
+				        e.freeco_day as project_day,
+				        e.freeco_datanum as project_datanum
 					from free_costom e
 					where e.freeco_isdelete = '0'
 						<if test="status != null and status != ''">
@@ -116,30 +160,36 @@
 						
 				union
 					select s.scheduled_id as project_id,
-						s.scheduled_name as project_name,
-						s.scheduled_class_start as project_start,
-						 s.scheduled_class_end as project_end,
-						'1' as project_caogery,
-						s.scheduled_class_pnumber as project_pernum,
-						s.scheduled_status as project_status,
-						'0' as project_allnum
-					from scheduledshift s
-					where s.isdelete = '0'
+				       s.scheduled_name as project_name,
+				       s.scheduled_class_start as project_start,
+				       s.scheduled_class_end as project_end,
+				       '1' as project_caogery,
+				       s.scheduled_class_pnumber as project_pernum,
+				       s.scheduled_status as project_status,
+				       '0' as project_allnum,
+				       '0' as project_day,
+				       '0' as project_datanum
+				  from yc.ssuser y
+				  left join yc.scheduledshift s
+				    on y.ssu_ssid = s.scheduled_id
+				 where y.ssu_isdelete = '0'
 					<if test="status != null and status != ''">
-						and s.scheduled_status = #{status}
+						and y.ssu_status = #{status}
 					</if>
 					<if test="user_id != null and user_id != ''">
-						and s.creater = #{user_id}
+						and y.ssu_userid = #{user_id}
 					</if>
 				union
 					select f.figclass_id as project_id,
 						f.figclass_name as project_name,
 						f.figclass_class_start as project_start,
 						f.figclass_class_end as project_end,
-						'0' as project_caogery,
+						'2' as project_caogery,
 						f.figclass_pernum as project_pernum,
 						f.figclass_status as project_status,
-						'0' as project_allnum
+						'0' as project_allnum,
+				       '0' as project_day,
+				       '0' as project_datanum
 					from figclass f
 					where f.figclass_isdelete = '0'
 					<if test="status != null and status != ''">
@@ -163,10 +213,12 @@
 						e.freeco_name as project_name,
 						e.freeco_data as project_start,
 						 '0' as project_end,
-						'2' as project_caogery,
+						'0' as project_caogery,
 						e.freeco_pernum as project_pernum,
 						e.freeco_status as project_status,
-						'0' as project_allnum
+						'0' as project_allnum,
+				        e.freeco_day as project_day,
+				        e.freeco_datanum as project_datanum
 					from free_costom e
 					where e.freeco_isdelete = '0'
 						<if test="status != null and status != ''">
@@ -178,30 +230,36 @@
 						
 				union
 					select s.scheduled_id as project_id,
-						s.scheduled_name as project_name,
-						s.scheduled_class_start as project_start,
-						 s.scheduled_class_end as project_end,
-						'1' as project_caogery,
-						s.scheduled_class_pnumber as project_pernum,
-						s.scheduled_status as project_status,
-						'0' as project_allnum
-					from scheduledshift s
-					where s.isdelete = '0'
+				       s.scheduled_name as project_name,
+				       s.scheduled_class_start as project_start,
+				       s.scheduled_class_end as project_end,
+				       '1' as project_caogery,
+				       s.scheduled_class_pnumber as project_pernum,
+				       s.scheduled_status as project_status,
+				       '0' as project_allnum,
+				       '0' as project_day,
+				       '0' as project_datanum
+				  from yc.ssuser y
+				  left join yc.scheduledshift s
+				    on y.ssu_ssid = s.scheduled_id
+				 where y.ssu_isdelete = '0'
 					<if test="status != null and status != ''">
-						and s.scheduled_status = #{status}
+						and y.ssu_status = #{status}
 					</if>
 					<if test="user_id != null and user_id != ''">
-						and s.creater = #{user_id}
+						and y.ssu_userid = #{user_id}
 					</if>
 				union
 					select f.figclass_id as project_id,
 						f.figclass_name as project_name,
 						f.figclass_class_start as project_start,
 						f.figclass_class_end as project_end,
-						'0' as project_caogery,
+						'2' as project_caogery,
 						f.figclass_pernum as project_pernum,
 						f.figclass_status as project_status,
-						'0' as project_allnum
+						'0' as project_allnum,
+				       '0' as project_day,
+				       '0' as project_datanum
 					from figclass f
 					where f.figclass_isdelete = '0'
 					<if test="status != null and status != ''">

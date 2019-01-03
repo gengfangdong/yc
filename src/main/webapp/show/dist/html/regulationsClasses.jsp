@@ -91,6 +91,7 @@
 				margin-top: 10px;
 				text-align: center;
 			}
+			
 		</style>
 	</head>
 
@@ -387,20 +388,15 @@
 										   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
 										    <label for="" class="control-label littleFontSize" style="float: left;">班次状态：</label>
 											<select id="firstObj" class="select littleFontSize" style="min-width: 80px;border-radius: 5px;border: 1px solid #cccccc;">
-										        <option value="全部" class="littleFontSize">全部</option>
-										        <option value="未开始" class="littleFontSize">未开始</option>
-										        <option value="进行中" class="littleFontSize">进行中</option>
-										        <option value="已结束" class="littleFontSize">已结束</option>
+										        <option value="全部">全部</option>
+											    <option value="报名未开始">报名未开始</option>
+												<option value="报名进行中">报名进行中</option>
+												<option value="未开课">未开课</option>
+												<option value="课程进行中">课程进行中</option>
+												<option value="已结课">已结课</option>
 										   </select>
 										  </div>
-										  <div class="layui-inline selectObj">
-										    <label for="" class="control-label littleFontSize" style="float: left;">是否已报名：</label>
-											<select id="secondObj" class="select littleFontSize" style="min-width: 80px;border-radius: 5px;border: 1px solid #cccccc;">
-										        <option value="全部" class="littleFontSize">全部</option>
-										        <option value="已报名" class="littleFontSize">已报名</option>
-										        <option value="未报名" class="littleFontSize">未报名</option>
-										   </select>
-										  </div>
+										  
 										  <button class="layui-btn selectBtn" id="selectBtn_regulation" data-type="reload">搜索</button>
 										</div>
 									</div> 
@@ -574,34 +570,72 @@
 			<script>
 			layui.use('table', function(){
 				var table = layui.table;
-			  
-			  //方法级渲染
-			  table.render({
-			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/Course/getlistLay',
-			    cols: [[
-					{type:'numbers',title:"序号",minWidth:120},
-					{field:'course_id', title: 'ID',style:'display:none;'},
-					{field:'course_name', title: '班次名称',minWidth:90},
-					{field:'start_class', title: '开班日期',minWidth:90},
-					{field:'end_class', title: '结课日期',minWidth:90},
-					{field:'start_entry', title: '开始报名时间',minWidth:120},
-					{field:'end_entry', title: '结束报名时间',minWidth:120},
-					{field:'train_address', title: '培训地点',minWidth:90},
-					{field:'accommodating_population', title: '容纳人数',minWidth:90},
-					{field:'signUp_person', title: '已报名人数',minWidth:100},
-					{field:'class_status', title: '班次状态',minWidth:90},
-					{field:'isEntry', title: '是否已报名',minWidth:100},
-					{field:'handle', title: '操作',toolbar: '#barDemo',minWidth:80}
-			    ]],
-			    id: 'testReload',
-			    page: true
-			  });
-			  
+				<% if(user == null){%>
+				//方法级渲染
+				  table.render({
+				    elem: '#LAY_table_user',
+				    url: '<%=request.getContextPath()%>/Show/getRegulationClasses',
+				    cols: [[
+					  {type:'numbers',title:"序号",minWidth:120},
+				      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+
+				      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
+				      {field:'number', title: '已报名人数',minWidth:120},
+				      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+				      {field:'create_status', title: '是否已报名',templet:'<div>未报名</div>',minWidth:140},
+				      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:160}
+				    ]],
+				    id: 'testReload',
+				    page: true
+				  });
+				  <%} else{%>
+				  table.render({
+					    elem: '#LAY_table_user',
+					    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
+					    cols: [[
+						  {type:'numbers',title:"序号",minWidth:120},
+					      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+
+					      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
+					      {field:'number', title: '已报名人数',minWidth:120},
+					      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+					      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:140},
+					      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:160}
+					    ]],
+					    id: 'testReload',
+					    page: true
+					  });
+				  <%}%>
 			//监听工具条
 			  table.on('tool(user)', function(obj){
 			    var data = obj.data;
 			    if(obj.event === 'detail'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看',
+						area: ['1063px', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/showprescribedShift.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }else if(obj.event === 'bm'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '报名',
@@ -609,13 +643,13 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp',
+						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
 						}
 					});
-			    } else if(obj.event === 'del'){
+			    }else if(obj.event === 'del'){
 			      	layer.confirm('确认取消报名？', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/Course/deleteCourse',
@@ -645,24 +679,20 @@
 			  });
 			  var $ = layui.$, active = {
 			    reload: function(){
-			      firstObj = document.getElementById("firstObj").value;
-			      secondObj = document.getElementById("secondObj").value;
-			      if(firstObj=="全部"){
-			    	  firstObj="";
-			      }else if(firstObj=="未开始"){
-			    	  firstObj = 0;
-			      }else if(firstObj=="进行中"){
-			    	  firstObj = 1;
-			      }else if(firstObj=="已结束"){
-			    	  firstObj = 2;
-			      }
-			      if(secondObj=="全部"){
-			    	  secondObj="";
-			      }else if(secondObj=="已报名"){
-			    	  secondObj = 1;
-			      }else if(secondObj=="未报名"){
-			    	  secondObj = 0;
-			      }
+			    	var status = $("#firstObj").val();
+					if(status == '报名未开始'){
+						status = 0;
+					}else if(status == '报名进行中'){
+						status = 1;
+					}else if(status == '未开课'){
+						status = 2;
+					}else if(status == '课程进行中'){
+						status = 3;
+					}else if(status == '已结课'){
+						status = 4;
+					}else if(status == '全部'){
+						status = "";
+					}
 			      
 			      //执行重载
 			      table.reload('testReload', {
@@ -671,8 +701,7 @@
 			        },
 			        method:'post',
 			        where: {
-			        	    First_course:firstObj,
-							Second_course:secondObj
+			        	status:status
 			        }
 			      });
 			    }
@@ -687,19 +716,50 @@
 			
 		</script>
 		<script type="text/html" id="barDemo">
-			{{#  if(d.isEntry == '1'){ }}
+			<%
+				if(user == null){
+			%>
+				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+			<%
+				}else{
+			%>
+				{{#  if(d.create_status == '0'){ }}
 		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
-	        {{#  } else if(d.isEntry == "0"){ }}
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
+	        {{#  } else if(d.create_status == ""){ }}
+				<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
 			{{#  } }}
 
-  			{{#  if(d.isEntry == '1'){ }}
+  			{{#  if(d.create_status == '0'){ }}
 		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-	        {{#  } else if(d.isEntry == "0"){ }}
+	        {{#  } else if(d.create_status == ""){ }}
 				
 			{{#  } }}
+			<%
+				}
+			%>
   			
 		</script>
+		
+		<script type="text/html" id="typeBar">
+	     {{#  if(d.create_status == ""){ }}
+	        未报名
+	     {{#  }else if(d.create_status=="0"){ }}
+	     	已报名
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typestatus">
+	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
+	       	 报名进行中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	未开课
+	     {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
+	     	开课中
+	     {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+	     	已结课
+	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
+	     	报名未开始
+	     {{# } }}
+ 		</script>
 	</body>
 
 </html>

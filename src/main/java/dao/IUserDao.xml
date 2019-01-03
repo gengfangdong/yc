@@ -31,7 +31,7 @@
 		select * from IUSER i where i.USER_LOGINNAME = #{user_loginname}
 	</select>
 	<select id="login" parameterType="IUser" resultType="IUser">
-		select * from IUSER i where i.User_loginname = #{User_loginname} and i.user_password = #{User_password}
+		select * from IUSER i where i.User_loginname = #{User_loginname} and i.user_password = #{User_password} 
 	</select>
 	<update id="updateIUser" parameterType="IUser">
 		UPDATE IUSER 

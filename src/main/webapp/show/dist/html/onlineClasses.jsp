@@ -16,6 +16,10 @@
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
 		<link rel="stylesheet" href="../assets/css/myStyle.css" />
+		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> -->
+		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/layui.css">
+		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/style.css"> -->
+		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/modules/layer/default/layer.css">
 		<style>
 			@media only screen and (min-width: 641px) {
 				.am-offcanvas {
@@ -88,6 +92,10 @@
 				padding: 10px 0;
 				margin-top: 10px;
 				text-align: center;
+			}
+			.layui-table-cell.laytable-cell-1-figClass_id a{
+				color:#0e90d2;
+				cursor:pointer;
 			}
 		</style>
 	</head>
@@ -289,7 +297,7 @@
 											</li>
 											<li class="am-parent">
 												<a href="newsNotice.jsp">新闻公告</a>
-												<ul class="am-menu-sub am-collapse  ">
+												<ul class="am-menu-sub am-collapse">
 													<li class="menu-item">
 														<a href="newsNotice.jsp">通知公告</a>
 													</li>
@@ -362,178 +370,41 @@
 						<div class="am-g">
 							<div class="am-u-sm-11 am-u-sm-centered">
 								<div class="screeningConditions">
-									<!--<table class="am-table am-table-bordered am-table-striped am-table-hover">
-										<thead>
-											<tr>
-												<th>网站名称</th>
-												<th>网址</th>
-												<th>创建时间</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="am-active">
-												<td>Amaze UI(Active)</td>
-												<td>http://amazeui.org</td>
-												<td>2012-10-01</td>
-											</tr>
-										</tbody>
-									</table>-->
-									<div class="conditionYear">
-										<ul class="conditionYearUl">
-											<li class="conditionYearLi">开课年度：</li>
-											<li>
-												<a  onclick="changeStyleColor1(this);">2019</a>
-											</li>
-											<li>
-												<a  onclick="changeStyleColor1(this);">2018</a>
-											</li>
-											<li>
-												<a  onclick="changeStyleColor1(this);">2017</a>
-											</li>
-										</ul>
-									</div>
-									<div class="conditionProject">
-										<ul class="conditionProjectUl">
-											<li class="conditionProjectLi">项目筛选：</li>
-											<li>
-												<a  onclick="changeStyleColor2(this);">全部项目</a>
-											</li>
-											<li>
-												<a  onclick="changeStyleColor2(this);">报名状态</a>
-											</li>
-											<li>
-												<a  onclick="changeStyleColor2(this);">拼班截止日期</a>
-											</li>
-											<li>
-												<a  onclick="changeStyleColor2(this);">开课日期</a>
-											</li>
-										</ul>
+									<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
+										<div class="demoTable">
+										  <!-- 搜索ID： -->
+										  <div class="layui-inline selectObj">
+										   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+										    <label for="" class="control-label" style="float: left;">班次状态：</label>
+											<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+										        <option value="全部">全部</option>
+										        <option value="待审核">待审核</option>
+										        <option value="报名未开始">报名未开始</option>
+										        <option value="报名进行中">报名进行中</option>
+										        <option value="待开课">待开课</option>
+										        <option value="开课中">开课中</option>
+										        <option value="已结课">已结课</option>
+										   </select>
+										  </div>
+										  <div class="layui-inline selectObj">
+										    <label for="" class="control-label" style="float: left;">是否已报名：</label>
+											<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+										        <option value="全部">全部</option>
+										        <option value="已报名">已报名</option>
+										        <option value="未报名">未报名</option>
+										   </select>
+										  </div>
+										  <button class="layui-btn selectBtn" data-type="reload" style="height:23px;line-height:15px;background-color:#1e9fff;">搜索</button>
+										</div>
 									</div>
 								</div>
 								<div class="am-cf am-article tableTextAlign">
-									<table class="am-table am-table-bordered am-table-radius am-table-compact am-table-centered littleFontSize">
+									<table id="LAY_table_user"  lay-filter="user" class="am-table am-table-compact am-table-centered littleFontSize">
 										<thead>
-											<tr>
-												<th>序号</th>
-												<th>培训班名称</th>
-												<th>开课日期</th>
-												<th>结课日期</th>
-												<th>学习天数</th>
-												<th>拼班截止日期</th>
-												<th>已拼班人数</th>
-												<th>剩余名额</th>
-												<th>状态</th>
-												<th>操作</th>
-											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td><a href="onlineClassesExample.jsp">第五期国税系统税务稽查专业骨干中级培训班</a></td>
-												<td>2018-12-11</td>
-												<td>2018-12-29</td>
-												<td>18</td>
-												<td>2018-12-10</td>
-												<td>15</td>
-												<td>5</td>
-												<td>报名中</td>
-												<td>
-													<a href="#">发起拼班</a>
-												</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td><a href="onlineClassesExample.jsp">第四期国税系统税务稽查专业骨干中级培训班</a></td>
-												<td>2018-11-11</td>
-												<td>2018-11-29</td>
-												<td>18</td>
-												<td>2018-11-10</td>
-												<td>20</td>
-												<td>0</td>
-												<td>已截止</td>
-												<td>
-													<a href="#">发起拼班</a>
-												</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td><a href="onlineClassesExample.jsp">第三期国税系统税务稽查专业骨干中级培训班</a></td>
-												<td>2018-10-11</td>
-												<td>2018-11-29</td>
-												<td>18</td>
-												<td>2018-10-10</td>
-												<td>20</td>
-												<td>0</td>
-												<td>已截止</td>
-												<td>
-													<a href="#">发起拼班</a>
-												</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td><a href="onlineClassesExample.jsp">第二期国税系统税务稽查专业骨干中级培训班</a></td>
-												<td>2018-09-11</td>
-												<td>2018-10-29</td>
-												<td>18</td>
-												<td>2018-09-10</td>
-												<td>20</td>
-												<td>0</td>
-												<td>已截止</td>
-												<td>
-													<a href="#">发起拼班</a>
-												</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td><a href="onlineClassesExample.jsp">第一期国税系统税务稽查专业骨干中级培训班</a></td>
-												<td>2018-08-11</td>
-												<td>2018-09-29</td>
-												<td>18</td>
-												<td>2018-09-10</td>
-												<td>20</td>
-												<td>0</td>
-												<td>已截止</td>
-												<td>
-													<a href="#">发起拼班</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
-									<div style="height: 40px;">
-										<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
-											<li class="am-pagination-first ">
-												<a href="#" class="">首页</a>
-											</li>
-
-											<li class="am-pagination-prev ">
-												<a href="#" class="">上一页</a>
-											</li>
-
-											<li class="am-active">
-												<a href="#" class="am-active">1</a>
-											</li>
-											<li class="">
-												<a href="#" class="">2</a>
-											</li>
-											<li class="">
-												<a href="#" class="">3</a>
-											</li>
-											<li class="">
-												<a href="#" class="">4</a>
-											</li>
-											<li class="">
-												<a href="#" class="">5</a>
-											</li>
-
-											<li class="am-pagination-next ">
-												<a href="#" class="">下一页</a>
-											</li>
-
-											<li class="am-pagination-last ">
-												<a href="#" class="">尾页</a>
-											</li>
-										</ul>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -543,39 +414,21 @@
 					<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
 						<div class="am-offcanvas" id="sidebar">
 							<div class="am-offcanvas-bar">
-								<!--<ul class="am-nav">
-								<li class="sidebar_contactUs">■在职研</li>
-								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									<a href="incumbencyStudent.jsp" style="color: #000000;">招生简章</a>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									<a href="onlineApplication.jsp" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
-								</li>
-							</ul>-->
 								<ul class="am-nav">
 									<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">■联系我们</li>
 									<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-	                  <i class="am-icon-phone" ></i>
-	                </span>-->
 										<dl>
 											<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
 											</dd>
 										</dl>
 									</li>
 									<li class="promo_detailed--list_item sidebarListLi">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-map-marker"></i>
-                </span>-->
 										<dl>
 											<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
 											</dd>
 										</dl>
 									</li>
 									<li class="promo_detailed--list_item sidebarListLi">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-envelope-o" ></i>
-                </span>-->
 										<dl>
 											<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
 											</dd>
@@ -651,46 +504,327 @@
 			<![endif]-->
 			<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 			<script src="../assets/js/common.js" charset="utf-8"></script>
+			<!-- Bootstrap 3.3.5 -->
+			<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+			<!-- layui 2.3.0 -->
+			<script src="../assets/layui-v2.3.0/layui/layui.js"></script>
+			
 			<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.conditionYearUl li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
+		layui.use('table', function(){
+			var table = layui.table;
+		  	<% if(user == null){%>
+			//方法级渲染
+			  table.render({
+			    elem: '#LAY_table_user',
+			    url: '<%=request.getContextPath()%>/Show/LayFigad',
+			    cols: [[
+				  {type:'numbers',title:"序号",minWidth:90},
+			      {field:'figClass_name', title: '班级名称',minWidth:140},
+			      {field:'figClass_start', title: '报名开始时间',minWidth:160},
+			      {field:'figClass_end', title: '报名截止时间',minWidth:160},
+			      {field:'figClass_class_start', title: '开课日期',minWidth:120},
+			      {field:'figClass_class_end', title: '结课日期',minWidth:120},
+			      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
+			      {field:'figClass_number', title: '可拼人数',minWidth:120},
+			      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+			      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
+			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
+			    ]],
+			    id: 'testReload',
+			    page: true
+			  });
+		  <%} else{%>
+		//方法级渲染
+		  table.render({
+		    elem: '#LAY_table_user',
+		    url: '<%=request.getContextPath()%>/FigClass/LayFig',
+		    cols: [[
+			  {type:'numbers',title:"序号",minWidth:90},
+		      {field:'figClass_name', title: '班级名称',minWidth:140},
+		      {field:'figClass_start', title: '报名开始时间',minWidth:160},
+		      {field:'figClass_end', title: '报名截止时间',minWidth:160},
+		      {field:'figClass_class_start', title: '开课日期',minWidth:120},
+		      {field:'figClass_class_end', title: '结课日期',minWidth:120},
+		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
+		      {field:'figClass_number', title: '可拼人数',minWidth:120},
+		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+		      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
+		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
+		    ]],
+		    id: 'testReload',
+		    page: true
+		  });
+		  <%}%>
+		//监听工具条
+		  table.on('tool(user)', function(obj){
+		    var data = obj.data;
+		    if(obj.event === 'show'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '查看',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/showOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
 					}
-//					debugger;
-				}
-				function changeStyleColor2(obj) {
-					var nLi = $('.conditionProjectUl li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
+				});
+		    } else if(obj.event === 'cancel'){
+		      	layer.confirm('确认取消报名？', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/Course/deleteCourse',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Course_id:data.course_id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								layer.alert("参数错误!");
 							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
+							else if(data.message == "1"){
+								layer.alert("获取班次名称失败!");
 							}
+							else if(data.message == "2"){
+								layer.alert("报名已取消!");
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
 						}
-						$(obj).addClass('conditionSelectStyle');
+					});	
+		        layer.close(index);
+		      });
+		    } else if(obj.event === 'delete'){
+		      	layer.confirm('确认删除该条记录？', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/Course/deleteCourse',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Course_id:data.course_id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								layer.alert("参数错误!");
+							}
+							else if(data.message == "1"){
+								layer.alert("获取班次名称失败!");
+							}
+							else if(data.message == "2"){
+								layer.alert("删除成功!");
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        layer.close(index);
+		      });
+		    }else if(obj.event === 'edit'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '修改',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
 					}
-//					debugger;
-				}
-			</script>
+				});
+		    }else if(obj.event === 'update'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '上传名单',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/updateOnlieClassesNameList.jsp',
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }else if(obj.event === 'Userupload'){
+			    layui.layer.open({
+		            title: "文件上传",
+		            content: $('#upload_file_dialog').html(),
+		            area: ['500px', '300px'],
+		            btn: ['发送', '取消'],
+		            yes: function (index, layero) {//发送
+		                var f = document.getElementById("Userfile").files;
+		                if(f.length<=0){
+		                	layui.layer.alert("请选择文件!");
+		                	return;
+		                }
+		                var fd = new FormData();
+						fd.append("file",f[0]);
+						fd.append("figClass_id",data.figClass_id);
+						$.ajax({
+							url:'<%=request.getContextPath()%>/FigClass/importUser',
+							type:'post',
+							encType: 'multipart/form-data', //表明上传类型为文件
+							processData: false,  //tell jQuery not to process the data
+		        			contentType: false,  //tell jQuery not to set contentType
+							data:fd,
+							success:function(data){
+								if(data.success == true){
+									if(data.message == "5"){
+										layer.alert("上传成功!");
+									}
+								}
+								else if(data.message == "4"){
+									layer.alert("excel存在身份证重复!");
+								}else if(data.message == "2"){
+									layer.alert(" execl无数据!");
+								}
+							},
+							error:function(data){
+
+							}
+						})
+		            },
+		            btn2:function(index, layero) {//取消
+		                
+		            }
+	       		});
+
+		        //文件上传change事件
+		        $("input[name=uploadfile][type=file]").on("change", function (e) {
+		            var filePath = $(this).val();
+		            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+		            $("#uploadFileName").text(filePath);
+		        });
+		}
+		    
+		  });
+		  var $ = layui.$, active = {
+		    reload: function(){
+		    var demoReload = $('#demoReload');
+		    var status = $("#firstObj").val();
+			var isEntry = $("#secondObj").val();
+			if(status == '待审核'){
+				status = 0;
+			}else if(status == '审核未通过'){
+				status = 1;
+			}else if(status == '报名未开始'){
+				status = 2;
+			}else if(status == '报名进行中'){
+				status = 3;
+			}else if(status == '待开课'){
+				status = 4;
+			}else if(status == '开课中'){
+				status = 5;
+			}else if(status == '已结课'){
+				status = 6;
+			}else if(status == '全部'){
+				status = "";
+			}
+	        if(isEntry=="全部"){
+				isEntry = "";
+			}else if(isEntry=="未报名"){
+				isEntry = 0;
+			}else if(isEntry=="已报名"){
+				isEntry = 1;
+			}
+		      //执行重载
+		      table.reload('testReload', {
+		        page: {
+		          	curr: 1 //重新从第 1 页开始
+		        },
+		        method:'post',
+		        where: {
+	        	    status:status,
+					isEntry:isEntry
+		        }
+		      });
+		    }
+		  };
+		  
+		  $('.demoTable .layui-btn').on('click', function(){
+		    var type = $(this).data('type');
+		    active[type] ? active[type].call(this) : '';
+		  });
+		});
+		
+		</script>
+		<script type="text/html" id="barDemo">
+		<%
+			if(user == null){
+		%>
+			<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+		<%
+			}else{
+		%>
+			{{#  if(d.figClass_status == '0'){ }}
+		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+	        {{#  } else if(d.figClass_status == "1"){ }}
+				{{#  if(d.user_status == '0'){ }}
+			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+	        	{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+				{{#  } }}
+			{{#  } else if(d.figClass_status == "2"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.figClass_status == "3"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+			{{#  } else if(d.figClass_status == "4"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.figClass_status == "5"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.figClass_status == "6"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+			{{#  } }}
+		<%}%>
+		</script>
+
+		<script type="text/html" id="typestatus">
+	     {{#  if(d.figClass_status == "0"){ }}
+	        未审核
+	     {{#  }else if(d.figClass_status=="1"){ }}
+	     	审核通过
+	     {{#  }else if(d.figClass_status=="2"){ }}
+	     	审核未通过
+	     {{#  }else if(d.figClass_status=="3"){ }}
+	     	开班中
+	     {{#  }else if(d.figClass_status=="4"){ }}
+	     	已结课
+	     {{# } }}
+	     </script>
+	     <script type="text/html" id="typeuserstatus">
+	     {{#  if(d.user_status == "0"){ }}
+	        未报名
+	     {{#  }else if(d.figClass_status=="1"){ }}
+	     	已报名
+	     {{# } }}
+	     </script>
+	     <script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">文件上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传文件
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            文件上传</label>
+		    </div>
+		</script>
 	</body>
 
 </html>

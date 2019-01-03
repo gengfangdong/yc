@@ -578,6 +578,14 @@
 			      		dataType:'json',
 						success : function(data) {
 							datas=data.data
+							if(datas.length == 0){
+								document.getElementById("newsNoticeUl").innerHTML=""//全部清空
+								var div =document.createElement("li")//建立div对象
+								div.setAttribute("class","promo_detailed--list_item");
+								div.innerHTML="暂无通知公告!"//建立显示元素
+								document.getElementById("newsNoticeUl").appendChild(div)//加入all中 
+								return;
+							}
 							var zz =new Array(datas.length);
 							
 							var content='东岳集团举行2019产业链合作年会，绘就千亿'
@@ -662,7 +670,17 @@
 							var content="   11月18日上午，集团在北京新华联国际文化交流中心召开重点企业工作会议，促进2018年整体经营目标的实现。集团领导傅军、丁伟、马晨山、肖文慧、冯建军、苏波、张必书、张皓若、刘静、杨运辉、蒋赛、曾敏、苟永平..."
 // 							var length=content.substring(0, 108)
 // 							var length=content.toString()
-							
+							if(datas.length ==0){
+								if(datas.length == 0){
+									document.getElementById("showNewsList").innerHTML=""//全部清空
+									var div =document.createElement("li")//建立div对象
+								 	div.setAttribute("class","promo_detailed--list_item");
+									div.innerHTML="暂无培训新闻!"//建立显示元素 
+//										var div=zz[(e-1)*pagesize+i]//建立显示元素
+									document.getElementById("showNewsList").appendChild(div)//加入all中 
+									return;
+								}
+							}
 							for(var i=0;i <datas.length;i++){ 
 								
 								var msg=datas[i].news_context

@@ -76,6 +76,19 @@
 				height:28px;
 				line-height:28px;
 			}
+			#className,#hostCompany,#hostAddress,#peopleNum{
+				height:23px;
+				border-radius:5px;
+				border:1px solid #ccc;	
+				width:100%;
+			}
+			#hostStartDate,#hostEndDate,#startClassDate,#endClassDate{
+				height:23px;
+				border-radius:5px;
+				border:1px solid #ccc;
+				width:257px;
+				cursor:pointer;
+			}
 		</style>
 	</head>
 	<body>
@@ -112,40 +125,40 @@
 										<tr>
 											<td class="leftTd">培训开课地点:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="hostAddress" placeholder="请填写培训开课地点" style="width: 100%;" />
+												<input type="text" id="hostAddress" placeholder="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostStartDate" name="projectListDate" placeholder="请选择报名开始日期" type="text" class=""  />
+											<input id="hostStartDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class=""  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostEndDate" name="projectListDate" placeholder="请选择报名截止日期" type="text" class=""  />
+											<input id="hostEndDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class=""  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="startClassDate" name="projectListDate" placeholder="请选择开课日期" type="text" class=""  />
+											<input id="startClassDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class=""  />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="endClassDate" name="projectListDate" placeholder="请选择结课日期" type="text" class="" />
+											<input id="endClassDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">班级容纳人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;" />
+												<input type="text" id="peopleNum" placeholder="" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
@@ -168,7 +181,7 @@
 							
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										课程大纲
 									</label>
@@ -187,7 +200,7 @@
 							</div>
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										其他相关信息
 									</label>
@@ -399,6 +412,15 @@
 					alert("请选择资料上传!");
 					return;
 				}
+				if(Scheduled_class_context==""){
+					alert("请输入课程大纲相关信息！若无请输入‘空’！");
+					return;
+				}
+				if(Scheduled_other_context==""){
+					alert("请输入其他相关信息！若无请输入‘空’！");
+					return;
+				}
+				
 				var fd = new FormData();
 				for(var j = 0;j<filelist.length;j++){
 					fd.append('file', filelist[j]);
@@ -419,19 +441,7 @@
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data
         			contentType: false,  //tell jQuery not to set contentType
-					data:						/*"txt_file":filelist,
-						"Scheduled_name":className,
-						"Scheduled_initiator":hostCompany,
-						"Scheduled_address":hostAddress,
-						"Scheduled_start":hostStartDate,
-						"Scheduled_end":hostEndDate,
-						"Scheduled_class_start":startClassDate,
-						"Scheduled_class_end":endClassDate,
-						"Scheduled_class_pnumber":peopleNum,
-						"Scheduled_class_context":Scheduled_class_context,
-						"Scheduled_other_context":Scheduled_other_context*/
-						fd
-					,
+					data:fd,
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "1"){

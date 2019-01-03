@@ -17,5 +17,6 @@ public interface EUserService {
 	public void deleteEUser(String User_id);
 	public void insertByBatch(List<EUser> eUsers);
 	public List<EUser> getList(String User_id);
+	public void importEUser(List<EUser> eusers,String user_id);
 	
 }

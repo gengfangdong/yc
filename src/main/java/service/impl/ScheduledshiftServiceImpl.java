@@ -16,6 +16,7 @@ import dao.ScheduledfileDao;
 import dao.ScheduledshiftDao;
 import dao.SsuserDao;
 import entity.DatatablesViewPage;
+import entity.EUser;
 import entity.LayuiDataTable;
 import entity.ScheduledShiftShow;
 import entity.Scheduledfile;
@@ -246,6 +247,11 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 		scheduledshiftVo.setScheduled_publish(scheduledshift.getCreatetime());
 
 		return scheduledshiftVos;
+	}
+
+	public List<EUser> getListUserByid(String user_id, String scheduled_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

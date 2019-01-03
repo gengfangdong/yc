@@ -110,19 +110,19 @@
 										<tr>
 											<td class="leftTd">身份证号:</td>
 											<td class="rightTd">
-												<input type="text" id="ID_Number" />
+												<input type="text" id="ID_Number"  maxLength="18"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">联系方式:</td>
 											<td class="rightTd">
-												<input type="text" id="personPhone" />
+												<input type="text" id="personPhone"  maxLength="11"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">备注:</td>
 											<td class="rightTd">
-												<textarea style="width: 100%;height: 50px;" id="remark"></textarea>
+												<textarea style="width: 100%;height: 50px;" id="remark" maxLength="200"></textarea>
 											</td>
 										</tr>
 									</tbody>
@@ -173,50 +173,7 @@
 			});
 			
 		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-			});
-		</script>
+		
 		<script>
 			function branchSave(){
 				var EUser_name = document.getElementById("personName").value;
@@ -225,14 +182,55 @@
 				var EUser_hold = document.getElementById("job").value;
 				var EUser_sex = document.getElementsByName("personSex");
 				var sex = "";
-				if(EUser_sex[0].checked == true){
-					sex='0';
-				}
-				else
-					sex='1';
 				var EUser_remark = document.getElementById("remark").value;
 				var EUser_indentitynumber = document.getElementById("ID_Number").value;
 				var EUser_phone = document.getElementById("personPhone").value;
+				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
+				var testPhone = /^1\d{10}$/;//手机
+				if(EUser_name==""){
+					alert("请输入姓名！");
+					return;
+				}
+				if(EUser_companyname ==""){
+					alert("请输入单位！");
+					return;
+				}
+				if(EUser_department==""){
+					alert("请输入部门！");
+					return;
+				}
+				if( EUser_hold ==""){
+					alert("请输入职务！");
+					return;
+				}
+				if(EUser_sex[0].checked == true){
+					sex='0';
+				}else if(EUser_sex[1].checked == true){
+					sex='1';
+				}else{
+					alert("请选择性别！");
+					return;
+				}
+				if(EUser_indentitynumber==""){
+					alert("请输入身份证号！");
+					return;
+				}else if(EUser_indentitynumber.length != 18){
+					alert("请输入有效的身份证号！");
+					return;
+				}
+				if(EUser_phone==""){
+					alert("请输入联系方式！");
+					return;
+				}else if(testPhone.test(EUser_phone)==false || testTel.test(EUser_phone)==false){
+					alert("请输入有效的联系方式！");
+					return;
+				}
+				if(EUser_remark==""){
+					alert("请输入备注！若不需要请填写\'无\'！");
+					return;
+				}
+				
+				
 				$.ajax({
 					url:'<%=request.getContextPath()%>/EUser/addUser',
 					type:'post',
@@ -247,12 +245,30 @@
 						"EUser_phone":EUser_phone
 					},success:function(data){
 						if(data.success == true){
-							layer.alert("保存成功!");
+							layer.confirm('保存成功!', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+							});
 						}
-						else
-							layer.alert("身份证已存在!");
+						else{
+							layer.confirm('身份证已存在!', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
+						}
 					},error:function(data){
-						layer.alert("接口异常!");
+						layer.confirm('保存失败!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 			}

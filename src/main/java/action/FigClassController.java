@@ -194,7 +194,10 @@ public class FigClassController {
 			resultMap.put("message", "1");// 当前拼班不存在
 			return resultMap;
 		}
-
+		//获取剩余拼班人数
+		int allSign = 0;
+		allSign = figClassService.getCountByid(figClass.getFigClass_id());
+		int max = Integer.valueOf(figClass.getFigClass_pernum())-allSign;
 		// 获取上传的excel
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		// EUSER列表
@@ -204,7 +207,7 @@ public class FigClassController {
 			resultMap.put("success", false);
 			resultMap.put("message", "2");// execl无数据
 			return resultMap;
-		} else if (list.size() > Integer.valueOf(figClass.getFigClass_pernum())) {
+		} else if (list.size() > max) {
 			resultMap.put("success", false);
 			resultMap.put("message", "3");// 人员数量与execl不符合
 			return resultMap;
@@ -262,13 +265,14 @@ public class FigClassController {
 	public LayuiDataTable<FigClassshowVo> getLayBypage(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
 			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			@RequestParam(value = "isbm", required = false, defaultValue = "") String isbm,
 			HttpServletRequest request) {
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
 		// 获取是否登录
 		IUser iUser = new IUser();
 		iUser = (IUser) request.getSession().getAttribute("user");
 		if(iUser != null)
-			fDataTable = figClassService.getListBypage(status, caogery, page, limit, iUser.getUser_id());
+			fDataTable = figClassService.getListBypage(isbm,status, caogery, page, limit, iUser.getUser_id());
 		fDataTable.setCode(0);
 		fDataTable.setMsg("");
 		return fDataTable;
@@ -292,7 +296,7 @@ public class FigClassController {
 		IUser iUser = new IUser();
 		iUser = (IUser) request.getSession().getAttribute("user");
 		if(iUser != null)
-			fDataTable = figClassService.getListBypage(status, caogery, page, limit, "");
+			fDataTable = figClassService.getListBypage("",status, caogery, page, limit, "");
 		fDataTable.setCode(0);
 		fDataTable.setMsg("");
 		return fDataTable;
@@ -698,6 +702,31 @@ public class FigClassController {
 			//logger.info("yes");
 		}
 	   
+	}
+	@RequestMapping("/deleteFig/{figclass_id}")
+	public Map<String,Object> deleteFig(@PathVariable String figclass_id,HttpServletRequest request){
+		//返回结果集
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		//获取登录人
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "0");//未登录
+			return resultMap;
+		}
+		//删除拼班
+		try{
+			figClassService.deleteFig(figclass_id,iuser);
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//删除失败
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "2");//删除成功
+		return resultMap;
 	}
 	
 }

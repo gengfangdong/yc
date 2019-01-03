@@ -290,7 +290,6 @@
 																							<th style="text-align: center;">联系电话</th>
 																							<th style="text-align: center;">单位名称</th>
 																							<th style="text-align: center;">所在部门</th>
-																							<th style="text-align: center;">任职岗位</th>
 																							<th style="text-align: center;">担任职务</th>
 																							<th style="text-align: center;">状态</th>
 																							<th style="text-align: center;">操作</th>
@@ -474,7 +473,6 @@
 		                {"data": "user_phone"},
 		                {"data": "user_companyname"},
 	                	{"data": "user_department"},
-	                	{"data": "user_job"},
 	                	{"data": "user_hold"},
 	                	{"data": "user_status",
 			              "render":function(data,type,row,meta){

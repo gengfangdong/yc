@@ -71,7 +71,7 @@ public class CommonController {
             }  
             in.close();   
             os.flush();  
-            os.close();  
+            os.close();
         }  
     }
 	@RequestMapping("/memProject")

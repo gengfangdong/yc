@@ -2,6 +2,7 @@
 <%@page pageEncoding="UTF-8"%>
 <%
 	String scheduled_id = request.getParameter("scheduled_id");
+	String a = request.getParameter("num");
 %>
 <!DOCTYPE html>
 <html>
@@ -135,7 +136,7 @@
 										<tr>
 											<td class="leftTd">已经报名人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="0" id="enrollNumber" style="width: 100%;" />
+												<input type="text"  id="enrollNumber" style="width: 100%;" value="<%=a%>"/>
 											</td>
 										</tr>
 										<tr>
@@ -258,7 +259,7 @@
 												<input type="text" id="companyInformation" placeholder="请输入单位信息" style="width: 100%;"   />
 											</td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">学员名单模板:</td>
 											<td class="rightTd">
 												<input type="text" id="studentListTemplate" value="学员名单模板一" style="width: 100%;" />
@@ -268,7 +269,7 @@
 												  <i class="layui-icon">&#xe67c;</i><a href="../../../../../前台/dist/doc/培训通知.zip" style="color: #FFFFFF;">下载</a>
 												</button>
 											</td>
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">参加人员名单:</td>
 											<td class="rightTd">
@@ -342,6 +343,7 @@
 			    	,auto: false
 			    	,choose: function(obj){   
 			      		obj.preview(function(index, file, result){
+			      			document.getElementById("studentList").value=file.name;
 			      			filea = file;
 			    		});
 			    	},
@@ -377,20 +379,70 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "4"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
 							}
 						}
 						else{
 							if(data.message == "0"){
-								layer.alert("未登录!");
+								layer.alert("未登录!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
 							}else if(data.message == "1"){
-								layer.alert("班次不存在!");
+								layer.alert("班次不存在!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
 							}else if(data.message == "2"){
-								layer.alert("Execl无数据!");
+								layer.alert("Execl无数据!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
 							}else if(data.message == "3"){
-								layer.alert("人员数量与Execl数据数量不符!");
+								layer.alert("人员数量与Execl数据数量不符!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
 							}else if(data.message == "4"){
-								layer.alert("Execl存在身份证重复!");
+								layer.alert("Execl存在身份证重复!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
+							}else if(data.message == "5"){
+								layer.alert("人数超过剩余人数!");/*
+								layer.confirm('', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});*/
 							}
 
 						}

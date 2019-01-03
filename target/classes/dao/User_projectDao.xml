@@ -26,4 +26,8 @@
 				AND U.ssu_id = #{ssuid}
 	</update>
 	
+	<select id="getCount" parameterType="String" resultType="int"> 
+		select count(*) from user_project p where p.PROJECT_ID=#{project_id} and p.ISDELETE='0'
+	</select>
+	
 </mapper>

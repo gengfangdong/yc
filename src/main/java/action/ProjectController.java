@@ -106,7 +106,7 @@ public class ProjectController {
 	@RequestMapping(value = "/getlist1")
 	@ResponseBody
 	public LayuiDataTable<ProjectVo> GetlistPage1(@RequestParam("page")int page,@RequestParam("limit")int limit,
-			@RequestParam("status")String status,HttpServletRequest request){
+			@RequestParam(value="status",required=false,defaultValue="")String status,HttpServletRequest request){
 		//DataTables  返回实例
 		DatatablesViewPage<Project> datatablesViewPage = new DatatablesViewPage<Project>();
 		LayuiDataTable<ProjectVo> pDataTable = new LayuiDataTable<ProjectVo>();

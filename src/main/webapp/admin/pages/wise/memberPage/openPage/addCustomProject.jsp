@@ -183,10 +183,11 @@
 										<tr>
 											<td class="leftTd">预计举办日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text"  autocomplete="off" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
+										
 										<!-- <tr>
 											<td class="leftTd">累计举办天数:</td>
 											<td class="rightTd" colspan="2">
@@ -197,7 +198,7 @@
 										<tr>
 											<td class="leftTd">计划参加人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
+												<input type="text" id="planNumOfEntries" onBlur="judgesNumber(this);" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
 											</td>
 
 										</tr>
@@ -239,6 +240,48 @@
 										</tr>
 									</tbody>
 								</table>
+								</div>
+								<div class="table-responsive table-responsive_vis" id="sample-table-00" style="display:none;padding-left: 10px;padding-right: 10px;">
+								<table id="branchTable2" class="table table-bordered table-hover example1_x">
+									<tbody>
+										<tr>
+											<td class="leftTd">拼班发起单位:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
+											</td>
+
+										</tr>
+										<tr>
+											<td class="leftTd">班级容纳人数:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">报名开始日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+
+										</tr>
+										<tr>
+											<td class="leftTd">报名截止日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+
+										</tr>
+										
+										<tr>
+											<td class="leftTd">预计结课日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="classesEndDate" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								
 								<div style="text-align: center;margin-top: 100px;">
 									<button class="branchSave branchSub" onclick="branchSub();">提交</button>
 								</div>
@@ -393,6 +436,18 @@
 			  	laydate.render({
 			    	elem: '#hostDate' //指定元素
 			  	});
+			  
+			  	laydate.render({
+			    	elem: '#togetherClassesStartDate' //指定元素
+			  	});
+			  	
+			  	laydate.render({
+			    	elem: '#togetherClassesEndDate' //指定元素
+			  	});
+			  	
+			  	laydate.render({
+			    	elem: '#classesEndDate' //指定元素
+			  	});
 			});
 			
 			layui.use('table', function(){
@@ -422,11 +477,11 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['963px', '430px'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -477,7 +532,7 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['963px', '430px'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
@@ -524,7 +579,7 @@
 		          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs  demo-delete" style="background-color:#1E9FFF;">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        
@@ -571,7 +626,16 @@
 		  });
 		});
 		</script>
-	
+		<script>
+			function judgesNumber(obj){
+				if(obj.value<50){
+					alert("参加人数少于50人时会自动进行拼班！");
+					$("#sample-table-00").css('display','block');
+				}else{
+					$("#sample-table-00").css('display','none');
+				}
+			}
+		</script>
 		<script>
 			function branchSub(){
 				var classesName = $("#classesName").val();
@@ -587,6 +651,9 @@
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
+					/* if(){
+						
+					} */
 					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
 					selectList[1] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
 				}else if(type=="课程定制"){
@@ -630,8 +697,6 @@
 				if(planNumOfEntries==""){
 					alert("请填写计划参加人数！");
 					return;
-				}else if(planNumOfEntries<50){
-					alert("参加人数少于50人时会自动进行拼班！");
 				}
 				if(planHostAddress==""){
 					alert("请填写预计举办地点！");
@@ -644,60 +709,164 @@
 				if(contactNumber==""){
 					alert("请填写联系电话！");
 					return;
-				}else if(testPhone.test(contactNumber)==false && testTel.test(contactNumber)==false){
+				}else if(testPhone.test(contactNumber)==false ||testTel.test(contactNumber)==false){
 					alert("请输入有效的联系电话！");
 					return;
 				}
-				var fd = new FormData();
-				for(var j = 0;j<filelist.length;j++){
-					fd.append('file', filelist[j]);
-				}
-    			fd.append('Constom_name', classesName);
-    			fd.append('Constom_data', hostDate);
-    			if(type == '2'){
-    				if(selectList.length>1){
-        				fd.append('Constom_datanum', selectList[0]);
-        			}
-    			}
-    			
-    			
-    			fd.append('Constom_pernum', planNumOfEntries);
-    			fd.append('Constom_address', planHostAddress);
-    			fd.append('Constom_person', contactPersonnel);
-    			fd.append('Constom_phone', contactNumber);
-    			fd.append('Constom_outline', selectList);
-    			fd.append('Constom_gaoery', type);
-				$.ajax({
-					url:'<%=request.getContextPath()%>/Constom/addConstom',
-					type:'post',
-					encType: 'multipart/form-data', //表明上传类型为文件
-					processData: false,  //tell jQuery not to process the data
-        			contentType: false,  //tell jQuery not to set contentType
-					data:fd,
-					success:function(data){
-						if(data.success == true){
-							if(data.message == "4"){
-								layer.confirm('保存成功!', { title:'提示'}, function(index){
-									  
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
-								});
-							}
-						}else{
-							alert("保存失败！");
-						}
-					},
-					error:function(error){
-						layer.confirm('保存失败!', { title:'提示'}, function(index){
-							  
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-							console.log(error);
-						});
+				
+				if(planNumOfEntries<50){
+					var togetherClassesStartDate = $("#togetherClassesStartDate").val();
+					var togetherClassesEndDate = $("#togetherClassesEndDate").val(); 
+					var classesEndDate = $("#classesEndDate").val();
+					var togetherClassesCompany = $("#togetherClassesCompany").val();
+					var maxClassesNumber = $("#maxClassesNumber").val();
+					var nowDate = new Date();
+					var nowYear = nowDate.getFullYear();
+					var nowMonth = nowDate.getMonth()+1;
+					var nowDay = nowDate.getDate();
+					if (nowMonth >= 1 && nowMonth <= 9) {
+						nowMonth = "0" + nowMonth;
+			        }
+			        if (nowDay >= 0 && nowDay <= 9) {
+			            nowDay = "0" + nowDay;
+			        }
+					var nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
+					if(togetherClassesCompany==""){
+						alert("请填写拼班发起单位！");
+						return;
 					}
-				})
+					if(maxClassesNumber==""){
+						alert("请填写班级容纳人数！");
+						return;
+					}
+					if(togetherClassesStartDate==""){
+						alert("请选择报名开始日期！");
+						return;
+					}else if(togetherClassesStartDate<nowDate){
+						alert("报名开始日期应在当前日期之后！");
+						return;
+					}
+					if(togetherClassesEndDate==""){
+						alert("请选择报名截止日期！");
+						return;
+					}
+					if(togetherClassesStartDate>togetherClassesEndDate){
+						alert("报名开始日期应在报名结束日期之后！");
+						return;
+					}
+					if(classesEndDate==""){
+						alert("请选择预计结课日期！");
+						return;
+					}
+					if(togetherClassesEndDate>hostDate){
+						alert("开课日期应在报名结束日期之后！");
+						return;
+					}
+					if(classesEndDate<hostDate){
+						alert("开课日期应在结课日期之后！");
+						return;
+					}
+					
+					
+					var fd = new FormData();
+					for(var i=0;i<filelist.length;i++){
+						fd.append('file',filelist[i]);
+					}
+					fd.append('figClass_name',classesName);
+					fd.append('figClass_deparment',togetherClassesCompany);
+					fd.append('figClass_address',planHostAddress);
+					fd.append('figClass_start_date',togetherClassesStartDate);
+					fd.append('figClass_end_date',togetherClassesEndDate);
+					fd.append('figClass_class_start',hostDate);
+					fd.append('figClass_class_end',classesEndDate);
+					fd.append('figClass_pernum',maxClassesNumber);
+					fd.append('figClass_person',contactPersonnel);
+					fd.append('figClass_phone',contactNumber);
+					fd.append('figClass_caogery',type);
+					fd.append('figClass_outline',selectList);
+					
+					$.ajax({
+						url:'<%=request.getContextPath()%>/FigClass/addFig',
+						type:'post',
+						encType: 'multipart/form-data', //表明上传类型为文件
+						processData: false,  //tell jQuery not to process the data
+	        			contentType: false,  //tell jQuery not to set contentType
+						data:fd,
+						success:function(data){
+							if(data.success == true){
+								if(data.message == "1"){
+									layer.confirm('保存成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							}else{
+								alert("保存失败！");
+							}
+						},
+						error:function(error){
+							console.log('error'+error);
+							layer.confirm('未选择文件！', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
+						}
+					})
+				}else{
+					var fd = new FormData();
+					for(var j = 0;j<filelist.length;j++){
+						fd.append('file', filelist[j]);
+					}
+	    			fd.append('Constom_name', classesName);
+	    			fd.append('Constom_data', hostDate);
+	    			if(type == '2'){
+	    				if(selectList.length>1){
+	        				fd.append('Constom_datanum', selectList[0]);
+	        			}
+	    			}
+	    			fd.append('Constom_pernum', planNumOfEntries);
+	    			fd.append('Constom_address', planHostAddress);
+	    			fd.append('Constom_person', contactPersonnel);
+	    			fd.append('Constom_phone', contactNumber);
+	    			fd.append('Constom_outline', selectList);
+	    			fd.append('Constom_gaoery', type);
+					$.ajax({
+						url:'<%=request.getContextPath()%>/Constom/addConstom',
+						type:'post',
+						encType: 'multipart/form-data', //表明上传类型为文件
+						processData: false,  //tell jQuery not to process the data
+	        			contentType: false,  //tell jQuery not to set contentType
+						data:fd,
+						success:function(data){
+							if(data.success == true){
+								if(data.message == "4"){
+									layer.confirm('保存成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							}else{
+								alert("保存失败！");
+							}
+						},
+						error:function(error){
+							layer.confirm('未选择文件！', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
+						}
+					})
+				}
 				
 			}
 		</script>

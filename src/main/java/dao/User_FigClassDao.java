@@ -13,4 +13,6 @@ public interface User_FigClassDao {
 	public int getCountByid(@Param("User_id")String User_id,@Param("FigClass_id")String FigClass_id);
 	public List<String> getuserlist(@Param("User_id")String User_id,@Param("FigClass_id")String FigClass_id);
 	public List<String> getUserByid(@Param("FigClass_id")String figClass_id);
+	public void deleteFigClass(@Param("updater")String updater,@Param("updatetime")String updatetime,@Param("figclass_id")String figclass_id);
+	public void deleteFig(@Param("updater")String updater,@Param("updatetime")String updatetime,@Param("figclass_id")String figclass_id,@Param("creater")String creater);
 }

@@ -23,6 +23,7 @@ import entity.FigClassVo;
 import entity.FigClassshowVo;
 import entity.Figfile;
 import entity.Free_constom;
+import entity.IUser;
 import entity.LayuiDataTable;
 import entity.MemProjectVo;
 import entity.ScheduledShiftShow;
@@ -105,12 +106,12 @@ public class FigClassServiceImpl implements FigClassService {
 		return figClassVo;
 	}
 
-	public LayuiDataTable<FigClassshowVo> getListBypage(String status, String caogery, int page, int limit, String user_id) {
+	public LayuiDataTable<FigClassshowVo> getListBypage(String isbm,String status, String caogery, int page, int limit, String user_id) {
 		// TODO Auto-generated method stub
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
 		List<FigClass> figClasses = new ArrayList<FigClass>();
 		int count = 0;
-		figClasses = figClassDao.getListBypage(status, caogery, (page-1)*limit, limit);
+		figClasses = figClassDao.getListBypage(isbm,user_id,status, caogery, (page-1)*limit, limit);
 		List<FigClassshowVo> figClassshowVos = new ArrayList<FigClassshowVo>();
 		if(figClasses!=null&&figClasses.size()>0){
 			for (FigClass figClass : figClasses) {
@@ -135,7 +136,7 @@ public class FigClassServiceImpl implements FigClassService {
 			}
 		}
 		fDataTable.setData(figClassshowVos);
-		count = figClassDao.getListCount(caogery, status);
+		count = figClassDao.getListCount(isbm,user_id,caogery, status);
 		fDataTable.setCount(count);
 		return fDataTable;
 	}
@@ -247,7 +248,10 @@ public class FigClassServiceImpl implements FigClassService {
 
 	public void deleteFigClass(String figclass_id, String user_id) {
 		// TODO Auto-generated method stub
-		
+		//创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		user_FigClassDao.deleteFig(user_id, APPLYDATE, figclass_id, user_id);
 	}
 
 	public String getByfilename(String filename) {
@@ -322,7 +326,7 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("2".equals(caogery)){//拼班
-			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage(status, "", page, limit, user_id);
+			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("",status, "", page, limit, user_id);
 			if(fDataTable!=null&&fDataTable.getData().size()>0){
 				for (FigClassshowVo figClassshowVo : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
@@ -350,15 +354,24 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_caogery(caog);
 					
 					memProjectVo.setProject_name(map.get("PROJECT_NAME").toString());
-					if("0".equals(caog)){//定制
+					if("0".equals(caog)){//定制   方案定制上面有天数   FREECO_DAY  课程定制没有  自由定制有天数   FREECO_DATANUM
+						if(map.get("PROJECT_DATANUM") == null){
+							if(map.get("PROJECT_DAY") == null){
+								memProjectVo.setProject_datanum("待定");
+							}
+							else 
+								memProjectVo.setProject_datanum(map.get("PROJECT_DAY").toString());
+						}
+						else
+							memProjectVo.setProject_datanum(map.get("PROJECT_DATANUM").toString());
+						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
+						
+					}else if ("1".equals(caog)){//规定  SCHEDULED_CLASS_START  SCHEDULED_CLASS_END
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
-					}else if ("1".equals(caog)){//规定
+					}else if("2".equals(caog)){//拼班  FIGCLASS_CLASS_START FIGCLASS_CLASS_END
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
-					}else if("2".equals(caog)){//拼班
-						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
-						memProjectVo.setProject_datanum("0");
 					}
 					memProjectVo.setProject_start(map.get("PROJECT_START").toString());
 					memProjectVo.setProject_allnum(map.get("PROJECT_ALLNUM").toString());
@@ -381,6 +394,23 @@ public class FigClassServiceImpl implements FigClassService {
 			
 		}
 		return mDataTable;
+	}
+
+	public void deleteFig(String figclass_id, IUser iuser) {
+		// TODO Auto-generated method stub
+		//删除拼班
+		//创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		figClassDao.deleteFig(figclass_id, iuser.getUser_id(), APPLYDATE);
+		user_FigClassDao.deleteFigClass(iuser.getUser_id(), APPLYDATE, figclass_id);
+	}
+
+	public int getCountByid(String FigClass_id) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		count = user_FigClassDao.getCountByid(null, FigClass_id);
+		return count;
 	}
 
 	//李  鹏   永

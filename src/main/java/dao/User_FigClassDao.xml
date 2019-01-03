@@ -62,15 +62,15 @@
 			<if test="status != null and status != '' ">
 				and FREECO_STATUS = #{status}
 			</if>
-	</select>
+	</select>-->
 	
-	<update id="deleteConstom" parameterType="String">
-		UPDATE FREE_COSTOM F
-			SET F.Freeco_ISDELETE = '1',
-				F.Freeco_UPDATER = #{updater},
-				F.Freeco_UPDATETIME = #{updatetime}
-				WHERE F.FREECO_ID=#{Constom_id} and F.Freeco_ISDELETE = '0'
-	</update> -->
+	<update id="deleteFig" parameterType="String">
+		UPDATE USER_FIGCLASS F
+			SET F.ISDELETE = '1',
+				F.UPDATER = #{updater},
+				F.UPDATETIME = #{updatetime}
+				WHERE F.FIGCLASS_ID=#{figclass_id} and F.CREATER = #{creater}
+	</update> 
 	<select id="getuserlist" parameterType="String" resultType="String">
 		select t.USERID from USER_FIGCLASS t where 
 		<if test="User_id != null and User_id != ''">
@@ -82,4 +82,12 @@
 	<select id="getUserByid" parameterType="String" resultType="String">
 		select distinct(f.creater) from user_figclass f where f.isdelete = '0' and f.figclass_id = #{FigClass_id}	
 	</select>
+	
+	<update id="deleteFigClass">
+		UPDATE USER_FIGCLASS F
+			SET F.ISDELETE = '1',
+				F.UPDATER = #{updater},
+				F.UPDATETIME = #{updatetime}
+				WHERE F.FIGCLASS_ID=#{figclass_id}
+	</update>
 </mapper>

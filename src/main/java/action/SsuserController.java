@@ -1,5 +1,7 @@
 package action;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,9 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,6 +72,7 @@ public class SsuserController {
 		//2、判断报名人数是否超过剩余人数
 		//获取规定班次剩余的人数
 		int allSign = 0;
+		allSign = Integer.valueOf(scheduledshift.getScheduled_class_pnumber())-ssuserService.getCount(scheduledshift.getScheduled_id());
 		// 获取上传的execl
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		// EUSER列表
@@ -77,6 +86,10 @@ public class SsuserController {
 		else if(list.size()>Integer.valueOf(Ssu_usernumber)){
 			resultmap.put("success", false);
 			resultmap.put("message", "3");//人员数量与execl不符合
+			return resultmap;
+		}else if(Integer.valueOf(Ssu_usernumber)>allSign){
+			resultmap.put("success", false);
+			resultmap.put("message", "5");//人员数量超出剩余人数
 			return resultmap;
 		}
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
@@ -168,6 +181,77 @@ public class SsuserController {
 		resultMap.put("success", true);
 		resultMap.put("message", "3");//取消报名成功
 		return resultMap;
+	}
+	
+	@RequestMapping("/exportUser/{ssuid}")
+	public void ExportUser(HttpServletRequest request,HttpServletResponse response,@PathVariable String ssuid){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = ssuserService.getListUserByid(iUser.getUser_id(), ssuid);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		for(int j=0;j<eUsers.size();j++){
+			EUser eUser = eUsers.get(j);
+			HSSFRow row = sheet.createRow(j+1);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(eUser.getEUser_name());
+			HSSFCell cell1 = row.createCell(1);
+			String sex = eUser.getEUser_sex();
+			if("0".equals(sex)){
+				cell1.setCellValue("男");
+			}else if("1".equals(sex)){
+				cell1.setCellValue("女");
+			}
+			
+			HSSFCell cell2 = row.createCell(2);
+			cell2.setCellValue(eUser.getEUser_companyname());
+			HSSFCell cell3 = row.createCell(3);
+			cell3.setCellValue(eUser.getEUser_department());
+			HSSFCell cell4 = row.createCell(4);
+			cell4.setCellValue(eUser.getEUser_hold());
+			HSSFCell cell5 = row.createCell(5);
+			cell5.setCellValue(eUser.getEUser_indentitynumber());
+			HSSFCell cell6 = row.createCell(6);
+			cell6.setCellValue(eUser.getEUser_phone());
+			HSSFCell cell7 = row.createCell(7);
+			cell7.setCellValue(eUser.getEUser_remark());
+			
+		}
+		
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
 	}
 	
 	

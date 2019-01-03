@@ -22,9 +22,10 @@ public class ExcelUtil {
 	private final static String excel2003L = ".xls"; // 2003- 版本的excel
 	private final static String excel2007U = ".xlsx"; // 2007+ 版本的excel
  
+	@SuppressWarnings("finally")
 	public List<List<Object>> getBankListByExcel(MultipartFile file){
 		if(file != null){
-			InputStream in = null;
+			/*InputStream in = null;
 			try {
 				in = file.getInputStream();
 			} catch (IOException e) {
@@ -34,15 +35,18 @@ public class ExcelUtil {
 				if(in != null){
 					try {
 						in.close();
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					}finally{
+						return null;
 					}
 				}
-			}
+			}*/
 			String filename = file.getOriginalFilename();
 			try {
-				return getBankListByExcel(in, filename);
+				return getBankListByExcel(file, filename);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -57,11 +61,11 @@ public class ExcelUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<List<Object>> getBankListByExcel(InputStream in, String fileName) throws Exception {
+	public List<List<Object>> getBankListByExcel(MultipartFile file, String fileName) throws Exception {
 		List<List<Object>> list = null;
  
 		// 创建Excel工作薄
-		Workbook work = this.getWorkbook(in, fileName);
+		Workbook work = this.getWorkbook(file.getInputStream(), fileName);
 		if (null == work) {
 			throw new Exception("创建Excel工作薄为空！");
 		}

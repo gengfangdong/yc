@@ -529,7 +529,7 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
-			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
+			      {field:'course_id', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false
@@ -542,7 +542,7 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['963px', '430px'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
@@ -588,25 +588,7 @@
 				    page: false
 				  }); 
 			  
-				//监听工具条    课程
-					 table.on('tool(user)', function(obj){
-					    var data = obj.data;
-					    if(obj.event === 'show'){
-					    	layer.open({
-								type: 2, //此处以iframe举例
-								title: '查看',
-								area: ['1063px', '530px'],
-								shade: 0,
-								maxmin: true,
-								offset: [0, 0],
-								content: '。。/admin/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
-								zIndex: layer.zIndex, //重点1
-								success: function(layero) {
-									layer.setTop(layero); //重点2
-								}
-							});
-					     }  
-					  });
+				
 			//监听工具条     方案
 				 table.on('tool(user2)', function(obj){
 				    var data = obj.data;
@@ -614,11 +596,11 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['963px', '430px'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: '../../adminPage/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2

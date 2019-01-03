@@ -119,7 +119,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="courseCatalogueSave();">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
 								</div>
 							</div>
 						</div>
@@ -185,6 +185,7 @@
 					}
 				})
    	 		};
+
 		</script>
 
 	</body>

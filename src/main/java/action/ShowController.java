@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,14 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import entity.ClassPlanVo;
+import entity.CourseVo;
 import entity.Culture;
 import entity.DatatablesViewPage;
 import entity.Expert;
+import entity.FigClassVo;
+import entity.FigClassshowVo;
 import entity.IUser;
 import entity.LayuiDataTable;
 import entity.News;
@@ -31,8 +38,11 @@ import entity.ScheduledShiftShow;
 import entity.Solution;
 import entity.Tax;
 import entity.Teaching;
+import service.ClassPlanService;
+import service.CourseService;
 import service.CultureService;
 import service.ExpertService;
+import service.FigClassService;
 import service.NewsService;
 import service.NoticeService;
 import service.ProjectService;
@@ -66,6 +76,15 @@ public class ShowController {
 	private NoticeService noticeService;
 	@Autowired
 	private RulesService rulesService;
+	@Autowired
+	private FigClassService figClassService;
+	@Autowired
+	private ScheduledshiftService scheduledshiftService;
+	@Autowired
+	private ClassPlanService classPlanService;
+	@Autowired
+	private CourseService courseService;
+	
 	/**
 	 * 培养列表获取
 	 * @param draw
@@ -561,8 +580,140 @@ public class ShowController {
 		sDataTable.setMsg("");
 		return sDataTable;
 	}
+	/**
+	 * 分页查看 根据类型和状态筛选
+	 * @param page
+	 * @param limit
+	 * @param caogery
+	 * @param status
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/LayFigad")
+	public LayuiDataTable<FigClassshowVo> getLayBypagead(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
+			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			HttpServletRequest request) {
+		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
+		fDataTable = figClassService.getListBypage("",status, caogery, page, limit, "");
+		fDataTable.setCode(0);
+		fDataTable.setMsg("");
+		return fDataTable;
+	}
 	
+	@RequestMapping("/getRegulationClasses")
+	@ResponseBody
+	public LayuiDataTable<ScheduledShiftShow> getAdminBer(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam(value="status",required=false,defaultValue="")String status,HttpServletRequest request){
+		//结果集
+		LayuiDataTable<ScheduledShiftShow> sDataTable = new LayuiDataTable<ScheduledShiftShow>();
+		
+		
+		sDataTable = scheduledshiftService.getAdminScByPage(page, limit, status);
+		sDataTable.setCode(0);
+		sDataTable.setMsg("");
+		return sDataTable;
+	}
 	
+	/**
+	 * 根据id获取详情
+	 * @param Constom_id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/getDetailByid")
+	public Map<String, Object> getDetailByid(String FigClass_id, HttpServletRequest request) {
+		// 结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		/*// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}*/
+		/*// 获取定制班次实例
+		Free_constom free_constom = new Free_constom();
+		free_constom = constomService.getDetailByid(Constom_id);
+		if (free_constom == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 当前定制班次不存在
+			return resultMap;
+		}*/
+		FigClassVo figClassVo = new FigClassVo();
+		figClassVo = figClassService.getDetail(FigClass_id);
+		if (figClassVo == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 当前定制班次不存在
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("data", figClassVo);// 定制班次详情
+		return resultMap;
+	}
 	
+	/**
+	 * 返回课程方案列表  不分页  拼班id
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistnopagef/{figClass_id}")
+	@ResponseBody
+	public LayuiDataTable<ClassPlanVo> GetlistNoPageByf(@RequestParam("page")int start,@RequestParam("limit")int length,@PathVariable String figClass_id ){
+		//DataTables  返回实例
+		LayuiDataTable<ClassPlanVo> cDataTable = new LayuiDataTable<ClassPlanVo>();
+		cDataTable = classPlanService.getListNoPageByIdf(figClass_id);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
+	/**
+	 * layui 接口
+	 * @param First_course
+	 * @param Second_course
+	 * @param page
+	 * @param limit
+	 * @return
+	 */
+	@RequestMapping(value="/getlistLay/{figClass_id}")
+	@ResponseBody
+	public LayuiDataTable<CourseVo> getListBypageLay(@PathVariable String figClass_id,@RequestParam(value="First_course",required=false)String First_course,
+			@RequestParam(value="Second_course",required=false)String Second_course,@RequestParam("page")int page,@RequestParam("limit")int limit){
+		LayuiDataTable<CourseVo> cDataTable = new LayuiDataTable<CourseVo>();
+		cDataTable = courseService.gnpDataTableBYfid(page, limit, First_course, Second_course,figClass_id);
+		cDataTable.setCode(0);
+		cDataTable.setMsg("");
+		return cDataTable;
+	}
 	
+	/**
+	 * 获取二级目录 根据一级目录
+	 * @param First_course
+	 * @return
+	 */
+	@RequestMapping("/getSecond")
+	@ResponseBody
+	public Map<String,Object> getSecondByFirst(@RequestParam("First_course")String First_course){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		/*if(StringUtil.isblack(First_course)){
+			resultMap.put("success", false);
+			resultMap.put("msg", "0");//参数错误
+			return resultMap;
+		}*/
+		
+		List<String> secondList = new ArrayList<String>();
+		secondList = courseService.getsecond(First_course);
+		if(secondList == null || secondList.size()==0){
+			resultMap.put("success", false);
+			resultMap.put("msg", "1");//没有数据
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("data", secondList);
+		return resultMap;
+	}
 }

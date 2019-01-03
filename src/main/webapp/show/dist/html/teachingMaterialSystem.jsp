@@ -367,7 +367,7 @@
 						</ul>
 
 					</div>
-					<div style="height: 40px;">
+					<div style="height: 40px;" id="pagesid">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
 								<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
 						
@@ -565,6 +565,15 @@
 							datas=data.data
 // 							if(data.success == true){
 							var zz =new Array(datas.length);
+							if(datas.length == 0){
+								document.getElementById("teachingSystemul").innerHTML=""//全部清空
+								var div =document.createElement("li")//建立div对象
+								div.innerHTML="暂无教材体系!";//建立显示元素
+								document.getElementById("teachingSystemul").appendChild(div)//加入all中 
+							
+								document.getElementById("pagesid").style.display="none";
+								return;
+							}
 							for(var i=0;i <datas.length;i++){ 
 								zz[i]= '<span class="teachingMaterialSystemDate">'+datas[i].teaching_Release_time+'</span> ●&nbsp;&nbsp;<a href=\"teachingMaterialSystem_content.jsp?teaching_id='+datas[i].teaching_id+'\">'+datas[i].teaching_titile+'</a>'
 						    } //div的字符串数组付给zz

@@ -466,7 +466,6 @@
 			  });
 			  var $ = layui.$, active = {
 			    reload: function(){
-				    var demoReload = $('#demoReload');
 				    var status = $("#firstObj").val();
 				    var category = $("#secondObj").val();
 					if(status == '报名未开始'){

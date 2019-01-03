@@ -169,6 +169,11 @@ public class IUserController {
 			resultmap.put("msg", "0");//登录失败
 			return resultmap;
 		}
+		else if("0".equals(iUser.getUser_status())){
+			resultmap.put("success", false);
+			resultmap.put("msg", "1");//用户被锁定
+			return resultmap;
+		}
 		iUser.setUser_password("");
 		HttpSession session = request.getSession();
 		session.setAttribute("user", iUser);
@@ -204,18 +209,23 @@ public class IUserController {
 			resultmap.put("success", false);
 			resultmap.put("msg", "0");//登录失败
 			return resultmap;
+		}else if("0".equals(iUser.getUser_status())){
+			resultmap.put("success", false);
+			resultmap.put("msg", "1");//用户被锁定
+			return resultmap;
 		}
 		iUser.setUser_password("");
 		HttpSession session = request.getSession();
 		session.setAttribute("user", iUser);
 		session.setMaxInactiveInterval(30 * 60);
 		if("0".equals(iUser.getIsadmin())){
+			resultmap.put("success", true);
 			resultmap.put("msg", "1");//登录失败
 		}
 		else if("1".equals(iUser.getIsadmin())){
+			resultmap.put("success", true);
 			resultmap.put("msg", "2");//登录失败
 		}
-		resultmap.put("success", true);
 		
 		return resultmap;
 	}

@@ -606,5 +606,11 @@
 	#selectBtn_regulation{
 		margin-left:20px;
 	}
+	.nav-contain .nav-inner .am-nav li a:hover{
+		color:#FF2F2F!important;
+	}
+	.nav-contain .nav-inner .am-nav li a{
+		font-size:16px;
+	}
 	
 }

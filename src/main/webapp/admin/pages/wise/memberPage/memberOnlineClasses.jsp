@@ -327,17 +327,17 @@
 		    elem: '#LAY_table_user',
 		    url: '<%=request.getContextPath()%>/FigClass/LayFig',
 		    cols: [[
-			  {type:'numbers',title:"序号"},
-		      {field:'figClass_name', title: '班级名称'},
-		      {field:'figClass_start', title: '报名开始时间'},
-		      {field:'figClass_end', title: '报名截止时间'},
-		      {field:'figClass_class_start', title: '开课日期'},
-		      {field:'figClass_class_end', title: '结课日期'},
-		      {field:'figClass_pernum', title: '班级容纳人数'},
-		      {field:'figClass_number', title: '可拼人数'},
-		      {field:'figClass_status', title: '班次状态',templet:'#typestatus'},
-		      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus'},
-		      {field:'figClass_id', title: '操作',toolbar: '#barDemo'}
+			  {type:'numbers',title:"序号",minWidth:90},
+		      {field:'figClass_name', title: '班级名称',minWidth:140},
+		      {field:'figClass_start', title: '报名开始时间',minWidth:160},
+		      {field:'figClass_end', title: '报名截止时间',minWidth:160},
+		      {field:'figClass_class_start', title: '开课日期',minWidth:120},
+		      {field:'figClass_class_end', title: '结课日期',minWidth:120},
+		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
+		      {field:'figClass_number', title: '可拼人数',minWidth:120},
+		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+		      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
+		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
 		    ]],
 		    id: 'testReload',
 		    page: true
@@ -360,33 +360,7 @@
 						layer.setTop(layero); //重点2
 					}
 				});
-		    } else if(obj.event === 'cancel'){
-		      	layer.confirm('确认取消报名？', function(index){
-		      		$.ajax({
-						url : '<%=request.getContextPath()%>/Course/deleteCourse',
-						type : 'post',
-						dataType:"json",
-						data:{
-							Course_id:data.course_id
-						},
-						success : function(data) {
-							if(data.message == "0"){
-								layer.alert("参数错误!");
-							}
-							else if(data.message == "1"){
-								layer.alert("获取班次名称失败!");
-							}
-							else if(data.message == "2"){
-								layer.alert("报名已取消!");
-							}
-						},
-						error : function(error) {
-							console.log('接口不通' + error);
-						}
-					});	
-		        layer.close(index);
-		      });
-		    } else if(obj.event === 'delete'){
+		    }else if(obj.event === 'delete'){
 		      	layer.confirm('确认删除该条记录？', function(index){
 		      		$.ajax({
 						url : '<%=request.getContextPath()%>/Course/deleteCourse',
@@ -404,6 +378,52 @@
 							}
 							else if(data.message == "2"){
 								layer.alert("删除成功!");
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        layer.close(index);
+		      });
+		    }else if(obj.event === 'cancel'){
+		      	layer.confirm('确认取消报名?', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/FigClass/cancel',
+						type : 'post',
+						dataType:"json",
+						data:{
+							Figclass_id:data.figClass_id
+						},
+						success : function(data) {
+							if(data.message == "0"){
+								layer.confirm('参数错误!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
+							}
+							else if(data.message == "1"){
+								
+								layer.confirm('获取班次名称失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
+							}
+							else if(data.message == "2"){
+								
+								layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 						},
 						error : function(error) {
@@ -465,13 +485,41 @@
 									success:function(data){
 										if(data.success == true){
 											if(data.message == "5"){
-												layer.alert("上传成功!");
+												
+												layer.confirm('上传成功!', { title:'提示'}, function(index){
+													  
+													window.parent.location.reload();
+													var index1 = parent.layer.getFrameIndex(window.name);
+													parent.layer.close(index1);
+													console.log(error);
+												});
 											}
 										}
 										else if(data.message == "4"){
-											layer.alert("excel存在身份证重复!");
+
+											layer.confirm('excel存在身份证重复!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
 										}else if(data.message == "2"){
-											layer.alert(" execl无数据!");
+											layer.confirm('excel无数据!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}else if(data.message == "3"){
+											layer.confirm('名单人员数量超出剩余拼班人数!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
 										}
 									},
 									error:function(data){
@@ -499,28 +547,28 @@
 		    var status = $("#firstObj").val();
 			var isEntry = $("#secondObj").val();
 			if(status == '待审核'){
-				status = 0;
+				status = '0';
 			}else if(status == '审核未通过'){
-				status = 1;
+				status = '1';
 			}else if(status == '报名未开始'){
-				status = 2;
+				status = '2';
 			}else if(status == '报名进行中'){
-				status = 3;
+				status = '3';
 			}else if(status == '待开课'){
-				status = 4;
+				status = '4';
 			}else if(status == '开课中'){
-				status = 5;
+				status = '5';
 			}else if(status == '已结课'){
-				status = 6;
+				status = '6';
 			}else if(status == '全部'){
 				status = "";
 			}
 	        if(isEntry=="全部"){
 				isEntry = "";
 			}else if(isEntry=="未报名"){
-				isEntry = 0;
+				isEntry = '0';
 			}else if(isEntry=="已报名"){
-				isEntry = 1;
+				isEntry = '1';
 			}
 		      //执行重载
 		      table.reload('testReload', {
@@ -530,7 +578,7 @@
 		        method:'post',
 		        where: {
 	        	    status:status,
-					isEntry:isEntry
+					isbm:isEntry
 		        }
 		      });
 		    }
@@ -601,6 +649,7 @@
 	        	{{#  } else if(d.user_status == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>

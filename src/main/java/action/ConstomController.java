@@ -271,7 +271,8 @@ public class ConstomController {
 			resultMap.put("message", "1");// 当前定制班次不存在
 			return resultMap;
 		}
-
+		//获取最大人数
+		int maxnumber = Integer.valueOf(String.valueOf(free_constom.getFreeco_pernum()));
 		// 获取上传的excel
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		// EUSER列表
@@ -281,7 +282,7 @@ public class ConstomController {
 			resultMap.put("success", false);
 			resultMap.put("message", "2");// execl无数据
 			return resultMap;
-		} else if (list.size() > Integer.valueOf(free_constom.getFreeco_pernum())) {
+		} else if (list.size() > maxnumber) {
 			resultMap.put("success", false);
 			resultMap.put("message", "3");// 人员数量与execl不符合
 			return resultMap;

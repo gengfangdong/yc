@@ -348,19 +348,50 @@
 			  table.on('tool(user)', function(obj){
 			    var data = obj.data;
 			    if(obj.event === 'detail'){
-			    	layer.open({
-						type: 2, //此处以iframe举例
-						title: '报名',
-						area: ['1063px', '530px'],
-						shade: 0,
-						maxmin: true,
-						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
-						zIndex: layer.zIndex, //重点1
-						success: function(layero) {
-							layer.setTop(layero); //重点2
-						}
-					});
+			    	if(data.project_caogery == '0'){//定制
+			    		layer.open({
+							type: 2, //此处以iframe举例
+							title: '查看',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/showCustomProject.jsp?constom_id='+data.project_id,
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+			    	}else if(data.project_caogery == '2'){//拼班
+			    		layer.open({
+							type: 2, //此处以iframe举例
+							title: '查看',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/showOnlieClasses.jsp?figClass_id='+data.project_id,
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+			    	}else if(data.project_caogery == '1'){//规定
+			    		layer.open({
+							type: 2, //此处以iframe举例
+							title: '查看',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/showprescribedShift.jsp?scheduled_id='+data.project_id,
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+			    	}
+			    	
 			    } else if(obj.event === 'del'){
 			      	layer.confirm('确认取消报名？', function(index){
 			      		$.ajax({
@@ -453,26 +484,40 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
+			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
   			{{#  if(d.project_status == '0'){ }}
-		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+		        
 		        <a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-		        <a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-	        {{#  } else if(d.project_status == "1"){ }}
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-
-			{{#  } }}
-
-  			{{#  if(d.project_status == '0'){ }}
-		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-	        {{#  } else if(d.project_status == ""){ }}
-				
-			{{#  } }}
+				{{#  if(d.project_caogery == "0"){ }}
+		        	<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消定制</a>
+				{{#  } else if(d.project_caogery == "1"){ }}
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消报名</a>
+				{{#  } else if(d.project_caogery == "2"){ }}
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+				{{#  } }}
+	        {{#  } else if(d.project_status == "2"){ }}
+				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">更新报名</a>
+			{{# } }}
+		
+			{{#  if(d.project_caogery == "2"){ }}
+	       	  	{{#  if(d.project_status == "5"){ }}
+	      		 	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">删除</a>
+	    	 	{{# } }}
+	     	{{#  }else if(d.project_caogery=="1"){ }}
+	     		{{#  if(d.project_status == "2"){ }}
+	      		  	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">删除</a>
+	    	 	{{# } }}
+	     	{{#  }else if(d.project_caogery=="0"){ }} 
+	     	 	{{#  if(d.project_status == "4"){ }}
+	      			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">删除</a>
+	    	 	{{# } }}
+	     	{{# } }}
 		</script>
 
  		<script type="text/html" id="caogery">
-	     {{#  if(d.project_caogery == "1"){ }}
-	        拼班班次
-	     {{#  }else if(d.project_caogery=="2"){ }}
+	     {{#  if(d.project_caogery == "2"){ }}
+	                            拼班班次
+	     {{#  }else if(d.project_caogery=="1"){ }}
 	     	规定班次
 	     {{#  }else if(d.project_caogery=="0"){ }}
 	     	定制班次
@@ -480,16 +525,40 @@
  		</script>
 
  		<script type="text/html" id="typestatus">
-	     {{#  if(d.project_status == "1"){ }}
-	        审核通过
-	     {{#  }else if(d.project_status=="2"){ }}
-	     	审核未通过
-	     {{#  }else if(d.project_status=="3"){ }}
-	     	开班中
-	     {{#  }else if(d.project_status=="4"){ }}
-	     	结课
-	     {{#  }else if(d.project_status=="0"){ }}
-	     	未审核
+		{{#  if(d.project_caogery == "2"){ }}
+	         {{#  if(d.project_status == "1"){ }}
+	      		  报名未开始
+	     	{{#  }else if(d.project_status=="2"){ }}
+	    	 	审核未通过
+	     	{{#  }else if(d.project_status=="3"){ }}
+	     		报名进行中
+	     	{{#  }else if(d.project_status=="4"){ }}
+	     		待开课
+			{{#  }else if(d.project_status=="4"){ }}
+	     		开课中
+	    	 {{#  }else if(d.project_status=="0"){ }}
+	     		未审核
+	    	 {{# } }}
+	     {{#  }else if(d.project_caogery=="1"){ }}
+	     	{{#  if(d.project_status == "3"){ }}
+	      		  进行中
+	     	{{#  }else if(d.project_status=="4"){ }}
+	    	 	已结束
+	    	 {{#  }else{ }}
+	     		未开课
+	    	 {{# } }}
+	     {{#  }else if(d.project_caogery=="0"){ }} 
+	     	 {{#  if(d.project_status == "1"){ }}
+	      		  审核通过
+	     	 {{#  }else if(d.project_status=="2"){ }}
+	    	 	审核未通过
+	     	 {{#  }else if(d.project_status=="3"){ }}
+	     		开班中
+	     	 {{#  }else if(d.project_status=="4"){ }}
+	     	 	结课
+	    	 {{#  }else if(d.project_status=="0"){ }}
+	     		未审核
+	    	 {{# } }}
 	     {{# } }}
  		</script>
 	</body>

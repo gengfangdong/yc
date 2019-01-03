@@ -84,7 +84,15 @@
 							 window.open('<%=request.getContextPath()%>/admin/pages/wise/adminPage','_blank');
 						}
 						
+					}else if(data.success == false){
+						if(data.msg == "0"){
+							alert("登录失败,请检查用户名和密码是否正确!");
+						}
+						else if(data.msg == "1"){
+							alert("登录失败,用户已被锁定!");
+						}
 					}
+						
 						
 				},
 				error : function(error) {

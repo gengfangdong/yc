@@ -51,6 +51,12 @@
 			option {
 				color: black;
 			}
+			/* .layui-table-box{
+				overflow: auto!important;
+			}
+			.layui-table-header,.layui-table-body{
+				overflow: hidden!important;
+			} */
 		</style>
 	</head>
 
@@ -379,18 +385,18 @@
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:40},
 			      {field:'d.scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
-			      {field:'scheduledshift.createtime', title: '发布日期',minWidth:160,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>'},
-			      {field:'dataNumber', title: '举办天数'},
-			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>'},
-			     {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>'},
-			      {field:'number', title: '已报名人数'},
-			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'scheduledshift.createtime', title: '发布日期',templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>',minWidth:140,style:'min-width:140px;'},
+			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
+			      {field:'dataNumber', title: '举办天数',minWidth:120},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:140},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:140},
+			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
+			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
+			     {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:140},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
+			      {field:'number', title: '已报名人数',minWidth:140},
+			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
+			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:200}
 			    ]],
 			    id: 'testReload',
 			    page: true

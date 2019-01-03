@@ -49,6 +49,12 @@
 			option{
 				color: black;
 			}
+			#export a{
+				color:#fff;
+			}
+			#export a:hover{
+				color:#fff!important;
+			}
 		</style>
 	</head>
 
@@ -210,6 +216,7 @@
 																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 																				<li><button href="#" class="add" id="import" >导入</button></li>
 																				<li><button href="" class="add" id="export" onclick ><a href="<%=request.getContextPath()%>/EUser/exportUser">导出</a></button></li>
+																				<li><label style="margin-top:5px;">注：若导入时存在已被导入的身份证号，数据以导入数据为准</label></li>
 																			</ul>
 																		</div>
 																	</div>
@@ -218,72 +225,10 @@
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;" lay-filter="user">
 																					<thead>
-																						<!-- <tr>
-																							<th style="text-align: center;">序号</th>
-																							<th style="text-align: center;">姓名</th>
-																							<th style="text-align: center;">单位</th>
-																							<th style="text-align: center;">部门</th>
-																							<th style="text-align: center;">岗位</th>
-																							<th style="text-align: center;">职务</th>
-																							<th style="text-align: center;">性别</th>
-																							<th style="text-align: center;">出生日期</th>
-																							<th style="text-align: center;">身份证号</th>
-																							<th style="text-align: center;">联系电话</th>
-																							<th style="text-align: center;">操作</th>
-																						</tr> -->
+																						
 																					</thead>
 																					<tbody>
-																						<!-- <tr>
-																							<td style="text-align: center;">1</td>
-																							<td>张三</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>科员</td>
-																							<td>男</td>
-																							<td>1983/11/04</td>
-																							<td>123456198309270043</td>
-																							<td>13312341234</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>张三</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>科员</td>
-																							<td>男</td>
-																							<td>1983/11/04</td>
-																							<td>123456198309270043</td>
-																							<td>13312341234</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>张三</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>科员</td>
-																							<td>男</td>
-																							<td>1983/11/04</td>
-																							<td>123456198309270043</td>
-																							<td>13312341234</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr> -->
+																						
 																					</tbody>
 																				</table>
 																			</div>
@@ -386,16 +331,16 @@
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/EUser/getlistLay',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
+				  {type:'numbers',title:"序号",minWidth:90},
 			      {field:'euser_id', title: 'ID',style:'display:none;'},
-			      {field:'euser_name', title: '姓名'},
-			      {field:'euser_sex', title: '性别',templet:'#typeBar'},
-			      {field:'euser_companyname', title: '工作单位'},
-			      {field:'euser_department', title: '部门'},
-			      {field:'euser_hold', title: '职务'},
-			      {field:'euser_indentitynumber', title: '身份证号'},
-			      {field:'euser_phone', title: '联系方式'},
-			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'euser_name', title: '姓名',minWidth:90},
+			      {field:'euser_sex', title: '性别',templet:'#typeBar',minWidth:90},
+			      {field:'euser_companyname', title: '工作单位',minWidth:140},
+			      {field:'euser_department', title: '部门',minWidth:90},
+			      {field:'euser_hold', title: '职务',minWidth:90},
+			      {field:'euser_indentitynumber', title: '身份证号',minWidth:200},
+			      {field:'euser_phone', title: '联系方式',minWidth:140},
+			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:160}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -419,7 +364,7 @@
 						}
 					});
 			    } else if(obj.event === 'del'){
-			      	layer.confirm('真的删除行么', function(index){
+			      	layer.confirm('真的删除该数据吗？', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/EUser/deleteEUser',
 							type : 'post',
@@ -435,7 +380,12 @@
 									layer.alert("获取人员失败!");
 								}
 								else if(data.message == "2"){
-									layer.alert("删除成功!");
+									layer.confirm('删除成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								
 							},
