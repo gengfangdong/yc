@@ -1,5 +1,6 @@
 package action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -30,11 +31,14 @@ import org.springframework.web.multipart.MultipartFile;
 import entity.ConstomVo;
 import entity.Constomfile;
 import entity.EUser;
+import entity.FigClass;
+import entity.Figfile;
 import entity.Free_constom;
 import entity.IUser;
 import entity.LayuiDataTable;
 import entity.UploadFilevo;
 import service.ConstomService;
+import service.FigClassService;
 import util.ExcelUtil;
 import util.FileUtil;
 import util.StringUtil;
@@ -45,6 +49,9 @@ import util.UUIDUtil;
 public class ConstomController {
 	@Autowired
 	private ConstomService constomService;
+	@Autowired
+	private FigClassService figClassService;
+	
 	
 	/**
 	 * 新增定制班次
@@ -78,7 +85,7 @@ public class ConstomController {
 			return resultMap;
 		}
 		
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = simpleDateFormat.format(new Date());
 		//构建对象
 		Free_constom free_constom = new Free_constom();
@@ -233,7 +240,7 @@ public class ConstomController {
 			resultMap.put("message", "1");//当前定制班次不存在
 			return resultMap;
 		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String updatetime = dateFormat.format(new Date());
 		String updater = iUser.getUser_id();
 		constomService.updateReview(Constom_id, review_result, updater, updatetime);
@@ -593,5 +600,211 @@ public class ConstomController {
 	   
 	}
 	
-	
+    @RequestMapping("/exportUserad/{constom_id}")
+   	public void ExportUserad(HttpServletRequest request,HttpServletResponse response,@PathVariable String constom_id){
+   		//获取登录用户
+   		IUser iUser = new IUser();
+   		iUser = (IUser)request.getSession().getAttribute("user");
+   		List<EUser> eUsers = new ArrayList<EUser>();
+   		eUsers = constomService.getListUserByid("", constom_id);
+   		//导出excel
+   		
+   		HSSFWorkbook wb = new HSSFWorkbook();
+   		HSSFSheet sheet = wb.createSheet();
+   		HSSFRow row1 = sheet.createRow(0);//标题行
+   		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+   		for(int i=0;i<8;i++){
+   			HSSFCell cell = row1.createCell(i);
+   			cell.setCellValue(titleValue[i]);
+   		}
+   		for(int j=0;j<eUsers.size();j++){
+   			EUser eUser = eUsers.get(j);
+   			HSSFRow row = sheet.createRow(j+1);
+   			HSSFCell cell = row.createCell(0);
+   			cell.setCellValue(eUser.getEUser_name());
+   			HSSFCell cell1 = row.createCell(1);
+   			String sex = eUser.getEUser_sex();
+   			if("0".equals(sex)){
+   				cell1.setCellValue("男");
+   			}else if("1".equals(sex)){
+   				cell1.setCellValue("女");
+   			}
+   			
+   			HSSFCell cell2 = row.createCell(2);
+   			cell2.setCellValue(eUser.getEUser_companyname());
+   			HSSFCell cell3 = row.createCell(3);
+   			cell3.setCellValue(eUser.getEUser_department());
+   			HSSFCell cell4 = row.createCell(4);
+   			cell4.setCellValue(eUser.getEUser_hold());
+   			HSSFCell cell5 = row.createCell(5);
+   			cell5.setCellValue(eUser.getEUser_indentitynumber());
+   			HSSFCell cell6 = row.createCell(6);
+   			cell6.setCellValue(eUser.getEUser_phone());
+   			HSSFCell cell7 = row.createCell(7);
+   			cell7.setCellValue(eUser.getEUser_remark());
+   			
+   		}
+   		
+   		//输出Excel文件
+   	    OutputStream output;
+   		try {
+   			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+   			response.setContentType("application/x-download");
+   			response.setCharacterEncoding("UTF-8");
+   			output = response.getOutputStream();
+   			wb.write(output);
+   			output.flush();// 刷新流  
+   			output.close();
+   			wb.close();
+   		} catch (IOException e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   			try {
+   				wb.close();
+   			} catch (IOException e1) {
+   				// TODO Auto-generated catch block
+   				e1.printStackTrace();
+   			}
+   		}finally{
+   			//logger.info("yes");
+   		}
+   	   
+   	}
+   	/**
+   	 * 定制人数改变以后 变成拼班
+   	 * @param constom_id
+   	 * @param file
+   	 * @param oldfilename
+   	 * @param Constom_name
+   	 * @param Constom_data
+   	 * @param Constom_datanum
+   	 * @param Constom_pernum
+   	 * @param Constom_address
+   	 * @param Constom_person
+   	 * @param Constom_phone
+   	 * @param Constom_outline
+   	 * @param Constom_gaoery
+   	 * @param figClass_class_end
+   	 * @param figClass_class_start
+   	 * @param figClass_department
+   	 * @param figClass_end_date
+   	 * @param figClass_start_date
+   	 * @param request
+   	 * @return
+   	 */
+   	@RequestMapping("/updateFig")
+   	public Map<String,Object> TranToFig(String constom_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+			String Constom_name,String Constom_data,
+			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
+			String Constom_pernum,String Constom_address,
+			String Constom_person,String Constom_phone,
+			String[] Constom_outline,String Constom_gaoery,
+			String figClass_class_end,String figClass_class_start,
+			String figClass_department,String figClass_end_date,
+			String figClass_start_date,
+			HttpServletRequest request){
+   		//结果集
+   		Map<String,Object> resultMap = new HashMap<String, Object>();
+   		IUser iuser = new IUser();
+   		iuser = (IUser)request.getSession().getAttribute("user");
+   		//构建拼班实体
+   		FigClass figClass = new FigClass();
+   		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+   		String CreateDate = simpleDateFormat.format(new Date());
+   		String uuid = UUIDUtil.getUUid("fig");
+   		figClass.setFigClass_address(Constom_address);//举办地点
+   		figClass.setFigClass_caogery(Constom_gaoery);//类别
+   		figClass.setFigClass_creater(iuser.getUser_id());//创建人
+   		figClass.setFigClass_class_end(figClass_class_end);//结课日期
+   		figClass.setFigClass_class_start(figClass_class_start);//开课日期
+   		figClass.setFigClass_createtime(CreateDate);//创建日期
+   		figClass.setFigClass_deparment(figClass_department);//举办单位
+   		figClass.setFigClass_end_date(figClass_end_date);//报名截止日期
+   		figClass.setFigClass_id(uuid);
+   		figClass.setFigClass_isdelete("0");
+   		figClass.setFigClass_isdelete(Constom_name);
+   		figClass.setFigClass_numstatus("0");
+   		StringBuffer outline = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(Constom_gaoery)||"1".equals(Constom_gaoery)){
+			//课程和方案走同一个方法
+			if(Constom_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_outline) {
+				outline.append(string+",");
+			}
+		}
+		else {
+			// 课程和方案走同一个方法
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[0] + ",");
+		}
+		if (!"".equals(outline)) {
+			figClass.setFigClass_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		figClass.setFigClass_pernum(Constom_pernum);//容纳人数
+		figClass.setFigClass_phone(Constom_phone);//联系电话
+		figClass.setFigClass_start_date(figClass_start_date);//报名开始日期
+		figClass.setFigClass_updater(iuser.getUser_id());
+		figClass.setFigClass_updatetime(CreateDate);
+		// 批量上传文件
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+
+		FileUtil fileUtil = new FileUtil();
+		List<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
+		
+		Free_constom free_constom = new Free_constom();
+		free_constom = constomService.getDetailByid(constom_id);
+		
+		for (Constomfile constomfile : free_constom.getConstomFiles()) {
+			MultipartFile multipartFile = fileUtil.getFileByname(request.getSession().getServletContext().getRealPath("/constomfile")+"\\"+constomfile.getNewfilename());
+			multipartFiles.add(multipartFile);
+		}
+		boolean flag = fileUtil.uploadbatch(uploadFilevos, multipartFiles,
+				request.getSession().getServletContext().getRealPath("/figclassfile"));
+		if (flag == false) {
+			resultMap.put("success", false);
+			resultMap.put("message", "2");// 文件上传失败
+			return resultMap;
+		}
+		List<Figfile> figfiles = new ArrayList<Figfile>();
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Figfile figfile = new Figfile();
+			figfile.setCreater(iuser.getUser_id());
+			figfile.setCreatetime(CreateDate);
+			figfile.setIsdelete("0");
+			figfile.setOldfilename(uploadfile.getOldfilename());
+			figfile.setNewfilename(uploadfile.getFilename());
+			figfile.setFigClass_id(uuid);
+			figfiles.add(figfile);
+		}
+		try{
+			figClassService.insertFig(figClass, figfiles);
+		}catch(Exception exception){
+			exception.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "3");// 转换失败
+			return resultMap;
+		}
+		try{
+			constomService.deleteConstom(constom_id, iuser.getUser_id());
+		}catch(Exception exception){
+			exception.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "4");// 删除失败
+			return resultMap;
+		}
+
+		resultMap.put("success", true);
+		resultMap.put("message", "5");// 修改成功
+		return resultMap;
+   		
+   	}
 }

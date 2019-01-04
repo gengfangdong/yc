@@ -122,7 +122,7 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 		LayuiDataTable<ScheduledShiftShow> sLayuiDataTable = new LayuiDataTable<ScheduledShiftShow>();
 		List<ScheduledShiftShow> scheduledShiftShows = new ArrayList<ScheduledShiftShow>();
 		List<Map<String,Object>> scheduledMap = new ArrayList<Map<String, Object>>();
-		scheduledMap = scheduledshiftDao.getLastNumber((start-1)*limit, limit,user_id,scstatus,memstatus);
+		scheduledMap = scheduledshiftDao.getLastNumber((start-1)*limit, start*limit,user_id,scstatus,memstatus);
 		List<Ssuser> ssusers = new ArrayList<Ssuser>();
 		Map<String,Object> ssuserMap = new HashMap<String, Object>();
 		ssusers = ssuserDao.getSsuserByUserId(user_id);
@@ -188,7 +188,7 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 		LayuiDataTable<ScheduledShiftShow> sLayuiDataTable = new LayuiDataTable<ScheduledShiftShow>();
 		List<ScheduledShiftShow> scheduledShiftShows = new ArrayList<ScheduledShiftShow>();
 		List<Map<String,Object>> scheduledMap = new ArrayList<Map<String, Object>>();
-		scheduledMap = scheduledshiftDao.getAdminLastNumber((start-1)*limit, limit,status);
+		scheduledMap = scheduledshiftDao.getAdminLastNumber((start-1)*limit, start*limit,status);
 		int count = 0;
 		count = scheduledshiftDao.getAdminCountLastNumber(status);
 		if(scheduledMap!=null&&scheduledMap.size()>0){

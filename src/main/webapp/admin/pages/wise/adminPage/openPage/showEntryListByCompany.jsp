@@ -91,28 +91,28 @@
 										<tr>
 											<td class="leftTd">报名项目:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="第四期国税系统税务稽查专业骨干中级培训班" id="entryByCompanyProject" style="width: 100%;" disabled="disabled" class="disableInput" />
+												<input type="text" value="第四期国税系统税务稽查专业骨干中级培训班" id="entryByCompanyProject" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名类别:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="单位" id="entryByCompanyStates" style="width: 100%;" disabled="disabled" class="disableInput" />
+												<input type="text" value="单位" id="entryByCompanyStates" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="2018-12-11" placeholder="YYYY-MM-DD" id="entryByCompanyDate"  disabled="disabled" class="disableInput" />
+												<input type="text" value="2018-12-11" placeholder="YYYY-MM-DD" id="entryByCompanyDate"  disabled="disabled" class="disableInput" style="background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;width:257px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="北京市海淀区税务局" id="entryByCompanyEntryCompany" disabled="disabled" class="disableInput" style="width: 100%;" />
+												<input type="text" value="北京市海淀区税务局" id="entryByCompanyEntryCompany" disabled="disabled" class="disableInput" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 
 										</tr>
@@ -120,29 +120,29 @@
 										<tr>
 											<td class="leftTd">联系人:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyContactMan" value="王老师" disabled="disabled" class="disableInput" style="width: 100%;" />
+												<input type="text" id="entryByCompanyContactMan" value="王老师" disabled="disabled" class="disableInput" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">联系人电话:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyPhoneNum" value="010-3456789" disabled="disabled" class="disableInput" style="width: 100%;" />
+												<input type="text" id="entryByCompanyPhoneNum" value="010-3456789" disabled="disabled" class="disableInput" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">联系人邮箱:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyEmail" value="123456789@qq.com" disabled="disabled" class="disableInput" style="width: 100%;" />
+												<input type="text" id="entryByCompanyEmail" value="123456789@qq.com" disabled="disabled" class="disableInput" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd" rowspan="2" style="vertical-align: middle;">报名名单:</td>
 											<td class="rightTd">
-												<input type="text" id="entryByCompanyfile" value="文件名" disabled="disabled" class="disableInput" style="width: 100%;">
+												<input type="text" id="entryByCompanyfile" value="文件名" disabled="disabled" class="disableInput" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;">
 											</td>
 											<td>
-												<a class="download_a" href='<%=request.getContextPath()%>/ApplyUnit/download/<%=applyshow_id%>' style="color: #FFFFFF;"><button type="button" class="layui-btn lay_btn" id="test1">
+												<a class="download_a" href='<%=request.getContextPath()%>/ApplyUnit/download/<%=applyshow_id%>' style="color: #FFFFFF;"><button type="button" class="layui-btn lay_btn" id="test1" style="background:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>下载
 												</button></a>
 											</td>
@@ -152,7 +152,7 @@
 								</table>
 							</div>
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-								<table id="branchTable" class="table table-bordered table-hover example1_x">
+								<!-- <table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
 											<td class="leftTd">审核结果:</td>
@@ -162,9 +162,9 @@
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> -->
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="onlineAuditSave();">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
 								</div>
 							</div>
 

@@ -127,13 +127,13 @@
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">任职岗位:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="userPost" value="财务监督员" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">担任职务:</td>
 											<td class="rightTd" colspan="2">
@@ -141,13 +141,13 @@
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">所在地址:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="userAddress" value="北京市海淀区税务局" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">输入密码:</td>
 											<td class="rightTd" colspan="2">
@@ -218,55 +218,6 @@
 				});
 			});
 		</script>
-		<script>
-			layui.use('upload', function() {
-				var upload = layui.upload;
-
-				//执行实例
-				var uploadInst = upload.render({
-					elem: '#test1', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test3', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test4', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-			});
-		</script>
 		<script type="text/javascript">
 			//分页
 			$(function() {
@@ -327,10 +278,10 @@
 						var amail = document.getElementById("usersEmail");
 						var acompanyname = document.getElementById("unitName");
 						var adepartment = document.getElementById("departmentInCharge");
-						var ajob = document.getElementById("userPost");
+						//var ajob = document.getElementById("userPost");
 						var ahold = document.getElementById("assumeOffice");
 						var aaddress = document.getElementById("userAddress");
-						var apassword = document.getElementById("usersPassword");
+						//var apassword = document.getElementById("usersPassword");
 						var User_status = document.getElementsByName("states");
 
 						var loginname = data.data.user_loginname;
@@ -339,9 +290,9 @@
 						var mail = data.data.user_mail;
 						var companyname = data.data.user_companyname;
 						var department = data.data.user_department;
-						var job = data.data.user_job;
+						//var job = data.data.user_job;
 						var hold = data.data.user_hold;
-						var address = data.data.user_address;
+						//var address = data.data.user_address;
 						var password = data.data.user_password;
 						var states = data.data.user_status;
 						
@@ -351,9 +302,9 @@
 						amail.value=mail;
 						acompanyname.value=companyname;
 						adepartment.value=department;
-						ajob.value=job;
+						//ajob.value=job;
 						ahold.value=hold;
-						aaddress.value=address;
+						//aaddress.value=address;
 						apassword.value=password;
 						if(states == "1"){
 							User_status[1].checked = true;
@@ -380,9 +331,9 @@
 				var mail = document.getElementById("usersEmail").value;
 				var companyname = document.getElementById("unitName").value;
 				var department = document.getElementById("departmentInCharge").value;
-				var job = document.getElementById("userPost").value;
+				//var job = document.getElementById("userPost").value;
 				var hold = document.getElementById("assumeOffice").value;
-				var address = document.getElementById("userAddress").value;
+				//var address = document.getElementById("userAddress").value;
 				var password = document.getElementById("usersPassword").value;
 				var User_status = document.getElementsByName("states");
 				var states = "";
@@ -402,29 +353,48 @@
 						"User_mail":mail,
 						"User_companyname":companyname,
 						"User_department":department,
-						"User_job":job,
+						"User_job":'',
 						"User_hold":hold,
-						"User_address":address,
+						"User_address":'',
 						"User_password":password,
 						"User_status":states
 					},
 					success:function(data){
 						if (data.success == true) {
 							if(data.msg == "2"){
-								layer.alert("更新成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 
 						}
 						else{
 							if(data.msg == "1"){
-								layer.alert("人员不存在!");
+								layer.confirm('人员不存在！', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}else if(data.msg == "0"){
-								layer.alert("登录名已存在!");
+								layer.confirm('登录名已存在！', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 						}
 
 					},error:function(data){
-						layer.alert("保存失败!");
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 
 				})

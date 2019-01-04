@@ -133,4 +133,16 @@ public class SsuserServiceImpl implements SsuserService {
 		return user_projectDao.getCount(project_id);
 	}
 
+	public List<EUser> getListUserByscid(String scheduled_id) {
+		// TODO Auto-generated method stub
+		List<String> ssusers = new ArrayList<String>();
+		ssusers = ssuserDao.getListUserByscid(scheduled_id);
+		if (ssusers != null && ssusers.size() > 0) {
+			List<EUser> eUsers = new ArrayList<EUser>();
+			eUsers = eUserDao.getEUserList(ssusers);
+			return eUsers;
+		}
+		return null;
+	}
+
 }

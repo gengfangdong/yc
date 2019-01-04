@@ -89,77 +89,77 @@
 										<tr>
 											<td class="leftTd">登录名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="signUpName" value="13312341234" style="width: 100%;" />
+												<input type="text" id="signUpName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">用户姓名:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" value="赵柳" style="width: 100%;" />
+												<input type="text" id="classesName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">用户座机:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="usersTel" value="010-3456789" style="width: 100%;" />
+												<input type="text" id="usersTel" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">用户邮箱:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="usersEmail" value="123456789@qq.com" style="width: 100%;" />
+												<input type="text" id="usersEmail" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">单位名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="unitName" value="北京市海淀区税务局" style="width: 100%;" />
+												<input type="text" id="unitName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">所在部门:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="departmentInCharge" value="财务监督处" style="width: 100%;" />
+												<input type="text" id="departmentInCharge" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">任职岗位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="userPost" value="财务监督员" style="width: 100%;" />
+												<input type="text" id="userPost" value="" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">担任职务:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="assumeOffice" value="财务监督" style="width: 100%;" />
+												<input type="text" id="assumeOffice" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">所在地址:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="userAddress" value="北京市海淀区税务局" style="width: 100%;" />
+												<input type="text" id="userAddress" value="" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">输入密码:</td>
 											<td class="rightTd" colspan="2">
-												<input type="password" id="usersPassword" value="123456" style="width: 100%;" />
+												<input type="password" id="usersPassword" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">确认密码:</td>
 											<td class="rightTd" colspan="2">
-												<input type="password" id="isPassword" value="123456" style="width: 100%;" />
+												<input type="password" id="isPassword" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
@@ -219,55 +219,6 @@
 				});
 			});
 		</script>
-		<script>
-			layui.use('upload', function() {
-				var upload = layui.upload;
-
-				//执行实例
-				var uploadInst = upload.render({
-					elem: '#test1', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test3', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test4', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-			});
-		</script>
 		<script type="text/javascript">
 			//分页
 			$(function() {
@@ -320,9 +271,9 @@
 				var mail = document.getElementById("usersEmail").value;
 				var companyname = document.getElementById("unitName").value;
 				var department = document.getElementById("departmentInCharge").value;
-				var job = document.getElementById("userPost").value;
+				//var job = document.getElementById("userPost").value;
 				var hold = document.getElementById("assumeOffice").value;
-				var address = document.getElementById("userAddress").value;
+				//var address = document.getElementById("userAddress").value;
 				var password = document.getElementById("usersPassword").value;
 				var User_status = document.getElementsByName("states");
 				var states = "";
@@ -341,29 +292,48 @@
 						"User_mail":mail,
 						"User_companyname":companyname,
 						"User_department":department,
-						"User_job":job,
+						"User_job":'',
 						"User_hold":hold,
-						"User_address":address,
+						"User_address":'',
 						"User_password":password,
 						"User_status":states
 					},
 					success:function(data){
 						if (data.success == true) {
 							if(data.msg == "2"){
-								layer.alert("添加成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 
 						}
 						else{
 							if(data.msg == "1"){
-								layer.alert("登录名存在!");
+								layer.confirm('登录名存在！', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}else if(data.msg == "0"){
-								layer.alert("参数错误!");
+								layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 						}
 
 					},error:function(data){
-						layer.alert("保存失败!");
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 
 				})

@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+				<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#taxDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -253,6 +263,41 @@
 		</script>
 		<script>
 			function save(){
+				var taxTitle = $('#taxTitle').val();
+				var taxAbstract = $("#taxAbstract").val();
+				var taxKeyWords = $("#taxKeyWords").val();
+				var taxDate = $("#taxDate").val();
+				var taxStates = $(".taxStates");
+				var taxDescription = CKEDITOR.instances.taxDescription.getData();
+				if(taxTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(taxAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(taxKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(taxDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(taxDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(taxStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(taxStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				//debugger;
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
@@ -341,10 +386,10 @@
 						taxcontext.setData(tax_context);//内容
 						filename.value=tax_title_page;
 						if(tax_status == "1"||tax_status == "2"){
-							taxStatus[1].checked = true;
+							taxStatus[0].checked = true;
 						}
 						else if(tax_status == "0"){
-							taxStatus[0].checked = true;
+							taxStatus[1].checked = true;
 						}
 
 					}

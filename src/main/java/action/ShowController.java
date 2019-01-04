@@ -33,6 +33,7 @@ import entity.LayuiDataTable;
 import entity.News;
 import entity.Notice;
 import entity.Project;
+import entity.RotationPic;
 import entity.Rules;
 import entity.ScheduledShiftShow;
 import entity.Solution;
@@ -46,6 +47,7 @@ import service.FigClassService;
 import service.NewsService;
 import service.NoticeService;
 import service.ProjectService;
+import service.RotationPicService;
 import service.RulesService;
 import service.ScheduledshiftService;
 import service.SolutionService;
@@ -84,7 +86,8 @@ public class ShowController {
 	private ClassPlanService classPlanService;
 	@Autowired
 	private CourseService courseService;
-	
+	@Autowired
+	private RotationPicService rotationPicService;
 	/**
 	 * 培养列表获取
 	 * @param draw
@@ -716,4 +719,45 @@ public class ShowController {
 		resultMap.put("data", secondList);
 		return resultMap;
 	}
+	
+	/**
+	 * 查询全部轮播图片
+	 * @return
+	 */
+	@RequestMapping(value = "/findAllRotation")
+	@ResponseBody
+	public DatatablesViewPage<RotationPic> findAllRotation(){
+		//DataTables  返回实例
+		DatatablesViewPage<RotationPic> datatablesViewPage = new DatatablesViewPage<RotationPic>();
+		datatablesViewPage = rotationPicService.findAllRotation();
+		datatablesViewPage.setDraw(1);
+		return datatablesViewPage;
+	}
+	/**
+	 * 查看新闻的封面图片
+	 * @param request
+	 * @param response
+	 * @param news_id
+	 * @throws IOException
+	 */
+	@RequestMapping("/Rotation_title_page_Show")
+	public void Rotation_title_page_Show(HttpServletRequest request,HttpServletResponse response,@RequestParam("rotation_id")String rotation_id) throws IOException {
+		RotationPic ratationPic = new RotationPic();
+		ratationPic = rotationPicService.getRotationPicDetailByid(rotation_id);
+		 
+        String imagePath = request.getRealPath("/RotationPicimagePage")+"/"+ratationPic.getRotationPic_title_page();
+        response.reset();
+        File file = new File(imagePath);
+        if(file.exists()){   //如果文件存在  
+            InputStream in = new FileInputStream(imagePath);   //用该文件创建一个输入流  
+            OutputStream os = response.getOutputStream();  //创建输出流  
+            byte[] b = new byte[1024];    
+            while( in.read(b)!= -1){   
+            os.write(b);       
+            }  
+            in.close();   
+            os.flush();  
+            os.close();  
+        }  
+    }
 }

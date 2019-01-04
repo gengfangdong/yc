@@ -188,12 +188,21 @@
 						if(data.success == true){
 
 							if(data.message == "1"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 						}
 					},
 					error:function(data){
-
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 			}

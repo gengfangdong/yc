@@ -85,7 +85,7 @@ public class FigClassController {
 			return resultMap;
 		}
 
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = simpleDateFormat.format(new Date());
 		//构造对象
 		String figClass_id = UUIDUtil.getUUid("fig");
@@ -553,7 +553,7 @@ public class FigClassController {
 			resultMap.put("message", "1");//当前拼班不存在
 			return resultMap;
 		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String updatetime = dateFormat.format(new Date());
 		String updater = iUser.getUser_id();
 		figClassService.updateReview(figclass_id, review_result, updater, updatetime);

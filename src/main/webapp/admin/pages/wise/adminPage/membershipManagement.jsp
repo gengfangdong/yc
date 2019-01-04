@@ -295,53 +295,6 @@
 																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
-																					<!-- <tbody>
-																						<tr>
-																							<td style="text-align: center;">1</td>
-																							<td>赵柳</td>
-																							<td>13312341234</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>财务监督</td>
-																							<td>使用中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>赵柳</td>
-																							<td>13312341234</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>财务监督</td>
-																							<td>暂停中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>赵柳</td>
-																							<td>13312341234</td>
-																							<td>北京市海淀区税务局</td>
-																							<td>财务监督处</td>
-																							<td>财务监督员</td>
-																							<td>财务监督</td>
-																							<td>使用中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																					</tbody> -->
 																				</table>
 																			</div>
 																		</div>
@@ -580,17 +533,23 @@
 						success : function(data) {
 							if(data.message == "0"){
 								alert("参数错误!");
+								return;
 							}
 							else if(data.message == "1"){
 								alert("获取人员失败!");
+								return;
 							}
 							else if(data.message == "2"){
 								alert("删除成功!");
+								window.parent.location.reload();
+								return;
 							}
 							
 						},
 						error : function(error) {
 							console.log('接口不通' + error);
+							alert("删除失败");
+							return;
 						}
 					});	
 		        }

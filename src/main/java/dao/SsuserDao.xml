@@ -39,4 +39,8 @@
 	<select id="getListUserByid" resultType="String">
 		SELECT * FROM USER_PROJECT  s where s.ISDELETE = '0' and s.SSU_ID = #{ssuid}
 	</select>
+	
+	<select id="getListUserByscid" resultType="String">
+		SELECT * FROM USER_PROJECT  s where s.ISDELETE = '0' and s.PROJECT_ID = #{scheduled_id}
+	</select>
 </mapper>

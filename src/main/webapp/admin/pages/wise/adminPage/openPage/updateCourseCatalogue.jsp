@@ -85,7 +85,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										新增课程目录
+										修改课程目录
 									</label>
 								</div>
 							</div>
@@ -206,14 +206,23 @@
 						if(data.success == true){
 
 							if(data.message == "1"){
-								layer.alert("更新成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 						}
 						else
 							layer.alert("参数错误!");
 					},
 					error:function(data){
-
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 			}

@@ -88,7 +88,7 @@
 									<tr>
 										<td class="leftTd">您的姓名:</td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请输入您的真实姓名"  id="entryByOneName" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您的真实姓名"  id="entryByOneName" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
@@ -106,14 +106,14 @@
 									<tr>
 										<td class="leftTd">出生日期:</td>
 										<td class="rightTd" >
-											<input type="text" value="" id="entryByOneBirthday" placeholder="YYYY-MM-DD" />
+											<input type="text" value="" id="entryByOneBirthday" placeholder="YYYY-MM-DD"  style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;"/>
 										</td>
 
 									</tr>
 									<tr>
 										<td class="leftTd">身份证号:</td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请输入您的18位身份证号码"  maxlength="18"  id="entryByOneIDNum" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您的18位身份证号码"  maxlength="18"  id="entryByOneIDNum" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
@@ -133,46 +133,46 @@
 									<tr>
 										<td class="leftTd">手机号码:</td>
 										<td class="rightTd">
-											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="11"  id="entryByOnePhoneNum" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="11"  id="entryByOnePhoneNum" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
 									<tr>
 										<td class="leftTd">电子邮箱:</td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请输入您真实的邮箱"  id="entryByOneEmail" style="width: 100%;" />
+											<input type="text" value="" placeholder="请输入您真实的邮箱"  id="entryByOneEmail" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
 									<tr>
 										<td class="leftTd">所在部门:</td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您所在部门"  id="entryByOneDepartment" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您所在部门"  id="entryByOneDepartment" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
 									<tr>
 										<td class="leftTd">任职岗位:</td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您任职的岗位"  id="entryByOneJob" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您任职的岗位"  id="entryByOneJob" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 									</tr>
 									<tr>
 										<td class="leftTd">任职职务:</td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您担任的职务"  id="entryByOnePost" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您担任的职务"  id="entryByOnePost" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 									</tr>
 									<tr>
 										<td class="leftTd">通讯地址:</td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请填写您详细的通讯地址" id="entryByOneAddress" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请填写您详细的通讯地址" id="entryByOneAddress" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 									</tr>
 									<tr>
 										<td class="leftTd">其他信息:</td>
 										<td class="rightTd" >
-											<input type="text" value=""  id="entryByOneInformation"  placeholder="请输入您的学习方向、学习时间等信息"  style="width: 100%;" />
+											<input type="text" value=""  id="entryByOneInformation"  placeholder="请输入您的学习方向、学习时间等信息"  style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 									</tr>
 
@@ -404,6 +404,7 @@
                         "other":otherInformation,
                         "project_id":'<%=project_id%>'
                     }
+//                     success:function(){}
                 })
             }
 

@@ -58,6 +58,6 @@
 	</delete>
 	
 	<select id = "findAllCulture" resultMap="culture">
-		SELECT * FROM   CULTURE
+		SELECT * FROM   CULTURE where CULTURE_STATUS='1'
 	</select>
 </mapper>

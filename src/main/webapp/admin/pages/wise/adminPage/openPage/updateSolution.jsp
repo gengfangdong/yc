@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+				<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#solutionDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -253,6 +263,41 @@
 		</script>
 		<script>
 			function save(){
+				var solutionTitle = $('#solutionTitle').val();
+				var solutionAbstract = $("#solutionAbstract").val();
+				var solutionKeyWords = $("#solutionKeyWords").val();
+				var solutionDate = $("#solutionDate").val();
+				var solutionStates = $(".solutionStates");
+				var solutionDescription = CKEDITOR.instances.solutionDescription.getData();
+				if(solutionTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(solutionAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(solutionKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(solutionDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(solutionDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(solutionStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(solutionStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				//debugger;
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
@@ -341,10 +386,10 @@
 						solutioncontext.setData(solution_context);//内容
 						filename.value=solution_title_page;
 						if(solution_status == "1"||solution_status == "2"){
-							solutionStatus[1].checked = true;
+							solutionStatus[0].checked = true;
 						}
 						else if(solution_status == "0"){
-							solutionStatus[0].checked = true;
+							solutionStatus[1].checked = true;
 						}
 
 					}

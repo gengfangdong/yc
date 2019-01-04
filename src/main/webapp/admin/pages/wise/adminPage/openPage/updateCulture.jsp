@@ -167,7 +167,18 @@
 		<script type="text/javascript" src="../../../../My97DatePicker/WdatePicker.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
-		<script src="../../ckeditor/ckeditor.js"></script>
+		<script src="../../ckeditor/ckeditor.js"></script>		
+		<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#cultureDate' //指定元素
+		  });
+		});
+		</script>
+		
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -253,6 +264,41 @@
 		</script>
 		<script>
 			function save(){
+				var cultureTitle = $('#cultureTitle').val();
+				var cultureAbstract = $("#cultureAbstract").val();
+				var cultureKeyWords = $("#cultureKeyWords").val();
+				var cultureDate = $("#cultureDate").val();
+				var cultureStates = $(".cultureStates");
+				var cultureDescription = CKEDITOR.instances.cultureDescription.getData();
+				if(cultureTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(cultureAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(cultureKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(cultureDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(cultureDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(cultureStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(cultureStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				//debugger;
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
@@ -341,10 +387,10 @@
 						culturecontext.setData(culture_context);//内容
 						filename.value=culture_title_page;
 						if(culture_status == "1"||culture_status == "2"){
-							cultureStatus[1].checked = true;
+							cultureStatus[0].checked = true;
 						}
 						else if(culture_status == "0"){
-							cultureStatus[0].checked = true;
+							cultureStatus[1].checked = true;
 						}
 
 					}

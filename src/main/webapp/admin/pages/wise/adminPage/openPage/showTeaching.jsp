@@ -193,10 +193,10 @@
 						teachingcontext.setData(teaching_context);//内容
 
 						if(teaching_status == "1"||teaching_status == "2"){
-							teachingStatus[1].checked = true;
+							teachingStatus[0].checked = true;
 						}
 						else if(teaching_status == "0"){
-							teachingStatus[0].checked = true;
+							teachingStatus[1].checked = true;
 						}
 
 					}

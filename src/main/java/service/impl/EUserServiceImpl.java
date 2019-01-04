@@ -70,7 +70,7 @@ public class EUserServiceImpl implements EUserService{
 		// TODO Auto-generated method stub
 		LayuiDataTable<EUser> eLayuiDataTable = new LayuiDataTable<EUser>();
 		List<EUser> eUsers = new ArrayList<EUser>();
-		eUsers = eUserDao.getEuserBypage((page-1)*limit, limit,user_id);
+		eUsers = eUserDao.getEuserBypage((page-1)*limit, (page-1)*limit+limit,user_id);
 		int count = 0;
 		count = eUserDao.getcountBy(user_id);
 		eLayuiDataTable.setCount(count);

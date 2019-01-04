@@ -343,53 +343,45 @@
 		<script>
 			function save(){
 				//debugger;
+				var solutionTitle = $('#solutionTitle').val();
+				var solutionAbstract = $("#solutionAbstract").val();
+				var solutionKeyWords = $("#solutionKeyWords").val();
+				var solutionDate = $("#solutionDate").val();
+				var solutionStates = $(".solutionStates");
+				var solutionDescription = CKEDITOR.instances.solutionDescription.getData();
+				if(solutionTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(solutionAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(solutionKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(solutionDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(solutionDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(solutionStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(solutionStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
 				}
-				/*var solution_title_page = filename;
-		    	var solution_context = CKEDITOR.instances.solutionDescription.getData();
-				var solutionTitle = document.getElementById("solutionTitle").value;
-				var solutionAbstract = document.getElementById("solutionAbstract").value;
-				var solutionKeyWords = document.getElementById("solutionKeyWords").value;
-				var solutionDate = document.getElementById("solutionDate").value;
-				var solutionStatus = document.getElementsByName("solutionStates");
-				var solution_status="";
-				for(var i=0;i<solutionStatus.length;i++){
-					if(solutionStatus[i].checked == true){
-						if("发布"==solutionStatus[i].value){
-							solution_status = '1';
-						}
-						else
-							solution_status = '0';
-						//solution_status = solutionStatus[i].value;
-						break;
-					}
-				}
-				alert(solutionTitle+"\n"+solution_title_page+"\n"+solutionAbstract+"\n"+solutionKeyWords+"\n"+solutionDate+"\n"+solution_status+"\n"+solution_context);
-				$.ajax({
-					url : '<%=request.getContextPath()%>/Solution/saveSolution',
-					type : 'post',
-					dataType:"json",
-					data:{
-						Solution_Title:solutionTitle,
-						Solution_Introduction:solutionAbstract,
-						Solution_KeyWords:solutionKeyWords,
-						Solution_Release_time:solutionDate,
-						Solution_status:solution_status,
-						Solution_context:solution_context,
-						filename:solution_title_page
-					},
-					success : function(data) {
-						if(data.message == "1"){
-							layer.alert("保存成功!");
-						}
-						
-					},
-					error : function(error) {
-						console.log('接口不通' + error);
-					}
-				});	*/
 			}
 		</script>
 		<script type="text/javascript">

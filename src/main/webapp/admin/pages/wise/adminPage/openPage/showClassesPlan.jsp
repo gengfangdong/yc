@@ -82,7 +82,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										新增
+										查看
 									</label>
 								</div>
 							</div>
@@ -92,11 +92,7 @@
 										<tr>
 											<td class="leftTd">课程方案名称:</td>
 											<td class="rightTd" colspan="2">
-												 <input type="text" id="classesName" style="width: 100%;" disabled="disabled" /> 
-												<!--<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													<option value="课程方案一">课程方案一</option>
-													<option value="课程方案二">课程方案二</option>
-												</select>-->
+												 <input type="text" id="classesName" style="width: 100%;background-color:#fff;" disabled="disabled" /> 
 											</td>
 
 										</tr>
@@ -107,59 +103,12 @@
 												<textarea name="description" id="newsDescription" disabled="disabled" /></textarea>
 											</td>
 										</tr>
-										<!--<tr>
-											<td class="leftTd">所属课程大纲:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													<option value="课程大纲一">课程大纲一</option>
-													<option value="课程大纲二">课程大纲二</option>
-												</select>
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">所属课程内容:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="内容一">内容一</option>
-											        <option value="内容二">内容二</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">名称:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">天数:</td>
-											<td class="rightTd" colspan="2">
-												&lt;!&ndash; <input type="text" id="hostDateNum" style="width: 100%;" /> &ndash;&gt;
-												<select id="dateNum" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="halfDay">0.5天</option>
-											        <option value="oneDay">1天</option>
-											        <option value="oneHalfDay">1.5天</option>
-											        <option value="twoDay">2天</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">状态:</td>
-											<td class="rightTd" colspan="2">
-												<input type="radio" name="states" />暂停
-												<input type="radio" name="states" />发布
-											</td>
-
-										</tr>-->
+										
 										
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="">关闭</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>

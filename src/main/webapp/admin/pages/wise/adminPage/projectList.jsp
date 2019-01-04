@@ -238,15 +238,6 @@
 								<div class="box-body" style="padding: 0px;">
 									<div class="row">
 										<div class="col-sm-12">
-											<!-- <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">筛选：</label>
-													<ul class="f-sort-ul">
-														<li><a href="#" class>未审核</a></li>
-														<li><a href="#" class>已审核</a></li>
-													</ul>
-												</div>
-											</div> -->
 											<div class="row" >
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
@@ -260,17 +251,6 @@
 																			</ul>
 																		</div>
 																	</div>
-																	<!--<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-																			<label for="" class="control-label" style="float: left;">筛选：</label>
-																			<ul class="f-sort-ul conditionProjectUl">
-																				<li><a class onclick="changeStyleColor1(this);">全部</a></li>
-																				<li><a class onclick="changeStyleColor1(this);">拼班中</a></li>
-																				<li><a class onclick="changeStyleColor1(this);">拼班成功</a></li>
-																				<li><a class onclick="changeStyleColor1(this);">拼班失败</a></li>
-																			</ul>
-																		</div>
-																	</div>-->
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
@@ -284,38 +264,6 @@
 																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
-																					<!-- <tbody>
-																						<tr>
-																							<td style="text-align: center;">1</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/12/11</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/11/11</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>第四期国税系统税务稽查专业骨干中级培训班</td>
-																							<td>2018/10/11</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																					</tbody> -->
 																				</table>
 																			</div>
 																		</div>
@@ -548,17 +496,23 @@
 						success : function(data) {
 							if(data.message == "0"){
 								layer.alert("参数错误!");
+								return;
 							}
 							else if(data.message == "1"){
 								layer.alert("获取项目失败!");
+								return;
 							}
 							else if(data.message == "2"){
 								layer.alert("删除成功!");
+								window.parent.location.reload();
+								return;
 							}
 							
 						},
 						error : function(error) {
 							console.log('接口不通' + error);
+							layer.alert("删除失败！");
+							return;
 						}
 					});	
 		        }

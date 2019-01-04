@@ -1,7 +1,9 @@
 package service;
 
 import entity.DatatablesViewPage;
+import entity.LayuiDataTable;
 import entity.Project;
+import entity.ProjectVo;
 
 public interface ProjectService {
 	public void insertProject(Project Project);
@@ -13,4 +15,6 @@ public interface ProjectService {
 	public void updateProject(Project Project);
 	//删除项目
 	public void deleteProject(String Project_id);
+	public LayuiDataTable<ProjectVo> getListBypage(String status, int page,
+			int limit, String user_id);
 }

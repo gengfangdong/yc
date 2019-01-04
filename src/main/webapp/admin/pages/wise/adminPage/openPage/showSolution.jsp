@@ -193,10 +193,10 @@
 						solutioncontext.setData(solution_context);//内容
 
 						if(solution_status == "1"||solution_status == "2"){
-							solutionStatus[1].checked = true;
+							solutionStatus[0].checked = true;
 						}
 						else if(solution_status == "0"){
-							solutionStatus[0].checked = true;
+							solutionStatus[1].checked = true;
 						}
 
 					}

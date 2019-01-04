@@ -552,17 +552,23 @@
 							success : function(data) {
 								if(data.msg == "0"){
 									alert("参数错误!");
+									return;
 								}
 								else if(data.msg == "1"){
 									alert("没有找到实体!");
+									return;
 								}
 								else if(data.msg == "2"){
 									alert("删除成功!");
+									window.parent.location.reload();
+									return;
 								}
 								
 							},
 							error : function(error) {
 								console.log('接口不通' + error);
+								alert("删除失败！");
+								return;
 							}
 						});	
 		        	}
@@ -614,17 +620,23 @@
 							success : function(data) {
 								if(data.msg == "0"){
 									alert("参数错误!");
+									return;
 								}
 								else if(data.msg == "1"){
 									alert("未获取个人申请详情!");
+									return;
 								}
 								else if(data.msg == "2"){
 									alert("删除成功!");
+									window.parent.location.reload();
+									return;
 								}
 								
 							},
 							error : function(error) {
 								console.log('接口不通' + error);
+								alert("删除失败！");
+								return;
 							}
 						});	
 		        	}
@@ -632,28 +644,6 @@
 				//debugger;
 			}
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.conditionProjectUl li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 		<script>
 			window.onload = function(){
 				<% if(user == null){%>

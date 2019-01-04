@@ -10,4 +10,5 @@ public interface SsuserService {
 	public void SignOut(String Project_id,String User_id,String ssuid);
 	public List<EUser> getListUserByid(String user_id, String ssuid);
     public int getCount(String project_id);
+	public List<EUser> getListUserByscid(String scheduled_id);
 }

@@ -56,4 +56,8 @@
 		delete  from RotationPic N
 		WHERE N.RotationPic_ID = #{RotationPic_id}
 	</delete>
+	
+		<select id = "findAllRotation" resultMap="RotationPic">
+		SELECT * FROM  RotationPic where RotationPic_STATUS='1'
+	</select>
 </mapper>

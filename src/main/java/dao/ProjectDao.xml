@@ -47,4 +47,56 @@
 		delete  from Project N
 		WHERE N.Project_ID = #{Project_id}
 	</delete>
+	
+	<select id="getListBypage" resultMap="Project">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (
+			select * from Project p where p.Project_ID 
+			<if test="status == '0'.toString() ">
+				NOT
+			</if>
+			in
+				 (select t.Project_ID as Project_ID
+		  from APPLY t
+		 WHERE T.CREATER =#{user_id}
+		 and t.isdelete='0'
+		union ALL
+		select a.Project_ID as Project_ID
+		  from APPLY_UNIT A
+		 where a.creater = #{user_id}
+		 and a.isdelete='0')
+			
+			) A
+			WHERE ROWNUM &lt;= #{limit}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
+	<select id="getProjectCount1" resultType="int">
+		SELECT count(*) FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (
+			select * from Project p where p.Project_ID 
+			<if test="status == '0'.toString() ">
+				NOT
+			</if>
+			in
+				 (select t.Project_ID as Project_ID
+		  from APPLY t
+		 WHERE T.CREATER =#{user_id}
+		 and t.isdelete='0'
+		union ALL
+		select a.Project_ID as Project_ID
+		  from APPLY_UNIT A
+		 where a.creater = #{user_id}
+		 and a.isdelete='0')
+			
+			) A
+			WHERE ROWNUM &lt;= #{limit}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
 </mapper>

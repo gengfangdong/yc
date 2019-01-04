@@ -432,7 +432,7 @@
 			              "render":function(data,type,row,meta){
 	                	         var status="";
 	                	         if(data == "1"){
-	                	        	 status = "待发布";
+	                	        	 status = "已发布";
 	                	         }
 	                	         else if(data == "0"){
 	                	        	 status ="待发布";

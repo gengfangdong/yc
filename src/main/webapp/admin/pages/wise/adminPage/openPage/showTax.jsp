@@ -193,10 +193,10 @@
 						taxcontext.setData(tax_context);//内容
 
 						if(tax_status == "1"||tax_status == "2"){
-							taxStatus[1].checked = true;
+							taxStatus[0].checked = true;
 						}
 						else if(tax_status == "0"){
-							taxStatus[0].checked = true;
+							taxStatus[1].checked = true;
 						}
 
 					}

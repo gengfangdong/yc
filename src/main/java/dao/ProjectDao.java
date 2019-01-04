@@ -15,4 +15,6 @@ public interface ProjectDao {
 	public Project getProjectDetailByid(@Param("Project_id")String Project_id);
 	public void updateProject(Project Project);
 	public void deleteProject(@Param("Project_id")String Project_id);
+	public List<Project> getListBypage(@Param("status")String status, @Param("user_id")String user_id, @Param("start")int start,@Param("limit") int limit);
+	public int getProjectCount1(@Param("status")String status, @Param("user_id")String user_id, @Param("start")int start,@Param("limit") int limit);
 }

@@ -103,54 +103,54 @@
 										<tr>
 											<td class="leftTd">班次名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="className" style="width: 100%;" />
+												<input type="text" id="className" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">发起单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="hostCompany" style="width: 100%;" />
+												<input type="text" id="hostCompany" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">培训开课地点:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="hostAddress" placeholder="请填写培训开课地点" style="width: 100%;" />
+												<input type="text" id="hostAddress" placeholder="请填写培训开课地点" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostStartDate" name="projectListDate" placeholder="请选择报名开始日期" type="text" class=""   />
+											<input id="hostStartDate" name="projectListDate" placeholder="请选择报名开始日期" type="text" class="" style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;"  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostEndDate" name="projectListDate" placeholder="请选择报名截止日期" type="text" class=""   />
+											<input id="hostEndDate" name="projectListDate" placeholder="请选择报名截止日期" type="text" class=""  style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;"  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="startClassDate" name="projectListDate" placeholder="请选择开课日期" type="text" class=""   />
+											<input id="startClassDate" name="projectListDate" placeholder="请选择开课日期" type="text" class=""  style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="endClassDate" name="projectListDate" placeholder="请选择结课日期" type="text" class=""  />
+											<input id="endClassDate" name="projectListDate" placeholder="请选择结课日期" type="text" class="" style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">班级容纳人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;"  />
+												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;"  />
 											</td>
 										</tr>
 										<tr>
@@ -171,7 +171,7 @@
 							
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										课程大纲
 									</label>
@@ -190,7 +190,7 @@
 							</div>
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left:24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										其他相关信息
 									</label>
@@ -385,7 +385,7 @@
         						memotr += '<tr id="upload-'+ i +'">'+
 						          '<td>'+ filesa[i].scheduled_oldfile +'</td>'+
 						          '<td>'+
-						          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+filesa[i].scheduled_file+' " class="hoverColor">下载</a></button><button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" onclick="deleteRow(this);">'+
+						          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+filesa[i].scheduled_file+' " class="hoverColor">下载</a></button><button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;" onclick="deleteRow(this);">'+
 						          '删除</button>'+
 						          '</td>'+
 						        '</tr>';
@@ -447,7 +447,7 @@
 			          ,'<td>'+ file.name +'</td>'
 			          ,'<td>'
 			            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-			            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+			            ,'<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;">删除</button>'
 			          ,'</td>'
 			        ,'</tr>'].join(''));
 			        

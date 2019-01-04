@@ -282,11 +282,11 @@
 								</table>
 								
 								
-								<div style="text-align: center;margin-top: 100px;">
+								
+							</div>
+							<div style="text-align: center;margin-top: 100px;">
 									<button class="branchSave branchSub" onclick="branchSub();">提交</button>
 								</div>
-							</div>
-							
 							
 									
 						</div>
@@ -513,8 +513,8 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
-				      
+					  //{field:'radio', title: '选择',toolbar: '#radio2'},
+				      {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
@@ -651,17 +651,28 @@
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
-					/* if(){
-						
-					} */
-					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-					selectList[1] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					if($('.layui-form-checked').length==1){
+						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
+						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					}else if($('.layui-form-checked').length==0){
+						alert("请选择一个方案！");
+						return;
+					}else{
+						alert("只能选择一个方案进行定制！");
+						return;
+					}
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
 						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
+					}else if($('.layui-form-checked').length==0){
+						alert("请选择课程！");
+						return;
 					}else{
 						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;

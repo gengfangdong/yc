@@ -162,7 +162,7 @@ public class ConstomServiceImpl implements ConstomService {
 		LayuiDataTable<Free_constom> fDataTable = new LayuiDataTable<Free_constom>();
 		int count = 0;
 		List<Free_constom> free_constoms = new ArrayList<Free_constom>();
-		free_constoms = constomDao.getListBypage((page-1)*limit, limit, caogery, status, user_id);
+		free_constoms = constomDao.getListBypage((page-1)*limit, (page-1)*limit+limit, caogery, status, user_id);
 		if(free_constoms!=null&free_constoms.size()>0){
 			fDataTable.setData(free_constoms);
 			count = constomDao.getListCount(caogery, status, user_id);
@@ -197,7 +197,7 @@ public class ConstomServiceImpl implements ConstomService {
 
 	public void deleteConstom(String Constom_id,String User_id) {
 		// TODO Auto-generated method stub
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String updatetime = simpleDateFormat.format(new Date());
 		constomfileDao.deleteConstom(Constom_id);
 		constomDao.deleteConstom(Constom_id, User_id, updatetime);

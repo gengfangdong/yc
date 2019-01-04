@@ -75,13 +75,13 @@
 										<tr>
 											<td class="leftTd">项目名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="projectListTitle" />
+												<input type="text" id="projectListTitle" style="width:100%;border:none;border-radius:5px;border:1px solid #ccc;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">添加日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:257px;border-radius:5px;border:1px solid #ccc;" />
 											</td>
 										</tr>
 										
@@ -145,50 +145,6 @@
 			  	});
 			});
 		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-			});
-		</script>
 		<script>
 			function projectListSave(){
 				var projectname = document.getElementById("projectListTitle").value;
@@ -205,12 +161,22 @@
 					},
 					success : function(data) {
 						if(data.message == "1"){
-							layer.alert("保存成功!");
+							layer.confirm('保存成功!', { title:'提示'}, function(index){				
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+							});
 						}
 						
 					},
 					error : function(error) {
 						console.log('接口不通' + error);
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				});	
 				return;

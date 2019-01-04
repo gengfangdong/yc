@@ -701,7 +701,12 @@
 	     {{#  if(d.freeco_datanum!=null){ }}
 	        {{d.freeco_datanum}}
 	     {{#  }else{ }}
-	     	待定
+				{{#  if(d.freeco_gaoery=="0"){ }}
+	        		{{d.freeco_day}}
+	    		{{#  }else{ }}
+					待定
+				{{# } }}
+	     	
 	     {{# } }}
  		</script>
 

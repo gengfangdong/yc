@@ -3,7 +3,6 @@
 <%
 	String project_name=request.getParameter("project_name");
 	String applyUnit_id=request.getParameter("applyUnit_id");
-	System.out.println(project_name+"  "+applyUnit_id);
 %>
 <!DOCTYPE html>
 <html>
@@ -93,55 +92,55 @@
 										<tr>
 											<td class="leftTd">报名项目:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名类别:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="background: #fff;border: 1px solid #ccc;" />
+												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style="width: 100%;" />
+												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
-										<tr>
+						<!-- 				<tr>
 											<td class="leftTd">报名人数:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value="" id="entryByCompanyEntryPersonNum" placeholder="请填写报名人数" style="width: 100%;height: 23px;border-radius: 5px;border: 1px solid #CCCCCC" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">联系人:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style="width: 100%;" />
+												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">联系人电话:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style="width: 100%;" />
+												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">联系人邮箱:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style="width: 100%;" />
+												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -150,11 +149,14 @@
 												<input type="text"  id="file1" disabled="disabled" value="文件一" style="width: 100%;background: #fff;border: none;" />
 											</td>
 											<td>
-												<a class="download_a" href="../../../../../show/dist/doc/培训通知.docx" style="color: #FFFFFF;margin-right: 0;">
+											<!-- 	<a class="download_a" href="../../../../../show/dist/doc/培训通知.docx" style="color: #FFFFFF;margin-right: 0;">
 													<button type="button" class="layui-btn lay_btn" style="width: 85px;">
 													<i class="layui-icon">&#xe67c;</i>下载
 												</button>
-												</a>
+												</a> -->
+													<a class="download_a" href='<%=request.getContextPath()%>/ApplyUnit/download/<%=applyUnit_id%>' style="color: #FFFFFF;"><button type="button" class="layui-btn lay_btn" id="test1">
+												  <i class="layui-icon">&#xe67c;</i>下载
+												</button></a>
 											</td>
 
 										</tr>
@@ -265,7 +267,7 @@
 						
 						var CompanyDate = document.getElementById("entryByCompanyDate");
 						var EntryCompany = document.getElementById("entryByCompanyEntryCompany");
-						var PersonNum = document.getElementById("entryByCompanyEntryPersonNum");
+// 						var PersonNum = document.getElementById("entryByCompanyEntryPersonNum");
 						var ContactMan = document.getElementById("entryByCompanyContactMan");
 						var PhoneNum = document.getElementById("entryByCompanyPhoneNum");
 						var email = document.getElementById("entryByCompanyEmail");	
@@ -290,7 +292,7 @@
 							
 						CompanyDate.value = data.data.applyunit_createtime;
 						EntryCompany.value = data.data.applyunit_name;
-						PersonNum.value = "5";
+// 						PersonNum.value = "5";
 						ContactMan.value=data.data.applyunit_person;
 						PhoneNum.value=data.data.applyunit_phone;
 						email.value=data.data.applyunit_mail;

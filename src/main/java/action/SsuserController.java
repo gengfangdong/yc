@@ -254,6 +254,77 @@ public class SsuserController {
 	   
 	}
 	
+	@RequestMapping("/exportUserad/{scheduled_id}")
+	public void ExportUserad(HttpServletRequest request,HttpServletResponse response,@PathVariable String scheduled_id){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = ssuserService.getListUserByscid(scheduled_id);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		for(int j=0;j<eUsers.size();j++){
+			EUser eUser = eUsers.get(j);
+			HSSFRow row = sheet.createRow(j+1);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(eUser.getEUser_name());
+			HSSFCell cell1 = row.createCell(1);
+			String sex = eUser.getEUser_sex();
+			if("0".equals(sex)){
+				cell1.setCellValue("男");
+			}else if("1".equals(sex)){
+				cell1.setCellValue("女");
+			}
+			
+			HSSFCell cell2 = row.createCell(2);
+			cell2.setCellValue(eUser.getEUser_companyname());
+			HSSFCell cell3 = row.createCell(3);
+			cell3.setCellValue(eUser.getEUser_department());
+			HSSFCell cell4 = row.createCell(4);
+			cell4.setCellValue(eUser.getEUser_hold());
+			HSSFCell cell5 = row.createCell(5);
+			cell5.setCellValue(eUser.getEUser_indentitynumber());
+			HSSFCell cell6 = row.createCell(6);
+			cell6.setCellValue(eUser.getEUser_phone());
+			HSSFCell cell7 = row.createCell(7);
+			cell7.setCellValue(eUser.getEUser_remark());
+			
+		}
+		
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
+	}
+	
 	
 	
 }

@@ -92,55 +92,55 @@
 										<tr>
 											<td class="leftTd">报名项目:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名类别:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="background: #fff;border: 1px solid #ccc;" />
+												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style="width: 100%;" />
+												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
-										<tr>
+					<!-- 					<tr>
 											<td class="leftTd">报名人数:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value="" id="entryByCompanyEntryPersonNum" placeholder="请填写报名人数" style="width: 100%;height: 23px;border-radius: 5px;border: 1px solid #CCCCCC" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">联系人:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style="width: 100%;" />
+												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">联系人电话:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style="width: 100%;" />
+												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">联系人邮箱:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style="width: 100%;" />
+												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -270,71 +270,8 @@
 			});
 		});
 		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				};
-			});
-		</script>
-		<script>
-			function changeStyleColor1(obj) {
-				var nLi = $('.shaixuan li');
-				if($(obj).is('.conditionSelectStyle')) {
-					for(var i = 0; i < nLi.length; i++) {
-						if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-							$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-						}
-					}
-					$(obj).addClass('conditionSelectStyle');
-				} else {
-					for(var i = 0; i < nLi.length; i++) {
-						if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-							$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-						}
-					}
-					$(obj).addClass('conditionSelectStyle');
-				}
-				//					debugger;
-			}
-		</script>
+		
+		
 		<script>
 			function entryByCompanySave() {
 				var projectName = $("#entryByCompanyProject").val();

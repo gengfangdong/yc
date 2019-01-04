@@ -294,6 +294,7 @@
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
 
+
 		
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
@@ -316,15 +317,16 @@
 			    url: '<%=request.getContextPath()%>/Project/getlist1',
 			    cols: [[
 				  {type:'numbers',title:"序号"},
-			      {field:'course_id', title: 'ID',style:'display:none;'},
+// 			      {field:'course_id', title: 'ID',style:'display:none;'},
 			      {field:'project_name', title: '项目名称'},
 			      {field:'project_date', title: '报名开始时间'},
-			      {field:'project_status', title: '状态'},
+			      {field:'project_status', title: '状态',templet:'#typeuserstatus'},
 // 			      {field:'handle', title: '操作',toolbar: '#barDemo'}
 			      {field:'handle', title: '操作',  templet: '#barDemo'}
 			    ]],
 			    id: 'testReload',
 			    page: true
+			    
 			  });
 			  
 			//监听工具条
@@ -417,54 +419,61 @@
 					}else if(status == '全部'){
 						status = "";
 					}
-			        
-			      //执行重载
-			      table.reload('testReload', {
-					    elem: '#LAY_table_user',
-					    url: '<%=request.getContextPath()%>/Project/getlist1',
-					    cols: [[
-						  {type:'numbers',title:"序号"},
-					      {field:'course_id', title: 'ID',style:'display:none;'},
-					      {field:'project_name', title: '项目名称'},
-					      {field:'project_date', title: '报名开始时间'},
-					      {field:'project_status', title: '状态'},
-//		 			      {field:'handle', title: '操作',toolbar: '#barDemo'}
-					      {field:'handle', title: '操作',  templet: '#barDemo'}
-					    ]],
-					    id: 'testReload1',
-			        page: {
-			          	curr: 1 //重新从第 1 页开始
-			        },
-			        method:'post',
-			        where: {
-		        	    First_course:firstObj
-			        }
-			      });
-			    }
-			  };
+					  //执行重载
+				      table.reload('testReload', {
+				        page: {
+				          	curr: 1 //重新从第 1 页开始
+				        },
+				        method:'post',
+				        where: {
+			        	    status:status,
+				        }
+				      });
+				    }
+				  };
+				  
+				  $('.demoTable .layui-btn').on('click', function(){
+				    var type = $(this).data('type');
+				    active[type] ? active[type].call(this) : '';
+				  });
+					
+					
+// 			      //执行重载
+// 			      table.reload('testReload', {
+// 			        page: {
+// 			          	curr: 1 //重新从第 1 页开始
+// 			        },
+// 			        method:'post',
+// 			        where: {
+// 		        	    First_course:firstObj
+// 			        }
+// 			      });
+// 			    }
+// 			  };
 			  
-			  $('.demoTable .layui-btn').on('click', function(){
-			    var type = $(this).data('type');
-			    active[type] ? active[type].call(this) : '';
-			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+// 			  $('.demoTable .layui-btn').on('click', function(){
+// 			    var type = $(this).data('type');
+// 			    active[type] ? active[type].call(this) : '';
+// 			  });
+// 			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});
 			
 
 		</script>
 		<script type="text/html" id="barDemo">
-			{{#  if(d.project_status == '未报名'){ }}
+			{{#  if(d.project_status == '0'){ }}
 		        <a class="" lay-event="show"  style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="company" style="margin-right:10px; cursor: pointer;">单位报名</a>
 				<a class="" lay-event="one" style="margin-right:10px; cursor: pointer;">个人报名</a>
-	        {{#  } else if(d.project_status == "单位已报名"){ }}
+	        {{#  } else if(d.project_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="showEntryByCompany" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
-			{{#  } else if(d.project_status == "个人已报名"){ }}
+			{{#  } else if(d.project_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="showEntryByOne" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
 			{{#  } }}
 		</script>
+	
 		<script>
 			window.onload = function(){
 				<% if(user == null){%>
@@ -477,6 +486,15 @@
 				treeUls[2].setAttribute('style','display: block;');
 			};
 		</script>
+		    <script type="text/html" id="typeuserstatus">
+	     {{#  if(d.project_status == "0"){ }}
+	        未报名
+	     {{#  }else if(d.project_status=="1"){ }}
+	     	个人已报名
+	     {{#  }else if(d.project_status=="2"){ }}
+	     	单位已报名
+	     {{# } }}
+	     </script>
 	</body>
 
 </html>

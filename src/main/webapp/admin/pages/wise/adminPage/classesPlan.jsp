@@ -563,6 +563,7 @@
 							}
 							else if(data.message == "2"){
 								alert("删除成功!");
+								window.parent.location.reload();
 							}
 							
 						},

@@ -74,13 +74,13 @@
 										<tr>
 											<td class="leftTd">项目名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="projectListTitle" readonly="readonly" />
+												<input type="text" id="projectListTitle" readonly="readonly" style="width:100%;border:none;border-radius:5px;border:1px solid #ccc;"  />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">添加日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" readonly="readonly"/>
+												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:257px;border:none;border-radius:5px;border:1px solid #ccc;" readonly="readonly"/>
 											</td>
 										</tr>
 										
@@ -93,7 +93,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;">
-									<button class="newsSave saveBtn" id="newsSave" onclick="">关闭</button>
+									<button class="newsSave saveBtn" id="newsSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>

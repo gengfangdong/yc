@@ -83,8 +83,9 @@
 			}
 			.disabledStyle{
 				background-color:#FFFFFF;
-				border:1px solid #9a9a9a;
+				border:1px solid #ccc;
 				border-radius: 5px;
+				height:23px;
 			}
 		</style>
 	</head>
@@ -129,27 +130,27 @@
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostStartDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名开始日期" type="text" class=""  disabled="disabled" />
+											<input id="hostStartDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名开始日期" type="text" class="" style="width:257px;"  disabled="disabled" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostEndDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名截止日期" type="text" class="" disabled="disabled"  />
+											<input id="hostEndDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名截止日期" type="text" class="" disabled="disabled" style="width:257px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="startClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择开课日期" type="text" class=""  disabled="disabled" />
+											<input id="startClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择开课日期" type="text" class=""  disabled="disabled" style="width:257px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="endClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择结课日期" type="text" class="" disabled="disabled" />
+											<input id="endClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择结课日期" type="text" class="" disabled="disabled" style="width:257px;" />
 											</td>
 										</tr>
 										<tr>
@@ -565,7 +566,7 @@
         						memotr += '<tr id="upload-'+ i +'">'+
 						          '<td>'+ files[i].scheduled_oldfile +'</td>'+
 						          '<td>'+
-						          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor">下载</a></button>'+
+						          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor">下载</a></button>'+
 						          '</td>'+
 						        '</tr>';
         					}

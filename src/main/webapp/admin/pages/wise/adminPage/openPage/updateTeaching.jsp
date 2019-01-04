@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+				<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#teachingDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 // 			debugger;
@@ -254,6 +264,41 @@
 		</script>
 		<script>
 			function save(){
+				var teachingTitle = $('#teachingTitle').val();
+				var teachingAbstract = $("#teachingAbstract").val();
+				var teachingKeyWords = $("#teachingKeyWords").val();
+				var teachingDate = $("#teachingDate").val();
+				var teachingStates = $(".teachingStates");
+				var teachingDescription = CKEDITOR.instances.teachingDescription.getData();
+				if(teachingTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(teachingAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(teachingKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(teachingDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(teachingDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(teachingStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(teachingStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 // 				debugger;
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
@@ -342,10 +387,10 @@
 						teachingcontext.setData(teaching_context);//内容
 						filename.value=teaching_title_page;
 						if(teaching_status == "1"||teaching_status == "2"){
-							teachingStatus[1].checked = true;
+							teachingStatus[0].checked = true;
 						}
 						else if(teaching_status == "0"){
-							teachingStatus[0].checked = true;
+							teachingStatus[1].checked = true;
 						}
 
 					}

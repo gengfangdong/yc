@@ -193,10 +193,10 @@
 						expertcontext.setData(expert_context);//内容
 
 						if(expert_status == "1"||expert_status == "2"){
-							expertStatus[1].checked = true;
+							expertStatus[0].checked = true;
 						}
 						else if(expert_status == "0"){
-							expertStatus[0].checked = true;
+							expertStatus[1].checked = true;
 						}
 
 					}

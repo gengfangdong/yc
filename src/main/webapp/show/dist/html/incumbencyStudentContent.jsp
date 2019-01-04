@@ -130,7 +130,7 @@
 							<div class="am-g">
 								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
 									<div class="logo">
-										<a href="../index.html"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+										<a href="../index.jsp"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
 									</div>
 								</div>
 								<div class="am-u-lg-8 am-u-md-12">
@@ -140,77 +140,77 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.html" >首页</a>
+															<a href="../index.jsp" >首页</a>
 														</li>
 														<li>
-															<a href="cultureSystem.html">项目概况</a>
+															<a href="cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="cultureSystem.html">培养体系</a>
+																	<a href="cultureSystem.jsp">培养体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="solution.html">解决方案</a>
+																	<a href="solution.jsp">解决方案</a>
 																</li>
 																<li class="menu-item">
-																	<a href="teachingMaterialSystem.html">教材体系</a>
+																	<a href="teachingMaterialSystem.jsp">教材体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="taxCollectionFund.html">领税基金</a>
+																	<a href="taxCollectionFund.jsp">领税基金</a>
 																</li>
 																<li class="menu-item">
-																	<a href="expertTeam.html">专家团队</a>
+																	<a href="expertTeam.jsp">专家团队</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.html">规定班次</a>
+															<a href="regulationsClasses.jsp">规定班次</a>
 														</li>
 														<li>
-															<a href="customizedClasses.html">定制班次</a>
+															<a href="customizedClasses.jsp">定制班次</a>
 														</li>
 														<li>
-															<a href="onlineClasses.html">拼班</a>
+															<a href="onlineClasses.jsp">拼班</a>
 														</li>
 														<li>
-															<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+															<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="incumbencyStudent.html" style="color: #FF2F2F;">招生简章</a>
+																	<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">招生简章</a>
 																</li>
 																<li class="menu-item">
-																	<a href="onlineApplication.html">在线报名</a>
+																	<a href="onlineApplication.jsp">在线报名</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="newsNotice.html">新闻公告</a>
+															<a href="newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="newsNotice.html">通知公告</a>
+																	<a href="newsNotice.jsp">通知公告</a>
 																</li>
 																<li class="menu-item">
-																	<a href="newsTrain.html">培训新闻</a>
+																	<a href="newsTrain.jsp">培训新闻</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.html">关于我们</a>
+															<a href="about.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.html">中心概况</a>
+																	<a href="centerOverview.jsp">中心概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.html">组织结构</a>
+																	<a href="organization.jsp">组织结构</a>
 																</li>
 																<li class="menu-item">
-																	<a href="aboutSchool.html">学校介绍</a>
+																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
@@ -243,51 +243,51 @@
 									<div class="am-offcanvas-bar">
 										<ul class="am-nav am-nav-pills am-nav-justify">
 											<li class="">
-												<a href="../index.html">首页</a>
+												<a href="../index.jsp">首页</a>
 											</li>
 											<li>
-												<a href="about.html">关于我们</a>
+												<a href="about.jsp">关于我们</a>
 											</li>
 											<li>
-												<a href="newsNotice.html">新闻中心</a>
+												<a href="newsNotice.jsp">新闻中心</a>
 												<!-- sub-menu start-->
 												<ul class="sub-menu">
 													<li class="menu-item">
-														<a href="newsNotice.html">通知公告</a>
+														<a href="newsNotice.jsp">通知公告</a>
 													</li>
 													<li class="menu-item">
-														<a href="newsTrain.html">培训新闻</a>
+														<a href="newsTrain.jsp">培训新闻</a>
 													</li>
 												</ul>
 												<!-- sub-menu end-->
 											</li>
 											<li>
-												<a href="regulationsClasses.html">规定班次</a>
+												<a href="regulationsClasses.jsp">规定班次</a>
 											</li>
 											<li>
-												<a href="customizedClasses.html">定制班次</a>
+												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
 											<li>
-												<a href="onlineClasses.html">在线拼班</a>
+												<a href="onlineClasses.jsp">在线拼班</a>
 											</li>
 											<li>
-												<a href="incumbencyStudent.html" style="color: #FF2F2F;">在职研</a>
+												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
 												<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="incumbencyStudent.html" style="color: #FF2F2F;">招生简章</a>
+																	<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">招生简章</a>
 																</li>
 																<li class="menu-item">
-																	<a href="onlineApplication.html">在线报名</a>
+																	<a href="onlineApplication.jsp">在线报名</a>
 																</li>
 															</ul>
 															<!-- sub-menu end-->
 											</li>
 											<li class="">
-												<a href="login.html" class="">登录</a>
+												<a href="login.jsp" class="">登录</a>
 											</li>
 											<li class="">
-												<a href="register.html" class="">注册</a>
+												<a href="register.jsp" class="">注册</a>
 											</li>
 										</ul>
 
@@ -323,7 +323,7 @@
 						<div class="am-container">
 							<ol class="am-breadcrumb">
 								<li>
-									<a href="../index.html">首页</a>
+									<a href="../index.jsp">首页</a>
 								</li>
 								<li class="am-active">在职研</li>
 								<li class="am-active">招生简章</li>
@@ -333,14 +333,14 @@
 					<div class="am-g">
 						<div class="am-u-sm-11 am-u-sm-centered">
 							<div class="am-cf am-article"  id="showRulesContent">
-								<div style="text-align: center;">
+						<!-- 		<div style="text-align: center;">
 									<h1 class="am-article-title">中央财经大学招生简章</h1>
 									<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">
 										<label style="padding-right: 3%;">作者：中央财经大学招生办</label>
 										<label style="padding-left: 3%;">时间：2018-11-17</label>
 									</p>
-								</div>
-								<div style="text-align: center;">
+								</div> -->
+								<!-- <div style="text-align: center;">
 									<img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" style="max-height: 300px;">
 								</div>
 								<h3 style="color: #FF2F2F;">一、办学单位简况</h3>
@@ -555,7 +555,7 @@
 								</p>
 								<p style="text-indent: 25px;">
 									报名邮箱：edu@eduego.com
-								</p>
+								</p> -->
 							</div>
 							<hr/>
 						</div>
@@ -568,10 +568,10 @@
 							<ul class="am-nav">
 								<li class="sidebar_contactUs">■在职研</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									<a href="incumbencyStudent.html" style="font-weight: 600;color: #FF2F2F;">招生简章</a>
+									<a href="incumbencyStudent.jsp" style="font-weight: 600;color: #FF2F2F;">招生简章</a>
 								</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									<a href="onlineApplication.html" style="color: #000000;">在线报名</a>
+									<a href="onlineApplication.jsp" style="color: #000000;">在线报名</a>
 								</li>
 							</ul>
 							<ul class="am-nav">
@@ -687,7 +687,12 @@
             success:function(data){
             	if(data.success == true){
             		var rules_context = data.data.rules_context;
- 					 document.getElementById('showRulesContent').innerHTML=rules_context;
+ 					 document.getElementById('showRulesContent').innerHTML=
+ 						'<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.rules_titile+'</h1>'+
+ 						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
+ 						'<label style="padding-right: 3%;">作者：'+data.data.rules_Creater+'</label>'+
+ 						'<label style="padding-left: 3%;">时间：'+data.data.rules_Release_time+'</label>'+
+ 						 rules_context;
             	}
             },
             error:function(error){

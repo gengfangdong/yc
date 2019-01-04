@@ -76,6 +76,14 @@
 				height:28px;
 				line-height:28px;
 			}
+			#dowmLoad{
+				color:#fff!important;
+				margin-left:10px;
+			}
+			#dowmLoad:hover{
+				color:#FFF!important;
+				margin-left:10px;
+			}
 		</style>
 	</head>
 	<body>
@@ -235,7 +243,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 100px;">
-									<button class="branchSave branchSub" onclick="branchSub();">提交</button>
+									<button class="branchSave branchSub" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
 								</div>
 							</div>
 							
@@ -345,28 +353,6 @@
 		  });
 		});
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 		<script type="text/html" id="barDemo">
   			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>
 		</script>
@@ -375,6 +361,18 @@
 		</script>
 		<script type="text/html" id="radio2">
 			<input type="radio" name="planRadio" value="{{d.id}}" />
+		</script>
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
 		</script>
 		<script type="text/javascript">
 		window.onload = function(){
@@ -412,6 +410,7 @@
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
+							
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -463,6 +462,7 @@
 							$('#hostingDay').val(data.data.constom.freeco_datanum);
 							$('textarea').val(data.data.constom.freeco_outline);
 						}
+						$($("#sample-table-2 .layui-table-body .laytable-cell-2-classplan_date select")[0]).val(data.data.constom.freeco_day);
 						//$(".layui-this").css('display','');
 						//$($(nLiShow[j])[0])[0].innerHTML=type;
 						//$(".layui-this")[0].innerHTML = type;
@@ -474,7 +474,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor" id="dowmLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -582,6 +582,7 @@
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',

@@ -343,53 +343,45 @@
 		<script>
 			function save(){
 				//debugger;
+				var taxTitle = $('#taxTitle').val();
+				var taxAbstract = $("#taxAbstract").val();
+				var taxKeyWords = $("#taxKeyWords").val();
+				var taxDate = $("#taxDate").val();
+				var taxStates = $(".taxStates");
+				var taxDescription = CKEDITOR.instances.taxDescription.getData();
+				if(taxTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(taxAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(taxKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(taxDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(taxDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(taxStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(taxStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
 				}
-				/*var tax_title_page = filename;
-		    	var tax_context = CKEDITOR.instances.taxDescription.getData();
-				var taxTitle = document.getElementById("taxTitle").value;
-				var taxAbstract = document.getElementById("taxAbstract").value;
-				var taxKeyWords = document.getElementById("taxKeyWords").value;
-				var taxDate = document.getElementById("taxDate").value;
-				var taxStatus = document.getElementsByName("taxStates");
-				var tax_status="";
-				for(var i=0;i<taxStatus.length;i++){
-					if(taxStatus[i].checked == true){
-						if("发布"==taxStatus[i].value){
-							tax_status = '1';
-						}
-						else
-							tax_status = '0';
-						//tax_status = taxStatus[i].value;
-						break;
-					}
-				}
-				alert(taxTitle+"\n"+tax_title_page+"\n"+taxAbstract+"\n"+taxKeyWords+"\n"+taxDate+"\n"+tax_status+"\n"+tax_context);
-				$.ajax({
-					url : '<%=request.getContextPath()%>/Tax/saveTax',
-					type : 'post',
-					dataType:"json",
-					data:{
-						Tax_Title:taxTitle,
-						Tax_Introduction:taxAbstract,
-						Tax_KeyWords:taxKeyWords,
-						Tax_Release_time:taxDate,
-						Tax_status:tax_status,
-						Tax_context:tax_context,
-						filename:tax_title_page
-					},
-					success : function(data) {
-						if(data.message == "1"){
-							layer.alert("保存成功!");
-						}
-						
-					},
-					error : function(error) {
-						console.log('接口不通' + error);
-					}
-				});	*/
 			}
 		</script>
 		<script type="text/javascript">

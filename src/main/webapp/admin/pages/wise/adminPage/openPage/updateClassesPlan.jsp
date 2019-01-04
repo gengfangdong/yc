@@ -78,7 +78,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										新增
+										修改
 									</label>
 								</div>
 							</div>
@@ -89,69 +89,14 @@
 											<td class="leftTd">课程方案名称:</td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="classesName" style="width: 100%;"  /> 
-												<!--<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													<option value="课程方案一">课程方案一</option>
-													<option value="课程方案二">课程方案二</option>
-												</select>-->
 											</td>
-
 										</tr>
-										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription" /></textarea>
 											</td>
 										</tr>
-										<!--<tr>
-											<td class="leftTd">所属课程大纲:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													<option value="课程大纲一">课程大纲一</option>
-													<option value="课程大纲二">课程大纲二</option>
-												</select>
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">所属课程内容:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="内容一">内容一</option>
-											        <option value="内容二">内容二</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">名称:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">天数:</td>
-											<td class="rightTd" colspan="2">
-												&lt;!&ndash; <input type="text" id="hostDateNum" style="width: 100%;" /> &ndash;&gt;
-												<select id="dateNum" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="halfDay">0.5天</option>
-											        <option value="oneDay">1天</option>
-											        <option value="oneHalfDay">1.5天</option>
-											        <option value="twoDay">2天</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">状态:</td>
-											<td class="rightTd" colspan="2">
-												<input type="radio" name="states" />暂停
-												<input type="radio" name="states" />发布
-											</td>
-
-										</tr>-->
-										
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
@@ -197,99 +142,6 @@
 				element.on('tab(demo)', function(data) {
 					console.log(data);
 				});
-			});
-		</script>
-		<script>
-			layui.use('upload', function() {
-				var upload = layui.upload;
-
-				//执行实例
-				var uploadInst = upload.render({
-					elem: '#test1', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test2', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-				var uploadInst = upload.render({
-					elem: '#test3', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-				var uploadInst = upload.render({
-					elem: '#test4', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-			});
-		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if (strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				};
 			});
 		</script>
 		
@@ -340,15 +192,23 @@
 					success:function(data){
 						if(data.success== true){
 							if(data.message == "1"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							else
-								layer.alert("失败!");
+								layer.alert("保存失败!");
 						}
 						
 					},
 					error:function(data){
-
+						layer.confirm('保存失败!', { title:'提示'}, function(index){				
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
 					}
 
 				})

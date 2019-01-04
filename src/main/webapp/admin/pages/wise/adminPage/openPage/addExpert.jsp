@@ -343,53 +343,46 @@
 		<script>
 			function save(){
 				//debugger;
+				
+				var expertTitle = $('#expertTitle').val();
+				var expertAbstract = $("#expertAbstract").val();
+				var expertKeyWords = $("#expertKeyWords").val();
+				var expertDate = $("#expertDate").val();
+				var expertStates = $(".expertStates");
+				var expertDescription = CKEDITOR.instances.expertDescription.getData();
+				if(expertTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(expertAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(expertKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(expertDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(expertDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(expertStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(expertStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
 				}
-				/*var expert_title_page = filename;
-		    	var expert_context = CKEDITOR.instances.expertDescription.getData();
-				var expertTitle = document.getElementById("expertTitle").value;
-				var expertAbstract = document.getElementById("expertAbstract").value;
-				var expertKeyWords = document.getElementById("expertKeyWords").value;
-				var expertDate = document.getElementById("expertDate").value;
-				var expertStatus = document.getElementsByName("expertStates");
-				var expert_status="";
-				for(var i=0;i<expertStatus.length;i++){
-					if(expertStatus[i].checked == true){
-						if("发布"==expertStatus[i].value){
-							expert_status = '1';
-						}
-						else
-							expert_status = '0';
-						//expert_status = expertStatus[i].value;
-						break;
-					}
-				}
-				alert(expertTitle+"\n"+expert_title_page+"\n"+expertAbstract+"\n"+expertKeyWords+"\n"+expertDate+"\n"+expert_status+"\n"+expert_context);
-				$.ajax({
-					url : '<%=request.getContextPath()%>/Expert/saveExpert',
-					type : 'post',
-					dataType:"json",
-					data:{
-						Expert_Title:expertTitle,
-						Expert_Introduction:expertAbstract,
-						Expert_KeyWords:expertKeyWords,
-						Expert_Release_time:expertDate,
-						Expert_status:expert_status,
-						Expert_context:expert_context,
-						filename:expert_title_page
-					},
-					success : function(data) {
-						if(data.message == "1"){
-							layer.alert("保存成功!");
-						}
-						
-					},
-					error : function(error) {
-						console.log('接口不通' + error);
-					}
-				});	*/
 			}
 		</script>
 		<script type="text/javascript">

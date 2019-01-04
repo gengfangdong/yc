@@ -193,10 +193,10 @@
 						culturecontext.setData(culture_context);//内容
 
 						if(culture_status == "1"||culture_status == "2"){
-							cultureStatus[1].checked = true;
+							cultureStatus[0].checked = true;
 						}
 						else if(culture_status == "0"){
-							cultureStatus[0].checked = true;
+							cultureStatus[1].checked = true;
 						}
 
 					}

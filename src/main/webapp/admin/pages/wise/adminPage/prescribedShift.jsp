@@ -14,7 +14,7 @@
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
 		<!-- DataTables -->
 		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
@@ -33,7 +33,7 @@
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../bootstrap/css/style.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../css/myStyle.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -339,7 +339,7 @@
 		<!-- Bootstrap 3.3.5 -->
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
-		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.4.5/layui/layui.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -396,7 +396,7 @@
 			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
 			      {field:'number', title: '已报名人数',minWidth:140},
 			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:200}
+			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -637,18 +637,9 @@
 			<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">结束</a>
 			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			{{#  if(d.scheduledshift.scheduled_status == '1'){ }}
-		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
-	        {{#  } else if(d.scheduledshift.scheduled_status == "0"){ }}
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">报名</a>
-			{{#  } }}
-
-  			{{#  if(d.scheduledshift.scheduled_status == '1'){ }}
-		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-	        {{#  } else if(d.scheduledshift.scheduled_status == "0"){ }}
-				
-			{{#  } }}
-  			
+			 {{#  if(d.number != "0"){ }}
+	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href = "<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">查看名单</a>
+	     	 {{# } }}
 		</script>
 
 		<script type="text/html" id="typestatus">

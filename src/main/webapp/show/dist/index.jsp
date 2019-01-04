@@ -269,12 +269,12 @@
 						<div class="am-tabs-bd">
 							<div data-tab-panel-0 class="am-tab-panel am-active">
 								<div class="">
-									<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
-										<ul class="am-slides">
+									<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}' id="demo-slider-0">
+										<ul class="am-slides" id="pic">
 											<li><img src="assets/img/index/lunbo1.png"></li>
-											<li><img src="assets/img/index/lunbo2.png"></li>
+											  <!--<li><img src="assets/img/index/lunbo2.png"></li>
 											<li><img src="assets/img/index/lunbo3.png"></li>
-											<li><img src="assets/img/index/lunbo4.png"></li>
+											<li><img src="assets/img/index/lunbo4.png"></li>  -->
 										</ul>
 									</div>
 								</div>
@@ -570,7 +570,60 @@
 // 					var newsListNumHeight = newsListNum*35+5 +'px';
 // 					$('.newsList').css('height',newsListNumHeight);
 // 				}
-				
+			 $.ajax({
+				url : '<%=request.getContextPath()%>/Show/findAllRotation',
+				type : 'post',
+				async:false,
+	      		dataType:'json',
+				success : function(data) {
+					datas=data.data
+					if(datas.length == 0){
+						document.getElementById("pic").innerHTML=""//全部清空
+						var div =document.createElement("li")//建立div对象
+						div.innerHTML="暂无通知公告!"//建立显示元素
+						document.getElementById("pic").appendChild(div)//加入all中 
+						return;
+					}
+					var zz =new Array(datas.length);
+					
+					var $slider = $('#demo-slider-0');
+					var getSlide = function() {
+						var lis="";
+					    for(var i=0;i<datas.length;i++){
+							lis = lis+"<li><img width='1580px' height='499px' src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=\'+datas[i].rotationPic_id+\'></img></li>";
+					    }
+					   return lis;
+					};
+					$slider.flexslider('addSlide', getSlide());
+				<%-- /* 	document.getElementById("pic").innerHTML=""//全部清空 */
+						for(var i=0;i<datas.length;i++){
+							var div1 =document.createElement("li")//建立div对象
+							div1.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
+							div1.setAttribute("class","clone");
+							div1.setAttribute("aria-hidden","true");
+							/* <img src="assets/img/index/lunbo3.png"></li> */
+							div1.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d'></img>"//建立显示元素
+							var div2 =document.createElement("li")//建立div对象
+							div2.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
+							div2.setAttribute("class","am-active-slide");
+							/* <img src="assets/img/index/lunbo3.png"></li> */
+							div2.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d'></img>"//建立显示元素
+							var div3 =document.createElement("li")//建立div对象
+							div3.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
+							div3.setAttribute("class","clone");
+							div3.setAttribute("aria-hidden","true");
+							/*div3.setAttribute("aria-hidden","true"); */
+							/* <img src="assets/img/index/lunbo3.png"></li> */
+							div3.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d' draggable='false'></img>"//建立显示元素
+							/* document.getElementById("pic").appendChild(div1)//加入all中 
+							document.getElementById("pic").appendChild(div2)//加入all中  */
+							document.getElementById("pic").appendChild(div3)//加入all中 
+					   } --%>
+					},
+				error : function(error) {
+						console.log('接口不通' + error);
+					}
+				}); 
 				  $.ajax({
 						url : '<%=request.getContextPath()%>/Show/findAllNotice',
 						type : 'post',

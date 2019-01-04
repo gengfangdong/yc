@@ -94,7 +94,7 @@ String applyshow_id = request.getParameter("applyshow_id");
                             <tr>
                                 <td class="leftTd">您的姓名:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="王德利" id="entryByOneName" style="width: 100%;" />
+                                    <input type="text" value="王德利" id="entryByOneName" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
@@ -110,14 +110,14 @@ String applyshow_id = request.getParameter("applyshow_id");
                             <tr>
                                 <td class="leftTd">出生日期:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="1989-01-01" id="entryByOneBirthday" placeholder="YYYY-MM-DD" />
+                                    <input type="text" value="1989-01-01" id="entryByOneBirthday" placeholder="YYYY-MM-DD" style="width:257px;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
                             <tr>
                                 <td class="leftTd">身份证号:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="130123198901010021" id="entryByOneIDNum" maxlength="18" style="width: 100%;" />
+                                    <input type="text" value="130123198901010021" id="entryByOneIDNum" maxlength="18" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
@@ -134,46 +134,46 @@ String applyshow_id = request.getParameter("applyshow_id");
                             <tr>
                                 <td class="leftTd">手机号码:</td>
                                 <td class="rightTd">
-                                    <input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;" />
+                                    <input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
                             <tr>
                                 <td class="leftTd">电子邮箱:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="123456789@qq.com" id="entryByOneEmail" style="width: 100%;" />
+                                    <input type="text" value="123456789@qq.com" id="entryByOneEmail" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
                             <tr>
                                 <td class="leftTd">所在部门:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="北京市海淀区税务局" id="entryByOneDepartment" style="width: 100%;" />
+                                    <input type="text" value="北京市海淀区税务局" id="entryByOneDepartment" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
 
                             </tr>
                             <tr>
                                 <td class="leftTd">任职岗位:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="财务监督员" id="entryByOneJob" style="width: 100%;" />
+                                    <input type="text" value="财务监督员" id="entryByOneJob" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
                             </tr>
                             <tr>
                                 <td class="leftTd">任职职务:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="税务监督员" id="entryByOnePost" style="width: 100%;" />
+                                    <input type="text" value="税务监督员" id="entryByOnePost" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
                             </tr>
                             <tr>
                                 <td class="leftTd">通讯地址:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="北京市海淀区税务局" id="entryByOneAddress" style="width: 100%;" />
+                                    <input type="text" value="北京市海淀区税务局" id="entryByOneAddress" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
                             </tr>
                             <tr>
                                 <td class="leftTd">其他信息:</td>
                                 <td class="rightTd" >
-                                    <input type="text" value="暂无" id="entryByOneInformation" style="width: 100%;" />
+                                    <input type="text" value="暂无" id="entryByOneInformation" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
                             </tr>
 
@@ -488,7 +488,11 @@ String applyshow_id = request.getParameter("applyshow_id");
             success : function(data) {
                 if(data.success == true){
                     if(data.msg == "2"){
-                        layer.alert("更新成功!");
+                    	layer.confirm('保存成功!', { title:'提示'}, function(index){				
+                    		window.parent.location.reload();
+                    		var index1 = parent.layer.getFrameIndex(window.name);
+                    		parent.layer.close(index1);
+                    	});
                     }
 
                 }
@@ -496,6 +500,12 @@ String applyshow_id = request.getParameter("applyshow_id");
             },
             error : function(error) {
                 console.log('接口不通' + error);
+                layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+                	window.parent.location.reload();
+                	var index1 = parent.layer.getFrameIndex(window.name);
+                	parent.layer.close(index1);
+                	console.log(error);
+                });
             }
         });
     };

@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+				<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#expertDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -253,6 +263,41 @@
 		</script>
 		<script>
 			function save(){
+				var expertTitle = $('#expertTitle').val();
+				var expertAbstract = $("#expertAbstract").val();
+				var expertKeyWords = $("#expertKeyWords").val();
+				var expertDate = $("#expertDate").val();
+				var expertStates = $(".expertStates");
+				var expertDescription = CKEDITOR.instances.expertDescription.getData();
+				if(expertTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(expertAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(expertKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(expertDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(expertDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(expertStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(expertStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				//debugger;
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
@@ -341,10 +386,10 @@
 						expertcontext.setData(expert_context);//内容
 						filename.value=expert_title_page;
 						if(expert_status == "1"||expert_status == "2"){
-							expertStatus[1].checked = true;
+							expertStatus[0].checked = true;
 						}
 						else if(expert_status == "0"){
-							expertStatus[0].checked = true;
+							expertStatus[1].checked = true;
 						}
 
 					}

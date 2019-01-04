@@ -111,7 +111,7 @@ public class FigClassServiceImpl implements FigClassService {
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
 		List<FigClass> figClasses = new ArrayList<FigClass>();
 		int count = 0;
-		figClasses = figClassDao.getListBypage(isbm,user_id,status, caogery, (page-1)*limit, limit);
+		figClasses = figClassDao.getListBypage(isbm,user_id,status, caogery, (page-1)*limit, (page-1)*limit+limit);
 		List<FigClassshowVo> figClassshowVos = new ArrayList<FigClassshowVo>();
 		if(figClasses!=null&&figClasses.size()>0){
 			for (FigClass figClass : figClasses) {
@@ -290,7 +290,7 @@ public class FigClassServiceImpl implements FigClassService {
 		int count = 0;
 		List<MemProjectVo> memProjectVos = new ArrayList<MemProjectVo>();
 		if("0".equals(caogery)){//定制
-			LayuiDataTable<Free_constom> fDataTable = constomService.getListBypage(status, "", page, limit, user_id);
+			LayuiDataTable<Free_constom> fDataTable = constomService.getListBypage(status, "", (page-1)*limit, (page-1)*limit+limit, user_id);
 			if(fDataTable!=null&&fDataTable.getData().size()>0){
 				for (Free_constom free_constom : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
@@ -308,7 +308,7 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("1".equals(caogery)){//规定
-			LayuiDataTable<ScheduledShiftShow> sDataTable = sc.getScByPage(page, limit,user_id,status,"");
+			LayuiDataTable<ScheduledShiftShow> sDataTable = sc.getScByPage((page-1)*limit, (page-1)*limit+limit,user_id,status,"");
 			if(sDataTable!=null&&sDataTable.getData().size()>0){
 				for (ScheduledShiftShow scheduledShiftShow : sDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
@@ -326,7 +326,7 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("2".equals(caogery)){//拼班
-			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("",status, "", page, limit, user_id);
+			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("",status, "", (page-1)*limit, (page-1)*limit+limit, user_id);
 			if(fDataTable!=null&&fDataTable.getData().size()>0){
 				for (FigClassshowVo figClassshowVo : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
@@ -345,7 +345,7 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setMsg("");
 		}else if("".equals(caogery)){//所有
 			List<Map<String,Object>> maps = new ArrayList<Map<String,Object>>();
-			maps = figClassDao.getMemProject(user_id, (page-1)*limit, limit, status);
+			maps = figClassDao.getMemProject(user_id, (page-1)*limit, (page-1)*limit+limit, status);
 			if(maps != null && maps.size()>0){
 				for (Map<String, Object> map : maps) {
 					MemProjectVo memProjectVo = new MemProjectVo();
@@ -380,7 +380,7 @@ public class FigClassServiceImpl implements FigClassService {
 					
 				}
 				int counta = 0;
-				counta = figClassDao.getProjectCount(user_id, (page-1)*limit, limit, status);
+				counta = figClassDao.getProjectCount(user_id, (page-1)*limit, (page-1)*limit+limit, status);
 				mDataTable.setCode(0);
 				mDataTable.setCount(counta);
 				mDataTable.setData(memProjectVos);

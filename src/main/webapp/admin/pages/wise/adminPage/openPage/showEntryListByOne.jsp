@@ -90,7 +90,7 @@
 										<tr>
 											<td class="leftTd">您的姓名:</td>
 											<td class="rightTd" >
-												<input type="text" value="王德利" id="entryByOneName" style="width: 100%;" disabled="disabled" class="disableInput" />
+												<input type="text" value="王德利" id="entryByOneName" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput" />
 											</td>
 
 										</tr>
@@ -106,14 +106,14 @@
 										<tr>
 											<td class="leftTd">出生日期:</td>
 											<td class="rightTd" >
-												<input type="text" value="1989-01-01" id="entryByOneBirthday" placeholder="YYYY-MM-DD"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="1989-01-01" id="entryByOneBirthday" placeholder="YYYY-MM-DD"  disabled="disabled" class="disableInput" style="background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;width:257px;"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">身份证号:</td>
 											<td class="rightTd" >
-												<input type="text" value="130123198901010021" id="entryByOneIDNum" style="width: 100%;"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="130123198901010021" id="entryByOneIDNum" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
 
 										</tr>
@@ -130,62 +130,62 @@
 										<tr>
 											<td class="leftTd">手机号码:</td>
 											<td class="rightTd">
-												<input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">电子邮箱:</td>
 											<td class="rightTd" >
-												<input type="text" value="123456789@qq.com" id="entryByOneEmail" style="width: 100%;"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="123456789@qq.com" id="entryByOneEmail" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">所在部门:</td>
 											<td class="rightTd" >
-												<input type="text" value="北京市海淀区税务局" id="entryByOneDepartment" style="width: 100%;" disabled="disabled" class="disableInput"/>
+												<input type="text" value="北京市海淀区税务局" id="entryByOneDepartment" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">任职岗位:</td>
 											<td class="rightTd" >
-												<input type="text" value="财务监督员" id="entryByOneJob" style="width: 100%;"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="财务监督员" id="entryByOneJob" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">任职职务:</td>
 											<td class="rightTd" >
-												<input type="text" value="税务监督员" id="entryByOnePost" style="width: 100%;" disabled="disabled" class="disableInput" />
+												<input type="text" value="税务监督员" id="entryByOnePost" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">通讯地址:</td>
 											<td class="rightTd" >
-												<input type="text" value="北京市海淀区税务局" id="entryByOneAddress" style="width: 100%;" disabled="disabled" class="disableInput" />
+												<input type="text" value="北京市海淀区税务局" id="entryByOneAddress" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled" class="disableInput" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">其他信息:</td>
 											<td class="rightTd" >
-												<input type="text" value="暂无" id="entryByOneInformation" style="width: 100%;"  disabled="disabled" class="disableInput"/>
+												<input type="text" value="暂无" id="entryByOneInformation" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
 										</tr>
 
 									</tbody>
 								</table>
 							</div>
-							<div class="row" style="height: 30px;line-height: 30px;">
+							<!-- <div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										项目审核信息
 									</label>
 								</div>
-							</div>
+							</div> -->
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-								<table id="branchTable" class="table table-bordered table-hover example1_x">
+								<!-- <table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
 											<td class="leftTd">审核结果:</td>
@@ -195,9 +195,9 @@
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> -->								
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="onlineAuditSave();">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
 								</div>
 							</div>
 

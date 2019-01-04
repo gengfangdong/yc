@@ -57,6 +57,6 @@
 		WHERE N.EXPERT_ID = #{expert_id}
 	</delete>
 	<select id = "findAllExpert" resultMap="expert">
-		SELECT * FROM   EXPERT
+		SELECT * FROM   EXPERT where EXPERT_STATUS='1'
 	</select>
 </mapper>

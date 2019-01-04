@@ -114,7 +114,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text"  autocomplete="off" class="" style="height: 23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+		<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#newsDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -254,6 +264,48 @@
 		<script>
 			function save(){
 				//debugger;
+				
+				var newsTitle = $('#newsTitle').val();
+				var newsAbstract = $("#newsAbstract").val();
+				var newsKeyWords = $("#newsKeyWords").val();
+				var newsDate = $("#newsDate").val();
+				var newsStates = $(".newsStates");
+				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+				if(newsTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(newsAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(newsKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(newsDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(newsDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(newsStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(newsStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
+				var s=$("#demo1").attr("src");
+				if(s==undefined){
+					layer.alert("请选择封面!");
+				}
+				
+				
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
 					var rules_title_page = oldfilename;
@@ -341,10 +393,10 @@
 						newscontext.setData(rules_context);//内容
 						filename.value=rules_title_page;
 						if(rules_status == "1"||rules_status == "2"){
-							newsStatus[1].checked = true;
+							newsStatus[0].checked = true;
 						}
 						else if(rules_status == "0"){
-							newsStatus[0].checked = true;
+							newsStatus[1].checked = true;
 						}
 
 					}

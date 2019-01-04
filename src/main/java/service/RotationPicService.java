@@ -13,4 +13,5 @@ public interface RotationPicService {
 	public void updateRotationPic(RotationPic RotationPic);
 	//删除轮播图片
 	public void deleteRotationPic(String RotationPic_id);
+	public DatatablesViewPage<RotationPic> findAllRotation();
 }

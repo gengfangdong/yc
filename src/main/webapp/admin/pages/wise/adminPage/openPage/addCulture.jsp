@@ -343,53 +343,47 @@
 		<script>
 			function save(){
 				//debugger;
+				
+				var cultureTitle = $('#cultureTitle').val();
+				var cultureAbstract = $("#cultureAbstract").val();
+				var cultureKeyWords = $("#cultureKeyWords").val();
+				var cultureDate = $("#cultureDate").val();
+				var cultureStates = $(".cultureStates");
+				var cultureDescription = CKEDITOR.instances.cultureDescription.getData();
+				if(cultureTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(cultureAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(cultureKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(cultureDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(cultureDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(cultureStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(cultureStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
 				}
-				/*var culture_title_page = filename;
-		    	var culture_context = CKEDITOR.instances.cultureDescription.getData();
-				var cultureTitle = document.getElementById("cultureTitle").value;
-				var cultureAbstract = document.getElementById("cultureAbstract").value;
-				var cultureKeyWords = document.getElementById("cultureKeyWords").value;
-				var cultureDate = document.getElementById("cultureDate").value;
-				var cultureStatus = document.getElementsByName("cultureStates");
-				var culture_status="";
-				for(var i=0;i<cultureStatus.length;i++){
-					if(cultureStatus[i].checked == true){
-						if("发布"==cultureStatus[i].value){
-							culture_status = '1';
-						}
-						else
-							culture_status = '0';
-						//culture_status = cultureStatus[i].value;
-						break;
-					}
-				}
-				alert(cultureTitle+"\n"+culture_title_page+"\n"+cultureAbstract+"\n"+cultureKeyWords+"\n"+cultureDate+"\n"+culture_status+"\n"+culture_context);
-				$.ajax({
-					url : '<%=request.getContextPath()%>/Culture/saveCulture',
-					type : 'post',
-					dataType:"json",
-					data:{
-						Culture_Title:cultureTitle,
-						Culture_Introduction:cultureAbstract,
-						Culture_KeyWords:cultureKeyWords,
-						Culture_Release_time:cultureDate,
-						Culture_status:culture_status,
-						Culture_context:culture_context,
-						filename:culture_title_page
-					},
-					success : function(data) {
-						if(data.message == "1"){
-							layer.alert("保存成功!");
-						}
-						
-					},
-					error : function(error) {
-						console.log('接口不通' + error);
-					}
-				});	*/
+				
 			}
 		</script>
 		<script type="text/javascript">

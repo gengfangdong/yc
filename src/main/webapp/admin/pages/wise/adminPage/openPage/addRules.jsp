@@ -113,7 +113,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text"  autocomplete="off" class="" style="height: 23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -308,6 +308,41 @@
 		<script>
 			function newsSave(){
 				//debugger;
+				var newsTitle = $('#newsTitle').val();
+				var newsAbstract = $("#newsAbstract").val();
+				var newsKeyWords = $("#newsKeyWords").val();
+				var newsDate = $("#newsDate").val();
+				var newsStates = $(".newsStates");
+				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+				if(newsTitle == "") {
+					alert("请填写标题！");
+					return;
+				}
+				if(newsAbstract == "") {
+					alert("请填写简介！");
+					return;
+				}
+				if(newsKeyWords == "") {
+					alert("请填写关键字！");
+					return;
+				}
+				if(newsDate == "") {
+					alert("请选择日期！");
+					return;
+				}
+				if(newsDescription.length == "") {
+					alert("请填写内容！");
+					return;
+				}
+				if(newsStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(newsStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");

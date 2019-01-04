@@ -533,7 +533,7 @@
 						}
 					});
 			    } else if(obj.event === 'del'){
-			      	layer.confirm('真的删除行么', function(index){
+			      	//layer.confirm('真的删除行么', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/Course/deleteCourse',
 							type : 'post',
@@ -549,7 +549,11 @@
 									layer.alert("获取课程目录失败!");
 								}
 								else if(data.message == "2"){
-									layer.alert("删除成功!");
+									layer.confirm('删除成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								
 							},
@@ -558,7 +562,7 @@
 							}
 						});	
 			        layer.close(index);
-			      });
+			      //});
 			    } else if(obj.event === 'edit'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
@@ -737,9 +741,9 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" lay-event="detail" style="margin-right:10px;">查看</a>
-  			<a class="" lay-event="edit" style="margin-right:10px;">编辑</a>
-  			<a class="" lay-event="del" style="margin-right:10px;">删除</a>
+  			<a class="" lay-event="detail" style="margin-right:10px; cursor:pointer;">查看</a>
+  			<a class="" lay-event="edit" style="margin-right:10px; cursor:pointer;">修改</a>
+  			<a class="" lay-event="del" style="margin-right:10px; cursor:pointer;">删除</a>
 		</script>
 	</body>
 

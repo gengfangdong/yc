@@ -85,7 +85,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										新增课程目录
+										查看课程目录
 									</label>
 								</div>
 							</div>
@@ -119,7 +119,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="courseCatalogueSave();">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
 								</div>
 							</div>
 						</div>

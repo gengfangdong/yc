@@ -76,6 +76,9 @@
 				height:28px;
 				line-height:28px;
 			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -450,8 +453,8 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage/<%=constom_id%>',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
-				      
+					  //{field:'radio', title: '选择',toolbar: '#radio2'},
+				      {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
@@ -580,7 +583,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ filesa[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs  demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+filesa[i].newfilename+' " class="hoverColor" style="color:#FFF;margin:0;">下载</a></button><button class="layui-btn layui-btn-xs  demo-delete" onclick="deleteRow(this);">'+
+					          '<button class="layui-btn layui-btn-xs  demo-delete" style="background-color:#1e9fff;"><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+filesa[i].newfilename+' " class="hoverColor" style="color:#FFF;margin:0;" id="downLoad">下载</a></button><button class="layui-btn layui-btn-xs  demo-delete" onclick="deleteRow(this);" style="background-color:#1e9fff;">'+
 						          '删除</button>'+
 					          '</td>'+
 					        '</tr>';
@@ -663,7 +666,7 @@
 		          ,'<td>'+ file.name +'</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs  demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs  demo-delete" style="background-color:#1e9fff;">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        

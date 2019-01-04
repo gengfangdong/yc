@@ -75,13 +75,13 @@
 										<tr>
 											<td class="leftTd">项目名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="projectListTitle" />
+												<input type="text" id="projectListTitle" style="width:100%;border:none;border-radius:5px;border:1px solid #ccc;"  />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">添加日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:257px;border:none;border-radius:5px;border:1px solid #ccc;" readonly="readonly"/>
 											</td>
 										</tr>
 										
@@ -148,12 +148,22 @@
 					},
 					success : function(data) {
 						if(data.message == "1"){
-							layer.alert("保存成功!");
+							layer.confirm('保存成功!', { title:'提示'}, function(index){				
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+							});
 						}
 						
 					},
 					error : function(error) {
 						console.log('接口不通' + error);
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				});	
 			}

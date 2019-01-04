@@ -306,7 +306,7 @@
 			          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 			          ,'<td>'
 			            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-			            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+			            ,'<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;">删除</button>'
 			          ,'</td>'
 			        ,'</tr>'].join(''));
 			        
@@ -363,7 +363,17 @@
 				var peopleNum = $("#peopleNum").val();
 				var Scheduled_class_context = CKEDITOR.instances.syllabus.getData();
 				var Scheduled_other_context = CKEDITOR.instances.otherInformation.getData();
-				
+				var nowDate = new Date();
+				var nowYear = nowDate.getFullYear();
+				var nowMonth = nowDate.getMonth()+1;
+				var nowDay = nowDate.getDate();
+				if(nowMonth<10&&nowMonth>0){
+					nowMonth = '0' + nowMonth;
+				}
+				if(nowDay<10&&nowDay>0){
+					nowDay = '0' + nowDay;
+				}
+				nowDate = nowYear +'-'+ nowMonth +'-'+ nowDay;
 				if(className==""){
 					alert("请输入班次名称！");
 					return;
@@ -378,6 +388,9 @@
 				}
 				if(hostStartDate==""){
 					alert("请选择报名开始日期！");
+					return;
+				}else if(hostStartDate<nowDate){
+					alert("报名开始日期不能早于当前日期！");
 					return;
 				}
 				if(hostEndDate==""){
@@ -396,12 +409,12 @@
 					alert("请选择结课日期！");
 					return;
 				}
-				if(startClassDate>endClassDate){
-					alert("结课日期应在开课日期之后！");
-					return;
-				}
 				if(hostEndDate>startClassDate){
 					alert("开课日期应在报名截止日期之后！");
+					return;
+				}
+				if(startClassDate>endClassDate){
+					alert("结课日期应在开课日期之后！");
 					return;
 				}
 				if(peopleNum==""){
@@ -413,11 +426,11 @@
 					return;
 				}
 				if(Scheduled_class_context==""){
-					alert("请输入课程大纲相关信息！若无请输入‘空’！");
+					alert("请输入课程大纲相关信息！若无请输入‘无’！");
 					return;
 				}
 				if(Scheduled_other_context==""){
-					alert("请输入其他相关信息！若无请输入‘空’！");
+					alert("请输入其他相关信息！若无请输入‘无’！");
 					return;
 				}
 				
@@ -445,14 +458,25 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "1"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 						}
 						else
 							layer.alert("保存失败!");
 					},
 					error:function(data){
-
+						layer.confirm('保存失败！', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 			}

@@ -23,6 +23,9 @@
 	
 	
 	<select id="getListUserByid" resultType="String">
-		select t.userid from USER_CONSTOM t where t.creater=#{user_id} and t.constom_id=#{constom_id} and t.isdelete='0'
+		select t.userid from USER_CONSTOM t where 
+		<if test="user_id !=null and user_id != ''">
+			t.creater=#{user_id} and
+		</if> t.constom_id=#{constom_id} and t.isdelete='0'
 	</select>
 </mapper>

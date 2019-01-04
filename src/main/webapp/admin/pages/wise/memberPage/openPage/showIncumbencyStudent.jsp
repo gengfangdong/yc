@@ -74,13 +74,13 @@
 										<tr>
 											<td class="leftTd">项目名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="projectListTitle" readonly="readonly" />
+												<input type="text" id="projectListTitle" readonly="readonly" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">添加日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" readonly="readonly"/>
+												<input id="addProjectListDate" name="projectListDate" placeholder="YYYY-MM-DD" type="text" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;"  readonly="readonly"/>
 											</td>
 										</tr>
 										
@@ -126,6 +126,7 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+		
 		<script type="text/javascript">
 			 window.onload = function(){
         		CKEDITOR.replace('projectListDescription');

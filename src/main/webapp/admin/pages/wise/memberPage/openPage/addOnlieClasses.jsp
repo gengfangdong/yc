@@ -651,6 +651,17 @@
 				var reg=/^[1-9]\d*$|^0$/; // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
 				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
 				var testPhone = /^1\d{10}$/;//手机
+				var nowDate = new Date();
+				var nowYear = nowDate.getFullYear();
+				var nowMonth = nowDate.getMonth()+1;
+				var nowDay = nowDate.getDate();
+				if(nowMonth<10&&nowMonth>0){
+					nowMonth = '0' + nowMonth;
+				}
+				if(nowDay<10&&nowDay>0){
+					nowDay = '0' + nowDay;
+				}
+				nowDate = nowYear +'-'+ nowMonth +'-'+ nowDay;
 				if(type=="方案定制"){
 					type=0;
 					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
@@ -686,9 +697,16 @@
 				if(togetherClassesStartDate==""){
 					alert("请选择报名开始日期！");
 					return;
+				}else if(togetherClassesStartDate<nowDate){
+					alert("报名开始时间不能早于当前时间！");
+					return;
 				}
 				if(togetherClassesEndDate==""){
 					alert("请选择报名截止日期！");
+					return;
+				}
+				if(togetherClassesStartDate>togetherClassesEndDate){
+					alert("报名开始时间不能晚于报名结束时间！");
 					return;
 				}
 				if(hostDate==""){
@@ -697,6 +715,14 @@
 				}
 				if(classesEndDate==""){
 					alert("请选择预计结课日期！");
+					return;
+				}
+				if(hostDate<togetherClassesEndDate){
+					alert("预计举办日期应在报名结束日期之后！");
+					return;
+				}
+				if(hostDate>classesEndDate){
+					alert("举办日期应在结课日期之前！");
 					return;
 				}
 				if(maxClassesNumber==""){

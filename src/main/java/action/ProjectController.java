@@ -59,7 +59,8 @@ public class ProjectController {
 	public Map<String,Object> InsertProject(String Project_name,
 			String Project_date,String Project_context,HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultMap = new HashMap<String, Object>();
-		
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
 		Project Project = new Project();
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
@@ -69,7 +70,7 @@ public class ProjectController {
 		Project.setProject_date(Project_date);
 		Project.setProject_name(Project_name);
 		Project.setProject_context(Project_context);
-		Project.setProject_creater("admin");
+		Project.setProject_creater(iUser.getUser_id());
 		Project.setProject_createtime(Project_Createtime);
 		
 		ProjectService.insertProject(Project);
@@ -106,39 +107,44 @@ public class ProjectController {
 	@RequestMapping(value = "/getlist1")
 	@ResponseBody
 	public LayuiDataTable<ProjectVo> GetlistPage1(@RequestParam("page")int page,@RequestParam("limit")int limit,
-			@RequestParam(value="status",required=false,defaultValue="")String status,HttpServletRequest request){
+			@RequestParam(required=false,defaultValue="",value="status")String status,HttpServletRequest request){
 		//DataTables  返回实例
 		DatatablesViewPage<Project> datatablesViewPage = new DatatablesViewPage<Project>();
 		LayuiDataTable<ProjectVo> pDataTable = new LayuiDataTable<ProjectVo>();
-		datatablesViewPage = ProjectService.GetlistPage((page-1)*limit, limit);
-		List<ProjectVo> ProjectVoList = new ArrayList<ProjectVo>();
-		String statue="未报名";
 		IUser user =  (IUser) request.getSession().getAttribute("user");
-		for (Project project:datatablesViewPage.getData()) {
-			statue="未报名";
-			ProjectVo projectVo=new ProjectVo();
-			projectVo.setProject_id(project.getProject_id());
-			projectVo.setProject_name(project.getProject_name());
-			projectVo.setProject_context(project.getProject_context());
-			projectVo.setProject_creater(project.getProject_creater());
-			projectVo.setProject_createtime(project.getProject_createtime());
-			projectVo.setProject_date(project.getProject_date());
-			//获取当前登录用户
-			List<Apply> applyList=applyService.getProjectStatus(user.getUser_id(),project.getProject_id());
-			List<ApplyUnit> applyUnitList=applyUnitService.getProjectStatus(user.getUser_id(),project.getProject_id());
-			if (applyList.size()>0) {
-				statue="个人已报名";
-				projectVo.setApply_id(applyList.get(0).getApply_id());
-			}
-			if (applyUnitList.size()>0) {
-				statue="单位已报名";
-				projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
-			}
-			projectVo.setProject_status(statue);
-			ProjectVoList.add(projectVo);
+		if (!status.equals("")) {
+			pDataTable=ProjectService.getListBypage(status , page, limit, user.getUser_id());
 		}
-		pDataTable.setData(ProjectVoList);
-		pDataTable.setCount(datatablesViewPage.getRecordsTotal());
+		if (status.equals("")) {
+			datatablesViewPage = ProjectService.GetlistPage((page-1)*limit, limit);
+			List<ProjectVo> ProjectVoList = new ArrayList<ProjectVo>();
+			String statue="0";
+			for (Project project:datatablesViewPage.getData()) {
+				statue="0";
+				ProjectVo projectVo=new ProjectVo();
+				projectVo.setProject_id(project.getProject_id());
+				projectVo.setProject_name(project.getProject_name());
+				projectVo.setProject_context(project.getProject_context());
+				projectVo.setProject_creater(project.getProject_creater());
+				projectVo.setProject_createtime(project.getProject_createtime());
+				projectVo.setProject_date(project.getProject_date());
+				//获取当前登录用户
+				List<Apply> applyList=applyService.getProjectStatus(user.getUser_id(),project.getProject_id());
+				List<ApplyUnit> applyUnitList=applyUnitService.getProjectStatus(user.getUser_id(),project.getProject_id());
+				if (applyList.size()>0) {
+					statue="1";
+					projectVo.setApply_id(applyList.get(0).getApply_id());
+				}
+				if (applyUnitList.size()>0) {
+					statue="2";
+					projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
+				}
+				projectVo.setProject_status(statue);
+				ProjectVoList.add(projectVo);
+			}
+			pDataTable.setData(ProjectVoList);
+			pDataTable.setCount(datatablesViewPage.getRecordsTotal());
+		}
 		return pDataTable;
 	}
 	/**

@@ -127,13 +127,13 @@
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">任职岗位:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="userPost" value="财务监督员" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">担任职务:</td>
 											<td class="rightTd" colspan="2">
@@ -141,13 +141,13 @@
 											</td>
 
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">所在地址:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="userAddress" value="北京市海淀区税务局" style="width: 100%;" />
 											</td>
 
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">输入密码:</td>
 											<td class="rightTd" colspan="2">
@@ -174,7 +174,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="branchSave();">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>
@@ -327,9 +327,9 @@
 						var amail = document.getElementById("usersEmail");
 						var acompanyname = document.getElementById("unitName");
 						var adepartment = document.getElementById("departmentInCharge");
-						var ajob = document.getElementById("userPost");
+						//var ajob = document.getElementById("userPost");
 						var ahold = document.getElementById("assumeOffice");
-						var aaddress = document.getElementById("userAddress");
+						//var aaddress = document.getElementById("userAddress");
 						var apassword = document.getElementById("usersPassword");
 						var User_status = document.getElementsByName("states");
 
@@ -339,9 +339,9 @@
 						var mail = data.data.user_mail;
 						var companyname = data.data.user_companyname;
 						var department = data.data.user_department;
-						var job = data.data.user_job;
+						//var job = data.data.user_job;
 						var hold = data.data.user_hold;
-						var address = data.data.user_address;
+						//var address = data.data.user_address;
 						var password = data.data.user_password;
 						var states = data.data.user_status;
 						
@@ -351,9 +351,9 @@
 						amail.value=mail;
 						acompanyname.value=companyname;
 						adepartment.value=department;
-						ajob.value=job;
+						//ajob.value=job;
 						ahold.value=hold;
-						aaddress.value=address;
+						//aaddress.value=address;
 						apassword.value=password;
 						if(states == "1"){
 							User_status[1].checked = true;

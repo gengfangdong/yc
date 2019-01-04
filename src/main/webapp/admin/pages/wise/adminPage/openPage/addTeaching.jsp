@@ -343,53 +343,45 @@
 		<script>
 			function save(){
 				//debugger;
+				var teachingTitle = $('#teachingTitle').val();
+				var teachingAbstract = $("#teachingAbstract").val();
+				var teachingKeyWords = $("#teachingKeyWords").val();
+				var teachingDate = $("#teachingDate").val();
+				var teachingStates = $(".teachingStates");
+				var teachingDescription = CKEDITOR.instances.teachingDescription.getData();
+				if(teachingTitle == "") {
+					layer.alert("请填写标题！");
+					return;
+				}
+				if(teachingAbstract == "") {
+					layer.alert("请填写简介！");
+					return;
+				}
+				if(teachingKeyWords == "") {
+					layer.alert("请填写关键字！");
+					return;
+				}
+				if(teachingDate == "") {
+					layer.alert("请选择日期！");
+					return;
+				}
+				if(teachingDescription.length == "") {
+					layer.alert("请填写内容！");
+					return;
+				}
+				if(teachingStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(teachingStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					layer.alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
 				}
-				/*var teaching_title_page = filename;
-		    	var teaching_context = CKEDITOR.instances.teachingDescription.getData();
-				var teachingTitle = document.getElementById("teachingTitle").value;
-				var teachingAbstract = document.getElementById("teachingAbstract").value;
-				var teachingKeyWords = document.getElementById("teachingKeyWords").value;
-				var teachingDate = document.getElementById("teachingDate").value;
-				var teachingStatus = document.getElementsByName("teachingStates");
-				var teaching_status="";
-				for(var i=0;i<teachingStatus.length;i++){
-					if(teachingStatus[i].checked == true){
-						if("发布"==teachingStatus[i].value){
-							teaching_status = '1';
-						}
-						else
-							teaching_status = '0';
-						//teaching_status = teachingStatus[i].value;
-						break;
-					}
-				}
-				alert(teachingTitle+"\n"+teaching_title_page+"\n"+teachingAbstract+"\n"+teachingKeyWords+"\n"+teachingDate+"\n"+teaching_status+"\n"+teaching_context);
-				$.ajax({
-					url : '<%=request.getContextPath()%>/Teaching/saveTeaching',
-					type : 'post',
-					dataType:"json",
-					data:{
-						Teaching_Title:teachingTitle,
-						Teaching_Introduction:teachingAbstract,
-						Teaching_KeyWords:teachingKeyWords,
-						Teaching_Release_time:teachingDate,
-						Teaching_status:teaching_status,
-						Teaching_context:teaching_context,
-						filename:teaching_title_page
-					},
-					success : function(data) {
-						if(data.message == "1"){
-							layer.alert("保存成功!");
-						}
-						
-					},
-					error : function(error) {
-						console.log('接口不通' + error);
-					}
-				});	*/
 			}
 		</script>
 		<script type="text/javascript">

@@ -59,6 +59,19 @@ public class RotationPicServiceImpl implements RotationPicService{
 		// TODO Auto-generated method stub
 		RotationPicDao.deleteRotationPic(RotationPic_id);
 	}
+	public DatatablesViewPage<RotationPic> findAllRotation() {
+DatatablesViewPage<RotationPic> datatablesViewPage = new DatatablesViewPage<RotationPic>();
+		
+		List<RotationPic> RotationPicList = new ArrayList<RotationPic>();
+		
+		RotationPicList = RotationPicDao.findAllRotation();
+		
+		datatablesViewPage.setData(RotationPicList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	
