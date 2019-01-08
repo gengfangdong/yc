@@ -183,6 +183,7 @@
 	bottom: 10px;
 	right: 0;
 	z-index: 100;
+	margin-bottom:20px;
 }
 
 
@@ -531,6 +532,10 @@
 .layui-laypage .layui-laypage-curr .layui-laypage-em{
 	background-color:#1e9fff;
 }
+#zaizhiyantable{
+	border-bottom:1px solid #ccc;
+}
+
 
 @media screen and (max-width: 640px) {
     .notice{
@@ -611,6 +616,9 @@
 	}
 	.nav-contain .nav-inner .am-nav li a{
 		font-size:16px;
+	}
+	.logo a img{
+		margin-left:20px;
 	}
 	
 }

@@ -76,7 +76,7 @@
 										<tr>
 											<td class="leftTd">标题:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="cultureTitle" />
+												<input type="text" id="cultureTitle" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -88,7 +88,7 @@
 												</div>注：请上传1024*600以上尺寸的图片
 											</td>
 											<td style="width: 20%;">
-												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;">
+												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;background:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
@@ -96,13 +96,13 @@
 										<tr>
 											<td class="leftTd">简介:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入50字以下文字" id="cultureAbstract" />
+												<input type="text" placeholder="请输入50字以下文字" id="cultureAbstract" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">关键字:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="cultureKeyWords" />
+												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="cultureKeyWords" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<!--<tr>
@@ -114,7 +114,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="cultureDate" name="cultureDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="cultureDate" name="cultureDate"  autocomplete="off" placeholder="YYYY-MM-DD" type="text" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -186,50 +186,6 @@
 			  	});
 			});
 		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-			});
-		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -292,7 +248,13 @@
 			      }
 			      //上传成功
 			      else if(res.code == 1){
-			    	 layer.alert("保存成功!");
+			  		layer.confirm('保存成功!', { title:'提示'}, function(index){
+						  
+						window.parent.location.reload();
+						var index1 = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index1);
+					});
+// 			    	 layer.alert("保存成功!");
 									
 			   	}
 			    },
@@ -351,23 +313,23 @@
 				var cultureStates = $(".cultureStates");
 				var cultureDescription = CKEDITOR.instances.cultureDescription.getData();
 				if(cultureTitle == "") {
-					alert("请填写标题！");
+					layer.alert("请填写标题！");
 					return;
 				}
 				if(cultureAbstract == "") {
-					alert("请填写简介！");
+					layer.alert("请填写简介！");
 					return;
 				}
 				if(cultureKeyWords == "") {
-					alert("请填写关键字！");
+					layer.alert("请填写关键字！");
 					return;
 				}
 				if(cultureDate == "") {
-					alert("请选择日期！");
+					layer.alert("请选择日期！");
 					return;
 				}
 				if(cultureDescription.length == "") {
-					alert("请填写内容！");
+					layer.alert("请填写内容！");
 					return;
 				}
 				if(cultureStates[0].checked == true) {
@@ -375,13 +337,14 @@
 				} else if(cultureStates[1].checked == true) {
 // 					var sex = "1";
 				} else {
-					alert("请选择状态！");
+					layer.alert("请选择状态！");
 					return;
 				}
 				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
 					layer.alert("请选择封面!");
+					return;
 				}
 				
 			}

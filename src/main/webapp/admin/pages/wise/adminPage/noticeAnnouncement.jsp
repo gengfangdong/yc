@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -79,18 +80,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -208,6 +209,9 @@
 										</li>
 										<li>
 											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
+										</li>
+										<li>
+											<a href="enrollmentRegulations.jsp" ><i class="fa fa-square-o"></i> 招生简章</a>
 										</li>
 									</ul>
 								</li>
@@ -406,7 +410,7 @@
 					"language" : dataTableLang,
 					"paging": true,
 					"info": true,
-					"aLengthMenu": [10],
+					"aLengthMenu": [20],
 					"lengthChange": false,
 					"searching": false,
 					"ordering": false,
@@ -429,7 +433,7 @@
 			              "render":function(data,type,row,meta){
 	                	         var status="";
 	                	         if(data == "1"){
-	                	        	 status = "待发布";
+	                	        	 status = "已发布";
 	                	         }
 	                	         else if(data == "0"){
 	                	        	 status ="待发布";
@@ -483,7 +487,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -501,7 +505,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '查看',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -519,7 +523,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '修改',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -531,6 +535,7 @@
 					    });
 			        })
 		        }else if(sText=='删除'){
+		    		layer.confirm('确定删除吗?', {title:'提示'},function(index){
 		        	$.ajax({
 						url : '<%=request.getContextPath()%>/Notice/deleteNotice',
 						type : 'post',
@@ -540,19 +545,38 @@
 						},
 						success : function(data) {
 							if(data.message == "0"){
-								layer.alert("参数错误!");
+								layer.confirm('删除失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							else if(data.message == "1"){
-								layer.alert("获取通知公告失败!");
+								layer.confirm('获取通知公告失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							else if(data.message == "2"){
-								layer.alert("删除成功!");
+								layer.confirm('删除成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							
 						},
 						error : function(error) {
 							console.log('接口不通' + error);
+							layer.confirm('删除失败！', { title:'提示'}, function(index){ 
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
 						}
+					});	
 					});	
 		        }
 		        
@@ -560,10 +584,10 @@
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
-			<%}%>
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');

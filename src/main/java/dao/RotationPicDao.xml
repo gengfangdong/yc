@@ -60,4 +60,8 @@
 		<select id = "findAllRotation" resultMap="RotationPic">
 		SELECT * FROM  RotationPic where RotationPic_STATUS='1'
 	</select>
+	
+	<select id="findAllRotationcount" resultType="int">
+		select count(*) from RotationPic where RotationPic_STATUS='1'
+	</select>
 </mapper>

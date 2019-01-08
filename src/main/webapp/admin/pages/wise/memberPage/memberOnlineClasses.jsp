@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,15 +82,17 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>学员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -207,6 +210,8 @@
 													<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
 												        <option value="全部">全部</option>
 												        <option value="待审核">待审核</option>
+												        <option value="审核未通过">审核未通过</option>
+												        <option value="审核通过">审核通过</option>
 												        <option value="报名未开始">报名未开始</option>
 												        <option value="报名进行中">报名进行中</option>
 												        <option value="待开课">待开课</option>
@@ -350,7 +355,7 @@
 		    	layer.open({
 					type: 2, //此处以iframe举例
 					title: '查看',
-					area: ['1063px', '530px'],
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
 					offset: [100, 200],
@@ -360,32 +365,6 @@
 						layer.setTop(layero); //重点2
 					}
 				});
-		    }else if(obj.event === 'delete'){
-		      	layer.confirm('确认删除该条记录？', function(index){
-		      		$.ajax({
-						url : '<%=request.getContextPath()%>/Course/deleteCourse',
-						type : 'post',
-						dataType:"json",
-						data:{
-							Course_id:data.course_id
-						},
-						success : function(data) {
-							if(data.message == "0"){
-								layer.alert("参数错误!");
-							}
-							else if(data.message == "1"){
-								layer.alert("获取班次名称失败!");
-							}
-							else if(data.message == "2"){
-								layer.alert("删除成功!");
-							}
-						},
-						error : function(error) {
-							console.log('接口不通' + error);
-						}
-					});	
-		        layer.close(index);
-		      });
 		    }else if(obj.event === 'cancel'){
 		      	layer.confirm('确认取消报名?', function(index){
 		      		$.ajax({
@@ -423,6 +402,46 @@
 									var index1 = parent.layer.getFrameIndex(window.name);
 									parent.layer.close(index1);
 									console.log(error);
+								});
+							}
+						},
+						error : function(error) {
+							console.log('接口不通' + error);
+						}
+					});	
+		        layer.close(index);
+		      });
+		    }else if(obj.event === 'delete'){
+		      	layer.confirm('确认取消拼班?', function(index){
+		      		$.ajax({
+						url : '<%=request.getContextPath()%>/FigClass/deleteFig/'+data.figClass_id,
+						type : 'post',
+						dataType:"json",
+						success : function(data) {
+							if(data.message == "0"){
+								layer.confirm('参数错误!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+							else if(data.message == "1"){
+								
+								layer.confirm('获取班次名称失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+							else if(data.message == "2"){
+								
+								layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
 								});
 							}
 						},
@@ -512,14 +531,6 @@
 												parent.layer.close(index1);
 												console.log(error);
 											});
-										}else if(data.message == "3"){
-											layer.confirm('名单人员数量超出剩余拼班人数!', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});
 										}
 									},
 									error:function(data){
@@ -549,17 +560,19 @@
 			if(status == '待审核'){
 				status = '0';
 			}else if(status == '审核未通过'){
+				status = '2';
+			}else if(status == '审核通过'){
 				status = '1';
 			}else if(status == '报名未开始'){
-				status = '2';
-			}else if(status == '报名进行中'){
 				status = '3';
-			}else if(status == '待开课'){
+			}else if(status == '报名进行中'){
 				status = '4';
-			}else if(status == '开课中'){
+			}else if(status == '待开课'){
 				status = '5';
-			}else if(status == '已结课'){
+			}else if(status == '开课中'){
 				status = '6';
+			}else if(status == '已结课'){
+				status = '7';
 			}else if(status == '全部'){
 				status = "";
 			}
@@ -627,9 +640,9 @@
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
+				<% if(user == null||!"0".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
@@ -640,50 +653,75 @@
 		<script type="text/html" id="barDemo">
 			{{#  if(d.figClass_status == '0'){ }}
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-				<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+				{{#  if(d.isdelete == '1'){ }}
+					<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+				{{#  } }}
+			{{#  } else if(d.figClass_status == "2"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{#  if(d.isdelete == '1'){ }}
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  } }}
 	        {{#  } else if(d.figClass_status == "1"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.figClass_status == "3"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+			{{#  } else if(d.figClass_status == "4"){ }}
 				{{#  if(d.user_status == '0'){ }}
 			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">报名</a>
 	        	{{#  } else if(d.user_status == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
-			{{#  } else if(d.figClass_status == "2"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-			{{#  } else if(d.figClass_status == "3"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">提交名单</a>
-			{{#  } else if(d.figClass_status == "4"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{#  if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+				{{#  } }}
+			{{#  } else if(d.figClass_status == "7"){ }}
+				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{#  if(d.user_status == "1"){ }}
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+				{{#  } }}
+				{{#  if(d.isdelete == '1'){ }}
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  } }}
 			{{#  } }}
 		</script>
 
 		<script type="text/html" id="typestatus">
 	     {{#  if(d.figClass_status == "0"){ }}
-	        未审核
+	                            未审核
 	     {{#  }else if(d.figClass_status=="1"){ }}
 	     	审核通过
 	     {{#  }else if(d.figClass_status=="2"){ }}
 	     	审核未通过
 	     {{#  }else if(d.figClass_status=="3"){ }}
-	     	开班中
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="4"){ }}
+	     	报名中
+		 {{#  }else if(d.figClass_status=="5"){ }}
+	     	未开课
+		 {{#  }else if(d.figClass_status=="6"){ }}
+	     	开课中
+		 {{#  }else if(d.figClass_status=="7"){ }}
 	     	已结课
 	     {{# } }}
 	     </script>
 	     <script type="text/html" id="typeuserstatus">
 	     {{#  if(d.user_status == "0"){ }}
-	        未报名
-	     {{#  }else if(d.figClass_status=="1"){ }}
-	     	已报名
+	        	未报名
+	     {{#  }else if(d.user_status=="1"){ }}
+	     		已报名
 	     {{# } }}
 	     </script>
 	     <script id="upload_file_dialog" type="text/html">

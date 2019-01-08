@@ -19,4 +19,6 @@ public interface FigClassDao {
 	public void updateReview(@Param("figclass_id")String figclass_id, @Param("result_review")String review_result, @Param("updater")String updater, @Param("updatetime")String updatetime);
 	public List<Map<String,Object>> getMemProject(@Param("user_id")String user_id,@Param("start")int start,@Param("limit")int limit,@Param("status")String status);
 	public int getProjectCount(@Param("user_id")String user_id,@Param("start")int start,@Param("limit")int limit,@Param("status")String status);
+	public void updatefigClass(FigClass figClass);
+	public void startScheduledFig();
 }

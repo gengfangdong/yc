@@ -74,7 +74,7 @@
 										<tr>
 											<td class="leftTd">标题:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="solutionTitle"readonly="readonly"/>
+												<input type="text" id="solutionTitle"readonly="readonly" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<tr>
@@ -87,13 +87,13 @@
 										<tr>
 											<td class="leftTd">简介:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入50字以下文字" id="solutionAbstract" readonly="readonly"/>
+												<input type="text" placeholder="请输入50字以下文字" id="solutionAbstract" readonly="readonly" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">关键字:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="solutionKeyWords" readonly="readonly"/>
+												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="solutionKeyWords" readonly="readonly" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<!--<tr>
@@ -105,7 +105,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="solutionDate" name="solutionDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" readonly="readonly"/>
+												<input id="solutionDate" name="solutionDate" placeholder="YYYY-MM-DD" type="text" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" readonly="readonly"/>
 											</td>
 										</tr>
 										<tr>
@@ -125,7 +125,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;">
-									<button class="solutionSave saveBtn" id="solutionSave" onclick="">关闭</button>
+									<button class="solutionSave saveBtn" id="solutionSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>

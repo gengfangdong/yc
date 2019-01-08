@@ -16,4 +16,5 @@ public interface RotationPicDao {
 	public void updateRotationPic(RotationPic RotationPic);
 	public void deleteRotationPic(@Param("RotationPic_id")String RotationPic_id);
 	public List<RotationPic> findAllRotation();
+	public int findAllRotationcount();
 }

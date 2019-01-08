@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import entity.About;
 import entity.ClassPlanVo;
 import entity.CourseVo;
 import entity.Culture;
@@ -88,6 +89,24 @@ public class ShowController {
 	private CourseService courseService;
 	@Autowired
 	private RotationPicService rotationPicService;
+	@Autowired
+	private service.AboutService AboutService;
+	/**
+	 * 新闻列表获取
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistAbout")
+	@ResponseBody
+	public DatatablesViewPage<About> findAllAbout(){
+		//DataTables  返回实例
+		DatatablesViewPage<About> datatablesViewPage = new DatatablesViewPage<About>();
+		datatablesViewPage = AboutService.findAllAbout();
+		datatablesViewPage.setDraw(1);
+		return datatablesViewPage;
+	}
 	/**
 	 * 培养列表获取
 	 * @param draw

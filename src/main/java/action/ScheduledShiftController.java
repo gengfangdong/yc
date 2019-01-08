@@ -226,6 +226,11 @@ public class ScheduledShiftController {
 					scheduledfiles.remove(j);
 				}
 			}
+			else{
+				deletesList.add(scheduledfiles.get(j));
+				scheduledfiles.remove(j);
+				
+			}
 		}
 		for (Scheduledfile scheduledfile : deletesList) {
 			if("2".equals(fileUtil.delete(request.getRealPath("/scheduledfile")+"\\"+scheduledfile.getScheduled_file()))){

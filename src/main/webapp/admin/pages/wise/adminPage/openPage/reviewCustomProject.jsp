@@ -76,6 +76,13 @@
 				height:28px;
 				line-height:28px;
 			}
+			#downLoad{
+				color:#fff;
+				margin-left:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -358,30 +365,8 @@
 		  });
 		});
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id="" lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}} lay-event="show" style="margin-right:10px;">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
   			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>
@@ -425,6 +410,8 @@
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
+							window.freeco_outline = data.data.constom.freeco_outline;
+							window.freeco_day = data.data.constom.freeco_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -452,6 +439,8 @@
 								}
 								$(nDivShow[1]).addClass('layui-show');
 							}
+
+							window.freeco_outline = data.data.constom.freeco_outline;
 			
 						}else if(data.data.constom.freeco_gaoery==2){
 							var type="自由定制";
@@ -487,7 +476,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;" ><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor" id="downLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -545,7 +534,14 @@
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
-			    page: false
+			    page: false,
+			    done:function(){
+			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
+			    		if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id != freeco_outline){
+			    			$($("#sample-table-1 .layui-table-body tr")[i]).css('display','none');
+			    		}
+			    	}
+			    }
 			  });
 			  
 			//监听工具条
@@ -555,7 +551,7 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
@@ -595,24 +591,34 @@
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
-				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
+				      {field:'classplan_id', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false
+				    page: false,
+				    done:function(){
+				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
+				    		if($("#sample-table-2 .layui-table-body tr")[i].children[1].children[0].innerHTML != freeco_outline){
+				    			$($("#sample-table-2 .layui-table-body tr")[i]).css('display','none');
+				    		}else{
+				    			$("#sample-table-2 .layui-table-body tr")[i].children[3].children[0].children[0].value = freeco_day;
+				    		}
+				    	}
+				    }
 				  }); 
 			  
 				//监听工具条    课程
-					 table.on('tool(user)', function(obj){
+					 table.on('tool(user2)', function(obj){
 					    var data = obj.data;
-					    if(obj.event === 'show'){
+					    if(obj.event === 'show2'){
 					    	layer.open({
 								type: 2, //此处以iframe举例
 								title: '查看',
-								area: ['1063px', '530px'],
+								area: ['70%', '530px'],
 								shade: 0,
 								maxmin: true,
 								offset: [0, 0],
-								content: '。。/admin/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
+								content: 'showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 								zIndex: layer.zIndex, //重点1
 								success: function(layero) {
 									layer.setTop(layero); //重点2
@@ -620,43 +626,26 @@
 							});
 					     }  
 					  });
-			//监听工具条     方案
+			/* //监听工具条     方案
 				 table.on('tool(user2)', function(obj){
 				    var data = obj.data;
 				    if(obj.event === 'show2'){
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['70%', '530px'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
 							}
 						});
 				     }  
-				  });
+				  }); */
 			
-				 /* var $ = layui.$, active = {
-				    reload: function(){
-				      var demoReload = $('#demoReload');
-				      
-				      //执行重载
-				      table.reload('testReload2', {
-				        page: {
-				          curr: 1 //重新从第 1 页开始
-				        },
-				        method:'post',
-				        where: {
-				        	    First_course:firstObj,
-								Second_course:secondObj
-				        }
-				      });
-				    }
-				  }; */
 			  
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
@@ -684,7 +673,13 @@
 					},
 					success:function(data){
 						if(data.success == true){
-							layer.alert("审核成功!");
+							layer.confirm('审核成功!', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
 						}
 						else if(data.success == false){
 							if(data.message == "1"){
@@ -698,6 +693,19 @@
 
 				})
 			}
+		</script>
+		
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
 		</script>
 	</body>
 </html>

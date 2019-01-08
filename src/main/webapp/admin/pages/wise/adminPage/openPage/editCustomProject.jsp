@@ -105,7 +105,7 @@
 												<label for="" class="control-label" style="float: left;">累计天数：<span>16</span>天</label>
 											</div>
 										</div> -->
-										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
+										<div class="table-responsive table-responsive_vis" id="sample-table-2" style="padding-left: 10px;padding-right: 10px;">
 											<table id="LAY_table_user2" lay-filter="user2"  class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 												<thead>
 													
@@ -198,7 +198,7 @@
 										<tr>
 											<td class="leftTd">计划参加人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
+												<input type="text" id="planNumOfEntries" onBlur="judgesNumber(this);" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;" />
 											</td>
 
 										</tr>
@@ -239,6 +239,50 @@
 										</tr>
 									</tbody>
 								</table>
+								</div>
+								<div class="table-responsive table-responsive_vis" id="sample-table-00" style="display:none;padding-left: 10px;padding-right: 10px;">
+								<table id="branchTable2" class="table table-bordered table-hover example1_x">
+									<tbody>
+										<tr>
+											<td class="leftTd">拼班发起单位:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
+											</td>
+
+										</tr>
+										<tr>
+											<td class="leftTd">班级容纳人数:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">报名开始日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+
+										</tr>
+										<tr>
+											<td class="leftTd">报名截止日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+
+										</tr>
+										
+										<tr>
+											<td class="leftTd">预计结课日期:</td>
+											<td class="rightTd" colspan="2">
+												<input value="" id="classesEndDate" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								
+								
+							</div>
 								<div style="text-align: center;margin-top: 100px;">
 									<button class="branchSave branchSub" onclick="branchSub();">提交</button>
 								</div>
@@ -387,6 +431,27 @@
 				});
 			});
 			
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#hostDate' //指定元素
+			  	});
+			  
+			  	laydate.render({
+			    	elem: '#togetherClassesStartDate' //指定元素
+			  	});
+			  	
+			  	laydate.render({
+			    	elem: '#togetherClassesEndDate' //指定元素
+			  	});
+			  	
+			  	laydate.render({
+			    	elem: '#classesEndDate' //指定元素
+			  	});
+			});
+			
 			layui.use('table', function(){
 				var table = layui.table;
 			  
@@ -414,11 +479,11 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -450,8 +515,8 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage/<%=constom_id%>',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
-				      
+					  //{field:'radio', title: '选择',toolbar: '#radio2'},
+				      {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
@@ -652,9 +717,8 @@
 		      obj.preview(function(index, file, result){
 		      	var filenamea = file.name;
 			    for(var o = 0 ;o<filesa.length;o++){
-			      	if(filesa[o].scheduled_oldfile == filenamea){
+			      	if(filesa[o].oldfilename == filenamea){
 			      		layer.alert("文件已存在!");
-			      		break;
 			      		return ;
 			      	}
 			    }
@@ -711,6 +775,16 @@
 		});
 		</script>
 		<script>
+			function judgesNumber(obj){
+				if(obj.value<50){
+					alert("参加人数少于50人时会自动进行拼班！");
+					$("#sample-table-00").css('display','block');
+				}else{
+					$("#sample-table-00").css('display','none');
+				}
+			}
+		</script>
+		<script>
 			//修改保存
 			function branchSub(){
 				var classesName = $("#classesName").val();
@@ -726,16 +800,31 @@
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
-					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+					if($('#sample-table-2 .layui-form-checked').length==1){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('#sample-table-2 .layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('#sample-table-2 .layui-form-checked').length==2){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('#sample-table-2 .layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					}else if($('#sample-table-2 .layui-form-checked').length==0){
+						alert("请选择一个方案！");
+						return;
+					}else{
+						alert("只能选择一个方案进行定制！");
+						return;
+					}
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
-						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=1,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
+					}else if($('#sample-table-1 .layui-form-checked').length==0){
+						alert("请选择课程！");
+						return;
 					}else{
-						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=0,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
 					}
 				}else if(type=="自由定制"){
@@ -786,44 +875,146 @@
 					alert("请输入有效的联系电话！");
 					return;
 				}
+				else if(filelist.length<=0&&filesa.length<=0){
+					alert("请选择文件！");
+					return;
+				}
 				var fd = new FormData();
-				for(var j = 0;j<filelist.length;j++){
-					fd.append('file', filelist[j]);
-				}
-				fd.append('constom_id','<%=constom_id%>');
-    			fd.append('Constom_name', classesName);
-    			fd.append('Constom_data', hostDate);
-    			if(type == '2'){
-    				if(selectList.length>1){
-        				fd.append('Constom_datanum', selectList[0]);
-        			}
-    			}
-    			for(var ttt = 0;ttt<filesa.length;ttt++){
-					fd.append('oldfilename',filesa[ttt].oldfilename);
-				}
-    			fd.append('Constom_pernum', planNumOfEntries);
-    			fd.append('Constom_address', planHostAddress);
-    			fd.append('Constom_person', contactPersonnel);
-    			fd.append('Constom_phone', contactNumber);
-    			fd.append('Constom_outline', selectList);
-    			fd.append('Constom_gaoery', type);
-				$.ajax({
-					url:'<%=request.getContextPath()%>/Constom/updateConstom',
-					type:'post',
-					encType: 'multipart/form-data', //表明上传类型为文件
-					processData: false,  //tell jQuery not to process the data
-        			contentType: false,  //tell jQuery not to set contentType
-					data:fd,
-					success:function(data){
-						if(data.message == '5'){
-							layer.alert("提交成功！");
-						}
-					},
-					error:function(error){
-						
+					for(var i=0;i<filelist.length;i++){
+						fd.append('file',filelist[i]);
 					}
-				})
-				
+					if(type == '2'){
+	    				if(selectList.length>1){
+	        				fd.append('Constom_datanum', selectList[0]);
+	        			}
+	    			}
+	    			for(var ttt = 0;ttt<filesa.length;ttt++){
+						fd.append('oldfilename',filesa[ttt].newfilename);
+					}
+					fd.append('constom_id','<%=constom_id%>');
+	    			fd.append('Constom_data', hostDate);
+					fd.append('Constom_name',classesName);
+					fd.append('Constom_address',planHostAddress);
+					
+					
+					fd.append('Constom_person',contactPersonnel);	
+					fd.append('Constom_phone',contactNumber);
+					fd.append('Constom_gaoery',type);
+					fd.append('Constom_outline',selectList);
+					if(planNumOfEntries>50){
+					fd.append('Constom_pernum',planNumOfEntries);
+						$.ajax({
+							url:'<%=request.getContextPath()%>/Constom/updateConstom',
+							type:'post',
+							encType: 'multipart/form-data', //表明上传类型为文件
+							processData: false,  //tell jQuery not to process the data
+		        			contentType: false,  //tell jQuery not to set contentType
+							data:fd,
+							success:function(data){
+								if(data.success == true){
+									if(data.message == "5"){
+										layer.confirm('保存成功!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+										});
+									}
+								}else{
+									alert("保存失败！");
+								}
+							},
+							error:function(error){
+								console.log('error'+error);
+								layer.confirm('未选择文件！', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
+							}
+						})
+				}else{
+					var togetherClassesStartDate = $("#togetherClassesStartDate").val();
+					var togetherClassesEndDate = $("#togetherClassesEndDate").val(); 
+					var classesEndDate = $("#classesEndDate").val();
+					var togetherClassesCompany = $("#togetherClassesCompany").val();
+					var maxClassesNumber = $("#maxClassesNumber").val();
+					var nowDate = new Date();
+					var nowYear = nowDate.getFullYear();
+					var nowMonth = nowDate.getMonth()+1;
+					var nowDay = nowDate.getDate();
+					if (nowMonth >= 1 && nowMonth <= 9) {
+						nowMonth = "0" + nowMonth;
+			        }
+			        if (nowDay >= 0 && nowDay <= 9) {
+			            nowDay = "0" + nowDay;
+			        }
+					var nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
+					if(togetherClassesCompany==""){
+						alert("请填写拼班发起单位！");
+						return;
+					}
+					if(maxClassesNumber==""){
+						alert("请填写班级容纳人数！");
+						return;
+					}
+					if(togetherClassesStartDate==""){
+						alert("请选择报名开始日期！");
+						return;
+					}else if(togetherClassesStartDate<nowDate){
+						alert("报名开始日期应在当前日期之后！");
+						return;
+					}
+					if(togetherClassesEndDate==""){
+						alert("请选择报名截止日期！");
+						return;
+					}
+					if(togetherClassesStartDate>togetherClassesEndDate){
+						alert("报名开始日期应在报名结束日期之后！");
+						return;
+					}
+					if(classesEndDate==""){
+						alert("请选择预计结课日期！");
+						return;
+					}
+					if(togetherClassesEndDate>hostDate){
+						alert("开课日期应在报名结束日期之后！");
+						return;
+					}
+					if(classesEndDate<hostDate){
+						alert("开课日期应在结课日期之后！");
+						return;
+					}
+					fd.append('figClass_person',contactPersonnel);
+					fd.append('figClass_department',togetherClassesCompany);
+					fd.append('figClass_start_date',togetherClassesStartDate);
+					fd.append('figClass_end_date',togetherClassesEndDate);
+					fd.append('figClass_class_start',hostDate);
+					fd.append('figClass_class_end',classesEndDate);
+					fd.append('Constom_pernum',maxClassesNumber);
+					$.ajax({
+						url:'<%=request.getContextPath()%>/Constom/updateFig',
+						type:'post',
+						encType: 'multipart/form-data', //表明上传类型为文件
+						processData: false,  //tell jQuery not to process the data
+	        			contentType: false,  //tell jQuery not to set contentType
+						data:fd,
+						success:function(data){
+							if(data.message == '5'){
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						},
+						error:function(error){
+							
+						}
+					})
+				}
 			}
 		</script>
 		<script type="text/javascript">

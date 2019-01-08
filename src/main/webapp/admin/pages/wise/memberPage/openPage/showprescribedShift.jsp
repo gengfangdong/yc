@@ -83,8 +83,17 @@
 			}
 			.disabledStyle{
 				background-color:#FFFFFF;
-				border:1px solid #9a9a9a;
+				border:1px solid #ccc;
 				border-radius: 5px;
+				height:23px;
+			}
+			#downLoad{
+				color:#fff;
+				margin-left:10px;
+				margin-right:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
 			}
 		</style>
 	</head>
@@ -129,27 +138,27 @@
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostStartDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名开始日期" type="text" class=""  disabled="disabled" />
+											<input id="hostStartDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名开始日期" type="text" class="" style="width:257px;" disabled="disabled" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="hostEndDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名截止日期" type="text" class="" disabled="disabled"  />
+											<input id="hostEndDate" name="projectListDate" class="disabledStyle" placeholder="请选择报名截止日期" type="text" class="" style="width:257px;" disabled="disabled"  />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="startClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择开课日期" type="text" class=""  disabled="disabled" />
+											<input id="startClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择开课日期" type="text" class="" style="width:257px;"  disabled="disabled" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-											<input id="endClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择结课日期" type="text" class="" disabled="disabled" />
+											<input id="endClassDate" name="projectListDate" class="disabledStyle" placeholder="请选择结课日期" type="text" class="" style="width:257px;" disabled="disabled" />
 											</td>
 										</tr>
 										<tr>
@@ -176,7 +185,7 @@
 							
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										课程大纲
 									</label>
@@ -195,7 +204,7 @@
 							</div>
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										其他相关信息
 									</label>
@@ -347,113 +356,7 @@
 			    }
 			  });
 			});
-			function perscribedShift(){
-				var className = $("#className").val();
-				var hostCompany = $("#hostCompany").val();
-				var hostAddress = $("#hostAddress").val();
-				var hostStartDate = $("#hostStartDate").val();
-				var hostEndDate = $("#hostEndDate").val();
-				var startClassDate = $("#startClassDate").val();
-				var endClassDate = $("#endClassDate").val();
-				var peopleNum = $("#peopleNum").val();
-				var Scheduled_class_context = CKEDITOR.instances.syllabus.getData();
-				var Scheduled_other_context = CKEDITOR.instances.otherInformation.getData();
-				
-				if(className==""){
-					alert("请输入班次名称！");
-					return;
-				}
-				if(hostCompany==""){
-					alert("请输入发起单位！");
-					return;
-				}
-				if(hostAddress==""){
-					alert("请输入培训开课地点！");
-					return;
-				}
-				if(hostStartDate==""){
-					alert("请选择报名开始日期！");
-					return;
-				}
-				if(hostEndDate==""){
-					alert("请选择报名截止日期！");
-					return;
-				}
-				if(hostStartDate>hostEndDate){
-					alert("报名截止日期应在报名开始日期之后！");
-					return;
-				}
-				if(startClassDate==""){
-					alert("请选择开课日期！");
-					return;
-				}
-				if(endClassDate==""){
-					alert("请选择结课日期！");
-					return;
-				}
-				if(startClassDate>endClassDate){
-					alert("结课日期应在开课日期之后！");
-					return;
-				}
-				if(hostEndDate>startClassDate){
-					alert("开课日期应在报名截止日期之后！");
-					return;
-				}
-				if(peopleNum==""){
-					alert("请输入班级容纳人数！");
-					return;
-				}
-				if(filelist.length == 0){
-					alert("请选择资料上传!");
-					return;
-				}
-				var fd = new FormData();
-				for(var j = 0;j<filelist.length;j++){
-					fd.append('file', filelist[j]);
-				}
-    			fd.append('Scheduled_name', className);
-    			fd.append('Scheduled_initiator', hostCompany);
-    			fd.append('Scheduled_address', hostAddress);
-    			fd.append('Scheduled_start', hostStartDate);
-    			fd.append('Scheduled_end', hostEndDate);
-    			fd.append('Scheduled_class_start', startClassDate);
-    			fd.append('Scheduled_class_end', endClassDate);
-    			fd.append('Scheduled_class_pnumber', peopleNum);
-    			fd.append('Scheduled_class_context', Scheduled_class_context);
-    			fd.append('Scheduled_other_context', Scheduled_other_context);
-				$.ajax({
-					url:'<%=request.getContextPath()%>/ScheduledShift/SaveScheduledShift',
-					type:'post',
-					encType: 'multipart/form-data', //表明上传类型为文件
-					processData: false,  //tell jQuery not to process the data
-        			contentType: false,  //tell jQuery not to set contentType
-					data:						/*"txt_file":filelist,
-						"Scheduled_name":className,
-						"Scheduled_initiator":hostCompany,
-						"Scheduled_address":hostAddress,
-						"Scheduled_start":hostStartDate,
-						"Scheduled_end":hostEndDate,
-						"Scheduled_class_start":startClassDate,
-						"Scheduled_class_end":endClassDate,
-						"Scheduled_class_pnumber":peopleNum,
-						"Scheduled_class_context":Scheduled_class_context,
-						"Scheduled_other_context":Scheduled_other_context*/
-						fd
-					,
-					success:function(data){
-						if(data.success == true){
-							if(data.message == "1"){
-								layer.alert("保存成功!");
-							}
-						}
-						else
-							layer.alert("保存失败!");
-					},
-					error:function(data){
-
-					}
-				})
-			}
+			
 		</script>
 		<script type="text/javascript">
 			//分页
@@ -499,28 +402,6 @@
 				};
 			});
 		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 			
 		<script type="text/javascript">
 
@@ -565,7 +446,7 @@
         						memotr += '<tr id="upload-'+ i +'">'+
 						          '<td>'+ files[i].scheduled_oldfile +'</td>'+
 						          '<td>'+
-						          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor">下载</a></button>'+
+						          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor" id="downLoad">下载</a></button>'+
 						          '</td>'+
 						        '</tr>';
         					}
@@ -584,9 +465,6 @@
 
         		})
    	 		};
-		</script>
-		<script>
-			
 		</script>
 
 	</body>

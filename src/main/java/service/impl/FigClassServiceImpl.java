@@ -132,7 +132,17 @@ public class FigClassServiceImpl implements FigClassService {
 				}
 				else
 					figClassshowVo.setUser_status("0");
+				if("".equals(user_id)){
+					figClassshowVo.setIsdelete("1");//可删除
+				}else{
+					if(user_id.equals(figClass.getFigClass_creater())){
+						figClassshowVo.setIsdelete("1");
+					}
+					else
+						figClassshowVo.setIsdelete("0");
+				}
 				figClassshowVos.add(figClassshowVo);
+				
 			}
 		}
 		fDataTable.setData(figClassshowVos);
@@ -251,7 +261,9 @@ public class FigClassServiceImpl implements FigClassService {
 		//创建时间
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		//figClassDao.deleteFig(figclass_id, user_id, APPLYDATE);
 		user_FigClassDao.deleteFig(user_id, APPLYDATE, figclass_id, user_id);
+		
 	}
 
 	public String getByfilename(String filename) {
@@ -290,16 +302,24 @@ public class FigClassServiceImpl implements FigClassService {
 		int count = 0;
 		List<MemProjectVo> memProjectVos = new ArrayList<MemProjectVo>();
 		if("0".equals(caogery)){//定制
-			LayuiDataTable<Free_constom> fDataTable = constomService.getListBypage(status, "", (page-1)*limit, (page-1)*limit+limit, user_id);
-			if(fDataTable!=null&&fDataTable.getData().size()>0){
+			LayuiDataTable<Free_constom> fDataTable = constomService.getListBypage(status, "", page, limit, user_id);
+			if(fDataTable.getData()!=null&&fDataTable.getData().size()>0){
 				for (Free_constom free_constom : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
 					memProjectVo.setProject_id(free_constom.getFreeco_id());
 					memProjectVo.setProject_caogery("0");
-					memProjectVo.setProject_datanum(free_constom.getFreeco_datanum());
+					if("0".equals(free_constom.getFreeco_gaoery())){
+						memProjectVo.setProject_datanum(free_constom.getFreeco_day());
+					}
+					else
+						memProjectVo.setProject_datanum(free_constom.getFreeco_datanum());
 					memProjectVo.setProject_name(free_constom.getFreeco_name());
 					memProjectVo.setProject_pernum(free_constom.getFreeco_pernum());
 					memProjectVo.setProject_start(free_constom.getFreeco_data());
+					memProjectVo.setProject_status(free_constom.getFreeco_status());
+					memProjectVo.setIsdelete("1");
+					memProjectVo.setIsbm(free_constom.getFreeco_numfile());
+					memProjectVo.setProject_person(free_constom.getFreeco_person());
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -308,8 +328,8 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("1".equals(caogery)){//规定
-			LayuiDataTable<ScheduledShiftShow> sDataTable = sc.getScByPage((page-1)*limit, (page-1)*limit+limit,user_id,status,"");
-			if(sDataTable!=null&&sDataTable.getData().size()>0){
+			LayuiDataTable<ScheduledShiftShow> sDataTable = sc.getScByPage(page,limit,user_id,status,"1");
+			if(sDataTable.getData()!=null&&sDataTable.getData().size()>0){
 				for (ScheduledShiftShow scheduledShiftShow : sDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
 					memProjectVo.setProject_id(scheduledShiftShow.getSuuid());
@@ -318,6 +338,10 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_name(scheduledShiftShow.getScheduledshift().getScheduled_name());
 					memProjectVo.setProject_pernum(scheduledShiftShow.getNumber());
 					memProjectVo.setProject_start(scheduledShiftShow.getScheduledshift().getScheduled_class_start());
+					memProjectVo.setProject_status(scheduledShiftShow.getScheduledshift().getScheduled_status());
+					memProjectVo.setIsbm("1");
+					memProjectVo.setIsdelete("0");
+					memProjectVo.setProject_person(scheduledShiftShow.getScheduledshift().getScheduled_address());
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -326,8 +350,8 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("2".equals(caogery)){//拼班
-			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("",status, "", (page-1)*limit, (page-1)*limit+limit, user_id);
-			if(fDataTable!=null&&fDataTable.getData().size()>0){
+			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("1",status, "", page, limit, user_id);
+			if(fDataTable.getData()!=null&&fDataTable.getData().size()>0){
 				for (FigClassshowVo figClassshowVo : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
 					memProjectVo.setProject_id(figClassshowVo.getFigClass_id());
@@ -336,6 +360,10 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_name(figClassshowVo.getFigClass_name());
 					memProjectVo.setProject_pernum(figClassshowVo.getFigClass_pernum());
 					memProjectVo.setProject_start(figClassshowVo.getFigClass_class_start());
+					memProjectVo.setProject_status(figClassshowVo.getFigClass_status());
+					memProjectVo.setIsbm("1");
+					memProjectVo.setIsdelete("0");
+					memProjectVo.setProject_person(figClassshowVo.getFigClass_name());
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -366,6 +394,7 @@ public class FigClassServiceImpl implements FigClassService {
 							memProjectVo.setProject_datanum(map.get("PROJECT_DATANUM").toString());
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						
+						
 					}else if ("1".equals(caog)){//规定  SCHEDULED_CLASS_START  SCHEDULED_CLASS_END
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
@@ -373,6 +402,9 @@ public class FigClassServiceImpl implements FigClassService {
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}
+					memProjectVo.setIsbm(map.get("PROJECT_ISBM").toString());
+					memProjectVo.setIsdelete(user_id.equals(map.get("PROJECT_ISDELETE").toString())?"1":"0");
+					memProjectVo.setProject_person("");
 					memProjectVo.setProject_start(map.get("PROJECT_START").toString());
 					memProjectVo.setProject_allnum(map.get("PROJECT_ALLNUM").toString());
 					memProjectVo.setProject_status(map.get("PROJECT_STATUS").toString());
@@ -411,6 +443,17 @@ public class FigClassServiceImpl implements FigClassService {
 		int count = 0;
 		count = user_FigClassDao.getCountByid(null, FigClass_id);
 		return count;
+	}
+
+	public void updateFig(FigClass figClass) {
+		figfileDao.deleteByfig(figClass.getFigClass_id());
+		figClassDao.updatefigClass(figClass);
+		figfileDao.insertBatch(figClass.getFigFiles());
+	}
+
+	public void startScheduledFig() {
+		// TODO Auto-generated method stub
+		figClassDao.startScheduledFig();
 	}
 
 	//李  鹏   永

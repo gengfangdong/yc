@@ -89,6 +89,28 @@
 				margin-top: 10px;
 				text-align: center;
 			}
+			.page{
+				float:right;
+				/* border:1px solid #ccc;
+				border-radius:5px; */
+				height:30px;
+				line-height:30px;
+			}
+			.pageNum{
+				min-width:85px;
+				float:left;
+			}
+			.linkPage{
+				max-width:200px;
+				float:left;
+			}
+			.jumpPage{
+				min-width:130px;
+				float:left;
+			}
+			#a3 a{
+				margin:0 10px;
+			}
 		</style>
 	</head>
 
@@ -307,10 +329,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">在职研</h1>
-					</div>
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/zaizhi.jpg');background-size:100% 100%;">
 				</div>
 
 			</div>
@@ -324,7 +343,8 @@
 								<li>
 									<a href="../index.jsp">首页</a>
 								</li>
-								<li class="am-active">新闻中心</li>
+								<li class="am-active">在职研</li>
+								<li class="am-active">招生简章</li>
 							</ol>
 						</div>
 					</div>
@@ -355,39 +375,20 @@
 					</div>
 					<div style="height: 40px;">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
-							<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
-						
-							<!-- <li class="am-pagination-first ">
-								<a href="#" class="">首页</a>
-							</li>
-
-							<li class="am-pagination-prev ">
-								<a href="#" class="">上一页</a>
-							</li>
-
-							<li class="">
-								<a href="#" class="">1</a>
-							</li>
-							<li class="am-active">
-								<a href="#" class="am-active">2</a>
-							</li>
-							<li class="">
-								<a href="#" class="">3</a>
-							</li>
-							<li class="">
-								<a href="#" class="">4</a>
-							</li>
-							<li class="">
-								<a href="#" class="">5</a>
-							</li>
-
-							<li class="am-pagination-next ">
-								<a href="#" class="">下一页</a>
-							</li>
-
-							<li class="am-pagination-last ">
-								<a href="#" class="">尾页</a>
-							</li> -->
+							<div class="page">
+								<div class="pageNum" style="display:none">
+									第<span id="a2" class="nowPageNum"></span>
+									/<span id="a1" class="allPageNum"></span>页
+								</div>
+								
+								<div class="jumpPage" style="padding:0 10px;">
+									<a href="#" onClick="change1(--pageno1)" style="float:left;padding-right:5px;">上一页</a>
+									<div class="linkPage">
+										<span id="a3"></span>
+									</div>
+									<a href="#" onClick="change1(++pageno1)" style="padding-left:5px;">下一页</a>
+								</div>
+							</div>
 						</ul>
 					</div>
 
@@ -572,9 +573,9 @@
 								var ye="";
 								for(var j=1;j<=pageall;j++){
 							 		if(e==j){
-										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
+										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> ";
 									}else{
-										ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
+										ye=ye+"<span><a href='#' onClick='change1("+j+")'>"+j+"</a></span>";
 									}
 								}
 								document.getElementById("a1").innerHTML=pageall;

@@ -438,7 +438,7 @@
 			      	for(var o = 0 ;o<filesa.length;o++){
 			      		if(filesa[o].scheduled_oldfile == filenamea){
 			      			layer.alert("文件已存在!");
-			      			break;
+			      			//break;
 			      			return ;
 			      		}
 			      	}
@@ -549,7 +549,10 @@
 					alert("请输入班级容纳人数！");
 					return;
 				}
-				
+				if(filelist.length == 0 &&filesa.length == 0){
+					alert("请上传文件！");
+					return;
+				}
 				var fd = new FormData();
 				for(var j = 0;j<filelist.length;j++){
 					fd.append('file', filelist[j]);
@@ -590,7 +593,13 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "3"){
-								layer.alert("修改成功!");
+								layer.confirm('修改成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 						}
 						else

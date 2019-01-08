@@ -22,15 +22,46 @@
 		<result column="FIGCLASS_NUMSTATUS" jdbcType="VARCHAR" property="FigClass_numstatus"/>
 		<result column="FIGCLASS_CAOGERY" jdbcType="VARCHAR" property="FigClass_caogery"/>
 		<result column="FIGCLASS_OUTLINE" jdbcType="VARCHAR" property="FigClass_outline"/>
+		<result column="FIGCLASS_DAY" jdbcType="VARCHAR" property="FigClass_day"/>
 	</resultMap>
+	<update id="startScheduledFig">
+		 update FIGCLASS f
+		    set f.FIGCLASS_STATUS = (case
+		                                when SYSDATE &lt;
+		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') then
+		                                '3'
+		                               when SYSDATE &gt;=
+		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;=
+		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') then
+		                                '4' 
+		                               when SYSDATE &gt;
+		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;
+		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') then
+		                                '5'
+		                                when SYSDATE &gt;=
+		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;=
+		                                    TO_DATE(FIGCLASS_CLASS_END, 'YYYY-MM-DD') then
+		                                '6'
+		                                when SYSDATE &gt;
+		                                    TO_DATE(FIGCLASS_CLASS_END, 'YYYY-MM-DD') then
+		                                '7'
+		                             end)
+		  where f.FIGCLASS_ISDELETE = '0'
+		  and f.FIGCLASS_STATUS &lt;&gt; '7' 
+		  and f.FIGCLASS_STATUS &lt;&gt; '0'
+		  and f.FIGCLASS_STATUS &lt;&gt; '2'
+	</update>
 	 <insert id="insertFig" parameterType="entity.FigClass">
 		insert into FIGCLASS(FIGCLASS_ID,FIGCLASS_NAME,FIGCLASS_DEPARMENT,FIGCLASS_ADDRESS,FIGCLASS_START_DATE,FIGCLASS_END_DATE,FIGCLASS_CLASS_START,
 		FIGCLASS_CLASS_END,FIGCLASS_PERNUM,FIGCLASS_PHONE,FIGCLASS_PERSON,FIGCLASS_STATUS,FIGCLASS_CREATER,
-		FIGCLASS_CREATETIME,FIGCLASS_UPDATER,FIGCLASS_UPDATETIME,FIGCLASS_ISDELETE,FIGCLASS_NUMSTATUS,FIGCLASS_CAOGERY,FIGCLASS_OUTLINE)
+		FIGCLASS_CREATETIME,FIGCLASS_UPDATER,FIGCLASS_UPDATETIME,FIGCLASS_ISDELETE,FIGCLASS_NUMSTATUS,FIGCLASS_CAOGERY,FIGCLASS_OUTLINE,FIGCLASS_DAY)
 		values(#{FigClass_id},#{FigClass_name},#{FigClass_deparment},#{FigClass_address},
 		#{FigClass_start_date},#{FigClass_end_date},#{FigClass_class_start},#{FigClass_class_end},#{FigClass_pernum},
 		#{FigClass_phone},#{FigClass_person},#{FigClass_status},#{FigClass_creater},#{FigClass_createtime},
-		#{FigClass_updater},#{FigClass_updatetime},#{FigClass_isdelete},#{FigClass_numstatus},#{FigClass_caogery},#{FigClass_outline})
+		#{FigClass_updater},#{FigClass_updatetime},#{FigClass_isdelete},#{FigClass_numstatus},#{FigClass_caogery},#{FigClass_outline},#{FigClass_day,jdbcType=VARCHAR})
 	</insert>
 	
 	<select id="getDetail" parameterType="String" resultMap="FigClass">
@@ -148,7 +179,9 @@
 						e.freeco_status as project_status,
 						'0' as project_allnum,
 				        e.freeco_day as project_day,
-				        e.freeco_datanum as project_datanum
+				        e.freeco_datanum as project_datanum,
+				        e.FREECO_NUMFILE as project_isbm,
+				        e.freeco_creater as project_isdelete
 					from free_costom e
 					where e.freeco_isdelete = '0'
 						<if test="status != null and status != ''">
@@ -168,11 +201,14 @@
 				       s.scheduled_status as project_status,
 				       '0' as project_allnum,
 				       '0' as project_day,
-				       '0' as project_datanum
-				  from yc.ssuser y
-				  left join yc.scheduledshift s
+				       '0' as project_datanum,
+				        '1' as project_isbm,
+				        y.ssu_userid as project_isdelete
+				  from ssuser y
+				  left join scheduledshift s
 				    on y.ssu_ssid = s.scheduled_id
 				 where y.ssu_isdelete = '0'
+				 and s.isdelete = '0'
 					<if test="status != null and status != ''">
 						and y.ssu_status = #{status}
 					</if>
@@ -180,7 +216,7 @@
 						and y.ssu_userid = #{user_id}
 					</if>
 				union
-					select f.figclass_id as project_id,
+					<!-- select f.figclass_id as project_id,
 						f.figclass_name as project_name,
 						f.figclass_class_start as project_start,
 						f.figclass_class_end as project_end,
@@ -197,7 +233,31 @@
 					</if>
 					<if test="user_id != null and user_id != ''">
 						and f.figclass_creater = #{user_id}
-					</if>
+					</if> -->
+					select f.figclass_id as project_id,
+					       f.figclass_name as project_name,
+					       f.figclass_class_start as project_start,
+					       f.figclass_class_end as project_end,
+					       '2' as project_caogery,
+					       f.figclass_pernum as project_pernum,
+					       f.figclass_status as project_status,
+					       '0' as project_allnum,
+					       '0' as project_day,
+					       '0' as project_datanum,
+				        '1' as project_isbm,
+				        f.FIGCLASS_CREATER as project_isdelete
+					  from (select *
+									  from figclass fg
+									 where  fg.figclass_isdelete = '0' 
+									 	 and fg.figclass_id in
+									       (select distinct(f.figclass_id)
+									          from user_figclass f
+									         where f.isdelete = '0'
+									         <if test="user_id != null and user_id != ''">
+												and f.creater  = #{user_id}
+											</if>
+									           
+				        )) f
 			) A
 			WHERE ROWNUM &lt;= #{limit}
 		)  
@@ -218,7 +278,9 @@
 						e.freeco_status as project_status,
 						'0' as project_allnum,
 				        e.freeco_day as project_day,
-				        e.freeco_datanum as project_datanum
+				        e.freeco_datanum as project_datanum,
+				        e.FREECO_NUMFILE as project_isbm,
+				        e.freeco_creater as project_isdelete
 					from free_costom e
 					where e.freeco_isdelete = '0'
 						<if test="status != null and status != ''">
@@ -238,11 +300,14 @@
 				       s.scheduled_status as project_status,
 				       '0' as project_allnum,
 				       '0' as project_day,
-				       '0' as project_datanum
-				  from yc.ssuser y
-				  left join yc.scheduledshift s
+				       '0' as project_datanum,
+				        '1' as project_isbm,
+				        y.ssu_userid as project_isdelete
+				  from ssuser y
+				  left join scheduledshift s
 				    on y.ssu_ssid = s.scheduled_id
 				 where y.ssu_isdelete = '0'
+				 and s.isdelete = '0'
 					<if test="status != null and status != ''">
 						and y.ssu_status = #{status}
 					</if>
@@ -250,7 +315,7 @@
 						and y.ssu_userid = #{user_id}
 					</if>
 				union
-					select f.figclass_id as project_id,
+					<!-- select f.figclass_id as project_id,
 						f.figclass_name as project_name,
 						f.figclass_class_start as project_start,
 						f.figclass_class_end as project_end,
@@ -267,7 +332,50 @@
 					</if>
 					<if test="user_id != null and user_id != ''">
 						and f.figclass_creater = #{user_id}
-					</if>
+					</if> -->
+					select f.figclass_id as project_id,
+					       f.figclass_name as project_name,
+					       f.figclass_class_start as project_start,
+					       f.figclass_class_end as project_end,
+					       '2' as project_caogery,
+					       f.figclass_pernum as project_pernum,
+					       f.figclass_status as project_status,
+					       '0' as project_allnum,
+					       '0' as project_day,
+					       '0' as project_datanum,
+				        '1' as project_isbm,
+				        f.FIGCLASS_CREATER as project_isdelete
+					  from (select *
+									  from figclass fg
+									 where  fg.figclass_isdelete = '0' 
+									 	 and fg.figclass_id in
+									       (select distinct(f.figclass_id)
+									          from user_figclass f
+									         where f.isdelete = '0'
+									         <if test="user_id != null and user_id != ''">
+												and f.creater  = #{user_id}
+											</if>
+									           
+				        )) f
 			) A
 	</select>
+	
+	<update id="updatefigClass" parameterType="FigClass">
+		UPDATE FIGCLASS 
+			SET FIGCLASS_NAME=#{FigClass_name},
+			FIGCLASS_DEPARMENT=#{FigClass_deparment},
+			FIGCLASS_ADDRESS=#{FigClass_address},
+			FIGCLASS_START_DATE=#{FigClass_start_date},
+			FIGCLASS_END_DATE=#{FigClass_end_date},
+			FIGCLASS_CLASS_START=#{FigClass_class_start},
+			FIGCLASS_CLASS_END=#{FigClass_class_end},
+			FIGCLASS_PERNUM=#{FigClass_pernum},
+			FIGCLASS_PHONE=#{FigClass_phone},
+			FIGCLASS_PERSON=#{FigClass_person},
+			FIGCLASS_UPDATER=#{FigClass_updater},
+			FIGCLASS_UPDATETIME=#{FigClass_updatetime},
+			FIGCLASS_CAOGERY=#{FigClass_caogery},
+			FIGCLASS_OUTLINE=#{FigClass_outline}
+				WHERE FIGCLASS_ID = #{FigClass_id} AND FIGCLASS_ISDELETE = '0'
+	</update>
 </mapper>

@@ -119,7 +119,7 @@ public class ApplyUnitController {
 		applyUnit.setApplyunit_file(filename);
 		applyUnit.setProject_id(project_id);
 		//applyUnit.setApplyunit_creater(user.getUser_id());
-		applyUnit.setApplyunit_creater("admin");
+		applyUnit.setApplyunit_creater(user.getUser_id());
 		applyUnit.setApplyunit_createtime(news_Createtime);
 		
 		applyUnitService.insertApplyUnit(applyUnit);

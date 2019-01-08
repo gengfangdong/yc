@@ -65,10 +65,11 @@ DatatablesViewPage<RotationPic> datatablesViewPage = new DatatablesViewPage<Rota
 		List<RotationPic> RotationPicList = new ArrayList<RotationPic>();
 		
 		RotationPicList = RotationPicDao.findAllRotation();
-		
+		int count = 0;
+		count = RotationPicDao.findAllRotationcount();
 		datatablesViewPage.setData(RotationPicList);
-		datatablesViewPage.setRecordsFiltered(1);
-		datatablesViewPage.setRecordsTotal(1);
+		datatablesViewPage.setRecordsFiltered(count);
+		datatablesViewPage.setRecordsTotal(count);
 		
 		return datatablesViewPage;
 	}

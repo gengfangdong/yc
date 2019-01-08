@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html lang="en">

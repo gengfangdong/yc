@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,18 +82,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>学员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -320,8 +321,9 @@
 // 			      {field:'course_id', title: 'ID',style:'display:none;'},
 			      {field:'project_name', title: '项目名称'},
 			      {field:'project_date', title: '报名开始时间'},
-			      {field:'project_status', title: '状态',templet:'#typeuserstatus'},
+			      {field:'project_status', title: '报名状态',templet:'#typeuserstatus'},
 // 			      {field:'handle', title: '操作',toolbar: '#barDemo'}
+			      {field:'status', title: '审核状态',templet:'#statusbar'},     
 			      {field:'handle', title: '操作',  templet: '#barDemo'}
 			    ]],
 			    id: 'testReload',
@@ -473,12 +475,34 @@
 				<a class="" lay-event="showEntryByOne" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
 			{{#  } }}
 		</script>
-	
+		<script type="text/html" id="statusbar">
+			{{#  if(d.project_status == '0'){ }}
+		        	未报名
+	        {{#  } else if(d.project_status == "2"){ }}
+				{{#  if(d.status == '0'){ }}		        
+					未审核
+				{{#  } else if(d.status == "1"){ }}
+					审核通过
+				{{#  } else if(d.status == "2"){ }}
+					审核未通过
+				{{#  } }}
+			{{#  } else if(d.project_status == "1"){ }}
+				{{#  if(d.status == '0'){ }}		        
+					未审核
+				{{#  } else if(d.status == "1"){ }}
+					审核通过
+				{{#  } else if(d.status == "2"){ }}
+					审核未通过
+				{{#  } }}
+			{{#  } }}
+			
+		</script>
+		
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
+				<% if(user == null||!"0".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
@@ -488,7 +512,7 @@
 		</script>
 		    <script type="text/html" id="typeuserstatus">
 	     {{#  if(d.project_status == "0"){ }}
-	        未报名
+	        	未报名
 	     {{#  }else if(d.project_status=="1"){ }}
 	     	个人已报名
 	     {{#  }else if(d.project_status=="2"){ }}

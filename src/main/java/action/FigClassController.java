@@ -41,6 +41,7 @@ import entity.UploadFilevo;
 import service.FigClassService;
 import util.ExcelUtil;
 import util.FileUtil;
+import util.MessageUtil;
 import util.StringUtil;
 import util.UUIDUtil;
 
@@ -112,8 +113,18 @@ public class FigClassController {
 		
 		StringBuffer outline = new StringBuffer();
 		//判断是课程方案还是自由
-		if("0".equals(figClass_caogery)||"1".equals(figClass_caogery)){
-			//课程和方案走同一个方法
+		if("0".equals(figClass_caogery)){
+			//方案走一个方法
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			figClass.setFigClass_day(figClass_outline[1]);
+			outline.append(figClass_outline[0]+",");
+			
+		}else if("1".equals(figClass_caogery)){
+			//课程走一个方法
 			if(figClass_outline.length<=0){
 				resultMap.put("success", false);
 				resultMap.put("message", "1");//未选择课程或者方案
@@ -483,31 +494,41 @@ public class FigClassController {
 		figClass.setFigClass_updater(iUser.getUser_id());
 		figClass.setFigClass_updatetime(Scheduled_Createtime);
 		StringBuffer outline = new StringBuffer();
-		//判断是课程方案还是自由
-		if("0".equals(figClass_caogery)||"1".equals(figClass_caogery)){
-			//课程和方案走同一个方法
-			if(figClass_outline.length<=0){
+		// 判断是课程方案还是自由
+		if ("0".equals(figClass_caogery)) {
+			// 方案走一个方法
+			if (figClass_outline.length <= 0) {
 				resultMap.put("success", false);
-				resultMap.put("message", "4");//未选择课程或者方案
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			figClass.setFigClass_day(figClass_outline[1]);
+			outline.append(figClass_outline[0]+",");
+
+		} else if ("1".equals(figClass_caogery)) {
+			// 课程走一个方法
+			if (figClass_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
 				return resultMap;
 			}
 			for (String string : figClass_outline) {
-				outline.append(string+",");
+				outline.append(string + ",");
 			}
-		}
-		else {
+		} else {
 			// 课程和方案走同一个方法
 			if (figClass_outline.length <= 0) {
 				resultMap.put("success", false);
 				resultMap.put("message", "4");// 未选择课程或者方案
 				return resultMap;
 			}
-			outline.append(figClass_outline[1] + ",");
+			outline.append(figClass_outline[0] + ",");
 		}
 		if (!"".equals(outline)) {
 			figClass.setFigClass_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
 		}
 		//constomService.updateConstom(free_constom);
+		figClassService.updateFig(figClass);
 		resultMap.put("success", true);
 		resultMap.put("message", "5");//修改成功!
 		return resultMap;
@@ -556,7 +577,29 @@ public class FigClassController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String updatetime = dateFormat.format(new Date());
 		String updater = iUser.getUser_id();
-		figClassService.updateReview(figclass_id, review_result, updater, updatetime);
+		try{
+			figClassService.updateReview(figclass_id, review_result, updater, updatetime);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		try {
+			//发送短信提醒
+			if("1".equals(review_result)){
+				String context = "您的拼班: "+figClass.getFigClass_name()+" 审核通过!";
+				String phone = figClass.getFigClass_phone();
+				
+				
+				new MessageUtil().httpPost(phone, context);
+			}else if("2".equals(review_result)){
+				String context = "您的拼班: "+figClass.getFigClass_name()+" 审核不通过!";
+				String phone = figClass.getFigClass_phone();
+				new MessageUtil().httpPost(phone, context);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		resultMap.put("success", true);
 		resultMap.put("message", "2");//审核成功!
 		return resultMap;

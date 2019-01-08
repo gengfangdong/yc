@@ -5,22 +5,21 @@ package util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.openxml4j.opc.internal.ContentType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import entity.ApplyUnit;
 import entity.UploadFilevo;
@@ -123,7 +122,10 @@ public class FileUtil {
     }
 	
 	public MultipartFile getFileByname(String filename){
-		File pdfFile = new File("filename");
+	    MultipartFile multipartFile = getMulFileByPath(filename);
+	    
+
+		/*File pdfFile = new File(filename);
 		FileInputStream fileInputStream;
 		MultipartFile multipartFile = null;
 		try {
@@ -137,7 +139,40 @@ public class FileUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		return multipartFile;
 	}
+	
+	private static MultipartFile getMulFileByPath(String picPath) {  
+        FileItem fileItem = createFileItem(picPath);  
+        MultipartFile mfile = new CommonsMultipartFile(fileItem);  
+        return mfile;  
+    }  
+  
+    private static FileItem createFileItem(String filePath)  
+    {  
+        FileItemFactory factory = new DiskFileItemFactory(16, null);  
+  
+        FileItem item = factory.createItem(null, "text/plain", true, filePath);  
+        File newfile = new File(filePath);  
+        int bytesRead = 0;  
+        byte[] buffer = new byte[8192];  
+        try  
+        {  
+            FileInputStream fis = new FileInputStream(newfile);  
+            OutputStream os = item.getOutputStream();  
+            while ((bytesRead = fis.read(buffer, 0, 8192))  
+                != -1)  
+            {  
+                os.write(buffer, 0, bytesRead);  
+            }  
+            os.close();  
+            fis.close();  
+        }  
+        catch (IOException e)  
+        {  
+            e.printStackTrace();  
+        }  
+        return item;  
+    } 
 }

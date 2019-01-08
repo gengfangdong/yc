@@ -90,10 +90,12 @@ public class ProjectServiceImpl implements ProjectService{
 			if (applyList.size()>0) {
 				statue="1";
 				projectVo.setApply_id(applyList.get(0).getApply_id());
+				projectVo.setStatus(applyList.get(0).getCheck_status());
 			}
 			if (applyUnitList.size()>0) {
 				statue="2";
 				projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
+				projectVo.setStatus(applyList.get(0).getCheck_status());
 			}
 			projectVo.setProject_status(statue);
 			projectVos.add(projectVo);

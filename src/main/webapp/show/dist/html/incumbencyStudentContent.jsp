@@ -308,10 +308,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">在职研</h1>
-					</div>
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/zaizhi.jpg');background-size:100% 100%;">
 				</div>
 
 			</div>
@@ -690,7 +687,7 @@
  					 document.getElementById('showRulesContent').innerHTML=
  						'<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.rules_titile+'</h1>'+
  						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
- 						'<label style="padding-right: 3%;">作者：'+data.data.rules_Creater+'</label>'+
+ 						'<label style="padding-right: 3%;">作者：管理员</label>'+
  						'<label style="padding-left: 3%;">时间：'+data.data.rules_Release_time+'</label>'+
  						 rules_context;
             	}

@@ -12,8 +12,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
-		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/layui.css">
-		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -91,7 +91,9 @@
 				margin-top: 10px;
 				text-align: center;
 			}
-			
+			.layui-table-cell{
+				text-align:center;
+			}
 		</style>
 	</head>
 
@@ -343,10 +345,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header regulations_bannerbg">
-					<div class="am-container">
-						<h1 class="page-header-title">规定班次</h1>
-					</div>
+				<div class="page-header regulations_bannerbg" style="background:url('../assets/img/banner/guiding.jpg');background-size:100% 100%;">
 				</div>
 
 				<div class="am-g am-g-fixed myFixedSiderbar">
@@ -523,8 +522,8 @@
 			<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 			<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 			<![endif]-->
-			<script src="../../../admin/layui-v2.3.0/layui/layui.js"></script>
-			<script src="../../../admin/layui-v2.3.0/layui/lay/modules/layer.js"></script>
+			<script src="../../../admin/layui-v2.4.5/layui/layui.js"></script>
+			<script src="../../../admin/layui-v2.4.5/layui/lay/modules/layer.js"></script>
 			<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 			<script src="../assets/js/common.js" charset="utf-8"></script>
 			<script>
@@ -577,7 +576,7 @@
 				    url: '<%=request.getContextPath()%>/Show/getRegulationClasses',
 				    cols: [[
 					  {type:'numbers',title:"序号",minWidth:120},
-				      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+				      //{field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
 
 				      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
 				      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
@@ -600,7 +599,7 @@
 					    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
 					    cols: [[
 						  {type:'numbers',title:"序号",minWidth:120},
-					      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
+					      //{field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
 
 					      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
 					      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
@@ -652,21 +651,46 @@
 			    }else if(obj.event === 'del'){
 			      	layer.confirm('确认取消报名？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/Ssuser/SignOut',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Course_id:data.course_id
+								Project_id:data.scheduledshift.scheduled_id,
+								ssuid:data.suuid
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									layer.alert("参数错误!");
+									layer.confirm('班次不存在!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.confirm('未登录!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
 								}
 								else if(data.message == "2"){
-									layer.alert("报名已取消!");
+									layer.confirm('取消报名失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "3"){
+									layer.confirm('取消报名成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									
+								});
 								}
 							},
 							error : function(error) {
@@ -701,7 +725,7 @@
 			        },
 			        method:'post',
 			        where: {
-			        	status:status
+			        	scstatus:status
 			        }
 			      });
 			    }
@@ -711,7 +735,6 @@
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
 			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});
 			
 		</script>

@@ -519,7 +519,11 @@
 				success : function(data) {
 					if(data.success == true){
 						var expert_context = data.data.expert_context;
-						 document.getElementById('expertcontext').innerHTML=expert_context;
+						 document.getElementById('expertcontext').innerHTML=
+							 '<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.expert_titile+'</h1>'+
+		 						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
+		 						'<label style="padding-right: 3%;">作者：管理员</label>'+
+		 						'<label style="padding-left: 3%;">时间：'+data.data.expert_Release_time+'</label>'+expert_context;
 					}
 				},
 				error : function(error) {

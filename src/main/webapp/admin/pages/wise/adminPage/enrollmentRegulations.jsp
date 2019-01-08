@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -79,18 +80,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -104,7 +105,7 @@
 				</nav>
 			</header>
 			<!-- Left side column. contains the logo and sidebar -->
-			<aside class="main-sidebar" style="position: fixed;">
+			<aside class="main-sidebar">
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- Sidebar user panel -->
@@ -265,41 +266,7 @@
 																					<th style="text-align: center;">操作</th>
 																				</tr>
 																			</thead>
-																			<!-- <tbody>
-																				<tr>
-																					<td style="text-align: center;">1</td>
-																					<td>title</td>
-																					<td>2018/11/04</td>
-																					<td>待发布</td>
-																					<td>
-																						<a href="#" onclick="addNews(this);">查看</a>
-																						<a href="#" onclick="addNews(this);">修改</a>
-																						<a onclick="isDelete(this);">删除</a>
-																					</td>
-																				</tr>
-																				<tr>
-																					<td style="text-align: center;">2</td>
-																					<td>title</td>
-																					<td>2018/11/03</td>
-																					<td>发布中</td>
-																					<td>
-																						<a href="#" onclick="addNews(this);">查看</a>
-																						<a href="#" onclick="addNews(this);">修改</a>
-																						<a onclick="isDelete(this);">删除</a>
-																					</td>
-																				</tr>
-																				<tr>
-																					<td style="text-align: center;">3</td>
-																					<td>title</td>
-																					<td>2018/11/02</td>
-																					<td>发布中</td>
-																					<td>
-																						<a href="#" onclick="addNews(this);">查看</a>
-																						<a href="#" onclick="addNews(this);">修改</a>
-																						<a onclick="isDelete(this);">删除</a>
-																					</td>
-																				</tr>
-																			</tbody> -->
+																			
 																		</table>
 																	</div>
 																</div>
@@ -486,7 +453,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -504,7 +471,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '查看',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -543,18 +510,40 @@
 						},
 						success : function(data) {
 							if(data.message == "0"){
-								layer.alert("参数错误!");
+								layer.confirm('获取通知公告失败!', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 							else if(data.message == "1"){
 								layer.alert("获取通知公告失败!");
+								layer.confirm('获取通知公告失败!', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 							else if(data.message == "2"){
-								layer.alert("删除成功!");
+								layer.confirm('删除成功！', { title:'提示'}, function(index){ 
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 							
 						},
 						error : function(error) {
 							console.log('接口不通' + error);
+							layer.confirm('删除失败！', { title:'提示'}, function(index){ 
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
 						}
 					});	
 		        }
@@ -563,16 +552,28 @@
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
-			<%}%>
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');
 				treeUls[2].setAttribute('style','display: block;');
 				treeUls[3].setAttribute('style','display: block;');
 				treeUls[4].setAttribute('style','display: block;');
+				
+				//左侧导航树高度
+                var leftTreeHeight = document.getElementsByClassName('sidebar')[0].offsetHeight;
+                //屏幕高度
+                var screenHeight = window.screen.height;
+                //可用内容高度
+                var ableHeight = screenHeight - 150;
+                if(ableHeight<leftTreeHeight){
+                	$(".content-wrapper").css("min-height",leftTreeHeight);
+                }else{
+                	$(".content-wrapper").css("min-height",ableHeight);
+                }
 			};
 		</script>
 	</body>

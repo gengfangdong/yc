@@ -82,7 +82,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										新增
+										查看
 									</label>
 								</div>
 							</div>

@@ -271,34 +271,35 @@ public class SsuserController {
 			HSSFCell cell = row1.createCell(i);
 			cell.setCellValue(titleValue[i]);
 		}
-		for(int j=0;j<eUsers.size();j++){
-			EUser eUser = eUsers.get(j);
-			HSSFRow row = sheet.createRow(j+1);
-			HSSFCell cell = row.createCell(0);
-			cell.setCellValue(eUser.getEUser_name());
-			HSSFCell cell1 = row.createCell(1);
-			String sex = eUser.getEUser_sex();
-			if("0".equals(sex)){
-				cell1.setCellValue("男");
-			}else if("1".equals(sex)){
-				cell1.setCellValue("女");
+		if(eUsers!=null){
+			for(int j=0;j<eUsers.size();j++){
+				EUser eUser = eUsers.get(j);
+				HSSFRow row = sheet.createRow(j+1);
+				HSSFCell cell = row.createCell(0);
+				cell.setCellValue(eUser.getEUser_name());
+				HSSFCell cell1 = row.createCell(1);
+				String sex = eUser.getEUser_sex();
+				if("0".equals(sex)){
+					cell1.setCellValue("男");
+				}else if("1".equals(sex)){
+					cell1.setCellValue("女");
+				}
+				
+				HSSFCell cell2 = row.createCell(2);
+				cell2.setCellValue(eUser.getEUser_companyname());
+				HSSFCell cell3 = row.createCell(3);
+				cell3.setCellValue(eUser.getEUser_department());
+				HSSFCell cell4 = row.createCell(4);
+				cell4.setCellValue(eUser.getEUser_hold());
+				HSSFCell cell5 = row.createCell(5);
+				cell5.setCellValue(eUser.getEUser_indentitynumber());
+				HSSFCell cell6 = row.createCell(6);
+				cell6.setCellValue(eUser.getEUser_phone());
+				HSSFCell cell7 = row.createCell(7);
+				cell7.setCellValue(eUser.getEUser_remark());
+				
 			}
-			
-			HSSFCell cell2 = row.createCell(2);
-			cell2.setCellValue(eUser.getEUser_companyname());
-			HSSFCell cell3 = row.createCell(3);
-			cell3.setCellValue(eUser.getEUser_department());
-			HSSFCell cell4 = row.createCell(4);
-			cell4.setCellValue(eUser.getEUser_hold());
-			HSSFCell cell5 = row.createCell(5);
-			cell5.setCellValue(eUser.getEUser_indentitynumber());
-			HSSFCell cell6 = row.createCell(6);
-			cell6.setCellValue(eUser.getEUser_phone());
-			HSSFCell cell7 = row.createCell(7);
-			cell7.setCellValue(eUser.getEUser_remark());
-			
 		}
-		
 		//输出Excel文件
 	    OutputStream output;
 		try {

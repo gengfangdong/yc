@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -51,12 +52,6 @@
 			option {
 				color: black;
 			}
-			/* .layui-table-box{
-				overflow: auto!important;
-			}
-			.layui-table-header,.layui-table-body{
-				overflow: hidden!important;
-			} */
 		</style>
 	</head>
 
@@ -89,18 +84,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -218,6 +213,9 @@
 										</li>
 										<li>
 											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
+										</li>
+											<li>
+											<a href="enrollmentRegulations.jsp" ><i class="fa fa-square-o"></i> 招生简章</a>
 										</li>
 									</ul>
 								</li>
@@ -383,20 +381,20 @@
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/ScheduledShift/getRegulationClasses',
 			    cols: [[
-				  {type:'numbers',title:"序号",minWidth:40},
-			      {field:'d.scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
-			      {field:'scheduledshift.createtime', title: '发布日期',templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>',minWidth:140,style:'min-width:140px;'},
+				  {type:'numbers',title:"序号",minWidth:40},/* 
+			      {field:'', title: 'ID',style:'display:none;'}, */
+			      {field:'scheduledshift.createtime', title: '发布日期',minWidth:120,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>'},
 			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
-			      {field:'dataNumber', title: '举办天数',minWidth:120},
-			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:140},
-			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:140},
+			      {field:'dataNumber', title: '举办天数',minWidth:90},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
 			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
 			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
-			     {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:140},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
-			      {field:'number', title: '已报名人数',minWidth:140},
+			     {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:160},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90},
+			      {field:'number', title: '已报名人数',minWidth:120},
 			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:300}
+			      {field:'d.scheduledshift.scheduled_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -420,7 +418,7 @@
 						}
 					});
 			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除该行？', function(index){
+			      	layer.confirm('确认删除规定班次？', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/ScheduledShift/deleteScheduled',
 							type : 'post',
@@ -430,13 +428,31 @@
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									alert("参数错误!");
+									layer.confirm('参数错误!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 								}
 								else if(data.message == "1"){
-									alert("获取规定班次失败!");
+									layer.confirm('获取规定班次失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 								}
 								else if(data.message == "2"){
-									alert("删除成功!");
+									layer.confirm('删除成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 								}
 								
 							},
@@ -496,8 +512,8 @@
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
-			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+			  });/* 
+			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide'); */
 			});
 			
 			
@@ -521,97 +537,16 @@
 							}
 						});
 					})
-				}<%--  else if(sText == '查看') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '查看',
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, 200],
-							content: 'openPage/showprescribedShift.jsp?scheduled_id='+id,
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				} else if(sText == '修改') {
-					layui.use('layer', function() {
-						var $ = layui.jquery,
-							layer = layui.layer;
-						layer.open({
-							type: 2, //此处以iframe举例
-							title: '修改',	
-							area: ['1063px', '530px'],
-							shade: 0,
-							maxmin: true,
-							offset: [100, 200],
-							content: 'openPage/updateprescribedShift.jsp?scheduled_id='+id,
-							zIndex: layer.zIndex, //重点1
-							success: function(layero) {
-								layer.setTop(layero); //重点2
-							}
-						});
-					})
-				}else if(sText=='删除'){
-		        	$.ajax({
-						url : '<%=request.getContextPath()%>/ScheduledShift/deleteScheduled',
-						type : 'post',
-						dataType:"json",
-						data:{
-							Scheduled_id:id
-						},
-						success : function(data) {
-							if(data.message == "0"){
-								alert("参数错误!");
-							}
-							else if(data.message == "1"){
-								alert("获取规定班次失败!");
-							}
-							else if(data.message == "2"){
-								alert("删除成功!");
-							}
-							
-						},
-						error : function(error) {
-							console.log('接口不通' + error);
-						}
-					});	
-		        } --%>
+				}
 
 			}
 		</script>
 		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-				}
-				
-			</script>
-		<script>
 			window.onload = function() {
-				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
-			<%}%>
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style', 'display: block;');
 				treeUls[1].setAttribute('style', 'display: block;');
@@ -634,12 +569,20 @@
 		</script>
 		<script type="text/html" id="barDemo">
 			<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-			<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">结束</a>
+			
+			{{#  if(d.scheduledshift.scheduled_status == '0'){ }}
+		        <a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+	        {{#  } else if(d.scheduledshift.scheduled_status == "1"){ }}
+				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+			{{#  } else if(d.scheduledshift.scheduled_status == "2"){ }}
+				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+			{{#  } else if(d.scheduledshift.scheduled_status == "3"){ }}
+				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">结束</a>
+			{{#  } else if(d.scheduledshift.scheduled_status == "4"){ }}
+				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+			{{#  } }}
 			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
-			 {{#  if(d.number != "0"){ }}
-	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href = "<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">查看名单</a>
-	     	 {{# } }}
 		</script>
 
 		<script type="text/html" id="typestatus">

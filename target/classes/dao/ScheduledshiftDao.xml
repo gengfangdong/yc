@@ -86,11 +86,21 @@
 		                                    TO_DATE(SCHEDULED_END, 'YYYY-MM-DD') then
 		                                '1'
 		                               when SYSDATE &gt;
-		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') then
+		                                    TO_DATE(SCHEDULED_END, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;
+		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') then
 		                                '2'
+		                                when SYSDATE &gt;=
+		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;=
+		                                    TO_DATE(SCHEDULED_CLASS_END, 'YYYY-MM-DD') then
+		                                '3'
+		                                when SYSDATE &gt;
+		                                    TO_DATE(SCHEDULED_CLASS_END, 'YYYY-MM-DD') then
+		                                '4'
 		                             end)
 		  where S.ISDELETE = '0'
-		  and s.SCHEDULED_STATUS &lt;&gt; '2'
+		  and s.SCHEDULED_STATUS &lt;&gt; '4'
 	</update>
 	
 	<select id="getLastNumber" parameterType="String" resultType="java.util.Map">
@@ -146,13 +156,13 @@
 				 <if test="scstatus != '' and scstatus != null">
 					 	and cc.scheduled_status = #{scstatus}
 					 </if>
-				 <if test="memstatus != '' and memstatus != null and memstatus == '1'">
+				 <if test="memstatus != '' and memstatus != null and memstatus == 1">
 					 	and cc.scheduled_id in (
 						     select ss.ssu_ssid from yc.ssuser ss 
 						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
 						 )
 					 </if>
-					 <if test="memstatus != '' and memstatus != null and memstatus == '2'">
+					 <if test="memstatus != '' and memstatus != null and memstatus == 2">
 					 	and cc.scheduled_id not in (
 						     select ss.ssu_ssid from yc.ssuser ss 
 						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}

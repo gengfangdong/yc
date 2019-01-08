@@ -15,4 +15,5 @@ public interface AboutDao {
 	public About getAboutDetailByid(@Param("about_id")String about_id);
 	public void updateAbout(About About);
 	public void deleteAbout(@Param("about_id")String about_id);
+	public List<About> findAllAbout();
 }

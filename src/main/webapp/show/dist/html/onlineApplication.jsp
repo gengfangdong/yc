@@ -95,7 +95,7 @@
 			}
 			.pagination{
 				height: 31px;
-				border: 1px solid #9a9a9a;
+				border: 1px solid #ccc;
 				border-radius: 5px;
 				font-size: 14px;
 				padding-left: 0;
@@ -121,6 +121,53 @@
 			}
 			.previous a:hover,.next a:hover{
 				color:#333!important;
+			}
+			#zaizhiyantable{
+				border-bottom:1px solid #ccc;
+			}
+			#zaizhiyantable tr{
+				height:30px;
+			}
+			
+			.paginate_button.active a{
+				color:#fff;
+			}
+			.paginate_button a{
+				color:#1e9fff;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+				background:#fff!important;
+				border-top:1px solid #fff;
+				border-left:1px solid #fff;
+				border-right:1px solid #fff;
+				border-bottom:1px solid #ccc;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button:active{
+				background:#fff!important;
+				border-top:1px solid #fff;
+				border-left:1px solid #fff;
+				border-right:1px solid #fff;
+				border-bottom:1px solid #fff;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button:focus{
+				background:#fff!important;
+				border-top:1px solid #fff;
+				border-left:1px solid #fff;
+				border-right:1px solid #fff;
+				border-bottom:1px solid #fff;
+			}
+			.dataTables_wrapper .dataTables_paginate .paginate_button.active:hover{
+				background:#1e9fff!important;
+				border:1px solid #1e9fff;
+			}
+			#zaizhiyantable_previous a,#zaizhiyantable_next a{
+				color:#666;
+			}
+			#zaizhiyantable_previous:hover,#zaizhiyantable_next:hover{
+				border-bottom:1px solid #ccc;
+			}
+			.am-popup-inner{
+				background:#f8f8f8;
 			}
 		</style>
 	</head>
@@ -340,10 +387,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">在职研</h1>
-					</div>
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/zaizhi.jpg');background-size:100% 100%;">
 				</div>
 
 			</div>
@@ -457,7 +501,7 @@
 						<div class="am-popup" id="my-popup">
 							<div class="am-popup-inner">
 								<div class="am-popup-hd">
-									<h4 class="am-popup-title">基础学习</h4>
+									<h4 class="am-popup-title"  id="my-popup2">基础学习</h4>
 									<span data-am-modal-close class="am-close">&times;</span>
 								</div>
 								<div class="am-popup-bd" id="my-popup1">
@@ -596,13 +640,10 @@
 		<!-- DataTables -->
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
-<!-- 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>	 -->
 
 
 		<script>
 			function updatediv(id){
-// 				var Project_id = id;
-// 				Project_id= Project_id.replace("\"","").replace("\"","");
 				$.ajax({
 					url : '<%=request.getContextPath()%>/Show/getProjectdetailByid',
 					type : 'GET',
@@ -614,6 +655,7 @@
 	                	if(data.success == true){
 	                		var project_context = data.data.project_context;
 		 					 document.getElementById('my-popup1').innerHTML=project_context;
+		 					 document.getElementById('my-popup2').innerHTML=data.data.project_name;
 	                	}
 	                },
 	                error:function(error){
@@ -622,8 +664,6 @@
 	            })
 	            
 	            
-// 		 		alert(id);
-// 		 		 $("#my-popup1").html=id;
 			}
 		 	
 			
@@ -663,7 +703,7 @@
 				"language" : dataTableLang,
 				"paging": true,
 				"info": false,
-				"aLengthMenu": [20],
+				"aLengthMenu": [15],
 				"lengthChange": false,
 				"searching": false,
 				"ordering": false,
@@ -680,12 +720,7 @@
 	                	     return startIndex+meta.row+1;
 	                }
 	                },
-// 	                {"data": "project_id"},
-// <a title="点击查看详情">第五期国税系统税务稽查专业骨干中级培训班</a>
-// <td data-am-modal="{target: '#my-popup'}"><a title="点击查看详情">第三期国税系统税务稽查专业骨干中级培训班</a></td>
-//  target=\"#my-popup\"
 	                {"data": "project_name"},
-// 	                {"data": "project_date"},
 	                {"data": null}
 	            ],
 	            "aoColumnDefs":[
@@ -693,8 +728,6 @@
 	        					    "targets":-2,
 	        					    "bSortable": false,
 	        					    render: function(data, type, row) {
-// 																												<a href="javascript:changeType();">	onclick="changeType()" href="javascript:void(0);"  <a href="javascript:alert('3')">超链接3</a>
-																															//	 href="javascript:updatediv('+row.project_id+')\"			onclick=\"updatediv('+row.project_id+')\"  href="javascript:void(0);\"													
 	        					        var html ='<a id=\"show\" data-am-modal=\"{target: \'#my-popup\'}\"  title=\"点击查看详情\"    href=\"javascript:updatediv(\''+row.project_id+'\')\">'+row.project_name+'</a>';
 	        					        return html;
 	        					    }},
@@ -702,19 +735,16 @@
                         "targets":-1,
                         "bSortable": false,
                         render: function(data, type, row) {
-                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">个人报名</a></p>';
+                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">个人报名</a>';
                             return html;
                         }
                     }], 
-// 				"stripeClasses": ["datatable_odd","datatable_even"]	
 				
 			});
 			
 		</script>
 		<script type="text/javascript"> 
 			function addBranch(obj,id,name){
-// 				document.getElementById("project_id").value=id;
-// 				alert(name);
 				var sText = obj.innerHTML;
 				<%
 					if(user == null){
@@ -730,12 +760,6 @@
 						}
 				%>
 			}
-		</script>
-		<script>
-//			window.onload = function(){
-//				document.getElementsByClassName('paginate_button');
-//				debugger;
-//			}
 		</script>
 	</body>
 

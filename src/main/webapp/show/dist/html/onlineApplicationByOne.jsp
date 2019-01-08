@@ -18,6 +18,10 @@
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
 		<link rel="stylesheet" href="../assets/css/myStyle.css" />
+		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> -->
+		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/layui.css">
+		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/style.css"> -->
+		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/modules/layer/default/layer.css">
 		<style>
 			@media only screen and (min-width: 641px) {
 				.am-offcanvas {
@@ -90,6 +94,15 @@
 				padding: 10px 0;
 				margin-top: 10px;
 				text-align: center;
+			}
+			#byOneName,#birthday,#byOneIDNum,#byOnePhone,#byOneEmail,#byOneDepartment,#byOnePost,#byOneJob,#byOneAddress,#byOneOthers{
+				border:none;
+				border:1px solid #ccc;
+				border-radius:5px;
+				height:23px;
+			}
+			.tableLeftTd,.tableRightTd{
+				font-size:14px;
 			}
 		</style>
 	</head>
@@ -309,10 +322,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">在职研</h1>
-					</div>
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/zaizhi.jpg');background-size:100% 100%;">
 				</div>
 
 			</div>
@@ -399,18 +409,19 @@
 											<td class="tableLeftTd">出生日期</td>
 											<td class="tableRightTd">
 												<!-- <input class="onlineDate" type="date"/> -->
-												<div class="am-input-group am-datepicker-date date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
-													<input id="date" name="entity.date" type="text" class="am-form-field am-datepicker-add-on" style="background-color:#fff;height: 27px;line-height: 27px;" readonly>
+												<input value="" id="birthday" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<!--<div class="am-input-group am-datepicker-date date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+													 <input id="date" name="entity.date" type="text" class="am-form-field am-datepicker-add-on" style="background-color:#fff;height: 27px;line-height: 27px;" readonly>
 													<span class="am-input-group-label" id="form_dateClear" style="background-color:#fff;height: 25px;line-height: 25px;" onclick="dateClear();"><i class="am-icon-close"></i></span>
-													<span class="am-input-group-label am-datepicker-add-on" style="background-color:#fff;height: 25px;line-height: 25px;"><i class="am-icon-calendar"></i></span>
-												</div>
+													<span class="am-input-group-label am-datepicker-add-on" style="background-color:#fff;height: 25px;line-height: 25px;"><i class="am-icon-calendar"></i></span> 
+												</div> -->
 
 											</td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
 											<td class="tableLeftTd">身份证号</td>
-											<td class="tableRightTd"><input class="onlineInput" id="byOneIDNum" type="text" maxlength="16" placeholder="请输入您的16位身份证号码" /></td>
+											<td class="tableRightTd"><input class="onlineInput" id="byOneIDNum" type="text" maxlength="18" placeholder="请输入您的18位身份证号码" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
 										<tr>
@@ -437,11 +448,11 @@
 											<td class="tableRightTd"><input class="onlineInput" id="byOneDepartment" type="text" placeholder="请填写您所在部门" /></td>
 											<!-- <td>2012-10-01</td> -->
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="tableLeftTd">任职岗位</td>
 											<td class="tableRightTd"><input class="onlineInput" id="byOnePost" type="text" placeholder="请填写您任职的岗位" /></td>
-											<!-- <td>2012-10-01</td> -->
-										</tr>
+											<td>2012-10-01</td>
+										</tr> -->
 										<tr>
 											<td class="tableLeftTd">任职职务</td>
 											<td class="tableRightTd"><input class="onlineInput" id="byOneJob" type="text" placeholder="请填写您担任的职务" /></td>
@@ -461,31 +472,9 @@
 										</tr>
 									</tbody>
 								</table>
-								<button type="button" class="am-btn am-btn-primary am-round subBtn" onclick="byOneSubmit();">提交</button>
+								<button type="button" class="am-btn am-btn-primary am-round subBtn" onclick="byOneSubmit();" style="height:25px;line-height:10px;font-size:14px;width:65px;border-radius:5px;">提交</button>
 							</div>
 							<hr />
-						</div>
-					</div>
-					<div class="am-popup" id="my-popup">
-						<div class="am-popup-inner">
-							<div class="am-popup-hd">
-								<h4 class="am-popup-title">基础学习</h4>
-								<span data-am-modal-close class="am-close">&times;</span>
-							</div>
-							<div class="am-popup-bd">
-								<h4>1．大纲适用对象</h4>
-								<p>本大纲适用于高职高专会计专业所开设纳税基础与实务课程。</p>
-								<h4>2．课程的性质和任务</h4>
-								<p>纳税基础与实务课程是开放教育专科与高职高专会计学专业的一门专业基础课，是开放教育专科与高职高专会计学专业知识结构中的主体部分。本课程的任务是以我国现行税收制度为依据，结合企业的一般经济业务，阐释各税种的基本理论和实务，培养学生从事企业财务会计工作应具备的各税种的基本知识和操作能力。</p>
-								<h4>3．与相关课程的衔接</h4>
-								<p>学习本课程应先修政治经济学、基础会计等课程，中级财务会计课程最好与本课程同时学习或在本课程稍后学习。</p>
-								<h4>4．课程教学基本要求</h4>
-								<p>通过运用多种教学媒体和形式组织教学，学生能够掌握税收法律基本理论与实务知识，具备实际操作能力，以及在今后的工作中熟练应用。</p>
-								<h4>5．教学方法和教学形式建议</h4>
-								<p>本课程是一门实践性和技能性较强的课程，需要运用多种教学媒体、采用多种教学形式组织教学。除文字教材应力求通俗易懂、便于自学以外，IP课件、网上辅导文本应对重点、难点问题进行讲解和说明。辅导教师除督促学生阅读教材和使用IP课件、网上辅导文本外，应特别注意对作业的批改和讲评，有条件的还应安排实训。</p>
-								<h4>6．课程教学要求的层次</h4>
-								<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -497,14 +486,14 @@
 							<ul class="am-nav">
 								<li class="sidebar_contactUs">■在职研</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
-									<a href="incumbencyStudent.jsp" style="color: #000000;">招生简章</a>
+									<a href="incumbencyStudent.jsp" style="color: #000000;font-size:16px;">招生简章</a>
 								</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
-									<a href="onlineApplication.jsp" style="font-weight: 600;color: #FF2F2F;">在线报名</a>
+									<a href="onlineApplication.jsp" style="font-weight: 600;color: #FF2F2F;font-size:16px;">在线报名</a>
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
+								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">■联系我们</li>
 								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
 									<!--<span class="promo_detailed--list_item_icon noBorder">
 	<i class="am-icon-phone" ></i>
@@ -612,10 +601,25 @@
 	<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 	<![endif]-->
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+			<!-- Bootstrap 3.3.5 -->
+			<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+			<!-- layui 2.3.0 -->
+			<script src="../assets/layui-v2.3.0/layui/layui.js"></script>
 		<script>
-			function dateClear() {
+			/* function dateClear() {
 				$('#date').attr("value", "");
-			}
+			} */
+			
+			/* 日期控件，执行多个laydate实例 begin */
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#birthday' //指定元素
+			  	});
+			});
+			
 		</script>
 		<script>
 		 window.onload = function(){
@@ -638,7 +642,7 @@
 				var phone = $("#byOnePhone").val();
 				var email = $("#byOneEmail").val();
 				var department = $("#byOneDepartment").val();
-				var post = $("#byOnePost").val();
+				//var post = $("#byOnePost").val();
 				var job = $("#byOneJob").val();
 				var address = $("#byOneAddress").val();
 				var others = $("#byOneOthers").val();
@@ -666,8 +670,8 @@
 				if(IDNum == "") {
 					alert("请输入您的身份证号！");
 					return;
-				} else if(IDNum.length < 16) {
-					alert("请输入16位的身份证号！");
+				} else if(IDNum.length < 18) {
+					alert("请输入18位的身份证号！");
 					return;
 				}
 				var politicalStatuses = $(".byOnePoliticalStatus");
@@ -700,10 +704,10 @@
 					alert("请输入您的所在部门！");
 					return;
 				}
-				if(post == "") {
+				/* if(post == "") {
 					alert("请输入您的任职岗位！");
 					return;
-				}
+				} */
 				if(job == "") {
 					alert("请输入您的任职职务！");
 					return;
@@ -729,7 +733,7 @@
 						"phone_number": phone,
 						"mail": email,
 						"department": department,
-						"position": post,
+						"position": '',
 						"job": job,
 						"address": address,
 						"other": others,
@@ -737,12 +741,14 @@
 					},
 					dataType: "json",
 					type: "post",
-					success: function() {
-						
+					success: function(data) {
+						alert("报名成功！");
+						return;
 						//success
 					},
-					error: function() {
-
+					error: function(error) {
+							alert("报名失败！");
+							return;
 						//error
 					}
 

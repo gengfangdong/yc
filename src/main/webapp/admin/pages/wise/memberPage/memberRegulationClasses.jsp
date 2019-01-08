@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,18 +82,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>学员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -334,7 +335,6 @@
 			    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:60},
-			      {field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;',minWidth:60},
 
 			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:90},
 			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:90},
@@ -363,7 +363,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id+'&num='+data.number,
+						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -395,16 +395,37 @@
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									layer.alert("班次不存在!");
+									layer.confirm('班次不存在!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
 								}
 								else if(data.message == "1"){
-									layer.alert("未登录!");
+									layer.confirm('未登录!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
 								}
 								else if(data.message == "2"){
-									layer.alert("取消报名失败!");
+									layer.confirm('取消报名失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
 								}
 								else if(data.message == "3"){
-									layer.alert("取消报名成功!");
+									layer.confirm('取消报名成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									
+								});
 								}
 							},
 							error : function(error) {
@@ -459,15 +480,14 @@
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
 			  });
-			  $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
 			});
 			
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
+				<% if(user == null||!"0".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
@@ -476,46 +496,54 @@
 			};
 		</script>
 		<script type="text/html" id="barDemo">
-			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-  			{{#  if(d.create_status == '0'){ }}
-		       
-				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
-	        {{#  } else if(d.create_status == ""){ }}
-				<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
-			{{#  } }}
-
-  			{{#  if(d.create_status == '0'){ }}
-		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-	        {{#  } else if(d.create_status == ""){ }}
-				
-			{{#  } }}
+			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
+		 {{#  if(d.scheduledshift.scheduled_status == "0"){ }}
+	        
+	     {{#  }else if(d.scheduledshift.scheduled_status=="1"){ }}
+	     	{{#  if(d.create_status == ""){ }}
+	       	 	<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
+	     	{{#  }else if(d.create_status=="0"){ }}
+	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+	    		<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+			{{# } }}
+	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	
+			{{# if(d.create_status=="0"){ }}
+	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+			{{# } }}			
+		 {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
+	     	
+			{{# if(d.create_status=="0"){ }}
+	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+			{{# } }}
+		 {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+	     	
+			{{# if(d.create_status=="0"){ }}
+	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+			{{# } }}
+	     {{# } }}
 		</script>
 
 		<script type="text/html" id="typeBar">
 	     {{#  if(d.create_status == ""){ }}
-	        未报名
+	       	 未报名
 	     {{#  }else if(d.create_status=="0"){ }}
 	     	已报名
 	     {{# } }}
  		</script>
  		<script type="text/html" id="typestatus">
-	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
-	        报名进行中
+	     {{#  if(d.scheduledshift.scheduled_status == "0"){ }}
+	                             报名未开始
+	     {{#  }else if(d.scheduledshift.scheduled_status=="1"){ }}
+	     	报名进行中
 	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
-	     	报名已结束
-	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
-	     	报名未开始
+	     	未开课
+		 {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
+	     	开课中
+		 {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+	     	已结课
 	     {{# } }}
  		</script>
-
- 		<script type="text/html" id="typestatus">
-	     {{#  if(d.scheduledshift.scheduled_status == "1"){ }}
-	        报名进行中
-	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
-	     	报名已结束
-	     {{#  }else if(d.scheduledshift.scheduled_status=="0"){ }}
-	     	报名未开始
-	     {{# } }}
  		</script>
 	</body>
 

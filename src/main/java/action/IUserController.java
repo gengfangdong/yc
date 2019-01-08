@@ -177,6 +177,11 @@ public class IUserController {
 		iUser.setUser_password("");
 		HttpSession session = request.getSession();
 		session.setAttribute("user", iUser);
+		if("0".equals(iUser.getIsadmin())){
+			session.setAttribute("isad", "0");
+		}else if("1".equals(iUser.getIsadmin())){
+			session.setAttribute("isad", "1");
+		}		
 		session.setMaxInactiveInterval(30 * 60);
 		resultmap.put("success", true);
 		resultmap.put("msg", "0");//登录失败
@@ -221,10 +226,12 @@ public class IUserController {
 		if("0".equals(iUser.getIsadmin())){
 			resultmap.put("success", true);
 			resultmap.put("msg", "1");//登录失败
+			session.setAttribute("isad", "0");
 		}
 		else if("1".equals(iUser.getIsadmin())){
 			resultmap.put("success", true);
 			resultmap.put("msg", "2");//登录失败
+			session.setAttribute("isad", "1");
 		}
 		
 		return resultmap;

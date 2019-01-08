@@ -21,6 +21,27 @@
 		<result column="FREECO_NUMFILE" jdbcType="VARCHAR" property="Freeco_numfile"/>
 		<result column="FREECO_DAY" jdbcType="VARCHAR" property="Freeco_day"/>
 	</resultMap>
+	<update id="startScheduledco">
+		 update FREE_COSTOM s
+		    set s.Freeco_STATUS = (case
+		                               when SYSDATE &gt;=
+		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                                '3'
+		                                when SYSDATE &gt;=
+		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') AND
+		                                    SYSDATE &lt;=
+		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                                '3'
+		                                when SYSDATE &gt;
+		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                                '4'
+		                             end)
+		  where S.Freeco_ISDELETE = '0'
+		  and s.FREECO_STATUS &lt;&gt; '4'
+		  and s.FREECO_STATUS &lt;&gt; '0'
+		  and s.FREECO_STATUS &lt;&gt; '1'
+		  and s.FREECO_STATUS &lt;&gt; '2'
+	</update>
 	<insert id="insertConstom" parameterType="entity.Free_constom">
 		insert into FREE_COSTOM(FREECO_ID,FREECO_NAME,FREECO_DATA,FREECO_DATANUM,FREECO_PERNUM,FREECO_ADDRESS,FREECO_PERSON,
 		FREECO_PHONE,FREECO_CREATER,FREECO_CREATETIME,FREECO_UPDATER,FREECO_UPDATETIME,FREECO_ISDELETE,
@@ -98,7 +119,8 @@
 				F.Freeco_OUTLINE = #{Freeco_outline},
 				F.FREECO_GAOERY = #{Freeco_gaoery},
 				F.Freeco_UPDATER = #{Freeco_updater},
-				F.Freeco_UPDATETIME = #{Freeco_updatetime}
+				F.Freeco_UPDATETIME = #{Freeco_updatetime},
+				F.FREECO_DAY = #{Freeco_day,jdbcType=VARCHAR}
 				WHERE F.FREECO_ID=#{Freeco_id} and F.Freeco_ISDELETE = '0'
 	</update>
 	

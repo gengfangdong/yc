@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -83,18 +84,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -212,6 +213,9 @@
 										</li>
 										<li>
 											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
+										</li>
+											<li>
+											<a href="enrollmentRegulations.jsp" ><i class="fa fa-square-o"></i> 招生简章</a>
 										</li>
 									</ul>
 								</li>
@@ -559,10 +563,10 @@
 		</script>
 		<script>
 			window.onload = function() {
-				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
-			<%}%>
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style', 'display: block;');
 				treeUls[1].setAttribute('style', 'display: block;');

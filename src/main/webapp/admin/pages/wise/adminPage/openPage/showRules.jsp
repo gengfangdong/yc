@@ -125,7 +125,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;">
-									<button class="newsSave saveBtn" id="newsSave" onclick="">关闭</button>
+									<button class="newsSave saveBtn" id="newsSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>

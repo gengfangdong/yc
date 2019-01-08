@@ -577,7 +577,11 @@
 				success : function(data) {
 					if(data.success == true){
 						var culture_context = data.data.culture_context;
-						 document.getElementById('culturecontext').innerHTML=culture_context;
+						 document.getElementById('culturecontext').innerHTML=
+							 '<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.culture_titile+'</h1>'+
+		 						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
+		 						'<label style="padding-right: 3%;">作者：管理员</label>'+
+		 						'<label style="padding-left: 3%;">时间：'+data.data.culture_Release_time+'</label>'+culture_context;
 					}
 				},
 				error : function(error) {

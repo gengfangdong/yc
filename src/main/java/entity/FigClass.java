@@ -53,6 +53,7 @@ public class FigClass implements Serializable{
 	private String FigClass_numstatus;//拼班名单是否上传    0为未上传 1为已上传
 	private String FigClass_caogery;//拼班1为课程0为方案2为自由
 	private String FigClass_outline;//大纲
+	private String FigClass_day;//方案定制天数
 	private List<Figfile> figFiles;//文件列表
 	public FigClass() {
 		super();
@@ -182,6 +183,12 @@ public class FigClass implements Serializable{
 	}
 	public void setFigFiles(List<Figfile> figFiles) {
 		this.figFiles = figFiles;
+	}
+	public String getFigClass_day() {
+		return FigClass_day;
+	}
+	public void setFigClass_day(String figClass_day) {
+		FigClass_day = figClass_day;
 	}
 	
 }

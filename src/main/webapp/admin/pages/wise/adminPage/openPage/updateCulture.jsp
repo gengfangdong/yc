@@ -76,7 +76,7 @@
 										<tr>
 											<td class="leftTd">标题:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="cultureTitle" />
+												<input type="text" id="cultureTitle" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<tr>
@@ -88,7 +88,7 @@
 														注2：保存后，封面才会修改
 											</td>
 											<td style="width: 20%;">
-												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;">
+												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;background:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
@@ -96,13 +96,13 @@
 										<tr>
 											<td class="leftTd">简介:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入50字以下文字" id="cultureAbstract" />
+												<input type="text" placeholder="请输入50字以下文字" id="cultureAbstract" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">关键字:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="cultureKeyWords" />
+												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="cultureKeyWords" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
 										<!--<tr>
@@ -114,7 +114,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="cultureDate" name="cultureDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="cultureDate" name="cultureDate" placeholder="YYYY-MM-DD" type="text" autocomplete="off" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -244,7 +244,12 @@
 			      }
 			      //上传成功
 			      else if(res.code == 1){
-			    	 layer.alert("保存成功!");
+			  		layer.confirm('保存成功!', { title:'提示'}, function(index){
+						  
+						window.parent.location.reload();
+						var index1 = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index1);
+					});
 									
 			   	  }
 			   	  else if(res.code == 0){
@@ -271,23 +276,23 @@
 				var cultureStates = $(".cultureStates");
 				var cultureDescription = CKEDITOR.instances.cultureDescription.getData();
 				if(cultureTitle == "") {
-					alert("请填写标题！");
+					layer.alert("请填写标题！");
 					return;
 				}
 				if(cultureAbstract == "") {
-					alert("请填写简介！");
+					layer.alert("请填写简介！");
 					return;
 				}
 				if(cultureKeyWords == "") {
-					alert("请填写关键字！");
+					layer.alert("请填写关键字！");
 					return;
 				}
 				if(cultureDate == "") {
-					alert("请选择日期！");
+					layer.alert("请选择日期！");
 					return;
 				}
 				if(cultureDescription.length == "") {
-					alert("请填写内容！");
+					layer.alert("请填写内容！");
 					return;
 				}
 				if(cultureStates[0].checked == true) {
@@ -295,7 +300,7 @@
 				} else if(cultureStates[1].checked == true) {
 // 					var sex = "1";
 				} else {
-					alert("请选择状态！");
+					layer.alert("请选择状态！");
 					return;
 				}
 				
@@ -338,7 +343,12 @@
 						},
 						success : function(data) {
 							if(data.message == "1"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							
 						},

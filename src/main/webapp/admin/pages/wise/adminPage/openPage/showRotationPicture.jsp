@@ -125,7 +125,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;">
-									<button class="newsSave saveBtn" id="newsSave" onclick="">关闭</button>
+									<button class="newsSave saveBtn" id="newsSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>
@@ -193,10 +193,10 @@
 						newscontext.setData(rotationPic_context);//内容
 
 						if(rotationPic_status == "1"||rotationPic_status == "2"){
-							newsStatus[1].checked = true;
+							newsStatus[0].checked = true;
 						}
 						else if(rotationPic_status == "0"){
-							newsStatus[0].checked = true;
+							newsStatus[1].checked = true;
 						}
 
 					}

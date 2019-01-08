@@ -68,4 +68,10 @@
 	<select id="getByfilename" resultType="String">
 		SELECT T.OLDFILENAME FROM FIGFILE T WHERE T.NEWFILENAME = #{filename} and T.ISDELETE = '0'
 	</select>
+	
+	<update id="deleteByfig" parameterType="String">
+		update FIGFILE F
+			set F.ISDELETE = '1'
+				WHERE F.FIGCLASS_ID = #{figClass_id}
+	</update>
 </mapper>

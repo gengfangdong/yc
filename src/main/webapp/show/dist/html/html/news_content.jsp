@@ -1,0 +1,453 @@
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
+<%
+	IUser user = (IUser)session.getAttribute("user");
+	String news_id = request.getParameter("news_id");
+%>
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>中央财经大学</title>
+		<link rel="stylesheet" href="../assets/css/amazeui.css" />
+		<link rel="stylesheet" href="../assets/css/common.min.css" />
+		<link rel="stylesheet" href="../assets/css/index.min.css" />
+		<link rel="stylesheet" href="../assets/css/myStyle.css" />
+		<style>
+			@media only screen and (min-width: 641px) {
+				.am-offcanvas {
+					display: block;
+					position: static;
+					background: none;
+				}
+				.am-offcanvas-bar {
+					position: static;
+					width: auto;
+					background: none;
+					-webkit-transform: translate3d(0, 0, 0);
+					-ms-transform: translate3d(0, 0, 0);
+					transform: translate3d(0, 0, 0);
+				}
+				.am-offcanvas-bar:after {
+					content: none;
+				}
+			}
+			
+			@media only screen and (max-width: 640px) {
+				.am-offcanvas-bar .am-nav>li>a {
+					color: #ccc;
+					border-radius: 0;
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05)
+				}
+				.am-offcanvas-bar .am-nav>li>a:hover {
+					background: #404040;
+					color: #fff
+				}
+				.am-offcanvas-bar .am-nav>li.am-nav-header {
+					color: #777;
+					background: #404040;
+					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+					text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+					border-top: 1px solid rgba(0, 0, 0, .3);
+					font-weight: 400;
+					font-size: 75%
+				}
+				.am-offcanvas-bar .am-nav>li.am-active>a {
+					background: #1a1a1a;
+					color: #fff;
+					box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
+				}
+				.am-offcanvas-bar .am-nav>li+li {
+					margin-top: 0;
+				}
+			}
+			
+			.my-head {
+				margin-top: 40px;
+				text-align: center;
+			}
+			
+			.my-button {
+				position: fixed;
+				top: 0;
+				right: 0;
+				border-radius: 0;
+			}
+			
+			.my-sidebar {
+				padding-right: 0;
+				border-right: 1px solid #eeeeee;
+			}
+			
+			.my-footer {
+				border-top: 1px solid #eeeeee;
+				padding: 10px 0;
+				margin-top: 10px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layout">
+			<!--===========layout-header================-->
+			<div class="layout-header am-hide-sm-only">
+				<!--topbar start-->
+				<div class="topbar" style="background: #FFFFFF;">
+					<div class="container" style="background: #FFFFFF;width: auto!important;">
+						<div class="am-g">
+							<div class="am-u-md-8">
+								<div class="topbar-left">
+									<!--<i class="am-icon-globe"></i>-->
+									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
+										联系电话+86-010-83951120 / 83951097
+									</div>
+								</div>
+							</div>
+							<div class="am-u-md-4">
+								<div class="topbar-right am-text-right am-fr">
+									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%}; %>
+									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
+									<a href="html/register.jsp" style="color: #000000;">注册</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--topbar end-->
+
+				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+					<!--header start-->
+					<div class="container" style="width: auto!important;">
+						<div class="header">
+							<div class="am-g">
+								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
+									<div class="logo">
+										<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
+									</div>
+								</div>
+								<div class="am-u-lg-8 am-u-md-12">
+									<div class="header-right am-fr">
+										<div class="header-contact">
+											<div class="nav-contain" style="border: none;box-shadow: none;">
+												<div class="nav-inner">
+													<ul class="am-nav am-nav-pills am-nav-justify">
+														<li class="">
+															<a href="../index.jsp" >首页</a>
+														</li>
+														<li>
+															<a href="cultureSystem.jsp">项目概况</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="cultureSystem.jsp">培养体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="solution.jsp">解决方案</a>
+																</li>
+																<li class="menu-item">
+																	<a href="teachingMaterialSystem.jsp">教材体系</a>
+																</li>
+																<li class="menu-item">
+																	<a href="taxCollectionFund.jsp">领税基金</a>
+																</li>
+																<li class="menu-item">
+																	<a href="expertTeam.jsp">专家团队</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="regulationsClasses.jsp">规定班次</a>
+														</li>
+														<li>
+															<a href="customizedClasses.jsp">定制班次</a>
+														</li>
+														<li>
+															<a href="onlineClasses.jsp">拼班</a>
+														</li>
+														<li>
+															<a href="incumbencyStudent.jsp">在职研</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.jsp">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.jsp">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="newsNotice.jsp" style="color: #FF2F2F;">新闻公告</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="newsNotice.jsp">通知公告</a>
+																</li>
+																<li class="menu-item">
+																	<a href="newsTrain.jsp">培训新闻</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+														<li>
+															<a href="about.jsp">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">中心概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">组织结构</a>
+																</li>
+																<li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--header end-->
+
+				</div>
+			</div>
+
+			<!--mobile header start-->
+			<div class="m-header">
+				<div class="am-g am-show-sm-only">
+					<div class="am-u-sm-2">
+						<div class="menu-bars">
+							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
+							<!-- 侧边栏内容 -->
+							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+								<a href="javascript: void(0)" class="am-menu-toggle"></a>
+
+								<div class="am-offcanvas">
+									<div class="am-offcanvas-bar">
+										<ul class="am-nav am-nav-pills am-nav-justify">
+											<li class="">
+												<a href="../index.jsp">首页</a>
+											</li>
+											<li>
+												<a href="about.jsp">关于我们</a>
+											</li>
+											<li>
+												<a href="newsNotice.jsp" style="color: #FF2F2F;">新闻中心</a>
+												<!-- sub-menu start-->
+												<!--<ul class="sub-menu">
+													<li class="menu-item">
+														<a href="news-content.jsp">公司动态</a>
+													</li>
+													<li class="menu-item">
+														<a href="404-dark.jsp">行业动态</a>
+													</li>
+													<li class="menu-item">
+														<a href="404-light.jsp">精彩专题</a>
+													</li>
+												</ul>-->
+												<!-- sub-menu end-->
+											</li>
+											<li>
+												<a href="regulationsClasses.jsp">规定班次</a>
+											</li>
+											<li>
+												<a href="customizedClasses.jsp">定制班次</a>
+											</li>
+											<li>
+												<a href="onlineClasses.jsp">在线拼班</a>
+											</li>
+											<li>
+												<a href="incumbencyStudent.jsp">在职研</a>
+												<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="incumbencyStudent.jsp">招生简章</a>
+																</li>
+																<li class="menu-item">
+																	<a href="onlineApplication.jsp">在线报名</a>
+																</li>
+															</ul>
+															<!-- sub-menu end-->
+											</li>
+											<li class="">
+												<a href="login.jsp" class="">登录</a>
+											</li>
+											<li class="">
+												<a href="register.jsp" class="">注册</a>
+											</li>
+										</ul>
+
+									</div>
+								</div>
+							</nav>
+
+						</div>
+					</div>
+					<div class="am-u-sm-5 am-u-end">
+						<div class="m-logo">
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+						</div>
+					</div>
+				</div>
+				<!--mobile header end-->
+			</div>
+
+			<!--===========layout-container================-->
+			<div class="layout-container">
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/news.jpg');background-size:100% 100%;">
+				</div>
+
+			</div>
+
+			<div class="am-g am-g-fixed myFixedSiderbar">
+				<!--正文-->
+				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+					<div class="breadcrumb-box">
+						<div class="am-container">
+							<ol class="am-breadcrumb">
+								<li>
+									<a href="../index.jsp">首页</a>
+								</li>
+								<li class="am-active">新闻中心</li>
+							</ol>
+						</div>
+					</div>
+					<div class="am-g">
+						<div class="am-u-sm-11 am-u-sm-centered">
+							<div class="am-cf am-article"  id="showNewsContent">
+								<div style="text-align: center;">
+									<h1 class="am-article-title">集团为湖南一师优秀贫困大学生再颁助学奖励金</h1>
+									<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">
+										<label style="padding-right: 3%;">作者：集团企业文化与信息管理部</label>
+										<label style="padding-left: 3%;">时间：2018-11-17</label>
+									</p>
+								</div>
+								<div style="text-align: center;">
+									<img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" style="max-height: 300px;">
+								</div>
+								<p style="text-indent: 25px;">
+									11月16日下午，湖南第一师范学院2018年“新华联助学”奖励金颁奖典礼在该校东方红校区田汉剧场隆重举行。 集团高级助理总裁、工会主席杨运辉代表傅军总裁出席颁奖典礼，并与湖南第一师范学院校长童小娇、副校长刘宇等领导为曹茜雅等50名优秀贫困大学生颁奖， 每人奖励10000元。来自该校的教育科学学院、外国语学院、商学院、文学与新闻传播学院等多个学院的领导、老师和学生近1000人共同见证了颁奖活动。
+								</p>
+								<div style="text-align: center;"><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" alt="" style="max-height: 300px;"></div>
+								<p style="text-indent: 25px;">
+									湖南第一师范学院是毛泽东主席的母校，享有"千年学府、百年师范"的美誉，为中国人民的教育事业和解放事业以及社会主义建设事业做出了重大贡献。 新华联集团以强烈的社会责任感，于2015年10月捐赠1000万元，设立湖南第一师范学院“新华联助学"奖励金，每年奖励50名品学兼优的贫困学子， 帮助其顺利完成学业，助推师范教育的发展。
+								</p>
+							</div>
+							<hr/>
+						</div>
+					</div>
+				</div>
+				<!--侧边栏-->
+				<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
+					<div class="am-offcanvas" id="sidebar">
+						<div class="am-offcanvas-bar">
+							<ul class="am-nav">
+								<li class="sidebar_contactUs">■新闻公告</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-top:1px solid #001A35;text-align: center;padding: 10px 0 0 0;">
+									<a href="newsNotice.jsp" style="color: #000000;">通知公告</a>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
+									<a href="newsTrain.jsp" style="font-weight: 600;color: #FF2F2F;">培训新闻</a>
+								</li>
+							</ul>
+							<ul class="am-nav">
+								<li class="sidebar_contactUs">联系我们</li>
+								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+	                  <i class="am-icon-phone" ></i>
+	                </span>-->
+									<dl>
+										<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-map-marker"></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<!--<span class="promo_detailed--list_item_icon noBorder">
+                  <i class="am-icon-envelope-o" ></i>
+                </span>-->
+									<dl>
+										<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
+										</dd>
+									</dl>
+								</li>
+								<li class="promo_detailed--list_item sidebarListLi">
+									<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+			</div>
+
+			<!--===========layout-footer================-->
+			<div class="layout-footer">
+				<jsp:include   page="footer.jsp" flush="true"/>
+			</div>
+		</div>
+		<!--[if lt IE 9]>
+		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
+		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+	</body>
+	
+	<script>
+	
+	window.onload = function() {
+
+		$.ajax({
+			url : '<%=request.getContextPath()%>/Show/getNewdetailByid',
+			type : 'GET',
+			dataType:"json",
+			data:{
+				news_id:'<%=news_id%>'
+			},
+            success:function(data){
+            	if(data.success == true){
+            		var news_context = data.data.news_context;
+					 document.getElementById('showNewsContent').innerHTML=
+						'<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.news_titile+'</h1>'+
+						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
+						'<label style="padding-right: 3%;">作者：管理员</label>'+
+						'<label style="padding-left: 3%;">时间：'+data.data.news_Release_time+'</label>'+news_context;
+            	}
+            },
+            error:function(error){
+            	console.log('接口不通' + error);
+            }
+        })
+		
+	}
+	
+	</script>
+
+</html>

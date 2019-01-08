@@ -11,11 +11,14 @@ public class MemProjectVo implements Serializable{
 	private String project_id;//id
 	private String project_caogery;//类别 0为定制 1为规定 2为拼班
 	private String project_name;//项目名称
+	private String project_person;
 	private String project_datanum;//预计举办天数
 	private String project_pernum;//可容纳人数
 	private String project_start;//预计举办日期
 	private String project_status;//状态
 	private String project_allnum;//已报名人数
+	private String isdelete;
+	private String isbm;
 	public MemProjectVo() {
 		super();
 	}
@@ -66,14 +69,35 @@ public class MemProjectVo implements Serializable{
 	}
 	public void setProject_start(String project_start) {
 		this.project_start = project_start;
+	}	
+	public String getProject_person() {
+		return project_person;
+	}
+	public void setProject_person(String project_person) {
+		this.project_person = project_person;
+	}
+	public String getIsdelete() {
+		return isdelete;
+	}
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
+	}
+	public String getIsbm() {
+		return isbm;
+	}
+	public void setIsbm(String isbm) {
+		this.isbm = isbm;
 	}
 	@Override
 	public String toString() {
 		return "MemProjectVo [project_id=" + project_id + ", project_caogery=" + project_caogery + ", project_name="
-				+ project_name + ", project_datanum=" + project_datanum + ", project_pernum=" + project_pernum
-				+ ", project_start=" + project_start + ", project_status=" + project_status + ", project_allnum="
-				+ project_allnum + "]";
+				+ project_name + ", project_person=" + project_person + ", project_datanum=" + project_datanum
+				+ ", project_pernum=" + project_pernum + ", project_start=" + project_start + ", project_status="
+				+ project_status + ", project_allnum=" + project_allnum + ", isdelete=" + isdelete + ", isbm=" + isbm
+				+ "]";
 	}
+	
+	
 	
 	
 }

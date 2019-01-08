@@ -21,5 +21,6 @@ public interface ConstomService {
 	public void updateConstom(Free_constom free_constom);
 	public String getByfilename(String filename);
 	public List<EUser> getListUserByid(String user_id,String constom_id);
+	public void startScheduledco();
 	
 }

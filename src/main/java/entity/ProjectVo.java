@@ -14,25 +14,11 @@ public class ProjectVo implements Serializable{
 	private String Project_creater;//创建人
 	private String Project_createtime;//创建时间
 	private String Project_status;//会员在职研个人报名状态
+	private String status;
 	private String Apply_id;//个人报名id
 	private String Applyunit_id;//单位报名id
 	public ProjectVo() {
 		super();
-	}
-	public ProjectVo(String project_id, String project_name,
-			String project_date, String project_context,
-			String project_creater, String project_createtime,
-			String project_status, String apply_id, String applyunit_id) {
-		super();
-		Project_id = project_id;
-		Project_name = project_name;
-		Project_date = project_date;
-		Project_context = project_context;
-		Project_creater = project_creater;
-		Project_createtime = project_createtime;
-		Project_status = project_status;
-		Apply_id = apply_id;
-		Applyunit_id = applyunit_id;
 	}
 	public String getProject_id() {
 		return Project_id;
@@ -88,7 +74,10 @@ public class ProjectVo implements Serializable{
 	public void setApplyunit_id(String applyunit_id) {
 		Applyunit_id = applyunit_id;
 	}
-	
-	
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

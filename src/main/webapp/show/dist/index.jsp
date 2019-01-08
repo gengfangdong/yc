@@ -16,6 +16,11 @@
 		<link rel="stylesheet" href="assets/css/common.min.css" />
 		<link rel="stylesheet" href="assets/css/index.min.css" />
 		<link rel="stylesheet" href="assets/css/myStyle.css" />
+		<style>
+			.am-viewport{
+				height:400px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -271,7 +276,7 @@
 								<div class="">
 									<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}' id="demo-slider-0">
 										<ul class="am-slides" id="pic">
-											<li><img src="assets/img/index/lunbo1.png"></li>
+											<li><img src="assets/img/index/lunbo.png"></li>
 											  <!--<li><img src="assets/img/index/lunbo2.png"></li>
 											<li><img src="assets/img/index/lunbo3.png"></li>
 											<li><img src="assets/img/index/lunbo4.png"></li>  -->
@@ -410,7 +415,7 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a  href="html/expertTeam.jsp"><img src="assets/img/about/content_img3.png" alt="" style="width: 100%;" /></a>
+												<a  href="html/expertTeam.jsp"><img src="assets/img/index/a01.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
 												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/expertTeam.jsp" style="color: #333333;">国内一流顶尖的</a></h6>
@@ -424,7 +429,7 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/teachingMaterialSystem.jsp"><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/teachingMaterialSystem.jsp"><img src="assets/img/index/a02.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
 												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/teachingMaterialSystem.jsp" style="color: #333333;">全面实用的</a></h6>
@@ -437,7 +442,7 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/cultureSystem.jsp" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/cultureSystem.jsp" ><img src="assets/img/index/a03.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
 												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/cultureSystem.jsp" style="color: #333333;">国内领先的</a></h6>
@@ -450,7 +455,7 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/taxCollectionFund.jsp" ><img src="assets/img/about/content_img4.png" alt="" style="width: 100%;" /></a>
+												<a href="html/taxCollectionFund.jsp" ><img src="assets/img/index/a04.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
 												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/taxCollectionFund.jsp" style="color: #333333;">聚焦本土</a></h6>
@@ -464,7 +469,7 @@
 									<div class="am-u-lg-4 am-u-md-4  am-u-end about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/solution.jsp" ><img src="assets/img/about/content_img5.png" alt="" style="width: 100%;" /></a>
+												<a href="html/solution.jsp" ><img src="assets/img/index/a05.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
 												<h6 style="text-align: center;margin-bottom: 0;"><a href="html/solution.jsp" style="color: #333333;">精英小班</a></h6>
@@ -587,38 +592,17 @@
 					var zz =new Array(datas.length);
 					
 					var $slider = $('#demo-slider-0');
-					var getSlide = function() {
-						var lis="";
-					    for(var i=0;i<datas.length;i++){
-							lis = lis+"<li><img width='1580px' height='499px' src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=\'+datas[i].rotationPic_id+\'></img></li>";
-					    }
-					   return lis;
-					};
-					$slider.flexslider('addSlide', getSlide());
-				<%-- /* 	document.getElementById("pic").innerHTML=""//全部清空 */
-						for(var i=0;i<datas.length;i++){
-							var div1 =document.createElement("li")//建立div对象
-							div1.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
-							div1.setAttribute("class","clone");
-							div1.setAttribute("aria-hidden","true");
-							/* <img src="assets/img/index/lunbo3.png"></li> */
-							div1.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d'></img>"//建立显示元素
-							var div2 =document.createElement("li")//建立div对象
-							div2.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
-							div2.setAttribute("class","am-active-slide");
-							/* <img src="assets/img/index/lunbo3.png"></li> */
-							div2.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d'></img>"//建立显示元素
-							var div3 =document.createElement("li")//建立div对象
-							div3.setAttribute("style","width: 1581px; margin-right: 0px; float: left; display: block;");
-							div3.setAttribute("class","clone");
-							div3.setAttribute("aria-hidden","true");
-							/*div3.setAttribute("aria-hidden","true"); */
-							/* <img src="assets/img/index/lunbo3.png"></li> */
-							div3.innerHTML="<img src='<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id=RotationPic9348e34f384d4e178b149a145ac1d96d' draggable='false'></img>"//建立显示元素
-							/* document.getElementById("pic").appendChild(div1)//加入all中 
-							document.getElementById("pic").appendChild(div2)//加入all中  */
-							document.getElementById("pic").appendChild(div3)//加入all中 
-					   } --%>
+					for(var i=0;i<datas.length;i++){
+						var getSlide = function() {
+							var lis="";
+						    
+								lis = lis+'<li><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></li>';
+						   
+						    
+						   return lis;
+						};
+						$slider.flexslider('addSlide', getSlide());
+					}
 					},
 				error : function(error) {
 						console.log('接口不通' + error);
@@ -659,7 +643,7 @@
 					  				var content=content
 					  			}
 // 							东岳集团举行2019产业链合作年会，绘就千亿...
-								zz[i]= '<dl><dt><a href="html/newsNotice_content.jsp?notice_id='+datas[i].notice_id+'">'+content+'</a></dt><dd>'+datas[i].notice_Release_time+'</dd></dl>'
+								zz[i]= '<dl><dt><a href="html/newsNotice_content.jsp?notice_id='+datas[i].notice_id+'">'+content+'</a></dt><dd style="text-align:right;">'+datas[i].notice_Release_time+'</dd></dl>'
 						    } //div的字符串数组付给zz
 							var pageno=1 ;              //当前页
 							var pagesize=4;            //每页多少条信息

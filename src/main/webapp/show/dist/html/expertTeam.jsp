@@ -103,6 +103,29 @@
 			float:left;
 			padding:10px;
 		}
+			.page{
+					float:right;
+					/* border:1px solid #ccc;
+					border-radius:5px; */
+					height:30px;
+					line-height:30px;
+					margin-top:50px;
+				}
+				.pageNum{
+					min-width:85px;
+					float:left;
+				}
+				.linkPage{
+					max-width:200px;
+					float:left;
+				}
+				.jumpPage{
+					min-width:130px;
+					float:left;
+				}
+				#a3 a{
+					margin:0 10px;
+				}
     </style>
 </head>
 
@@ -324,10 +347,7 @@
 
     <!--===========layout-container================-->
     <div class="layout-container">
-        <div class="page-header news_bannerBg">
-            <div class="am-container">
-                <h1 class="page-header-title">专家团队</h1>
-            </div>
+        <div class="page-header news_bannerBg" style="background:url('../assets/img/banner/expertTeam.jpg');background-size:100% 100%;">
         </div>
 
     </div>
@@ -384,39 +404,20 @@
 					</div>
 					<div style="height: 40px;" id="pagesid">
 						<ul data-am-widget="pagination" class="am-pagination am-pagination-default" style="text-align: center;">
-							<div class="page">第<span id="a2"></span>/<span id="a1"></span>页<span id="a3"></span>　<a href="#" onClick="change1(--pageno1)">上一页</a><a href="#" onClick="change1(++pageno1)">下一页</a></div>
-						
-							<!-- <li class="am-pagination-first ">
-								<a href="#" class="">首页</a>
-							</li>
-
-							<li class="am-pagination-prev ">
-								<a href="#" class="">上一页</a>
-							</li>
-
-							<li class="">
-								<a href="#" class="">1</a>
-							</li>
-							<li class="am-active">
-								<a href="#" class="am-active">2</a>
-							</li>
-							<li class="">
-								<a href="#" class="">3</a>
-							</li>
-							<li class="">
-								<a href="#" class="">4</a>
-							</li>
-							<li class="">
-								<a href="#" class="">5</a>
-							</li>
-
-							<li class="am-pagination-next ">
-								<a href="#" class="">下一页</a>
-							</li>
-
-							<li class="am-pagination-last ">
-								<a href="#" class="">尾页</a>
-							</li> -->
+							<div class="page">
+								<div class="pageNum" style="display:none">
+									第<span id="a2" class="nowPageNum"></span>
+									/<span id="a1" class="allPageNum"></span>页
+								</div>
+								
+								<div class="jumpPage" style="padding:0 10px;">
+									<a href="#" onClick="change1(--pageno1)" style="float:left;padding-right:5px;">上一页</a>
+									<div class="linkPage">
+										<span id="a3"></span>
+									</div>
+									<a href="#" onClick="change1(++pageno1)" style="padding-left:5px;">下一页</a>
+								</div>
+							</div>
 						</ul>
 					</div>
 
@@ -560,13 +561,6 @@
 		var pageno1=0;
 // 			window.onload = function() {
 		$(document).ready(function() {
-				var oexpertTeamList = document.getElementsByClassName('expertTeamList')[0];
-				if(oexpertTeamList.children[0].childElementCount) {
-					var expertTeamListNum = oexpertTeamList.children[0].childElementCount;
-					var expertTeamListNumHeight = expertTeamListNum * 35 + 5 + 'px';
-					$('.expertTeamList').css('height', expertTeamListNumHeight);
-				}
-				
 				  $.ajax({
 						url : '<%=request.getContextPath()%>/Show/findAllExpert',
 						type : 'post',
@@ -589,7 +583,7 @@
 								zz[i]= '<span class="expertTeamDate">'+datas[i].expert_Release_time+'</span> ●&nbsp;&nbsp;<a href=\"expertTeam_content.jsp?expert_id='+datas[i].expert_id+'\">'+datas[i].expert_titile+'</a>'
 						    } //div的字符串数组付给zz
 							var pageno=1 ;              //当前页
-							var pagesize=5;            //每页多少条信息
+							var pagesize=15;            //每页多少条信息
 							pageno1=pageno;
 							if(zz.length%pagesize==0){
 								var  pageall =zz.length/pagesize ;
@@ -598,6 +592,13 @@
 							}   //一共多少页   
 							
 							datas1=zz;
+							var oexpertTeamList = document.getElementsByClassName('expertTeamList')[0];
+							if(oexpertTeamList.children[0].childElementCount) {
+								var expertTeamListNum = oexpertTeamList.children[0].childElementCount;
+								var expertTeamListNumHeight = expertTeamListNum * 35 + 5 + 'px';
+								$('.expertTeamList').css('height', expertTeamListNumHeight);
+							}
+							
 							function change(e){
 								pageno=e;
 								if(e<1){ //如果输入页<1页
@@ -615,7 +616,7 @@
 							        }
 								var ye="";
 								for(var j=1;j<=pageall;j++){
-							 		if(e==j){
+									if(e==j){
 										ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
 									}else{
 										ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "
@@ -639,7 +640,7 @@
 					
 			function change1(e){
 // 				var pageno1=1 ;              //当前页
-				var pagesize=5;            //每页多少条信息
+				var pagesize=15;            //每页多少条信息
 				if(datas1.length%pagesize==0){
 					var  pageall =datas1.length/pagesize ;
 				}else{
@@ -661,7 +662,7 @@
 			        }
 				var ye="";
 				for(var j=1;j<=pageall;j++){
-			 		if(e==j){
+					if(e==j){
 						ye=ye+"<span><a href='#' onClick='change1("+j+")' style='color:#FF0000'>"+j+"</a></span> "
 					}else{
 						ye=ye+"<a href='#' onClick='change1("+j+")'>"+j+"</a> "

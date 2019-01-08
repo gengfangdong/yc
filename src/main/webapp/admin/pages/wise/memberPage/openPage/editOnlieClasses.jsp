@@ -68,6 +68,13 @@
 			.layui-this a {
 				color: #555555;
 			}
+			#downLoad{
+				color:#fff;
+				margin:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -136,11 +143,8 @@
 									</div>
 									
 									<div class="layui-tab-item">
-										<div style="margin:20px 0 15px 30px;height:32px;">
-											<label for="" class="control-label" style="float: left;">举办天数：</label>
-											<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
-										</div>	
-										<textarea style="width: 100%;height: 150px;"></textarea>
+										<label for="" class="control-label" style="float: left;">大纲：</label>	
+										<textarea style="width: 93%;height: 150px;border-radius:5px;"></textarea>
 									</div>
 									
 								</div>
@@ -258,7 +262,7 @@
 												      <tbody id="demoList"></tbody>
 												    </table>
 												 </div>
-												 <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+												 <button type="button" class="layui-btn layui-btn-normal" id="testList" style="float:right;margin-right:10px;">选择多文件</button>
 											</td>
 										</tr>
 									</tbody>
@@ -456,11 +460,11 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['90%', '90%'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -492,15 +496,23 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopagef/<%=figClass_id%>',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
-				      
+					 // {field:'radio', title: '选择',toolbar: '#radio2'},
+					  {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
-				      {field:'plan_id', title: 'ID',style:'display:none;'},
-				      {field:'plan_name', title: '方案名称'},
+				      {field:'classplan_id', title: 'ID',style:'display:none;'},
+				      {field:'classplan_name', title: '方案名称'},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false
+				    page: false,
+				    done:function(){
+				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
+				    		if($("#sample-table-2 .layui-table-body tr")[i].children[2].children[0].innerHTML == freeco_outline){
+				    			$("#sample-table-2 .layui-table-body tr")[i].children[4].children[0].children[0].value = freeco_day;
+				    		}
+				    	}
+				    }
 				  });
 			  
 			//监听工具条
@@ -510,11 +522,11 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['90%', '90%'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -531,6 +543,18 @@
 			});
 		</script>
 		<script>
+		function deleteRow(objs){
+	 			var tr = objs.parentElement.parentElement;
+	 			var ttbody = tr.parentNode;
+	 			var filedeletename = tr.childNodes[0].innerText;
+	 			for(var oo = 0; oo<filesa.length;oo++){
+	 				if(filesa[oo].oldfilename == filedeletename){
+		      			filesa.splice(oo,1);
+		      			break;
+		      	}
+	 			}
+	 			ttbody.removeChild(tr);
+	 		}
 		var filelist = [];
 		layui.use('upload', function() {
 			var upload = layui.upload;
@@ -546,14 +570,22 @@
 		    ,bindAction: '#testListAction'
 		    ,choose: function(obj){   
 		      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+		      
 		      //读取本地文件
 		      obj.preview(function(index, file, result){
+		    	  var filenamea = file.name;
+				    for(var o = 0 ;o<filesa.length;o++){
+				      	if(filesa[o].oldfilename == filenamea){
+				      		layer.alert("文件已存在!");
+				      		return ;
+				      	}
+				    }
 		      	filelist.push(file);
 		        var tr = $(['<tr id="upload-'+ index +'">'
 		          ,'<td>'+ file.name +'</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;padding:0 15px;margin:0;">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        
@@ -612,7 +644,7 @@
 				var classesEndDate = $("#classesEndDate").val();
 				var maxClassesNumber = $("#maxClassesNumber").val();
 				//var enrollNumber = $("#enrollNumber").val();
-				var contactPersonnel = $("#contactPersonner").val();
+				var contactPersonnel = $("#contactPersonnel").val();
 				var contactNumber = $("#contactNumber").val();
 				var type = $(".layui-this")[0].innerHTML;
 				var selectList = new Array;
@@ -621,13 +653,29 @@
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
-					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].value;
+					if($('#sample-table-2 .layui-form-checked').length==1){
+						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
+						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					}else if($('#sample-table-2 .layui-form-checked').length==0){
+						alert("请选择一个方案！");
+						return;
+					}else{
+						alert("只能选择一个方案进行定制！");
+						return;
+					}
+
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
 						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
+					}else if($('.layui-form-checked').length==0){
+						alert("请选择课程！");
+						return;
 					}else{
 						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
@@ -635,23 +683,9 @@
 					}
 				}else if(type=="自由定制"){
 					type=2;
-					var value = $("#hostingDay").val();
-					if(reg.test(value)==true){
-						if($('#hostingDay').val()<0){
-							selectList[0] = $("#hostingDay").val()*(-1);
-						}else if($("#hostingDay").val()==0){
-							alert("请输入大于0的天数!");
-							return;
-						}else{
-							selectList[0] = $("#hostingDay").val();
-						}
-					}else{
-						alert("请输入纯数字的天数!");
-						return false;
-					}
-					selectList[1] = $("#hostingDay")[0].parentNode.parentNode.children[1].value;
-					
+					selectList[0] = $("textarea")[0].value;
 				}
+				
 				if(classesName==""){
 					alert("请填写班级名称！");
 					return;
@@ -696,7 +730,7 @@
 					alert("请输入有效的联系电话！");
 					return;
 				}
-				if(filelist.length == 0){
+				if(filelist.length<=0&&filesa.length<=0){
 					alert("请选择资料上传!");
 					return;
 				}  
@@ -704,26 +738,34 @@
 				for(var i=0;i<filelist.length;i++){
 					fd.append('file',filelist[i]);
 				}
-				fd.append('classesName',classesName);
-				fd.append('togetherClassesCompany',togetherClassesCompany);
-				fd.append('planHostAddress',planHostAddress);
-				fd.append('togetherClassesStartDate',togetherClassesStartDate);
-				fd.append('togetherClassesEndDate',togetherClassesEndDate);
-				fd.append('hostDate',hostDate);
-				fd.append('classesEndDate',classesEndDate);
-				fd.append('maxClassesNumber',maxClassesNumber);
-				fd.append('contactPersonnel',contactPersonnel);
-				fd.append('contactNumber',contactNumber);
-				fd.append('type',type);
-				fd.append('selectList',selectList);
-				
+				for(var ttt = 0;ttt<filesa.length;ttt++){
+					fd.append('oldfilename',filesa[ttt].newfilename);
+				}
+				fd.append('figClass_id','<%=figClass_id%>');
+				fd.append('figClass_name',classesName);
+				fd.append('figClass_deparment',togetherClassesCompany);
+				fd.append('figClass_address',planHostAddress);
+				fd.append('figClass_start_date',togetherClassesStartDate);
+				fd.append('figClass_end_date',togetherClassesEndDate);
+				fd.append('figClass_class_start',hostDate);
+				fd.append('figClass_class_end',classesEndDate);
+				fd.append('figClass_pernum',maxClassesNumber);
+				fd.append('figClass_person',contactPersonnel);
+				fd.append('figClass_phone',contactNumber);
+				fd.append('figClass_caogery',type);
+			
+				fd.append('figClass_outline',selectList);
+
 				$.ajax({
-					url:'',
+					url:'<%=request.getContextPath()%>/FigClass/updateFigClass',
 					type:'post',
+					encType: 'multipart/form-data', //表明上传类型为文件
+					processData: false,  //tell jQuery not to process the data
+	    			contentType: false,  //tell jQuery not to set contentType
 					data:fd,
 					success:function(data){
 						if(data.success == true){
-							if(data.message == "1"){
+							if(data.message == "5"){
 								layer.confirm('保存成功!', { title:'提示'}, function(index){
 									  
 									window.parent.location.reload();
@@ -732,7 +774,12 @@
 								});
 							}
 						}else{
-							alert("保存失败！");
+							layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
 						}
 					},
 					error:function(error){
@@ -750,7 +797,9 @@
 		</script>
 
 		<script>
+		var filesa = new Array();
 		window.onload = function(){
+			
 			$.ajax({
 				url:'<%=request.getContextPath()%>/FigClass/getDetailByid',
 				type:'post',
@@ -769,7 +818,7 @@
 						var classesEndDate = $("#classesEndDate").val();
 						var maxClassesNumber = $("#maxClassesNumber").val();
 						//var enrollNumber = $("#enrollNumber").val();
-						var contactPersonnel = $("#contactPersonner").val();
+						var contactPersonnel = $("#contactPersonnel").val();
 						var contactNumber = $("#contactNumber").val();
 						var type = $(".layui-this")[0].innerHTML;
 						var selectList = new Array;
@@ -783,7 +832,7 @@
 						$("#classesEndDate").val(data.data.figClass.figClass_class_end);
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
-						$("#contactNumber").val(data.data.figClass.freeco_phone);
+						$("#contactNumber").val(data.data.figClass.figClass_phone);
 						
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
@@ -803,6 +852,8 @@
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
+							window.freeco_outline = data.data.figClass.figClass_outline;
+							window.freeco_day = data.data.figClass.figClass_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -828,6 +879,8 @@
 								}
 								$(nDivShow[1]).addClass('layui-show');
 							}
+
+							window.freeco_outline = data.data.figClass.figClass_outline;
 			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
@@ -852,13 +905,12 @@
 						}
 						//文件回显start
 						var memotr = "";
-						var files=new Array();
-    					files = data.data.figClass.figFiles;
-    					for(var i = 0 ;i<files.length;i++){
+						filesa = data.data.figClass.figFiles;
+    					for(var i = 0 ;i<filesa.length;i++){
     						memotr += '<tr id="upload-'+ i +'">'+
-					          '<td>'+ files[i].oldfilename +'</td>'+
+					          '<td>'+ filesa[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/FigClass/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/FigClass/download/'+filesa[i].newfilename+' " class="hoverColor" id="downLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -884,6 +936,26 @@
 			});
 		}
 		</script>
-
+		<script type="text/html" id="barDemo">
+  			<a class="" id={{d.course_id}}  lay-event="show" style="margin-right:10px;">查看</a>
+		</script>
+		<script type="text/html" id="barDemo2">
+  			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>
+		</script>
+		<script type="text/html" id="radio2">
+			<input type="radio" name="planRadio" value="{{d.id}}" />
+		</script>
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
+		</script>
 	</body>
 </html>

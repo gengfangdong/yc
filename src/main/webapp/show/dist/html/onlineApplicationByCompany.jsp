@@ -3,6 +3,9 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+	String str[] = request.getParameter("param").split(",");
+	String id=str[0];
+	String project_name=str[1];
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,6 +93,9 @@
 				padding: 10px 0;
 				margin-top: 10px;
 				text-align: center;
+			}
+			.tableLeftTd,.tableRightTd{
+				font-size:14px;
 			}
 		</style>
 	</head>
@@ -309,10 +315,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">在职研</h1>
-					</div>
+				<div class="page-header news_bannerBg" style="background:url('../assets/img/banner/zaizhi.jpg');background-size:100% 100%;margin-top:0;">
 				</div>
 
 			</div>
@@ -383,60 +386,64 @@
 										<tr>
 											<td class="tableLeftTd">报名项目</td>
 											<td class="tableRightTd">
-												<input class="onlineInput" id="entryProjectName" type="text" placeholder="项目名称" disabled="disabled" style="background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;" />
+												<input class="onlineInput" id="entryProjectName" type="text" value="<%=project_name%>" placeholder="<%=project_name%>" disabled="disabled" style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">报名类别</td>
 											<td class="tableRightTd">
-												<input class="onlineInput" id="entryCategory" type="text" value="单位" disabled="disabled" style="background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;" />
+												<input  class="onlineInput" id="entryCategory" type="text" value="单位" disabled="disabled" style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;cursor:not-allowed;" />
 											</td>
 										</tr>
 										<tr class="">
 											<td class="tableLeftTd">报名日期</td>
 											<td class="tableRightTd">
 												<!-- <input class="onlineDate" type="date"/> -->
-												<input id="entryDate" type="text" class="am-form-field am-datepicker-add-on onlineInput" style="background-color:#fff;height: 27px;line-height: 27px;border: 1px solid #a9a9a9;" readonly />
+												<input id="entryDate" type="text" class="am-form-field am-datepicker-add-on onlineInput" style="height:23px;border-radius: 5px;background-color:#fff;height: 27px;line-height: 27px;border: 1px solid #a9a9a9;" readonly />
 
 											</td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">报名单位</td>
-											<td class="tableRightTd"><input class="onlineInput" id="entryCompany" type="text" maxlength="16" placeholder="请输入您的单位名称" /></td>
+											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" id="entryCompany" type="text" maxlength="16" placeholder="请输入您的单位名称" /></td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">联系人</td>
 											<td class="tableRightTd">
-												<input class="onlineInput" type="text" id="contactPersonnel" value="" placeholder="请输入您的联系人姓名" />
+												<input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactPersonnel" value="" placeholder="请输入您的联系人姓名" />
 											</td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">联系人电话</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" id="contactTel" maxlength="11" placeholder="请输入您真实的手机号码" /></td>
+											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactTel" maxlength="11" placeholder="请输入您真实的手机号码" /></td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">联系人邮箱</td>
-											<td class="tableRightTd"><input class="onlineInput" type="text" id="contactEmail" placeholder="请输入您真实的邮箱" /></td>
+											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactEmail" placeholder="请输入您真实的邮箱" /></td>
 										</tr>
 										<tr>
 											<td class="tableLeftTd">报名名单模板</td>
 											<td class="tableRightTd">
-												<button type="button" class="layui-btn lay_btn" style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;" >
-												  <i class="layui-icon">&#xe67c;</i><a href="../doc/培训通知.zip" style="color: #FFFFFF;">下载</a>
+												<button type="button" class="layui-btn lay_btn" style="height: 25px;line-height: 10px;background-color: #0e90d2;border-radius: 1000px;" >
+												  <i class="layui-icon">&#xe67c;</i><a href="../doc/报名表格.xlsx" style="color: #FFFFFF;">下载</a>
 												</button>
-												<button type="button" class="layui-btn lay_btn" id="test11"  style="height: 31px;line-height: 31px;background-color: #0e90d2;border-radius: 1000px;">
+												<button type="button" class="layui-btn lay_btn" id="test11"  style="height: 25px;line-height: 10px;background-color: #0e90d2;border-radius: 1000px;">
 												  <i class="layui-icon">&#xe67c;</i>上传
 												</button>
+												
+<!-- 												<input type="text"  disabled="disabled"  id="isupload" ></input> -->
+												<input type="text" id="test1Input" disabled="disabled" value="" style="width:70%;background: #fff;border: none;" />
+
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<button type="button" class="am-btn am-btn-primary am-round subBtn">提交</button>
+								<button type="button" class="am-btn am-btn-primary am-round subBtn" id="subBtn" onclick="byCompanySubmit();" style="line-height:10px;hiehgt:25px;width:64px;border-radius:5px;font-size:14px;">提交</button>
 							</div>
 							<hr />
 						</div>
 					</div>
-					<div class="am-popup" id="my-popup">
+					<!-- <div class="am-popup" id="my-popup">
 						<div class="am-popup-inner">
 							<div class="am-popup-hd">
 								<h4 class="am-popup-title">基础学习</h4>
@@ -457,7 +464,7 @@
 								<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<!--侧边栏-->
@@ -589,12 +596,48 @@
 				var upload = layui.upload;
 				var uploadInst = upload.render({
 					elem: '#test11', //绑定元素
-					url: '/upload/', //上传接口
-					done: function(res) {
-						//上传完毕回调
-					},
+					url: '<%=request.getContextPath()%>/ApplyUnit/apply', //上传接口
+					accept: 'file', //普通文件
+// 				    exts: 'zip|rar|7z|txt|doc|docx', 
+// 				    acceptMime: 'image/*',//规定打开文件选择框时，筛选出的文件类型，只显示图片文件
+				    auto: false, //选择文件后不自动上传
+				    bindAction: '#subBtn', //指向一个按钮触发上传
+				    choose:function(obj){
+				    	  obj.preview(function(index, file, result){
+				    	document.getElementById('test1Input').value = file.name;
+				    	  });
+				    },
+				    before:function(obj){
+				    	layer.load(); //上传loading
+				    	this.data={
+				    	"applyunit_name": document.getElementById("entryProjectName").value,
+				    	"applyunit_phone":document.getElementById("contactTel").value,
+						"applyunit_mail":document.getElementById("contactEmail").value,
+						"applyunit_date":document.getElementById("entryDate").value,
+						"applyunit_person":document.getElementById("contactPersonnel").value,
+						"project_id":'<%=id%>'
+				    	}//携带额外的数据
+// 					    obj.preview(function(index, file, result){
+// 					        $('#demo1').attr('src', result); //图片链接（base64）
+// 					    });
+				    },
+				    done: function(res){
+					      //如果上传失败
+					      if(res.msg == 3){
+					        return layer.msg('没有选择文件!');
+					      }
+					      else if(res.msg == 1){
+					        return layer.msg('上传失败!');
+					      }
+					      //上传成功
+					      else if(res.msg == 2){
+					    	 layer.alert("保存成功!");
+					   	}
+					      layer.closeAll('loading'); //关闭loading
+					    },
 					error: function() {
 						//请求异常回调
+						 layer.closeAll('loading'); //关闭loading
 					}
 				});
 			});
@@ -611,6 +654,63 @@
 				var newDay = year + '-' + month + '-' + day;
 				$("#entryDate").val(newDay);
 			})
+			</script>
+			<script type="text/javascript"> 
+			//提交
+			function byCompanySubmit() {
+				var names = $('#entryProjectName').val();
+				var category = $("#entryCategory").val();
+				var entryDate = $("#entryDate").val();
+				var company = $("#entryCompany").val();
+				var personnel = $("#contactPersonnel").val();
+				var phone = $("#contactTel").val();
+				var email = $("#contactEmail").val();
+// 				var file = $("#isupload").val();
+				var submitFile = $("#test1Input").val();
+				
+				var testPhone = /^1\d{10}$/;
+				var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+
+				if(names == "") {
+					alert('项目不能为空！');
+					return;
+				}
+				if(category == "") {
+					alert("报名类型不能为空！");
+					return;
+				}
+				if(entryDate == "") {
+					alert("报名日期不能为空！");
+					return;
+				}
+				if(company == "") {
+					alert("请输入报名单位！");
+					return;
+				}
+				if(company == "") {
+					alert("请输入联系人！");
+					return;
+				}
+				if(phone == "") {
+					alert("请输入您的手机号码！");
+					return;
+				} else if(testPhone.test(phone) == false) {
+					alert("请输入有效的手机号码！");
+					return;
+				}
+				if(email == "") {
+					alert("请输入您的电子邮箱！");
+					return;
+				} else if(testEmail.test(email) == false) {
+					alert("请输入有效的邮箱！");
+					return;
+				} 
+				if(submitFile == "") {
+					alert("请上传报名名单！");
+					return;
+				} 
+
+			}
 		</script>
 	</body>
 

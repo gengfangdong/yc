@@ -10,6 +10,7 @@ public class FigClassshowVo {
 	private String FigClass_class_end;//结课日期
 	private String FigClass_status;//班次状态
 	private String user_status;//个人状态 是否报名
+	private String isdelete;
 	private int FigClass_number;//剩余人数
 	public FigClassshowVo() {
 		super();
@@ -73,6 +74,12 @@ public class FigClassshowVo {
 	}
 	public void setFigClass_number(int figClass_number) {
 		FigClass_number = figClass_number;
+	}
+	public String getIsdelete() {
+		return isdelete;
+	}
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
 	}
 	
 	

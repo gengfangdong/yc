@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,18 +82,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -210,6 +211,9 @@
 										</li>
 										<li>
 											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
+										</li>
+											<li>
+											<a href="enrollmentRegulations.jsp" ><i class="fa fa-square-o"></i> 招生简章</a>
 										</li>
 									</ul>
 								</li>
@@ -398,7 +402,7 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
@@ -409,23 +413,37 @@
 						}
 					});
 			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除该行？', function(index){
+			      	layer.confirm('确认删除该条数据？', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Course/deleteCourse',
+							url : '<%=request.getContextPath()%>/Constom/cancel',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Course_id:data.course_id
+								Constom_id:data.freeco_id
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									layer.alert("参数错误!");
+									layer.confirm('参数错误!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 								else if(data.message == "1"){
-									layer.alert("获取班次名称失败!");
+									layer.confirm('获取定制班次失败!', { title:'提示'}, function(index){	  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 								else if(data.message == "2"){
-									layer.alert("报名已取消!");
+									layer.confirm('删除成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 							},
 							error : function(error) {
@@ -438,7 +456,7 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '修改',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
@@ -452,7 +470,7 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '审核',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
@@ -519,7 +537,7 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -534,32 +552,10 @@
 			}
 		</script>
 		<script>
-				/* function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				} */
-				
-			</script>
-		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
@@ -585,17 +581,26 @@
 			{{#  if(d.freeco_status == '0'){ }}  
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-				<a class="" lay-event="review" style="margin-right:10px; cursor: pointer;">审核</a>
+				<a class="" lay-event="review" style="margin-right:10px; cursor: pointer;">审核</a>			
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 	        {{#  } else if(d.freeco_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  if(d.freeco_numfile == "0"){ }}
+			          
+			        <a class="" lay-event="" style="margin-right:10px; cursor: pointer;">未上传名单</a>
+			     {{#  }else if(d.freeco_numfile=="1"){ }}
+			     	 <a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.freeco_id}}">下载名单</a>
+			     {{# } }}
 			{{#  } else if(d.freeco_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="update" style="margin-right:10px; cursor: pointer;">提交名单</a>
+				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 			{{#  } else if(d.freeco_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.freeco_id}}">下载名单</a>
 			{{#  } else if(d.freeco_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.freeco_id}}">下载名单</a>
 				<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 			{{#  } }}
 		</script>
@@ -626,7 +631,12 @@
 	     {{#  if(d.freeco_datanum!=null){ }}
 	        {{d.freeco_datanum}}
 	     {{#  }else{ }}
-	     	待定
+	     	{{#  if(d.freeco_gaoery == "0"){ }}
+	        	{{d.freeco_day}}
+		     {{#  }else if(d.freeco_gaoery=="1"){ }}
+		     	待定
+		     {{# } }}
+	     	
 	     {{# } }}
 	</body>
 

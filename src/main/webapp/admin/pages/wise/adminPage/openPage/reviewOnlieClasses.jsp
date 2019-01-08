@@ -68,6 +68,13 @@
 			.layui-this a {
 				color: #555555;
 			}
+			#downLoad{
+				color:#fff;
+				margin-left:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -136,11 +143,8 @@
 									</div>
 									
 									<div class="layui-tab-item">
-										<div style="margin:20px 0 15px 30px;height:32px;">
-											<label for="" class="control-label" style="float: left;">举办天数：</label>
-											<input type="text" id="hostingDay" style="border:none;border-radius:5px;border:1px solid #a9a9a9;" />
-										</div>	
-										<textarea style="width: 100%;height: 150px;"></textarea>
+											<label for="" class="control-label" style="float: left;">大纲：</label>
+											<textarea style="width: 93%;height: 150px;border-radius:5px;"></textarea>
 									</div>
 									
 								</div>
@@ -449,8 +453,8 @@
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/Course/getlistLay/<%=figClass_id%>',
 			    cols: [[
-			      {type:'checkbox'},
-				  {type:'numbers',title:"序号",minWidth:90},
+			      //{type:'checkbox'},
+				  //{type:'numbers',title:"序号",minWidth:90},
 			     /*  {field:'course_id', title: 'ID',style:'display:none;'}, */
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
@@ -458,7 +462,14 @@
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
-			    page: false
+			    page: false,
+			    done:function(){
+			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
+			    		if($("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].id != freeco_outline){
+			    			$($("#sample-table-1 .layui-table-body tr")[i]).css('display','none');
+			    		}
+			    	}
+			    }
 			  });
 			  
 			//监听工具条
@@ -468,11 +479,11 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['90%', '90%'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -504,15 +515,25 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopagef/<%=figClass_id%>',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
+					  //{field:'radio', title: '选择',toolbar: '#radio2'},
 				      
-					  {type:'numbers',title:"序号"},
-				      {field:'plan_id', title: 'ID',style:'display:none;'},
-				      {field:'plan_name', title: '方案名称'},
+					 // {type:'numbers',title:"序号"},
+				      {field:'classplan_id', title: 'ID',style:'display:none;'},
+				      {field:'classplan_name', title: '方案名称'},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false
+				    page: false,
+				    done:function(){
+				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
+				    		if($("#sample-table-2 .layui-table-body tr")[i].children[0].children[0].innerHTML != freeco_outline){
+				    			$($("#sample-table-2 .layui-table-body tr")[i]).css('display','none');
+				    		}else{
+				    			$("#sample-table-2 .layui-table-body tr")[i].children[2].children[0].children[0].value = freeco_day;
+				    		}
+				    	}
+				    }
 				  });
 			  
 			//监听工具条
@@ -522,11 +543,11 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['90%', '90%'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -613,153 +634,6 @@
 		});
 		</script>
 		
-		<script>
-			function branchSub(){
-				var classesName = $("#classesName").val();
-				var togetherClassesCompany = $("#togetherClassesCompany").val();
-				var planHostAddress = $("#planHostAddress").val();
-				var togetherClassesStartDate = $("#togetherClassesStartDate").val();
-				var togetherClassesEndDate = $("#togetherClassesEndDate").val(); 
-				var hostDate = $("#hostDate").val();
-				var classesEndDate = $("#classesEndDate").val();
-				var maxClassesNumber = $("#maxClassesNumber").val();
-				//var enrollNumber = $("#enrollNumber").val();
-				var contactPersonnel = $("#contactPersonner").val();
-				var contactNumber = $("#contactNumber").val();
-				var type = $(".layui-this")[0].innerHTML;
-				var selectList = new Array;
-				var reg=/^[1-9]\d*$|^0$/; // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
-				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
-				var testPhone = /^1\d{10}$/;//手机
-				if(type=="方案定制"){
-					type=0;
-					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].value;
-				}else if(type=="课程定制"){
-					type=1;
-					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
-						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
-						}
-					}else{
-						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
-						}
-					}
-				}else if(type=="自由定制"){
-					type=2;
-					var value = $("#hostingDay").val();
-					if(reg.test(value)==true){
-						if($('#hostingDay').val()<0){
-							selectList[0] = $("#hostingDay").val()*(-1);
-						}else if($("#hostingDay").val()==0){
-							alert("请输入大于0的天数!");
-							return;
-						}else{
-							selectList[0] = $("#hostingDay").val();
-						}
-					}else{
-						alert("请输入纯数字的天数!");
-						return false;
-					}
-					selectList[1] = $("#hostingDay")[0].parentNode.parentNode.children[1].value;
-					
-				}
-				if(classesName==""){
-					alert("请填写班级名称！");
-					return;
-				}
-				if(togetherClassesCompany==""){
-					alert("请填写拼班发起单位！");
-					return;
-				}
-				if(planHostAddress==""){
-					alert("请填写预计举办地点！");
-					return;
-				}
-				if(togetherClassesStartDate==""){
-					alert("请选择报名开始日期！");
-					return;
-				}
-				if(togetherClassesEndDate==""){
-					alert("请选择报名截止日期！");
-					return;
-				}
-				if(hostDate==""){
-					alert("请选择预计举办日期！");
-					return;
-				}
-				if(classesEndDate==""){
-					alert("请选择预计结课日期！");
-					return;
-				}
-				if(maxClassesNumber==""){
-					alert("请填写班级容纳人数！");
-					return;
-				}
-				
-				if(contactPersonnel==""){
-					alert("请填写联系人员！");
-					return;
-				}
-				if(contactNumber==""){
-					alert("请填写联系电话！");
-					return;
-				}else if(testPhone.test(contactNumber)==false && testTel.test(contactNumber)==false){
-					alert("请输入有效的联系电话！");
-					return;
-				}
-				if(filelist.length == 0){
-					alert("请选择资料上传!");
-					return;
-				}  
-				var fd = new FormData();
-				for(var i=0;i<filelist.length;i++){
-					fd.append('file',filelist[i]);
-				}
-				fd.append('classesName',classesName);
-				fd.append('togetherClassesCompany',togetherClassesCompany);
-				fd.append('planHostAddress',planHostAddress);
-				fd.append('togetherClassesStartDate',togetherClassesStartDate);
-				fd.append('togetherClassesEndDate',togetherClassesEndDate);
-				fd.append('hostDate',hostDate);
-				fd.append('classesEndDate',classesEndDate);
-				fd.append('maxClassesNumber',maxClassesNumber);
-				fd.append('contactPersonnel',contactPersonnel);
-				fd.append('contactNumber',contactNumber);
-				fd.append('type',type);
-				fd.append('selectList',selectList);
-				
-				$.ajax({
-					url:'',
-					type:'post',
-					data:fd,
-					success:function(data){
-						if(data.success == true){
-							if(data.message == "1"){
-								layer.confirm('保存成功!', { title:'提示'}, function(index){
-									  
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
-								});
-							}
-						}else{
-							alert("保存失败！");
-						}
-					},
-					error:function(error){
-						layer.confirm('保存失败!', { title:'提示'}, function(index){
-							  
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-							console.log(error);
-						});
-					}
-				})
-				
-			}
-		</script>
 
 		<script>
 		window.onload = function(){
@@ -795,8 +669,8 @@
 						$("#classesEndDate").val(data.data.figClass.figClass_class_end);
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
-						$("#contactNumber").val(data.data.figClass.freeco_phone);
-						
+						$("#contactNumber").val(data.data.figClass.figClass_phone);
+						debugger;
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
 							var nDivShow = $('.layui-tab-item');
@@ -812,9 +686,13 @@
 							for (var j = 0; j <nLiShow.length; j++) {
 								if($($(nLiShow[j])[0])[0].innerHTML==type){
 									$(nLiShow[j]).addClass("layui-this");
+								}else{
+									$(nLiShow[j]).css('display','none');
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
+							window.freeco_outline = data.data.figClass.figClass_outline;
+							window.freeco_day = data.data.figClass.figClass_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -837,9 +715,13 @@
 							for (var j = 0; j <nLiShow.length; j++) {
 								if($($(nLiShow[j])[0])[0].innerHTML==type){
 									$(nLiShow[j]).addClass("layui-this");
+								}else{
+									$(nLiShow[j]).css('display','none');
 								}
 								$(nDivShow[1]).addClass('layui-show');
 							}
+
+							window.freeco_outline = data.data.figClass.figClass_outline;
 			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
@@ -856,10 +738,11 @@
 							for (var j = 0; j <nLiShow.length; j++) {
 								if($($(nLiShow[j])[0])[0].innerHTML==type){
 									$(nLiShow[j]).addClass("layui-this");
+								}else{
+									$(nLiShow[j]).css('display','none');
 								}
 								$(nDivShow[2]).addClass('layui-show');
 							}
-							$('#hostingDay').val(data.data.figClass.freeco_datanum);
 							$('textarea').val(data.data.figClass.figClass_outline);
 						}
 						//文件回显start
@@ -870,7 +753,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/FigClass/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/FigClass/download/'+files[i].newfilename+' " class="hoverColor" id="downLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -930,6 +813,26 @@
 				})
 			}
 		</script>
-
+		<script type="text/html" id="barDemo">
+  			<a class="" id={{d.course_id}} lay-event="show">查看</a>
+		</script>
+		<script type="text/html" id="barDemo2">
+  			<a class="" lay-event="show2">查看</a>
+		</script>
+		<script type="text/html" id="radio2">
+			<input type="radio" name="planRadio" value="{{d.id}}" />
+		</script>
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
+		</script>
 	</body>
 </html>

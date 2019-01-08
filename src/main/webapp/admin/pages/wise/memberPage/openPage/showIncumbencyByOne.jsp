@@ -262,6 +262,7 @@
 						name.value = data.data.name;
 						Birthday.value = data.data.brithday;
 						IDNum.value = data.data.indentity_number;
+						PhoneNum.value = data.data.phone_number;
 						email.value=data.data.mail;
 						Department.value=data.data.department;
 						Job.value=data.data.job;

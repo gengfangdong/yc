@@ -12,6 +12,7 @@ public class ApplyShowVo implements Serializable{
 	private String applyshow_project;
 	private String applyshow_user;
 	private String applyshow_date;
+	private String applyshow_status;
 	public ApplyShowVo() {
 		super();
 	}
@@ -44,6 +45,12 @@ public class ApplyShowVo implements Serializable{
 	}
 	public void setApplyshow_date(String applyshow_date) {
 		this.applyshow_date = applyshow_date;
+	}
+	public String getApplyshow_status() {
+		return applyshow_status;
+	}
+	public void setApplyshow_status(String applyshow_status) {
+		this.applyshow_status = applyshow_status;
 	}
 	
 	

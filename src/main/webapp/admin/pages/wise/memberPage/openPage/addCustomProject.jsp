@@ -651,13 +651,13 @@
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
-					if($('.layui-form-checked').length==1){
-						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
-					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
-						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
-					}else if($('.layui-form-checked').length==0){
+					if($('#sample-table-2 .layui-form-checked').length==1){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('#sample-table-2 .layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('#sample-table-2 .layui-form-checked').length==2){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('#sample-table-2 .layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					}else if($('#sample-table-2 .layui-form-checked').length==0){
 						alert("请选择一个方案！");
 						return;
 					}else{
@@ -667,15 +667,15 @@
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
-						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=1,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
-					}else if($('.layui-form-checked').length==0){
+					}else if($('#sample-table-1 .layui-form-checked').length==0){
 						alert("请选择课程！");
 						return;
 					}else{
-						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=0,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
 					}
 				}else if(type=="自由定制"){

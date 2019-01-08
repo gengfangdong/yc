@@ -24,4 +24,6 @@ public interface FigClassService {
 	public LayuiDataTable<MemProjectVo> getMemProjectByuser(String caogery,String status,String user_id,int page,int limit);
 	public void deleteFig(String figclass_id, IUser iuser);
 	public int getCountByid(String FigClass_id);
+	public void updateFig(FigClass figClass);
+	public void startScheduledFig();
 }

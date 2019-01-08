@@ -113,7 +113,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="newsDate" name="newsDate" autocomplete="off" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -290,7 +290,12 @@
 			      }
 			      //上传成功
 			      else if(res.code == 1){
-			    	 layer.alert("保存成功!");
+			    		layer.confirm('保存成功!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
 									
 			   	}
 			    },
@@ -307,9 +312,46 @@
 		</script>
 		<script>
 			function newsSave(){
+				
+				
+				var newsTitle = $('#newsTitle').val();
+				var newsAbstract = $("#newsAbstract").val();
+				var newsKeyWords = $("#newsKeyWords").val();
+				var newsDate = $("#newsDate").val();
+				var newsStates = $(".newsStates");
+				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+				if(newsTitle == "") {
+					layer.alert("请填写标题！");
+					return;
+				}
+				if(newsAbstract == "") {
+					layer.alert("请填写简介！");
+					return;
+				}
+				if(newsKeyWords == "") {
+					layer.alert("请填写关键字！");
+					return;
+				}
+				if(newsDate == "") {
+					layer.alert("请选择日期！");
+					return;
+				}
+				if(newsDescription.length == "") {
+					layer.alert("请填写内容！");
+					return;
+				}
+				if(newsStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(newsStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					layer.alert("请选择状态！");
+					return;
+				}
+				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){
-					layer.alert("请选择封面!");
+					layer.layer.alert("请选择封面!");
 				}
 			}
 		</script>

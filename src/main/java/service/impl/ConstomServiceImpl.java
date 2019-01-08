@@ -233,5 +233,10 @@ public class ConstomServiceImpl implements ConstomService {
 		}
 		return eUsers;
 	}
+
+	public void startScheduledco() {
+		// TODO Auto-generated method stub
+		constomDao.startScheduledco();
+	}
 	
 }

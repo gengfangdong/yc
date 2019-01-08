@@ -17,13 +17,13 @@ public class HomePageController {
 		return mv;
 	}
 	
-	@RequestMapping("/admin/pages/wise/adminPage")
+	@RequestMapping("/admin/pages/wise/adminPage/noticeAnnouncement")
 	public ModelAndView adminIndex(ModelAndView mv){
-		mv.setViewName("/admin/pages/wise/adminPage/newsManagement");
+		mv.setViewName("/admin/pages/wise/adminPage/noticeAnnouncement");
 		return mv;
 	}
 	
-	@RequestMapping("/admin/pages/wise/memberPage")
+	@RequestMapping("/admin/pages/wise/memberPage/memberMessage")
 	public ModelAndView adminindex(ModelAndView mv){
 		mv.setViewName("/admin/pages/wise/memberPage/memberMessage");
 		return mv;
@@ -35,6 +35,14 @@ public class HomePageController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("user");
 		mv.setViewName("redirect:/show/dist");
+		return mv;
+	}
+	@RequestMapping("/admin/login")
+	public ModelAndView adLogout(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		mv.setViewName("/admin/login");
 		return mv;
 	}
 }

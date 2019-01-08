@@ -19,4 +19,5 @@ public interface ConstomDao {
 	public void deleteConstom(@Param("Constom_id")String constom_id,@Param("updater")String updater,@Param("updatetime")String updatetime);
 	public void updateConstom(Free_constom free_constom);
 	public void uploadfile(Free_constom free_constom);
+	public void startScheduledco();
 }

@@ -121,25 +121,6 @@
 										</div>
 									</div>
 									<div class="layui-tab-item">
-										<!-- <div class="form-group">
-											 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													 <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">一级目录：</label>
-														<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													  <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">二级目录：</label>
-														<select id="secondObj" class="select" onclick="secondSelect(this);"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													<button class="layui-btn selectBtn" data-type="reload">搜索</button>
-												</div>
-											</div>	
-										</div> -->
 										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 											<table id="LAY_table_user" lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 												<thead>
@@ -375,7 +356,7 @@
 			</select>
 		</script>
 		<script type="text/javascript">
-		window.onload = function(){
+		$(document).ready(function(){
 			$.ajax({
 				url:'<%=request.getContextPath()%>/Constom/getDetailByid',
 				type:'post',
@@ -409,15 +390,10 @@
 									$(nLiShow[j]).css('display','none');
 								}
 								$(nDivShow[0]).addClass('layui-show');
+								window.freeco_day = data.data.constom.freeco_day;
 							}
 							
-							/*for(var n=0;n<nLiShow.length;n++){
-								if(nLiShow[n].is(".layui-this")){
-									return true;
-								}else{
-									$(nLiShow[n]).css('display','none');
-								}
-							}*/				
+									
 						}else if(data.data.constom.freeco_gaoery==1){
 							var type="课程定制";
 							var nDivShow = $('.layui-tab-item');
@@ -437,6 +413,7 @@
 									$(nLiShow[j]).css('display','none');
 								}
 								$(nDivShow[1]).addClass('layui-show');
+								
 							}
 			
 						}else if(data.data.constom.freeco_gaoery==2){
@@ -462,7 +439,6 @@
 							$('#hostingDay').val(data.data.constom.freeco_datanum);
 							$('textarea').val(data.data.constom.freeco_outline);
 						}
-						$($("#sample-table-2 .layui-table-body .laytable-cell-2-classplan_date select")[0]).val(data.data.constom.freeco_day);
 						//$(".layui-this").css('display','');
 						//$($(nLiShow[j])[0])[0].innerHTML=type;
 						//$(".layui-this")[0].innerHTML = type;
@@ -474,7 +450,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor" id="dowmLoad">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;" ><a href="<%=request.getContextPath()%>/Constom/download/'+files[i].newfilename+' " class="hoverColor" id="dowmLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}
@@ -490,11 +466,14 @@
 
 					}
 				},error:function(data){
-
+					alert('不能查看！请联系管理员！');
+					return;
 				}
 			});
-		}
-
+		});
+		
+		
+		
 		</script>
 		
 		<script type="text/javascript">
@@ -558,7 +537,7 @@
 			  var $ = layui.$, active = {
 			    reload: function(){
 			      var demoReload = $('#demoReload');
-			      
+			      alert(freeco_day);
 			      //执行重载
 			      table.reload('testReload', {
 			        page: {
@@ -586,7 +565,10 @@
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false
+				    page: false,
+				    done:function(){
+				    	$($("#sample-table-2 .layui-table-body .laytable-cell-2-classplan_date select")[0]).val(freeco_day);
+				    }
 				  }); 
 			  
 				
@@ -609,24 +591,7 @@
 						});
 				     }  
 				  });
-			
-				 /* var $ = layui.$, active = {
-				    reload: function(){
-				      var demoReload = $('#demoReload');
-				      
-				      //执行重载
-				      table.reload('testReload2', {
-				        page: {
-				          curr: 1 //重新从第 1 页开始
-				        },
-				        method:'post',
-				        where: {
-				        	    First_course:firstObj,
-								Second_course:secondObj
-				        }
-				      });
-				    }
-				  }; */
+				
 			  
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');

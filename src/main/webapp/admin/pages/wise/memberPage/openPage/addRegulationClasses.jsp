@@ -2,7 +2,6 @@
 <%@page pageEncoding="UTF-8"%>
 <%
 	String scheduled_id = request.getParameter("scheduled_id");
-	String a = request.getParameter("num");
 %>
 <!DOCTYPE html>
 <html>
@@ -67,6 +66,26 @@
 			.layui-this a {
 				color: #555555;
 			}
+			.disabledStyle{
+				background-color:#FFFFFF;
+				border:1px solid #ccc;
+				border-radius: 5px;
+				height:23px;
+			}
+			#downLoad{
+				color:#fff;
+				margin-left:10px;
+				margin-right:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
+			#contactPersonName,#contactPhone,#contactWorkTel,#companyInformation{
+				border:none;
+				border:1px solid #ccc;
+				border-radius:5px;
+				height:23px;
+			}
 		</style>
 	</head>
 	<body>
@@ -90,53 +109,53 @@
 										<input type="hidden" name = "suuserid"/>
 											<td class="leftTd">本期培训名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="第四期国税系统税务稽查专业骨干中级培训班" id="trainingClassesName" style="width: 100%;" />
+												<input type="text" value="第四期国税系统税务稽查专业骨干中级培训班" id="trainingClassesName" disabled="disabled" class="disabledStyle" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">培训开课地点:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="北京市海淀区" id="trainingVenue" style="width: 100%;" />
+												<input type="text" value="北京市海淀区" id="trainingVenue" disabled="disabled" class="disabledStyle" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="2018/11/11" id="togetherClassesStartDate" style="width: 100%;" />
+												<input type="text" value="2018/11/11" id="togetherClassesStartDate" disabled="disabled" class="disabledStyle" style="width: 257px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">拼班截止日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="2018/12/10" id="togetherClassesEndDate" style="width: 100%;" />
+												<input type="text" value="2018/12/10" id="togetherClassesEndDate" disabled="disabled" class="disabledStyle" style="width: 257px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计开课日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="2018/12/11" id="classesStartDate" style="width: 100%;" />
+												<input type="text" value="2018/12/11" id="classesStartDate" disabled="disabled" class="disabledStyle" style="width: 257px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="32018/12/30" id="classesEndDate" style="width: 100%;" />
+												<input type="text" value="32018/12/30" id="classesEndDate" disabled="disabled" class="disabledStyle" style="width: 257px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">班级容纳人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="50" id="maxClassesNumber" style="width: 100%;" />
+												<input type="text" value="50" id="maxClassesNumber" disabled="disabled" class="disabledStyle" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">已经报名人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text"  id="enrollNumber" style="width: 100%;" value="<%=a%>"/>
+												<input type="text" value="0" id="enrollNumber" disabled="disabled" class="disabledStyle" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
@@ -169,18 +188,6 @@
 											<td class="leftTd">课程大纲:</td>
 											<td class="rightTd" colspan="2">
 												<div id="syllabus"></div>
-												<!-- <p>为确保培训组织工作的顺利实施，自函到之日起开始接受报名，报名截止时间为每期培训班报到日前10天，额满为止。报名工作以县局以上税务机关为单位统一组织，
-												同时请各报名单位通知参训学员登陆中共国家税务总局党校网站招生招聘——招生信息栏下载本函电子稿,以便注册登记参训名单及接站信息。
-												</p>
-												<p>报名时请报名单位登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——培训报名入口，直接注册报名。
-												报名成功后并请填写《国家税务总局税务干部进修学院2019年培训项目报名表》（见附件3）盖章后传真至0514-87806661 。
-												</p>
-												<p>欢迎各税务机关开展全年培训项目一揽子报名，在年初将拟参加各项目培训的人数、班期一次性发送我院。
-												如不能做到全年培训项目一揽子报名，请按《2019年专业化培训项目总体安排表》分批组织报名。
-												</p>
-												<p>参训学员名册上传方式：报名成功的单位在报到日前10天，请登陆中共国家税务总局党校门户网站http://www.tax-edu.net，
-												进入招生招聘——名册上传入口，上传参训学员名册。
-												</p> -->
 											</td>
 										</tr>
 									</tbody>
@@ -201,18 +208,6 @@
 											<td class="leftTd">其他相关信息:</td>
 											<td class="rightTd" colspan="2">
 												<div id="syllabusother"></div>
-												<!-- <p>为确保培训组织工作的顺利实施，自函到之日起开始接受报名，报名截止时间为每期培训班报到日前10天，额满为止。报名工作以县局以上税务机关为单位统一组织，
-												同时请各报名单位通知参训学员登陆中共国家税务总局党校网站招生招聘——招生信息栏下载本函电子稿,以便注册登记参训名单及接站信息。
-												</p>
-												<p>报名时请报名单位登陆中共国家税务总局党校门户网站http://www.tax-edu.net，进入招生招聘——培训报名入口，直接注册报名。
-												报名成功后并请填写《国家税务总局税务干部进修学院2019年培训项目报名表》（见附件3）盖章后传真至0514-87806661 。
-												</p>
-												<p>欢迎各税务机关开展全年培训项目一揽子报名，在年初将拟参加各项目培训的人数、班期一次性发送我院。
-												如不能做到全年培训项目一揽子报名，请按《2019年专业化培训项目总体安排表》分批组织报名。
-												</p>
-												<p>参训学员名册上传方式：报名成功的单位在报到日前10天，请登陆中共国家税务总局党校门户网站http://www.tax-edu.net，
-												进入招生招聘——名册上传入口，上传参训学员名册。
-												</p> -->
 											</td>
 										</tr>
 									</tbody>
@@ -232,7 +227,7 @@
 										<tr>
 											<td class="leftTd">参加培训人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="numOfParticipants" placeholder="请输入想要参加的人数" style="width: 100%;"   />
+												<input type="text" id="numOfParticipants" placeholder="" style="width: 100%;"   />
 											</td>
 										</tr>
 										<tr>
@@ -259,24 +254,13 @@
 												<input type="text" id="companyInformation" placeholder="请输入单位信息" style="width: 100%;"   />
 											</td>
 										</tr>
-										<!-- <tr>
-											<td class="leftTd">学员名单模板:</td>
-											<td class="rightTd">
-												<input type="text" id="studentListTemplate" value="学员名单模板一" style="width: 100%;" />
-											</td>
-											<td>
-												<button type="button" class="layui-btn lay_btn">
-												  <i class="layui-icon">&#xe67c;</i><a href="../../../../../前台/dist/doc/培训通知.zip" style="color: #FFFFFF;">下载</a>
-												</button>
-											</td>
-										</tr> -->
 										<tr>
 											<td class="leftTd">参加人员名单:</td>
 											<td class="rightTd">
 												<input type="text" id="studentList" value="参加人员名单一"  style="width: 100%;"  />
 											</td>
 											<td>
-												<button type="button" class="layui-btn lay_btn" id="test12" style="width: 95px;">
+												<button type="button" class="layui-btn lay_btn" id="test12" style="width: 95px;background:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
@@ -361,6 +345,31 @@
 	        	var workPhone = document.getElementById("contactWorkTel").value;
 	        	var phone = document.getElementById("contactPhone").value;
 	        	var department = document.getElementById("companyInformation").value;
+	        	var maxClassesNumber = $("#maxClassesNumber").val();
+	        	var enrollNumber = $("#enrollNumber").val();
+	        	if(number==""){
+	        		alert("请输入参加培训的人数！");
+	        		return;
+	        	}else if(number>(maxClassesNumber-enrollNumber)){
+	        		alert("参加报名人数超过剩余容纳人数！");
+	        		return;
+	        	}
+	        	if(name==""){
+	        		alert("请输入联系人姓名！");
+	        		return;
+	        	}
+	        	if(workPhone==""){
+	        		alert("请输入联系方式！");
+	        		return;
+	        	}
+	        	if(phone==""){
+	        		alert("请输入联系人办公电话！");
+	        		return;
+	        	}
+	        	if(department==""){
+	        		alert("请输入单位信息！");
+	        		return;
+	        	}
 	        	var fd = new FormData();
 				fd.append('file', filea);
     			fd.append('Ssu_ssid', '<%=scheduled_id%>');
@@ -379,70 +388,26 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "4"){
-								layer.confirm('保存成功!', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});
+								layer.confirm('报名成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									console.log(error);
+								});
 							}
 						}
 						else{
 							if(data.message == "0"){
-								layer.alert("未登录!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
+								layer.alert("未登录!");
 							}else if(data.message == "1"){
-								layer.alert("班次不存在!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
+								layer.alert("班次不存在!");
 							}else if(data.message == "2"){
-								layer.alert("Execl无数据!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
+								layer.alert("Execl无数据!");
 							}else if(data.message == "3"){
-								layer.alert("人员数量与Execl数据数量不符!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
+								layer.alert("人员数量与Execl数据数量不符!");
 							}else if(data.message == "4"){
-								layer.alert("Execl存在身份证重复!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
-							}else if(data.message == "5"){
-								layer.alert("人数超过剩余人数!");/*
-								layer.confirm('', { title:'提示'}, function(index){
-												  
-												window.parent.location.reload();
-												var index1 = parent.layer.getFrameIndex(window.name);
-												parent.layer.close(index1);
-												console.log(error);
-											});*/
+								layer.alert("Execl存在身份证重复!");
 							}
 
 						}
@@ -490,7 +455,7 @@
         						memotr += '<tr id="upload-'+ i +'">'+
 						          '<td>'+ files[i].scheduled_oldfile +'</td>'+
 						          '<td>'+
-						          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor">下载</a></button>'+
+						          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].scheduled_file+' " class="hoverColor" id="downLoad">下载</a></button>'+
 						          '</td>'+
 						        '</tr>';
         					}

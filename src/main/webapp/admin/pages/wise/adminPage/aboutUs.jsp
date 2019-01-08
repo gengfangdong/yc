@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,18 +82,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>管理员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -211,6 +212,9 @@
 										<li>
 											<a href="entryList.jsp"><i class="fa fa-square-o"></i> 报名列表</a>
 										</li>
+											<li>
+											<a href="enrollmentRegulations.jsp" ><i class="fa fa-square-o"></i> 招生简章</a>
+										</li>
 									</ul>
 								</li>
 							</ul>
@@ -253,13 +257,13 @@
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
 															<div class="row">
 																<div class="col-sm-12 col-md-12">
-																	 <div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
+																	 <!-- <div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<ul class="f-sort-ul">
 																				<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 																			</ul>
 																		</div>
-																	</div> 
+																	</div>  -->
 																	<!--<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<label for="" class="control-label" style="float: left;">筛选：</label>
@@ -482,10 +486,10 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
+					        offset: ['10%','15%'] ,
 					        content: 'openPage/addAboutUs.jsp',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
@@ -500,10 +504,10 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '查看',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
+					        offset: ['10%','15%'] ,
 					        content: 'openPage/showAbout.jsp?about_id='+id,
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
@@ -518,10 +522,10 @@
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '修改',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
+					        offset: ['10%','15%'] ,
 					        content: 'openPage/updateAbout.jsp?about_id='+id,
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
@@ -558,10 +562,10 @@
 			</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-				window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
-			<%}%>
+				<% if(user == null||!"1".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
+				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
 				treeUls[1].setAttribute('style','display: block;');

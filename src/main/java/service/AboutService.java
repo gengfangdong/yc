@@ -13,4 +13,5 @@ public interface AboutService {
 	public void updateAbout(About about);
 	//删除关于我们
 	public void deleteAbout(String about_id);
+	public DatatablesViewPage<About> findAllAbout();
 }

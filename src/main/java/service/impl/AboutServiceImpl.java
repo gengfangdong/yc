@@ -56,6 +56,19 @@ public class AboutServiceImpl implements AboutService{
 		// TODO Auto-generated method stub
 		AboutDao.deleteAbout(about_id);
 	}
+	public DatatablesViewPage<About> findAllAbout() {
+		DatatablesViewPage<About> datatablesViewPage = new DatatablesViewPage<About>();
+		
+		List<About> AboutList = new ArrayList<About>();
+		
+		AboutList = AboutDao.findAllAbout();
+		
+		datatablesViewPage.setData(AboutList);
+		datatablesViewPage.setRecordsFiltered(1);
+		datatablesViewPage.setRecordsTotal(1);
+		
+		return datatablesViewPage;
+	}
 	
 	
 	

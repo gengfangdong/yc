@@ -131,7 +131,7 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 100px;">
-									<button class="branchSave" onclick="branchSave();">保存</button>
+									<button class="branchSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
 								</div>
 							</div>
 						</div>
@@ -175,90 +175,6 @@
 			  	});
 			});
 			
-		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if(month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if(strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-				
-				var dataTableLang = {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项结果",
-						"sZeroRecords": "没有匹配结果",
-						"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-				};
-			});
-		</script>
-		<script>
-			function branchSave(){
-				var EUser_name = document.getElementById("personName").value;
-				var EUser_companyname = document.getElementById("company").value;
-				var EUser_department = document.getElementById("department").value;
-				var EUser_hold = document.getElementById("job").value;
-				var EUser_sex = document.getElementsByName("personSex");
-				var sex = "";
-				if(EUser_sex[0].checked == true){
-					sex='0';
-				}
-				else
-					sex='1';
-				var EUser_remark = document.getElementById("remark").value;
-				var EUser_indentitynumber = document.getElementById("ID_Number").value;
-				var EUser_phone = document.getElementById("personPhone").value;
-				$.ajax({
-					url:'<%=request.getContextPath()%>/EUser/addUser',
-					type:'post',
-					data:{
-						"EUser_name":EUser_name,
-						"EUser_companyname":EUser_companyname,
-						"EUser_department":EUser_department,
-						"EUser_hold":EUser_hold,
-						"EUser_sex":sex,
-						"EUser_remark":EUser_remark,
-						"EUser_indentitynumber":EUser_indentitynumber,
-						"EUser_phone":EUser_phone
-					},success:function(data){
-						if(data.success == true){
-							layer.alert("保存成功!");
-						}
-						else
-							layer.alert("身份证已存在!");
-					},error:function(data){
-						layer.alert("接口异常!");
-					}
-				})
-			}
 		</script>
 		<script type="text/javascript">
 			window.onload = function(){

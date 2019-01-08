@@ -466,11 +466,11 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['90%', '90%'],
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -502,11 +502,12 @@
 				    elem: '#LAY_table_user2',
 				    url: '<%=request.getContextPath()%>/ClassPlan/getlistnopage',
 				    cols: [[
-					  {field:'radio', title: '选择',toolbar: '#radio2'},
-				      
+					  //{field:'radio', title: '选择',toolbar: '#radio2'},
+					  {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
@@ -520,11 +521,11 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['90%', '90%'],
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -564,7 +565,7 @@
 		          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        
@@ -612,28 +613,6 @@
 		});
 		</script>
 		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
-		<script>
 			function branchSub(){
 				var classesName = $("#classesName").val();
 				var togetherClassesCompany = $("#togetherClassesCompany").val();
@@ -651,26 +630,30 @@
 				var reg=/^[1-9]\d*$|^0$/; // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
 				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
 				var testPhone = /^1\d{10}$/;//手机
-				var nowDate = new Date();
-				var nowYear = nowDate.getFullYear();
-				var nowMonth = nowDate.getMonth()+1;
-				var nowDay = nowDate.getDate();
-				if(nowMonth<10&&nowMonth>0){
-					nowMonth = '0' + nowMonth;
-				}
-				if(nowDay<10&&nowDay>0){
-					nowDay = '0' + nowDay;
-				}
-				nowDate = nowYear +'-'+ nowMonth +'-'+ nowDay;
 				if(type=="方案定制"){
 					type=0;
-					selectList[0] = $(".layui-form-radioed")[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+					if($('.layui-form-checked').length==1){
+						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
+						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
+					}else if($('.layui-form-checked').length==0){
+						alert("请选择一个方案！");
+						return;
+					}else{
+						alert("只能选择一个方案进行定制！");
+						return;
+					}
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
 						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
 						}
+					}else if($('.layui-form-checked').length==0){
+						alert("请选择课程！");
+						return;
 					}else{
 						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
 							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
@@ -678,10 +661,22 @@
 					}
 				}else if(type=="自由定制"){
 					type=2;
-					
 					selectList[0] = $("textarea")[0].value;
-					
 				}
+				
+				var nowDate = new Date();
+				var nowYear = nowDate.getFullYear();
+				var nowMonth = nowDate.getMonth()+1;
+				var nowDay = nowDate.getDate();
+				if (nowMonth >= 1 && nowMonth <= 9) {
+					nowMonth = "0" + nowMonth;
+		        }
+		        if (nowDay >= 0 && nowDay <= 9) {
+		            nowDay = "0" + nowDay;
+		        }
+				var nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
+				
+				
 				if(classesName==""){
 					alert("请填写班级名称！");
 					return;
@@ -698,7 +693,7 @@
 					alert("请选择报名开始日期！");
 					return;
 				}else if(togetherClassesStartDate<nowDate){
-					alert("报名开始时间不能早于当前时间！");
+					alert("报名开始日期应在当前日期之后！");
 					return;
 				}
 				if(togetherClassesEndDate==""){
@@ -706,7 +701,7 @@
 					return;
 				}
 				if(togetherClassesStartDate>togetherClassesEndDate){
-					alert("报名开始时间不能晚于报名结束时间！");
+					alert("报名开始日期应在报名结束日期之后！");
 					return;
 				}
 				if(hostDate==""){
@@ -717,12 +712,12 @@
 					alert("请选择预计结课日期！");
 					return;
 				}
-				if(hostDate<togetherClassesEndDate){
-					alert("预计举办日期应在报名结束日期之后！");
+				if(togetherClassesEndDate>hostDate){
+					alert("开课日期应在报名结束日期之后！");
 					return;
 				}
-				if(hostDate>classesEndDate){
-					alert("举办日期应在结课日期之前！");
+				if(classesEndDate<hostDate){
+					alert("开课日期应在结课日期之后！");
 					return;
 				}
 				if(maxClassesNumber==""){
@@ -772,14 +767,29 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "1"){
-								alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 						}else{
-							alert("保存失败！");
+							layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+								console.log(error);
+							});
 						}
 					},
 					error:function(error){
 						console.log('error'+error);
+						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+							console.log(error);
+						});
 					}
 				})
 				
@@ -794,6 +804,17 @@
 		<script type="text/html" id="radio2">
 			<input type="radio" name="planRadio" value="{{d.id}}" />
 		</script>
-
+		<script type="text/html" id="selected">
+			<select lay-ignore>
+  				<option value="0.5">0.5天</option>
+				<option value="1">1天</option>
+				<option value="1.5">1.5天</option>
+				<option value="2">2天</option>
+				<option value="2.5">2.5天</option>
+				<option value="3">3天</option>
+				<option value="3.5">3.5天</option>
+				<option value="4">4天</option>
+			</select>
+		</script>
 	</body>
 </html>

@@ -137,7 +137,12 @@
 		<version>3.14</version>
 	</dependency>
 	<!-- 解析Excel文件的jar包 -->
-    
+    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+	<dependency>
+	    <groupId>com.squareup.okhttp</groupId>
+	    <artifactId>okhttp</artifactId>
+	    <version>2.7.5</version>
+	</dependency>
     <!-- quartz -->
     <dependency>
             <groupId>org.quartz-scheduler</groupId>

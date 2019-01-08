@@ -88,7 +88,7 @@
 														注2：保存后，封面才会修改
 											</td>
 											<td style="width: 20%;">
-												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;">
+												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;background:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
@@ -114,7 +114,7 @@
 										<tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
+												<input id="newsDate" name="newsDate" autocomplete="off" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -168,6 +168,16 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="../../../../dist/js/demo.js"></script>
 		<script src="../../ckeditor/ckeditor.js"></script>
+						<script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#newsDate' //指定元素
+		  });
+		});
+		</script>
 		<script>
 		layui.use('upload', function(){
 			  var $ = layui.jquery,
@@ -233,8 +243,12 @@
 			      }
 			      //上传成功
 			      else if(res.code == 1){
-			    	 layer.alert("保存成功!");
-									
+			    	  layer.confirm('保存成功!', { title:'提示'}, function(index){
+						  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
 			   	  }
 			   	  else if(res.code == 0){
 			   	  	layer.alert("保存失败!");
@@ -254,6 +268,41 @@
 		<script>
 			function save(){
 				//debugger;
+				var newsTitle = $('#newsTitle').val();
+				var newsAbstract = $("#newsAbstract").val();
+				var newsKeyWords = $("#newsKeyWords").val();
+				var newsDate = $("#newsDate").val();
+				var newsStates = $(".newsStates");
+				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+				if(newsTitle == "") {
+					layer.alert("请填写标题！");
+					return;
+				}
+				if(newsAbstract == "") {
+					layer.alert("请填写简介！");
+					return;
+				}
+				if(newsKeyWords == "") {
+					layer.alert("请填写关键字！");
+					return;
+				}
+				if(newsDate == "") {
+					layer.alert("请选择日期！");
+					return;
+				}
+				if(newsDescription.length == "") {
+					layer.alert("请填写内容！");
+					return;
+				}
+				if(newsStates[0].checked == true) {
+// 					var sex = "0";
+				} else if(newsStates[1].checked == true) {
+// 					var sex = "1";
+				} else {
+					layer.alert("请选择状态！");
+					return;
+				}
+				
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
 					var news_title_page = oldfilename;
@@ -292,7 +341,12 @@
 						},
 						success : function(data) {
 							if(data.message == "1"){
-								layer.alert("保存成功!");
+								layer.confirm('保存成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 							}
 							
 						},
@@ -341,10 +395,10 @@
 						newscontext.setData(news_context);//内容
 						filename.value=news_title_page;
 						if(news_status == "1"||news_status == "2"){
-							newsStatus[1].checked = true;
+							newsStatus[0].checked = true;
 						}
 						else if(news_status == "0"){
-							newsStatus[0].checked = true;
+							newsStatus[1].checked = true;
 						}
 
 					}

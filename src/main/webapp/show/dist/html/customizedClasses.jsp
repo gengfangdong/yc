@@ -68,6 +68,15 @@
 				.am-offcanvas-bar .am-nav>li+li {
 					margin-top: 0;
 				}
+				.screeningConditions{
+					height:80px;
+				}
+				.screeningConditions button{
+					margin-left:40%;
+				}
+				#hostDate{
+					width:100%!important;
+				}
 			}
 			
 			.my-head {
@@ -369,10 +378,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header regulations_bannerbg">
-					<div class="am-container">
-						<h1 class="page-header-title">定制班次</h1>
-					</div>
+				<div class="page-header regulations_bannerbg"  style="background:url('../assets/img/banner/dingzhi.jpg');background-size:100% 100%;">
 				</div>
 
 				<div class="am-g am-g-fixed myFixedSiderbar">
@@ -595,30 +601,6 @@
 						</div>
 
 					</div>
-
-					<!-- <div class="am-popup" id="my-popup">
-						<div class="am-popup-inner">
-							<div class="am-popup-hd">
-								<h4 class="am-popup-title">基础学习</h4>
-								<span data-am-modal-close class="am-close">&times;</span>
-							</div>
-							<div class="am-popup-bd">
-								<h4>1．大纲适用对象</h4>
-								<p>本大纲适用于高职高专会计专业所开设纳税基础与实务课程。</p>
-								<h4>2．课程的性质和任务</h4>
-								<p>纳税基础与实务课程是开放教育专科与高职高专会计学专业的一门专业基础课，是开放教育专科与高职高专会计学专业知识结构中的主体部分。本课程的任务是以我国现行税收制度为依据，结合企业的一般经济业务，阐释各税种的基本理论和实务，培养学生从事企业财务会计工作应具备的各税种的基本知识和操作能力。</p>
-								<h4>3．与相关课程的衔接</h4>
-								<p>学习本课程应先修政治经济学、基础会计等课程，中级财务会计课程最好与本课程同时学习或在本课程稍后学习。</p>
-								<h4>4．课程教学基本要求</h4>
-								<p>通过运用多种教学媒体和形式组织教学，学生能够掌握税收法律基本理论与实务知识，具备实际操作能力，以及在今后的工作中熟练应用。</p>
-								<h4>5．教学方法和教学形式建议</h4>
-								<p>本课程是一门实践性和技能性较强的课程，需要运用多种教学媒体、采用多种教学形式组织教学。除文字教材应力求通俗易懂、便于自学以外，IP课件、网上辅导文本应对重点、难点问题进行讲解和说明。辅导教师除督促学生阅读教材和使用IP课件、网上辅导文本外，应特别注意对作业的批改和讲评，有条件的还应安排实训。</p>
-								<h4>6．课程教学要求的层次</h4>
-								<p>根据课程的性质和特点，本大纲对基本知识和基本理论的教学要求分为了解和理解两个层次，对基本方法和技能的教学要求分为了解和掌握两个层次。</p>
-							</div>
-						</div>
-					</div> -->
-
 					<!--侧边栏-->
 					<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
 						<div class="am-offcanvas" id="sidebar">
@@ -861,7 +843,7 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
-			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
+			      {field:'course_id', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false
@@ -874,10 +856,10 @@
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [0, 0],
+						offset: ['10%', '15%'],
 						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -914,9 +896,9 @@
 					  {type:'checkbox'},
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
-				      {field:'classplan_name', title: '方案名称'},
-				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
-				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
+				      {field:'classplan_name', title: '方案名称',minWidth:120},
+				      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:120},
+				      {field:'handle', title: '操作',toolbar: '#barDemo2',minWidht:90}
 				    ]],
 				    id: 'testReload2',
 				    page: false
@@ -929,11 +911,11 @@
 				    	layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['70%', '530px'],
 							shade: 0,
 							maxmin: true,
-							offset: [0, 0],
-							content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
+							offset: ['10%', '15%'],
+							content: 'openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -976,7 +958,7 @@
 		          ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
 		          ,'<td>'
 		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		            ,'<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;">删除</button>'
 		          ,'</td>'
 		        ,'</tr>'].join(''));
 		        
@@ -1050,8 +1032,10 @@
 					type=0;
 					if($('.layui-form-checked').length==1){
 						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
 					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
 						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
 					}else if($('.layui-form-checked').length==0){
 						alert("请选择一个方案！");
 						return;
@@ -1105,8 +1089,6 @@
 				if(planNumOfEntries==""){
 					alert("请填写计划参加人数！");
 					return;
-				}else if(planNumOfEntries<50){
-					alert("参加人数少于50人时会自动进行拼班！");
 				}
 				if(planHostAddress==""){
 					alert("请填写预计举办地点！");
@@ -1281,10 +1263,10 @@
 			}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id="{{d.crouse_id}}" lay-event="show">查看</a>
+  			<a class="" id="{{d.crouse_id}}" lay-event="show" style="color:#0e90d2;cursor:pointer;">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
-  			<a class="" lay-event="show2">查看</a>
+  			<a class="" lay-event="show2" >查看</a>
 		</script>
 		
 		<script type="text/html" id="selected">

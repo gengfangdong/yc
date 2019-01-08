@@ -3,6 +3,7 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
+String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,18 +82,18 @@
 									<li class="user-header">
 										<img src="../../../dist/img/1.png" class="img-circle" alt="User Image">
 										<p>
-											中央财经大学
-											<small>学员</small>
+											<% if(user != null) {%><span class="hidden-xs"><%=user.getUser_name()%>&nbsp;</span>
+																				
+											<%}; %>
+											<% if(user == null) {%><span class="hidden-xs">未登录</span><%}; %>
 										</p>
 									</li>
 
 									<!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<a href="#" class="btn btn-default btn-flat">个人设置</a>
-										</div>
+										
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">安全退出</a>
+											<a href="<%=request.getContextPath()%>/admin/login" class="btn btn-default btn-flat">安全退出</a>
 										</div>
 									</li>
 								</ul>
@@ -216,14 +217,14 @@
 																			        <option value="拼班项目">拼班项目</option>
 																			  </select>
 																		  </div>
-																		  <div class="layui-inline selectObj">
+																		  <!-- <div class="layui-inline selectObj">
 																		    <label for="" class="control-label" style="float: left;">是否报名：</label>
 																			<select id="secondObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
 																		        <option value="全部">全部</option>
 																		        <option value="已报名">已报名</option>
 																		        <option value="未报名">未报名</option>
 																		   </select>
-																		  </div>
+																		  </div> -->
 																		  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
 																		</div>
 																	</div> 
@@ -427,28 +428,24 @@
 			 var $ = layui.$, active = {
 			    reload: function(){
 			      firstObj = document.getElementById("firstObj").value;
-			      secondObj = document.getElementById("secondObj").value;
+			      //secondObj = document.getElementById("secondObj").value;
 			      var status = $("#firstObj").val();
-				  if(status == '报名未开始'){
+				  if(status == '定制项目'){
 						status = 0;
-					}else if(status == '报名进行中'){
+					}else if(status == '规定项目'){
 						status = 1;
-					}else if(status == '未开课'){
+					}else if(status == '拼班项目'){
 						status = 2;
-					}else if(status == '课程进行中'){
-						status = 3;
-					}else if(status == '已结课'){
-						status = 4;
 					}else if(status == '全部'){
 						status = "";
 					}
-			      if(secondObj=="全部"){
+			     /*  if(secondObj=="全部"){
 			    	  secondObj="";
 			      }else if(secondObj=="已报名"){
 			    	  secondObj = "1";
 			      }else if(secondObj=="未报名"){
 			    	  secondObj = "2";
-			      }
+			      } */
 			      
 			      //执行重载
 			      table.reload('testReload', {
@@ -457,8 +454,8 @@
 			        },
 			        method:'post',
 			        where: {
-			        	    scstatus:status,
-							memstatus:secondObj
+			        	    caogery:status,
+			        	    status:""
 			        }
 			      });
 			    }
@@ -473,9 +470,9 @@
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null){%>
-					window.open('<%=request.getContextPath()%>/admin/login.html','_self');
-				
+				<% if(user == null||!"0".equals(caogery)){%>
+					
+					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
 				treeUls[0].setAttribute('style','display: block;');
@@ -483,7 +480,7 @@
 				treeUls[2].setAttribute('style','display: block;');
 			};
 		</script>
-		<script type="text/html" id="barDemo">
+		<script type="text/html" id="barDemo1">
 			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
   			{{#  if(d.project_status == '0'){ }}
 		        
@@ -513,7 +510,38 @@
 	    	 	{{# } }}
 	     	{{# } }}
 		</script>
-
+		<script type="text/html" id="barDemo">
+			{{#  if(d.project_caogery == "2"){ }}
+	         	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+	     	{{#  }else if(d.project_caogery=="1"){ }}
+	     		{{#  if(d.project_status == "0"){ }}
+	        		<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
+	     		{{#  }else if(d.project_status=="2"){ }}
+	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>			
+		 		{{#  }else if(d.project_status=="3"){ }}
+	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+				
+		 		{{#  }else if(d.project_status=="4"){ }}
+	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{# } }}
+	     	{{#  }else if(d.project_caogery=="0"){ }}
+	     		{{#  if(d.project_status == '0'){ }}
+		        	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="edit21" style="margin-right:10px; cursor: pointer;">修改</a>
+					<a class="" lay-event="cancel22" style="margin-right:10px; cursor: pointer;">取消定制</a>
+	        	{{#  } else if(d.project_status == "2"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="delete23" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  } else if(d.project_status == "1"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{#  } else if(d.project_status == "3"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+				{{#  } else if(d.project_status == "4"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="delete23" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  } }}
+	     	{{# } }}
+		</script>
  		<script type="text/html" id="caogery">
 	     {{#  if(d.project_caogery == "2"){ }}
 	                            拼班班次

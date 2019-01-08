@@ -311,10 +311,7 @@
 
 			<!--===========layout-container================-->
 			<div class="layout-container">
-				<div class="page-header news_bannerBg">
-					<div class="am-container">
-						<h1 class="page-header-title">新闻中心</h1>
-					</div>
+				<div class="page-header news_bannerBg"style="background:url('../assets/img/banner/news.jpg');background-size:100% 100%;">
 				</div>
 
 			</div>
@@ -328,7 +325,7 @@
 								<li>
 									<a href="../index.jsp">首页</a>
 								</li>
-								<li class="am-active">新闻中心</li>
+								<li class="am-active">通知公告</li>
 							</ol>
 						</div>
 					</div>
@@ -479,8 +476,12 @@
 			},
             success:function(data){
             	if(data.success == true){
-            		var notice_context = data.data.notice_context;
- 					 document.getElementById('showNewsContent').innerHTML=notice_context;
+            		var news_context = data.data.news_context;
+					 document.getElementById('showNewsContent').innerHTML=
+						'<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.notice_titile+'</h1>'+
+						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
+						'<label style="padding-right: 3%;">作者：管理员</label>'+
+						'<label style="padding-left: 3%;">时间：'+data.data.notice_Release_time+'</label>'+data.data.notice_context	;
             	}
             },
             error:function(error){

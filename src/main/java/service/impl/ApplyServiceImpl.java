@@ -94,6 +94,7 @@ public class ApplyServiceImpl implements ApplyService{
 				applyShowVo.setApplyshow_id((String) map.get("APPLYID"));
 				applyShowVo.setApplyshow_project((String) map.get("PROJECT_NAME"));
 				applyShowVo.setApplyshow_user((String) map.get("APPLYNAME"));
+				applyShowVo.setApplyshow_status((String)map.get("STATUS"));
 				applyShowVos.add(applyShowVo);
 			}
 		}
