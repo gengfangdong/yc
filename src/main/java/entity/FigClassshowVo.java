@@ -9,7 +9,10 @@ public class FigClassshowVo {
 	private String FigClass_class_start;//开课日期
 	private String FigClass_class_end;//结课日期
 	private String FigClass_status;//班次状态
-	private String user_status;//个人状态 是否报名
+	private String user_status;//个人状态 是否上传名单
+	private String bmstatus;//个人是否报名
+	private String FigClass_creater;
+	private String FigClass_updatetime;
 	private String isdelete;
 	private int FigClass_number;//剩余人数
 	public FigClassshowVo() {
@@ -81,6 +84,25 @@ public class FigClassshowVo {
 	public void setIsdelete(String isdelete) {
 		this.isdelete = isdelete;
 	}
+	public String getFigClass_creater() {
+		return FigClass_creater;
+	}
+	public void setFigClass_creater(String figClass_creater) {
+		FigClass_creater = figClass_creater;
+	}
+	public String getFigClass_updatetime() {
+		return FigClass_updatetime;
+	}
+	public void setFigClass_updatetime(String figClass_updatetime) {
+		FigClass_updatetime = figClass_updatetime;
+	}
+	public String getBmstatus() {
+		return bmstatus;
+	}
+	public void setBmstatus(String bmstatus) {
+		this.bmstatus = bmstatus;
+	}
+	
 	
 	
 }

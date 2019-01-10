@@ -176,6 +176,136 @@ public class ConstomController {
 		resultMap.put("message", "4");// 成功!
 		return resultMap;
 	}
+	
+	/**
+	 * 新增定制班次  课程为天数
+	 * @param Constom_name
+	 * @param Constom_data
+	 * @param Constom_datanum
+	 * @param Constom_pernum
+	 * @param Constom_address
+	 * @param Constom_person
+	 * @param Constom_phone
+	 * @param files
+	 * @param Constom_outline
+	 * @param Constom_gaoery
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/addConstomnew")
+	public Map<String,Object> addConstomnew(String Constom_name,
+			String Constom_data,@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
+			String Constom_pernum,String Constom_address,
+			String Constom_person,String Constom_phone,@RequestParam("file")MultipartFile[] files,
+			String[] Constom_outline,String Constom_gaoery,String[] Constom_day,String contactWorkNumber,
+			HttpServletRequest request){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		if(iUser == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "0");//未登录
+			return resultMap;
+		}
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = simpleDateFormat.format(new Date());
+		//构建对象
+		Free_constom free_constom = new Free_constom();
+		free_constom.setFreeco_address(Constom_address);
+		free_constom.setFreeco_creater(iUser.getUser_id());
+		free_constom.setFreeco_createtime(date);
+		free_constom.setFreeco_updater(iUser.getUser_id());
+		free_constom.setFreeco_updatetime(date);
+		free_constom.setFreeco_data(Constom_data);
+		free_constom.setFreeco_gaoery(Constom_gaoery);
+		String freeco_id = UUIDUtil.getUUid("con");
+		free_constom.setFreeco_id(freeco_id);
+		free_constom.setFreeco_isdelete("0");//未删除
+		free_constom.setFreeco_name(Constom_name);
+		free_constom.setFreeco_numfile("0");//未上传
+		free_constom.setFreeco_status("0");//未审核
+		free_constom.setFreeco_person(Constom_person);
+		free_constom.setFreeco_phone(Constom_phone);
+		free_constom.setFreeco_pernum(Constom_pernum);
+		free_constom.setFreeco_datanum(Constom_datanum);
+		free_constom.setFreeco_worknum(contactWorkNumber);
+		
+		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(Constom_gaoery)){
+			//方案
+			if(Constom_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[0]+",");
+		}else if("1".equals(Constom_gaoery)){
+			//课程
+			if(Constom_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_outline) {
+				outline.append(string+",");
+			}
+			if(Constom_day.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_day) {
+				day.append(string+",");
+			}
+			free_constom.setFreeco_day(day.toString().substring(0,day.toString().length() - 1));
+		}
+		else {
+			// 自由
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[1] + ",");
+		}
+		if (!"".equals(outline)) {
+			free_constom.setFreeco_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		// 批量上传文件
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+
+		FileUtil fileUtil = new FileUtil();
+		List<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
+		for (MultipartFile f : files) {
+			multipartFiles.add(f);
+		}
+		boolean flag = fileUtil.uploadbatch(uploadFilevos, multipartFiles, request.getSession().getServletContext().getRealPath("/constomfile"));
+		if (flag == false) {
+			resultMap.put("success", false);
+			resultMap.put("message", "3");// 失败
+			return resultMap;
+		}
+		List<Constomfile> constomfiles = new ArrayList<Constomfile>();
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Constomfile constomfile = new Constomfile();
+			constomfile.setCreater(iUser.getUser_id());
+			constomfile.setCreatetime(date);
+			constomfile.setIsdelete("0");
+			constomfile.setOldfilename(uploadfile.getOldfilename());
+			constomfile.setNewfilename(uploadfile.getFilename());
+			constomfile.setFreeco_id(freeco_id);
+			constomfiles.add(constomfile);
+		}
+		
+		constomService.insertConstom(free_constom, constomfiles);
+		resultMap.put("success", true);
+		resultMap.put("message", "4");// 成功!
+		return resultMap;
+	}
 	/**
 	 * 根据id获取详情
 	 * @param Constom_id
@@ -222,7 +352,7 @@ public class ConstomController {
 	 * @return
 	 */
 	@RequestMapping("/Review")
-	public Map<String,Object> ReviewConstom(String Constom_id,HttpServletRequest request,String review_result){
+	public Map<String,Object> ReviewConstom(String Constom_id,HttpServletRequest request,String review_result,String freeco_remark){
 		//结果map
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		
@@ -246,7 +376,7 @@ public class ConstomController {
 		String updatetime = dateFormat.format(new Date());
 		String updater = iUser.getUser_id();
 		try{
-			constomService.updateReview(Constom_id, review_result, updater, updatetime);
+			constomService.updateReview(Constom_id, review_result, updater, updatetime,freeco_remark);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -357,7 +487,90 @@ public class ConstomController {
 		resultMap.put("message", "5");//导入成功
 		return resultMap;
 	}
-	
+	/**
+	 * 人员导入
+	 * @param file
+	 * @param Constom_id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/importUserto")
+	public Map<String, Object> importUsertoo(@RequestParam("file") MultipartFile file, String Constom_id,
+			HttpServletRequest request) {
+		// 结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		// 获取定制班次实例
+		Free_constom free_constom = new Free_constom();
+		free_constom = constomService.getDetailByid(Constom_id);
+		if (free_constom == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 当前定制班次不存在
+			return resultMap;
+		}
+		//获取最大人数
+		int maxnumber = Integer.valueOf(String.valueOf(free_constom.getFreeco_pernum()));
+		// 获取上传的excel
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		// EUSER列表
+		List<EUser> eUsers = new ArrayList<EUser>();
+		list = new ExcelUtil().getBankListByExcel(file);
+		if (list == null || list.size() == 0) {
+			resultMap.put("success", false);
+			resultMap.put("message", "2");// execl无数据
+			return resultMap;
+		} else if (list.size() > maxnumber) {
+			resultMap.put("success", false);
+			resultMap.put("message", "3");// 人员数量与execl不符合
+			return resultMap;
+		}
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		for (List<Object> list2 : list) {
+			EUser eUser = new EUser();
+			eUser.setEUser_id(UUIDUtil.getUUid("eus"));
+			eUser.setEUser_name(list2.get(0).toString());// 姓名
+			String sex = list2.get(1).toString();
+			if ("男".equals(sex)) {
+				eUser.setEUser_sex("0");// 性别
+			} else if ("女".equals(sex)) {
+				eUser.setEUser_sex("1");// 性别
+			}
+			eUser.setEUser_isdelete("0");
+			eUser.setEUser_companyname(list2.get(2).toString());// 工作单位
+			eUser.setEUser_department(list2.get(3).toString());// 部门
+			eUser.setEUser_hold(list2.get(4).toString());// 职务
+			eUser.setEUser_indentitynumber(list2.get(5).toString());// 身份证号
+			eUser.setEUser_phone(list2.get(6).toString());// 联系方式
+			eUser.setEUser_remark(list2.get(7).toString());// 备注
+			eUser.setEUser_creater(iUser.getUser_id());
+			eUser.setEUser_createtime(APPLYDATE);
+			eUser.setEUser_updatetime(APPLYDATE);
+			eUser.setEUser_updater(iUser.getUser_id());
+			eUsers.add(eUser);
+		}
+		// 检测excel里面身份证是否重复
+		Map<String, Object> idnumber = new HashMap<String, Object>();
+		for (EUser eUser : eUsers) {
+			if (idnumber.put(eUser.getEUser_indentitynumber(), eUser) != null) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// excel存在身份证重复!
+				return resultMap;
+			}
+		}
+		constomService.ImportUsertoo(eUsers, Constom_id, iUser.getUser_id());
+		resultMap.put("success", true);
+		resultMap.put("message", "5");//导入成功
+		return resultMap;
+	}
 	@RequestMapping("/LayConstom")
 	public LayuiDataTable<Free_constom> getLayBypage(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
@@ -423,7 +636,7 @@ public class ConstomController {
 			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
 			String Constom_pernum,String Constom_address,
 			String Constom_person,String Constom_phone,
-			String[] Constom_outline,String Constom_gaoery,
+			String[] Constom_outline,String Constom_gaoery,String[] Constom_day,String contactWorkNumber,
 			HttpServletRequest request){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 获取是否登录
@@ -509,6 +722,7 @@ public class ConstomController {
 		free_constom.setFreeco_pernum(Constom_pernum);
 		free_constom.setFreeco_datanum(Constom_datanum);
 		free_constom.setConstomFiles(constomfiles);
+		free_constom.setFreeco_worknum(contactWorkNumber);
 		StringBuffer outline = new StringBuffer();
 		
 		// 判断是课程方案还是自由
@@ -544,6 +758,154 @@ public class ConstomController {
 			free_constom.setFreeco_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
 		}
 		constomService.updateConstom(free_constom);
+		resultMap.put("success", true);
+		resultMap.put("message", "5");//修改成功!
+		return resultMap;
+	}
+	@RequestMapping("/updateConstomnew")
+	@ResponseBody
+	public Map<String,Object> updateConstomnew(String constom_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+			String Constom_name,String Constom_data,
+			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
+			String Constom_pernum,String Constom_address,
+			String Constom_person,String Constom_phone,
+			String[] Constom_outline,String Constom_gaoery,String[] Constom_day,String contactWorkNumber,
+			HttpServletRequest request){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		FileUtil fileUtil = new FileUtil();
+		if (StringUtil.isblack(constom_id)) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//参数错误!
+			return resultMap;
+		}
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String Scheduled_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		//获取定制班次信息
+		Free_constom free_constom = constomService.getDetailByid(constom_id);
+		if(free_constom == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "2");//获取定制班次失败!
+			return resultMap;
+		}
+		List<Constomfile> constomfiles = free_constom.getConstomFiles();
+		List<Constomfile> deletesList = new ArrayList<Constomfile>();
+		for(int j = constomfiles.size()-1;j>=0;j--){
+			boolean flag = false;
+			if(oldfilename !=null){
+				for (String oldscheduledfile : oldfilename) {
+					if(oldscheduledfile.equals(constomfiles.get(j).getNewfilename())){
+						flag = true;
+					}
+				}
+				if(flag == true){
+					flag = false;
+				}
+				else{
+					deletesList.add(constomfiles.get(j));
+					constomfiles.remove(j);
+				}
+			}
+			else{
+				constomfiles.remove(j);
+			}
+		}
+		for (Constomfile constomfile : deletesList) {
+			if("2".equals(fileUtil.delete(request.getRealPath("/constomfile")+"\\"+constomfile.getNewfilename()))){
+				resultMap.put("success", false);
+				resultMap.put("message", "3");//删除文件失败!
+				return resultMap;
+			}
+		}
+		
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+		if(file!=null && file.length>0){
+			List<MultipartFile> filels = Arrays.asList(file);
+			fileUtil.uploadbatch(uploadFilevos, filels, request.getRealPath("/constomfile"));
+		}
+		
+		
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Constomfile constomfile = new Constomfile();
+			constomfile.setCreater(iUser.getUser_id());
+			constomfile.setCreatetime(Scheduled_Createtime);
+			constomfile.setIsdelete("0");
+			constomfile.setOldfilename(uploadfile.getOldfilename());
+			constomfile.setNewfilename(uploadfile.getFilename());
+			constomfile.setFreeco_id(constom_id);
+			constomfiles.add(constomfile);
+		}
+		
+		free_constom.setFreeco_address(Constom_address);
+		free_constom.setFreeco_updater(iUser.getUser_id());
+		free_constom.setFreeco_updatetime(Scheduled_Createtime);
+		free_constom.setFreeco_data(Constom_data);
+		free_constom.setFreeco_gaoery(Constom_gaoery);
+		free_constom.setFreeco_name(Constom_name);
+		free_constom.setFreeco_person(Constom_person);
+		free_constom.setFreeco_phone(Constom_phone);
+		free_constom.setFreeco_pernum(Constom_pernum);
+		free_constom.setFreeco_datanum(Constom_datanum);
+		free_constom.setConstomFiles(constomfiles);
+		free_constom.setFreeco_worknum(contactWorkNumber);
+		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
+		// 判断是课程方案还是自由
+		if ("0".equals(Constom_gaoery)) {
+			// 方案
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[0] + ",");
+		} else if ("1".equals(Constom_gaoery)) {
+			// 课程
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_outline) {
+				outline.append(string + ",");
+			}
+			if (Constom_day.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_day) {
+				day.append(string + ",");
+			}
+			free_constom.setFreeco_day(day.toString().substring(0, day.toString().length() - 1));
+		} else {
+			//自由
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[1] + ",");
+		}
+		if (!"".equals(outline)) {
+			free_constom.setFreeco_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		try{
+			constomService.updateConstom(free_constom);
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "4");// 未选择课程或者方案
+			return resultMap;
+		}
 		resultMap.put("success", true);
 		resultMap.put("message", "5");//修改成功!
 		return resultMap;
@@ -736,7 +1098,7 @@ public class ConstomController {
 			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
 			String Constom_pernum,String Constom_address,
 			String Constom_person,String Constom_phone,
-			String[] Constom_outline,String Constom_gaoery,
+			String[] Constom_outline,String Constom_gaoery,String[] Constom_day,String contactWorkNumber,
 			String figClass_class_end,String figClass_class_start,
 			String figClass_department,String figClass_end_date,
 			String figClass_start_date,
@@ -813,18 +1175,37 @@ public class ConstomController {
 		free_constom.setFreeco_pernum(Constom_pernum);
 		free_constom.setFreeco_datanum(Constom_datanum);
 		free_constom.setConstomFiles(constomfiles);
+		free_constom.setFreeco_worknum(contactWorkNumber);
 		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
 		// 判断是课程方案还是自由
-		if ("0".equals(Constom_gaoery) || "1".equals(Constom_gaoery)) {
-			// 课程和方案走同一个方法
+		if ("0".equals(Constom_gaoery)) {
+			// 方案
 			if (Constom_outline.length <= 0) {
 				resultMap.put("success", false);
-				resultMap.put("message", "4");// 未选择课程或者方案
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(Constom_outline[0] + ",");
+		} else if ("1".equals(Constom_gaoery)) {
+			// 课程
+			if (Constom_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
 				return resultMap;
 			}
 			for (String string : Constom_outline) {
 				outline.append(string + ",");
 			}
+			if (Constom_day.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_day) {
+				day.append(string + ",");
+			}
+			free_constom.setFreeco_day(day.toString().substring(0, day.toString().length() - 1));
 		} else {
 			// 课程和方案走同一个方法
 			if (Constom_outline.length <= 0) {
@@ -857,18 +1238,37 @@ public class ConstomController {
 		figClass.setFigClass_status("0");
 		figClass.setFigClass_name(Constom_name);
 		figClass.setFigClass_person(Constom_person);
+		figClass.setFigClass_worknum(contactWorkNumber);
 		StringBuffer figoutline = new StringBuffer();
-		// 判断是课程方案还是自由
-		if ("0".equals(Constom_gaoery) || "1".equals(Constom_gaoery)) {
-			// 课程和方案走同一个方法
-			if (Constom_outline.length <= 0) {
+		StringBuffer figday = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(Constom_gaoery)){
+			//方案
+			if(Constom_outline.length<=0){
 				resultMap.put("success", false);
-				resultMap.put("message", "1");// 未选择课程或者方案
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			figoutline.append(Constom_outline[0]+",");
+		}else if("1".equals(Constom_gaoery)){
+			//课程
+			if(Constom_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
 				return resultMap;
 			}
 			for (String string : Constom_outline) {
-				figoutline.append(string + ",");
+				figoutline.append(string+",");
 			}
+			if(Constom_day.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : Constom_day) {
+				figday.append(string+",");
+			}
+			figClass.setFigClass_day(figday.toString().substring(0,day.toString().length() - 1));
 		} else {
 			// 课程和方案走同一个方法
 			if (Constom_outline.length <= 0) {
@@ -891,11 +1291,13 @@ public class ConstomController {
 
 		List<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
 		
+		Map<String,String> namemap = new HashMap<>();
 		Free_constom ffree_constom = new Free_constom();
 		ffree_constom = constomService.getDetailByid(constom_id);
 		
 		for (Constomfile constomfile : ffree_constom.getConstomFiles()) {
 			MultipartFile multipartFile = fileUtil.getFileByname(request.getSession().getServletContext().getRealPath("/constomfile")+"\\"+constomfile.getNewfilename());
+			namemap.put(constomfile.getNewfilename(), constomfile.getOldfilename());
 			multipartFiles.add(multipartFile);
 		}
 		boolean flag = fileUtil.uploadbatch(fuploadFilevos, multipartFiles,
@@ -911,7 +1313,7 @@ public class ConstomController {
 			figfile.setCreater(iuser.getUser_id());
 			figfile.setCreatetime(CreateDate);
 			figfile.setIsdelete("0");
-			figfile.setOldfilename(uploadfile.getOldfilename());
+			figfile.setOldfilename(namemap.get(uploadfile.getOldfilename()));
 			figfile.setNewfilename(uploadfile.getFilename());
 			figfile.setFigClass_id(uuid);
 			figfiles.add(figfile);

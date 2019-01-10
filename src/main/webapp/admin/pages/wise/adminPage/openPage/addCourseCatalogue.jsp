@@ -94,25 +94,25 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">一级目录:</td>
+											<td class="leftTd">一级目录:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="firstLevel" style="width: 100%;" /> 
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">二级目录:</td>
+											<td class="leftTd">二级目录:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="secondLevel" style="width: 100%;" /> 
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">三级目录:</td>
+											<td class="leftTd">三级目录:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="thirdLevel" style="width: 100%;" /> 
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd" style="vertical-align: middle;">简介:</td>
+											<td class="leftTd" style="vertical-align: middle;">简介:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription"/></textarea>
 											</td>
@@ -197,12 +197,8 @@
 						}
 					},
 					error:function(data){
-						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-							console.log(error);
-						});
+						layer.alert('保存失败！');
+						console.log(error);
 					}
 				})
 			}

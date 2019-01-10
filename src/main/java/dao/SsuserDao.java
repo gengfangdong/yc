@@ -16,4 +16,11 @@ public interface SsuserDao {
 	public void deleteSsuser(@Param("ssuid")String ssuid,@Param("Project_id")String Project_id,@Param("User_id")String User_id);
 	public List<String> getListUserByid(@Param("User_id")String user_id, @Param("ssuid")String ssuid);
 	public List<String> getListUserByscid(@Param("scheduled_id")String scheduled_id);
+	public List<String> getListUserByidsc(@Param("User_id")String user_id, @Param("scheduled_id")String sc_id);
+	public List<String> getsuuid(@Param("User_id")String user_id,@Param("scheduled_id")String scheduled_id);
+	public int getLavenumber(@Param("project_id")String project_id);
+	public List<Ssuser> getByPage(@Param("project_id")String project_id,@Param("start")int start,@Param("limit")int limit);
+	public int getcountByPage(@Param("project_id")String project_id);
+	public List<Ssuser> getDetailById(@Param("ssu_id")String ssu_id);
+	public void updteStatus(Ssuser ssuser);
 }

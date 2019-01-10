@@ -25,7 +25,7 @@ FIGCLASS_ISDELETE	N	VARCHAR2(2)	N			拼班是否删除
 FIGCLASS_NUMSTATUS	N	VARCHAR2(2)	N			拼班名单是否上传
 FIGCLASS_CAOGERY	N	VARCHAR2(2)	N			拼班种类 1为课程0为方案2为自由
 FIGCLASS_OUTLINE	N	VARCHAR2(2000)	N			大纲
-
+FIGCLASS_WORKNUM
 
  */
 public class FigClass implements Serializable{
@@ -54,6 +54,7 @@ public class FigClass implements Serializable{
 	private String FigClass_caogery;//拼班1为课程0为方案2为自由
 	private String FigClass_outline;//大纲
 	private String FigClass_day;//方案定制天数
+	private String FigClass_worknum;//办公电话
 	private List<Figfile> figFiles;//文件列表
 	public FigClass() {
 		super();
@@ -189,6 +190,12 @@ public class FigClass implements Serializable{
 	}
 	public void setFigClass_day(String figClass_day) {
 		FigClass_day = figClass_day;
+	}
+	public String getFigClass_worknum() {
+		return FigClass_worknum;
+	}
+	public void setFigClass_worknum(String figClass_worknum) {
+		FigClass_worknum = figClass_worknum;
 	}
 	
 }

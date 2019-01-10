@@ -76,56 +76,56 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">姓名:</td>
+											<td class="leftTd">姓名:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="personName" />
 											</td>
 											
 										</tr>
 										<tr>
-											<td class="leftTd">单位:</td>
+											<td class="leftTd">单位:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="company" />
 											</td>
 											
 										</tr>
 										<tr>
-											<td class="leftTd">部门:</td>
+											<td class="leftTd">部门:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="department" />
 											</td>
 											
 										</tr>
 										<tr>
-											<td class="leftTd">职务:</td>
+											<td class="leftTd">职务:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="job" />
 											</td>
 											
 										</tr>
 										<tr>
-											<td class="leftTd">性别:</td>
+											<td class="leftTd">性别:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="radio" name="personSex" />男
 												<input type="radio" name="personSex" />女
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">身份证号:</td>
+											<td class="leftTd">身份证号:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="ID_Number"  maxLength="18"/>
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">联系方式:</td>
+											<td class="leftTd">联系方式:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="personPhone"  maxLength="11"/>
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">备注:</td>
+											<td class="leftTd">备注:<span style="color:red;">*</span></td>
 											<td class="rightTd">
-												<textarea style="width: 100%;height: 50px;" id="remark"></textarea>
+												<textarea style="width: 100%;height: 50px;border-radius:5px;border-color:#ccc;" id="remark"></textarea>
 											</td>
 										</tr>
 									</tbody>

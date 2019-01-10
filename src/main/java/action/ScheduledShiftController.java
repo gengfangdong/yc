@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import entity.ApplyUnit;
 import entity.DatatablesViewPage;
 import entity.EUser;
+import entity.FigClass;
 import entity.IUser;
 import entity.LayuiDataTable;
 import entity.ScheduledShiftShow;
@@ -385,8 +386,74 @@ public class ScheduledShiftController {
 	   
 	}
 	
-	
-	
+	@RequestMapping("/openClass/{scheduled_id}")
+	public Map<String,Object> openClass(@PathVariable String scheduled_id,HttpServletRequest request){
+		//
+		Map<String,Object> resultmap = new HashMap<>();
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		//获取规定实例
+		Scheduledshift scheduledshift = new Scheduledshift();
+		scheduledshift = scheduledshiftService.getDetailByid(scheduled_id);
+		if(scheduledshift == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//实例不存在
+			return resultmap;
+		}
+		//更新状态
+		scheduledshift.setScheduled_status("3");
+		try{
+			scheduledshiftService.updateStatus(scheduledshift);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//开课失败
+			return resultmap;
+		}
+		resultmap.put("success", true);
+		resultmap.put("message", "3");//开课成功
+		return resultmap;
+	}
+	@RequestMapping("/endClass/{scheduled_id}")
+	public Map<String,Object> endClass(@PathVariable String scheduled_id,HttpServletRequest request){
+		//
+		Map<String,Object> resultmap = new HashMap<>();
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		//获取规定实例
+		Scheduledshift scheduledshift = new Scheduledshift();
+		scheduledshift = scheduledshiftService.getDetailByid(scheduled_id);
+		if(scheduledshift == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//实例不存在
+			return resultmap;
+		}
+		//更新状态
+		scheduledshift.setScheduled_status("4");
+		try{
+			scheduledshiftService.updateStatus(scheduledshift);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//开课失败
+			return resultmap;
+		}
+		resultmap.put("success", true);
+		resultmap.put("message", "3");//开课成功
+		return resultmap;
+	}
 	
 	
 	

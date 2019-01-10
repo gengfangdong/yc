@@ -101,54 +101,54 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">班次名称:</td>
+											<td class="leftTd">班次名称:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="className" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">发起单位:</td>
+											<td class="leftTd">发起单位:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="hostCompany" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">培训开课地点:</td>
+											<td class="leftTd">培训开课地点:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="hostAddress" placeholder="请填写培训开课地点" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名开始日期:</td>
+											<td class="leftTd">报名开始日期:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 											<input id="hostStartDate" name="projectListDate" placeholder="请选择报名开始日期" type="text" class="" style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;"  />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名截止日期:</td>
+											<td class="leftTd">报名截止日期:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 											<input id="hostEndDate" name="projectListDate" placeholder="请选择报名截止日期" type="text" class=""  style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;"  />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计开课日期:</td>
+											<td class="leftTd">预计开课日期:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 											<input id="startClassDate" name="projectListDate" placeholder="请选择开课日期" type="text" class=""  style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">预计结课日期:</td>
+											<td class="leftTd">预计结课日期:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 											<input id="endClassDate" name="projectListDate" placeholder="请选择结课日期" type="text" class="" style="border:none;border:1px solid #ccc;height:23px;border-radius:5px;width:257px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">班级容纳人数:</td>
+											<td class="leftTd">班级容纳人数:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;"  />
 											</td>
@@ -173,7 +173,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										课程大纲
+										课程大纲<span style="color:red;">*</span>
 									</label>
 								</div>
 							</div>
@@ -192,7 +192,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left:24px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										其他相关信息
+										其他相关信息<span style="color:red;">*</span>
 									</label>
 								</div>
 							</div>
@@ -272,75 +272,6 @@
 			  	});
 			});
 		</script>
-		<script>
-		
-		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if (strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				};
-			});
-		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 			
 		<script type="text/javascript">
 			var filesa=new Array();
@@ -549,10 +480,10 @@
 					alert("请输入班级容纳人数！");
 					return;
 				}
-				if(filelist.length == 0 &&filesa.length == 0){
+				/* if(filelist.length == 0 &&filesa.length == 0){
 					alert("请上传文件！");
 					return;
-				}
+				} */
 				var fd = new FormData();
 				for(var j = 0;j<filelist.length;j++){
 					fd.append('file', filelist[j]);
@@ -577,24 +508,11 @@
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data
         			contentType: false,  //tell jQuery not to set contentType
-					data:						/*"txt_file":filelist,
-						"Scheduled_name":className,
-						"Scheduled_initiator":hostCompany,
-						"Scheduled_address":hostAddress,
-						"Scheduled_start":hostStartDate,
-						"Scheduled_end":hostEndDate,
-						"Scheduled_class_start":startClassDate,
-						"Scheduled_class_end":endClassDate,
-						"Scheduled_class_pnumber":peopleNum,
-						"Scheduled_class_context":Scheduled_class_context,
-						"Scheduled_other_context":Scheduled_other_context*/
-						fd
-					,
+					data:fd,
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "3"){
 								layer.confirm('修改成功!', { title:'提示'}, function(index){
-									  
 									window.parent.location.reload();
 									var index1 = parent.layer.getFrameIndex(window.name);
 									parent.layer.close(index1);
@@ -606,7 +524,8 @@
 							layer.alert("修改失败!");
 					},
 					error:function(data){
-
+						layer.alert("修改失败!");
+						console.log('error'+error);
 					}
 				})
 			}

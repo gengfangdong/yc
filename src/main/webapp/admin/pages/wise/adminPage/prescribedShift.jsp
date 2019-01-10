@@ -394,9 +394,10 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90},
 			      {field:'number', title: '已报名人数',minWidth:120},
 			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-			      {field:'d.scheduledshift.scheduled_id', title: '操作',toolbar: '#barDemo',minWidth:250}
+			      {field:'d.scheduledshift.scheduled_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    id: 'testReload',
+			    height:'full-181',
 			    page: true
 			  });
 			  
@@ -407,7 +408,7 @@ String caogery = (String)session.getAttribute("isad");
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['90%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
@@ -417,6 +418,52 @@ String caogery = (String)session.getAttribute("isad");
 							layer.setTop(layero); //重点2
 						}
 					});
+			    }else if(obj.event === 'openClass'){
+			      	layer.confirm('是否开课？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/ScheduledShift/openClass/'+data.scheduledshift.scheduled_id,
+							type : 'post',
+							dataType:"json",
+							success : function(data) {
+								if(data.message == "0"){
+									layer.confirm('未登录!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "1"){
+									layer.confirm('规定不存在!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "2"){
+									layer.confirm('开课失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}else if(data.message == "3"){
+									layer.confirm('开课成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+								layer.confirm('删除失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						});	
+			        layer.close(index);
+			      });
 			    } else if(obj.event === 'delete'){
 			      	layer.confirm('确认删除规定班次？', function(index){
 			      		$.ajax({
@@ -446,13 +493,8 @@ String caogery = (String)session.getAttribute("isad");
 								});
 								}
 								else if(data.message == "2"){
-									layer.confirm('删除成功!', { title:'提示'}, function(index){
-									  
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
+									layer.alert('删除成功!');
 									console.log(error);
-								});
 								}
 								
 							},
@@ -462,7 +504,66 @@ String caogery = (String)session.getAttribute("isad");
 						});	
 			        layer.close(index);
 			      });
-			    } else if(obj.event === 'edit'){
+			    } else if(obj.event === 'end'){
+			      	layer.confirm('确认结束该班次?', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/ScheduledShift/endClass/'+data.scheduledshift.scheduled_id,
+							type : 'post',
+							dataType:"json",
+							success : function(data) {
+								if(data.message == "0"){
+									layer.confirm('未登录!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "1"){
+									layer.confirm('规定不存在!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "2"){
+									layer.confirm('结课失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}else if(data.message == "3"){
+									layer.confirm('结课成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							},
+							error : function(error) {
+								layer.confirm('删除失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						});	
+			        layer.close(index);
+			      });
+			    }else if(obj.event === 'showbm'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看报名信息',
+						area: ['70%', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/showbmperscribedShift.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }else if(obj.event === 'edit'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '修改',
@@ -573,14 +674,37 @@ String caogery = (String)session.getAttribute("isad");
 			{{#  if(d.scheduledshift.scheduled_status == '0'){ }}
 		        <a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 	        {{#  } else if(d.scheduledshift.scheduled_status == "1"){ }}
-				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
+				{{# if(d.number == "0"){ }}
+					无人报名
+				{{# }else if(d.number != "0"){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				{{# } }}
 			{{#  } else if(d.scheduledshift.scheduled_status == "2"){ }}
-				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
+				{{# if(d.number == "0"){ }}
+					无人报名
+				{{# }else if(d.number != "0"){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				{{# } }}
+				
 			{{#  } else if(d.scheduledshift.scheduled_status == "3"){ }}
-				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">结束</a>
+				{{# if(d.number == "0"){ }}
+					无人报名
+				{{# }else if(d.number != "0"){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				{{# } }}
+				<a class="" lay-event="end" style="margin-right:10px; cursor: pointer;">结束</a>
 			{{#  } else if(d.scheduledshift.scheduled_status == "4"){ }}
-				<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				{{# if(d.number == "0"){ }}
+					无人报名
+				{{# } else if(d.number != "0"){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUserad/{{d.scheduledshift.scheduled_id}}">下载名单</a>
+				{{# } }}
 			{{#  } }}
 			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 		</script>

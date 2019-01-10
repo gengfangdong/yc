@@ -40,11 +40,19 @@
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<%} %>
+									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</a>
 									<%}; %>
-									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
 									<a href="html/register.jsp" style="color: #000000;">注册</a>
+									
 								</div>
 							</div>
 						</div>

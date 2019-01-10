@@ -177,7 +177,7 @@
 							
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 25px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										课程大纲
 									</label>
@@ -196,7 +196,7 @@
 							</div>
 							<div class="row" style="height: 30px;line-height: 30px;">
 								<div class="col-sm-9 col-md-9">
-									<label style="font-size: 14px; padding-left: 10px;">
+									<label style="font-size: 14px; padding-left: 25px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
 										其他相关信息
 									</label>
@@ -428,19 +428,7 @@
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data
         			contentType: false,  //tell jQuery not to set contentType
-					data:						/*"txt_file":filelist,
-						"Scheduled_name":className,
-						"Scheduled_initiator":hostCompany,
-						"Scheduled_address":hostAddress,
-						"Scheduled_start":hostStartDate,
-						"Scheduled_end":hostEndDate,
-						"Scheduled_class_start":startClassDate,
-						"Scheduled_class_end":endClassDate,
-						"Scheduled_class_pnumber":peopleNum,
-						"Scheduled_class_context":Scheduled_class_context,
-						"Scheduled_other_context":Scheduled_other_context*/
-						fd
-					,
+					data:fd,
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "1"){
@@ -456,72 +444,6 @@
 				})
 			}
 		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if (strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				};
-			});
-		</script>
-		<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.shaixuan li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				
-			</script>
 			
 		<script type="text/javascript">
 

@@ -33,6 +33,7 @@ import entity.EUser;
 import entity.FigClass;
 import entity.FigClassVo;
 import entity.FigClassshowVo;
+import entity.FigUser;
 import entity.Figfile;
 import entity.Free_constom;
 import entity.IUser;
@@ -178,6 +179,130 @@ public class FigClassController {
 		resultMap.put("message", "1");//导入成功
 		return resultMap;
 	}
+	@RequestMapping("/addFignew")
+	public Map<String,Object> addFigClassnew(String figClass_name, String figClass_deparment, String figClass_address,
+			String figClass_start_date, String figClass_end_date, String figClass_class_start,String contactWorkNumber,
+			String figClass_class_end, String figClass_pernum, String figClass_phone, String figClass_person,String figClass_caogery,
+			String[] figClass_outline,String[] figClass_day,@RequestParam("file")MultipartFile[] files,HttpServletRequest request){
+		//结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = simpleDateFormat.format(new Date());
+		//构造对象
+		String figClass_id = UUIDUtil.getUUid("fig");
+		FigClass figClass = new FigClass();
+		figClass.setFigClass_address(figClass_address);
+		figClass.setFigClass_caogery(figClass_caogery);
+		figClass.setFigClass_class_end(figClass_class_end);
+		figClass.setFigClass_class_start(figClass_class_start);
+		figClass.setFigClass_creater(iUser.getUser_id());
+		figClass.setFigClass_createtime(date);
+		figClass.setFigClass_deparment(figClass_deparment);
+		figClass.setFigClass_end_date(figClass_end_date);
+		figClass.setFigClass_id(figClass_id);
+		figClass.setFigClass_isdelete("0");//未删除
+		figClass.setFigClass_name(figClass_name);
+		figClass.setFigClass_numstatus("0");//未上传人员名单
+		figClass.setFigClass_pernum(figClass_pernum);
+		figClass.setFigClass_person(figClass_person);
+		figClass.setFigClass_phone(figClass_phone);
+		figClass.setFigClass_start_date(figClass_start_date);
+		figClass.setFigClass_status("0");
+		figClass.setFigClass_updater(iUser.getUser_id());
+		figClass.setFigClass_updatetime(date);
+		figClass.setFigClass_worknum(contactWorkNumber);
+		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(figClass_caogery)){
+			//方案
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(figClass_outline[0]+",");
+		}else if("1".equals(figClass_caogery)){
+			//课程
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : figClass_outline) {
+				outline.append(string+",");
+			}
+			if(figClass_day.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : figClass_day) {
+				day.append(string+",");
+			}
+			figClass.setFigClass_day(day.toString().substring(0,day.toString().length() - 1));
+		}
+		else {
+			// 课程和方案走同一个方法
+			if (figClass_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "1");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(figClass_outline[0] + ",");
+		}
+		if (!"".equals(outline)) {
+			figClass.setFigClass_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		// 批量上传文件
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+
+		FileUtil fileUtil = new FileUtil();
+		List<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
+		for (MultipartFile f : files) {
+			multipartFiles.add(f);
+		}
+		boolean flag = fileUtil.uploadbatch(uploadFilevos, multipartFiles, request.getSession().getServletContext().getRealPath("/figclassfile"));
+		if (flag == false) {
+			resultMap.put("success", false);
+			resultMap.put("message", "3");// 失败
+			return resultMap;
+		}
+		
+		List<Figfile> figfiles = new ArrayList<Figfile>();
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Figfile figfile = new Figfile();
+			figfile.setCreater(iUser.getUser_id());
+			figfile.setCreatetime(date);
+			figfile.setIsdelete("0");
+			figfile.setOldfilename(uploadfile.getOldfilename());
+			figfile.setNewfilename(uploadfile.getFilename());
+			figfile.setFigClass_id(figClass_id);
+			figfiles.add(figfile);
+		}
+		
+		try{
+			figClassService.insertFig(figClass, figfiles);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//导入成功
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "1");//导入成功
+		return resultMap;
+	}
 	/**
 	 * 名单报名
 	 * @param figClass_id
@@ -257,7 +382,15 @@ public class FigClassController {
 				return resultMap;
 			}
 		}
-		figClassService.importUser(eUsers,figClass_id, iUser.getUser_id());
+		
+		try{
+			figClassService.importUser(eUsers,figClass_id, iUser.getUser_id());
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "5");// excel存在身份证重复!
+			return resultMap;
+		}
 		resultMap.put("success", true);
 		resultMap.put("message", "5");//导入成功
 		return resultMap;
@@ -382,7 +515,97 @@ public class FigClassController {
 		resultMap.put("message", "2");//取消成功
 		return resultMap;
 	}
-	
+
+	@RequestMapping("/apply")
+	public Map<String, Object> applyFig(String figClass_id, String Fiu_number, String Fiu_username, String Fiu_ydphone,
+			String Fiu_phone, String Fiu_department,HttpServletRequest request) {
+		// 结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}//获取拼班
+		FigClass figClass = new FigClass();
+		figClass = figClassService.getDetailByid(figClass_id);
+		if(figClass == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 定制班次不存在
+			return resultMap;
+		}
+		//校验人数
+		int count = Integer.valueOf(Fiu_number);
+		int allcount = Integer.valueOf(figClass.getFigClass_pernum());
+		int lavecount = figClassService.getlaveNum(figClass_id);
+		if(count > allcount-lavecount){
+			resultMap.put("success", false);
+			resultMap.put("message", "2");// 人数超过限制
+			return resultMap;
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = simpleDateFormat.format(new Date());
+		// 构建用户拼班对象
+		FigUser figUser = new FigUser();
+		figUser.setFiu_creater(iUser.getUser_id());
+		figUser.setFiu_createtime(date);
+		figUser.setFiu_department(Fiu_department);
+		figUser.setFiu_figid(figClass_id);
+		figUser.setFiu_isdelete("0");
+		figUser.setFiu_number(Fiu_number);
+		figUser.setFiu_phone(Fiu_phone);
+		figUser.setFiu_status("0");
+		figUser.setFiu_userid(iUser.getUser_id());
+		figUser.setFiu_username(Fiu_username);
+		figUser.setFiu_ydphone(Fiu_ydphone);
+		figUser.setFiu_id(UUIDUtil.getUUid("fiu"));
+		try{
+			figClassService.applyFig(figUser);
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "3");//报名失败
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "2");//取消成功
+		return resultMap;
+	}
+
+	@RequestMapping("/cancelbm")
+	public Map<String, Object> cancelFigUser(String Fiu_id,HttpServletRequest request) {
+		// 结果map
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		try {
+			figClassService.cancelFiu(Fiu_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("success", false);
+			resultMap.put("message", "1");// 取消失败
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "2");// 取消成功
+		return resultMap;
+	}
+	@RequestMapping("/LayFu/{figClass_id}")
+	public LayuiDataTable<FigUser> getFuByPage(@RequestParam("page")int page,@RequestParam("limit")int limit,@PathVariable String figClass_id){
+		LayuiDataTable<FigUser> fDataTable = new LayuiDataTable<FigUser>();
+		fDataTable = figClassService.getPage(page, limit, figClass_id);
+		fDataTable.setCode(0);
+		fDataTable.setMsg("");
+		return fDataTable;
+	}
 	/**
 	 * 更新带文件的拼班
 	 * @param figClass_id
@@ -533,7 +756,151 @@ public class FigClassController {
 		resultMap.put("message", "5");//修改成功!
 		return resultMap;
 	}
-	
+	@RequestMapping("/updateFigClassnew")
+	@ResponseBody
+	public Map<String,Object> updateFigClassnew(String figClass_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+			String figClass_name, String figClass_deparment, String figClass_address,
+			String figClass_start_date, String figClass_end_date, String figClass_class_start,String contactWorkNumber,
+			String figClass_class_end, String figClass_pernum, String figClass_phone, String figClass_person,String figClass_caogery,
+			String[] figClass_outline,String[] figClass_day,HttpServletRequest request){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 获取是否登录
+		IUser iUser = new IUser();
+		iUser = (IUser) request.getSession().getAttribute("user");
+		if (iUser == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 未登录
+			return resultMap;
+		}
+		FileUtil fileUtil = new FileUtil();
+		if (StringUtil.isblack(figClass_id)) {
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//参数错误!
+			return resultMap;
+		}
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String Scheduled_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		//获取定制班次信息
+		FigClass figClass = figClassService.getDetailByid(figClass_id);
+		if(figClass == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "2");//获取定制班次失败!
+			return resultMap;
+		}
+		List<Figfile> figfiles = figClass.getFigFiles();
+		List<Figfile> deletesList = new ArrayList<Figfile>();
+		for(int j = figfiles.size()-1;j>=0;j--){
+			boolean flag = false;
+			if(oldfilename !=null){
+				for (String oldscheduledfile : oldfilename) {
+					if(oldscheduledfile.equals(figfiles.get(j).getNewfilename())){
+						flag = true;
+					}
+				}
+				if(flag == true){
+					flag = false;
+				}
+				else{
+					deletesList.add(figfiles.get(j));
+					figfiles.remove(j);
+				}
+			}
+		}
+		for (Figfile figfile : deletesList) {
+			if("2".equals(fileUtil.delete(request.getRealPath("/figclassfile")+"\\"+figfile.getNewfilename()))){
+				resultMap.put("success", false);
+				resultMap.put("message", "3");//删除文件失败!
+				return resultMap;
+			}
+		}
+		
+		List<UploadFilevo> uploadFilevos = new ArrayList<UploadFilevo>();
+		if(file!=null && file.length>0){
+			List<MultipartFile> filels = Arrays.asList(file);
+			fileUtil.uploadbatch(uploadFilevos, filels, request.getRealPath("/figclassfile"));
+		}
+		
+		
+		for (UploadFilevo uploadfile : uploadFilevos) {
+			Figfile figfile = new Figfile();
+			figfile.setCreater(iUser.getUser_id());
+			figfile.setCreatetime(Scheduled_Createtime);
+			figfile.setIsdelete("0");
+			figfile.setOldfilename(uploadfile.getOldfilename());
+			figfile.setNewfilename(uploadfile.getFilename());
+			figfile.setFigClass_id(figClass_id);
+			figfiles.add(figfile);
+		}
+		
+		figClass.setFigClass_address(figClass_address);
+		figClass.setFigClass_caogery(figClass_caogery);
+		figClass.setFigClass_class_end(figClass_class_end);
+		figClass.setFigClass_class_start(figClass_class_start);
+		figClass.setFigClass_deparment(figClass_deparment);
+		figClass.setFigClass_end_date(figClass_end_date);
+		figClass.setFigClass_name(figClass_name);
+		figClass.setFigClass_pernum(figClass_pernum);
+		figClass.setFigClass_person(figClass_person);
+		figClass.setFigClass_phone(figClass_phone);
+		figClass.setFigClass_start_date(figClass_start_date);
+		figClass.setFigClass_updater(iUser.getUser_id());
+		figClass.setFigClass_updatetime(Scheduled_Createtime);
+		figClass.setFigClass_worknum(contactWorkNumber);
+		StringBuffer outline = new StringBuffer();
+		StringBuffer day = new StringBuffer();
+		//判断是课程方案还是自由
+		if("0".equals(figClass_caogery)){
+			//方案
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(figClass_outline[0]+",");
+		}else if("1".equals(figClass_caogery)){
+			//课程
+			if(figClass_outline.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : figClass_outline) {
+				outline.append(string+",");
+			}
+			if(figClass_day.length<=0){
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//未选择课程或者方案
+				return resultMap;
+			}
+			for (String string : figClass_day) {
+				day.append(string+",");
+			}
+			figClass.setFigClass_day(day.toString().substring(0,day.toString().length() - 1));
+		} else {
+			// 课程和方案走同一个方法
+			if (figClass_outline.length <= 0) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// 未选择课程或者方案
+				return resultMap;
+			}
+			outline.append(figClass_outline[0] + ",");
+		}
+		if (!"".equals(outline)) {
+			figClass.setFigClass_outline(outline.toString().substring(0, outline.toString().length() - 1));// 设置方案
+		}
+		//constomService.updateConstom(free_constom);
+		try{
+			figClassService.updateFig(figClass);
+		}catch(Exception e){
+			resultMap.put("success", false);
+			resultMap.put("message", "3");//修改成功!
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "5");//修改成功!
+		return resultMap;
+	}
 	
 	/**
 	 * 下载拼班文件内容
@@ -693,34 +1060,35 @@ public class FigClassController {
 			HSSFCell cell = row1.createCell(i);
 			cell.setCellValue(titleValue[i]);
 		}
-		for(int j=0;j<eUsers.size();j++){
-			EUser eUser = eUsers.get(j);
-			HSSFRow row = sheet.createRow(j+1);
-			HSSFCell cell = row.createCell(0);
-			cell.setCellValue(eUser.getEUser_name());
-			HSSFCell cell1 = row.createCell(1);
-			String sex = eUser.getEUser_sex();
-			if("0".equals(sex)){
-				cell1.setCellValue("男");
-			}else if("1".equals(sex)){
-				cell1.setCellValue("女");
+		if(eUsers!=null&&eUsers.size()>0){
+			for(int j=0;j<eUsers.size();j++){
+				EUser eUser = eUsers.get(j);
+				HSSFRow row = sheet.createRow(j+1);
+				HSSFCell cell = row.createCell(0);
+				cell.setCellValue(eUser.getEUser_name());
+				HSSFCell cell1 = row.createCell(1);
+				String sex = eUser.getEUser_sex();
+				if("0".equals(sex)){
+					cell1.setCellValue("男");
+				}else if("1".equals(sex)){
+					cell1.setCellValue("女");
+				}
+				
+				HSSFCell cell2 = row.createCell(2);
+				cell2.setCellValue(eUser.getEUser_companyname());
+				HSSFCell cell3 = row.createCell(3);
+				cell3.setCellValue(eUser.getEUser_department());
+				HSSFCell cell4 = row.createCell(4);
+				cell4.setCellValue(eUser.getEUser_hold());
+				HSSFCell cell5 = row.createCell(5);
+				cell5.setCellValue(eUser.getEUser_indentitynumber());
+				HSSFCell cell6 = row.createCell(6);
+				cell6.setCellValue(eUser.getEUser_phone());
+				HSSFCell cell7 = row.createCell(7);
+				cell7.setCellValue(eUser.getEUser_remark());
+				
 			}
-			
-			HSSFCell cell2 = row.createCell(2);
-			cell2.setCellValue(eUser.getEUser_companyname());
-			HSSFCell cell3 = row.createCell(3);
-			cell3.setCellValue(eUser.getEUser_department());
-			HSSFCell cell4 = row.createCell(4);
-			cell4.setCellValue(eUser.getEUser_hold());
-			HSSFCell cell5 = row.createCell(5);
-			cell5.setCellValue(eUser.getEUser_indentitynumber());
-			HSSFCell cell6 = row.createCell(6);
-			cell6.setCellValue(eUser.getEUser_phone());
-			HSSFCell cell7 = row.createCell(7);
-			cell7.setCellValue(eUser.getEUser_remark());
-			
 		}
-		
 		//输出Excel文件
 	    OutputStream output;
 		try {
@@ -770,6 +1138,83 @@ public class FigClassController {
 		resultMap.put("success", true);
 		resultMap.put("message", "2");//删除成功
 		return resultMap;
+	}
+	@RequestMapping("/openClass/{figClass_id}")
+	public Map<String,Object> openClass(@PathVariable String figClass_id,HttpServletRequest request){
+		//
+		Map<String,Object> resultmap = new HashMap<>();
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		//获取拼版实例
+		FigClass figClass = new FigClass();
+		figClass = figClassService.getDetailByid(figClass_id);
+		if(figClass == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//实例不存在
+			return resultmap;
+		}
+		//更新状态
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String updatetime = format.format(new Date());
+		figClass.setFigClass_status("6");
+		figClass.setFigClass_updater(iuser.getUser_id());
+		figClass.setFigClass_updatetime(updatetime);
+		try{
+			figClassService.updateStatus(figClass);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//开课失败
+			return resultmap;
+		}
+		resultmap.put("success", true);
+		resultmap.put("message", "3");//开课成功
+		return resultmap;
+	}
+	
+	@RequestMapping("/endClass/{figClass_id}")
+	public Map<String,Object> endClass(@PathVariable String figClass_id,HttpServletRequest request){
+		//
+		Map<String,Object> resultmap = new HashMap<>();
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		//获取拼版实例
+		FigClass figClass = new FigClass();
+		figClass = figClassService.getDetailByid(figClass_id);
+		if(figClass == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//实例不存在
+			return resultmap;
+		}
+		//更新状态
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String updatetime = format.format(new Date());
+		figClass.setFigClass_status("7");
+		figClass.setFigClass_updater(iuser.getUser_id());
+		figClass.setFigClass_updatetime(updatetime);
+		try{
+			figClassService.updateStatus(figClass);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//开课失败
+			return resultmap;
+		}
+		resultmap.put("success", true);
+		resultmap.put("message", "3");//开课成功
+		return resultmap;
 	}
 	
 }

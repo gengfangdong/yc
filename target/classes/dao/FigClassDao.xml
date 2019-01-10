@@ -23,12 +23,22 @@
 		<result column="FIGCLASS_CAOGERY" jdbcType="VARCHAR" property="FigClass_caogery"/>
 		<result column="FIGCLASS_OUTLINE" jdbcType="VARCHAR" property="FigClass_outline"/>
 		<result column="FIGCLASS_DAY" jdbcType="VARCHAR" property="FigClass_day"/>
+		<result column="FIGCLASS_WORKNUM" jdbcType="VARCHAR" property="FigClass_worknum"/>
 	</resultMap>
+	<select id="getlaveNum" resultType="int">
+		select COALESCE(SUM(PERNUM),0) AS PERNUMCOUNT FROM (select to_number(F.FIU_NUMBER) AS PERNUM from FIGUSER F WHERE 
+		<if test="figClass_id != null and figClass_id != '' ">
+			F.FIU_FIGID=#{figClass_id} AND
+		</if>
+		 F.FIU_ISDELETE='0')
+	</select>
 	<update id="startScheduledFig">
 		 update FIGCLASS f
 		    set f.FIGCLASS_STATUS = (case
 		                                when SYSDATE &lt;
-		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') then
+		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
+		                                    SYSDATE &gt;
+		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') then
 		                                '3'
 		                               when SYSDATE &gt;=
 		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
@@ -40,11 +50,6 @@
 		                                    SYSDATE &lt;
 		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') then
 		                                '5'
-		                                when SYSDATE &gt;=
-		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;=
-		                                    TO_DATE(FIGCLASS_CLASS_END, 'YYYY-MM-DD') then
-		                                '6'
 		                                when SYSDATE &gt;
 		                                    TO_DATE(FIGCLASS_CLASS_END, 'YYYY-MM-DD') then
 		                                '7'
@@ -53,15 +58,16 @@
 		  and f.FIGCLASS_STATUS &lt;&gt; '7' 
 		  and f.FIGCLASS_STATUS &lt;&gt; '0'
 		  and f.FIGCLASS_STATUS &lt;&gt; '2'
+		  and f.FIGCLASS_STATUS &lt;&gt; '6'
 	</update>
 	 <insert id="insertFig" parameterType="entity.FigClass">
 		insert into FIGCLASS(FIGCLASS_ID,FIGCLASS_NAME,FIGCLASS_DEPARMENT,FIGCLASS_ADDRESS,FIGCLASS_START_DATE,FIGCLASS_END_DATE,FIGCLASS_CLASS_START,
 		FIGCLASS_CLASS_END,FIGCLASS_PERNUM,FIGCLASS_PHONE,FIGCLASS_PERSON,FIGCLASS_STATUS,FIGCLASS_CREATER,
-		FIGCLASS_CREATETIME,FIGCLASS_UPDATER,FIGCLASS_UPDATETIME,FIGCLASS_ISDELETE,FIGCLASS_NUMSTATUS,FIGCLASS_CAOGERY,FIGCLASS_OUTLINE,FIGCLASS_DAY)
+		FIGCLASS_CREATETIME,FIGCLASS_UPDATER,FIGCLASS_UPDATETIME,FIGCLASS_ISDELETE,FIGCLASS_NUMSTATUS,FIGCLASS_CAOGERY,FIGCLASS_OUTLINE,FIGCLASS_DAY,FIGCLASS_WORKNUM)
 		values(#{FigClass_id},#{FigClass_name},#{FigClass_deparment},#{FigClass_address},
 		#{FigClass_start_date},#{FigClass_end_date},#{FigClass_class_start},#{FigClass_class_end},#{FigClass_pernum},
 		#{FigClass_phone},#{FigClass_person},#{FigClass_status},#{FigClass_creater},#{FigClass_createtime},
-		#{FigClass_updater},#{FigClass_updatetime},#{FigClass_isdelete},#{FigClass_numstatus},#{FigClass_caogery},#{FigClass_outline},#{FigClass_day,jdbcType=VARCHAR})
+		#{FigClass_updater},#{FigClass_updatetime},#{FigClass_isdelete},#{FigClass_numstatus},#{FigClass_caogery},#{FigClass_outline},#{FigClass_day,jdbcType=VARCHAR},#{FigClass_worknum})
 	</insert>
 	
 	<select id="getDetail" parameterType="String" resultMap="FigClass">
@@ -256,6 +262,13 @@
 									         <if test="user_id != null and user_id != ''">
 												and f.creater  = #{user_id}
 											</if>
+											union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user_id != null and user_id != ''">
+												g.figclass_creater= #{user_id} and
+												</if>  g.figclass_isdelete='0'
 									           
 				        )) f
 			) A
@@ -355,6 +368,13 @@
 									         <if test="user_id != null and user_id != ''">
 												and f.creater  = #{user_id}
 											</if>
+											union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user_id != null and user_id != ''">
+												g.figclass_creater= #{user_id} and
+												</if>  g.figclass_isdelete='0'
 									           
 				        )) f
 			) A
@@ -375,7 +395,114 @@
 			FIGCLASS_UPDATER=#{FigClass_updater},
 			FIGCLASS_UPDATETIME=#{FigClass_updatetime},
 			FIGCLASS_CAOGERY=#{FigClass_caogery},
-			FIGCLASS_OUTLINE=#{FigClass_outline}
+			FIGCLASS_OUTLINE=#{FigClass_outline},
+			FIGCLASS_DAY = #{FigClass_day},
+			FIGCLASS_WORKNUM = #{FigClass_worknum}
 				WHERE FIGCLASS_ID = #{FigClass_id} AND FIGCLASS_ISDELETE = '0'
+	</update>
+	
+	<select id="getListBypagemp" resultMap="FigClass">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				         union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user != null and user != ''">
+												g.figclass_creater= #{user} and
+												</if>  g.figclass_isdelete='0')
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				           union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user != null and user != ''">
+												g.figclass_creater= #{user} and
+												</if>  g.figclass_isdelete='0')
+				</if>
+			<if test="caogery != null and caogery != '' ">
+				and fg.FIGCLASS_CAOGERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and fg.FIGCLASS_STATUS = #{status}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
+	<select id="getListCountmp" resultType="int">
+		select count(*)
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				         union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user != null and user != ''">
+												g.figclass_creater= #{user} and
+												</if>  g.figclass_isdelete='0')
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.figclass_id)
+				          from user_figclass f
+				         where f.isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.creater = #{user}
+				         </if>
+				           union 
+							                  select g.figclass_id
+							                  from figclass g
+							                      where
+							                      <if test="user != null and user != ''">
+												g.figclass_creater= #{user} and
+												</if>  g.figclass_isdelete='0')
+				</if>
+			<if test="caogery != null and caogery != '' ">
+				and fg.FIGCLASS_CAOGERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and fg.FIGCLASS_STATUS = #{status}
+			</if>
+	</select>
+	
+	<update id="updateStatus" parameterType="FigClass">
+		UPDATE FIGCLASS F
+			SET F.FIGCLASS_STATUS = #{FigClass_status},
+				F.FIGCLASS_UPDATER = #{FigClass_updater},
+				F.FIGCLASS_UPDATETIME = #{FigClass_createtime}
+				WHERE F.FIGCLASS_ID=#{FigClass_id} and F.FIGCLASS_ISDELETE = '0'
 	</update>
 </mapper>

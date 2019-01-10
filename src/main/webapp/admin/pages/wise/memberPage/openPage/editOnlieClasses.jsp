@@ -75,6 +75,10 @@
 			#downLoad:hover{
 				color:#FFF!important;
 			}
+			.layui-table-cell{
+				text-align:center;
+				margin:auto;
+			}
 		</style>
 	</head>
 	<body>
@@ -143,7 +147,7 @@
 									</div>
 									
 									<div class="layui-tab-item">
-										<label for="" class="control-label" style="float: left;">大纲：</label>	
+										<label for="" class="control-label" style="float: left;">大纲：<span style="color:red;">*<span></label>	
 										<textarea style="width: 93%;height: 150px;border-radius:5px;"></textarea>
 									</div>
 									
@@ -161,35 +165,35 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">班级名称:</td>
+											<td class="leftTd">班级名称:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="classesName" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">拼班发起单位:</td>
+											<td class="leftTd">拼班发起单位:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办地点:</td>
+											<td class="leftTd">预计举办地点:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名开始日期:</td>
+											<td class="leftTd">报名开始日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名截止日期:</td>
+											<td class="leftTd">报名截止日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
@@ -197,14 +201,14 @@
 										</tr>
 										
 										<tr>
-											<td class="leftTd">预计举办日期:</td>
+											<td class="leftTd">预计举办日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input id="hostDate" name="hostDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计结课日期:</td>
+											<td class="leftTd">预计结课日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input value="" id="classesEndDate" name="classesEndDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
@@ -225,7 +229,7 @@
 
 										</tr> -->
 										<tr>
-											<td class="leftTd">班级容纳人数:</td>
+											<td class="leftTd">班级容纳人数:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
 											</td>
@@ -238,16 +242,22 @@
 											</td>
 										</tr> -->
 										<tr>
-											<td class="leftTd">拼班联系人员:</td>
+											<td class="leftTd">拼班联系人员:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactPersonnel" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">拼班联系电话:</td>
+											<td class="leftTd">拼班联系电话:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactNumber" style="width: 100%;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">拼班联系办公电话:<span style="color:red;">*<span></td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="contactWorkNumber" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
@@ -447,10 +457,23 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
+			      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:80},
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
-			    page: false
+			    page: false,
+			    done:function(){
+			    	var outline = freeco_outline.split(",");
+			    	var days = freeco_day.split(",");
+			    	
+			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
+			    		for(var j = 0;j<outline.length;j++){
+			    			if(outline[j] == $("#sample-table-1 .layui-table-body tr")[i].children[6].children[0].children[0].id){
+			    				$("#sample-table-1 .layui-table-body tr")[i].children[5].children[0].children[0].value = days[j];
+			  				}		
+			    		}
+			    	}
+			    }
 			  });
 			  
 			//监听工具条
@@ -464,7 +487,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: '../../adminPage/openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -501,18 +524,10 @@
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
-				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false,
-				    done:function(){
-				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
-				    		if($("#sample-table-2 .layui-table-body tr")[i].children[2].children[0].innerHTML == freeco_outline){
-				    			$("#sample-table-2 .layui-table-body tr")[i].children[4].children[0].children[0].value = freeco_day;
-				    		}
-				    	}
-				    }
+				    page: false
 				  });
 			  
 			//监听工具条
@@ -526,7 +541,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
+							content: '../../adminPage/openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -646,8 +661,10 @@
 				//var enrollNumber = $("#enrollNumber").val();
 				var contactPersonnel = $("#contactPersonnel").val();
 				var contactNumber = $("#contactNumber").val();
+				var contactWorkNumber = $("#contactWorkNumber").val();
 				var type = $(".layui-this")[0].innerHTML;
 				var selectList = new Array;
+				var selectList2 = new Array;
 				var reg=/^[1-9]\d*$|^0$/; // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
 				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
 				var testPhone = /^1\d{10}$/;//手机
@@ -655,10 +672,8 @@
 					type=0;
 					if($('#sample-table-2 .layui-form-checked').length==1){
 						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
 					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
 						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
 					}else if($('#sample-table-2 .layui-form-checked').length==0){
 						alert("请选择一个方案！");
 						return;
@@ -670,21 +685,34 @@
 				}else if(type=="课程定制"){
 					type=1;
 					if($($("#sample-table-1 .layui-table-header tr")[0].children[0].children[0].children[1]).is('.layui-form-checked')==true){
-						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=1,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[6].children[0].children[0].id;
+							selectList2[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].value;
 						}
-					}else if($('.layui-form-checked').length==0){
+					}else if($('#sample-table-1 .layui-form-checked').length==0){
 						alert("请选择课程！");
 						return;
 					}else{
-						for(var i=0,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=0,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[6].children[0].children[0].id;
+							selectList2[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].value;
 						}
 					}
 				}else if(type=="自由定制"){
 					type=2;
 					selectList[0] = $("textarea")[0].value;
 				}
+				var nowDate = new Date();
+				var nowYear = nowDate.getFullYear();
+				var nowMonth = nowDate.getMonth()+1;
+				var nowDay = nowDate.getDate();
+				if (nowMonth >= 1 && nowMonth <= 9) {
+					nowMonth = "0" + nowMonth;
+		        }
+		        if (nowDay >= 0 && nowDay <= 9) {
+		            nowDay = "0" + nowDay;
+		        }
+				var nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
 				
 				if(classesName==""){
 					alert("请填写班级名称！");
@@ -701,9 +729,16 @@
 				if(togetherClassesStartDate==""){
 					alert("请选择报名开始日期！");
 					return;
+				}else if(togetherClassesStartDate<nowDate){
+					alert("报名开始日期应在当前日期之后！");
+					return;
 				}
 				if(togetherClassesEndDate==""){
 					alert("请选择报名截止日期！");
+					return;
+				}
+				if(togetherClassesStartDate>togetherClassesEndDate){
+					alert("报名开始日期应在报名结束日期之前！");
 					return;
 				}
 				if(hostDate==""){
@@ -712,6 +747,14 @@
 				}
 				if(classesEndDate==""){
 					alert("请选择预计结课日期！");
+					return;
+				}
+				if(togetherClassesEndDate>hostDate){
+					alert("开课日期应在报名结束日期之后！");
+					return;
+				}
+				if(classesEndDate<hostDate){
+					alert("开课日期应在结课日期之前！");
 					return;
 				}
 				if(maxClassesNumber==""){
@@ -726,14 +769,21 @@
 				if(contactNumber==""){
 					alert("请填写联系电话！");
 					return;
-				}else if(testPhone.test(contactNumber)==false && testTel.test(contactNumber)==false){
+				}else if(testPhone.test(contactNumber)==false){
 					alert("请输入有效的联系电话！");
 					return;
 				}
-				if(filelist.length<=0&&filesa.length<=0){
+				if(contactWorkNumber==""){
+					alert("请填写办公电话！");
+					return;
+				}else if(testTel.test(contactWorkNumber)==false){
+					alert("请填写有效的办公电话！");
+					return;
+				}
+				/* if(filelist.length<=0&&filesa.length<=0){
 					alert("请选择资料上传!");
 					return;
-				}  
+				}  */ 
 				var fd = new FormData();
 				for(var i=0;i<filelist.length;i++){
 					fd.append('file',filelist[i]);
@@ -752,12 +802,14 @@
 				fd.append('figClass_pernum',maxClassesNumber);
 				fd.append('figClass_person',contactPersonnel);
 				fd.append('figClass_phone',contactNumber);
+				fd.append('contactWorkNumber',contactWorkNumber);
 				fd.append('figClass_caogery',type);
 			
 				fd.append('figClass_outline',selectList);
+				fd.append('figClass_day',selectList2);
 
 				$.ajax({
-					url:'<%=request.getContextPath()%>/FigClass/updateFigClass',
+					url:'<%=request.getContextPath()%>/FigClass/updateFigClassnew',
 					type:'post',
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data
@@ -774,22 +826,13 @@
 								});
 							}
 						}else{
-							layer.confirm('保存失败！', { title:'提示'}, function(index){ 
-								window.parent.location.reload();
-								var index1 = parent.layer.getFrameIndex(window.name);
-								parent.layer.close(index1);
-								console.log(error);
-							});
+							layer.alert('保存失败!');
+							console.log(error);
 						}
 					},
 					error:function(error){
-						layer.confirm('保存失败!', { title:'提示'}, function(index){
-							  
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-							console.log(error);
-						});
+						layer.alert('保存失败!');
+						console.log(error);
 					}
 				})
 				
@@ -833,6 +876,7 @@
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
 						$("#contactNumber").val(data.data.figClass.figClass_phone);
+						$("#contactWorkNumber").val(data.data.figClass.figClass_worknum);
 						
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
@@ -853,7 +897,6 @@
 								$(nDivShow[0]).addClass('layui-show');
 							}
 							window.freeco_outline = data.data.figClass.figClass_outline;
-							window.freeco_day = data.data.figClass.figClass_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -881,6 +924,7 @@
 							}
 
 							window.freeco_outline = data.data.figClass.figClass_outline;
+							window.freeco_day = data.data.figClass.figClass_day;
 			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
@@ -937,10 +981,10 @@
 		}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id={{d.course_id}}  lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}}  lay-event="show">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
-  			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>
+  			<a class="" lay-event="show2">查看</a>
 		</script>
 		<script type="text/html" id="radio2">
 			<input type="radio" name="planRadio" value="{{d.id}}" />

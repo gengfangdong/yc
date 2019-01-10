@@ -354,7 +354,7 @@ String caogery = (String)session.getAttribute("isad");
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['1063px', '530px'],
+						area: ['90%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
@@ -400,7 +400,7 @@ String caogery = (String)session.getAttribute("isad");
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '修改',
-						area: ['1063px', '530px'],
+						area: ['90%', '530px'],
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],

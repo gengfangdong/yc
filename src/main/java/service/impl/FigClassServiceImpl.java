@@ -15,12 +15,15 @@ import dao.ClassPlanDao;
 import dao.CourseDao;
 import dao.EUserDao;
 import dao.FigClassDao;
+import dao.FigUserDao;
 import dao.FigfileDao;
+import dao.IUserDao;
 import dao.User_FigClassDao;
 import entity.EUser;
 import entity.FigClass;
 import entity.FigClassVo;
 import entity.FigClassshowVo;
+import entity.FigUser;
 import entity.Figfile;
 import entity.Free_constom;
 import entity.IUser;
@@ -51,7 +54,11 @@ public class FigClassServiceImpl implements FigClassService {
 	@Autowired
 	private ConstomService constomService;
 	@Autowired
+	private IUserDao iUserDao;
+	@Autowired
 	private User_FigClassDao user_FigClassDao;
+	@Autowired
+	private FigUserDao figUserDao;
 	public void insertFig(FigClass figClass, List<Figfile> figfiles) {
 		// TODO Auto-generated method stub
 		figClassDao.insertFig(figClass);
@@ -116,22 +123,41 @@ public class FigClassServiceImpl implements FigClassService {
 		if(figClasses!=null&&figClasses.size()>0){
 			for (FigClass figClass : figClasses) {
 				FigClassshowVo figClassshowVo = tranfrom(figClass);
-				int num = 0;
-				num = user_FigClassDao.getCountByid(null, figClassshowVo.getFigClass_id());				
+				//获取创建人
+				String user_name = iUserDao.getDetailByid(figClass.getFigClass_creater()).get(0).getUser_name();
+				figClassshowVo.setFigClass_updatetime(figClass.getFigClass_updatetime());
+				figClassshowVo.setFigClass_creater(user_name);
+				/*int num = 0;
+				num = user_FigClassDao.getCountByid(null, figClassshowVo.getFigClass_id());*/				
 				int lave = 0;	
-				lave = Integer.valueOf(figClassshowVo.getFigClass_pernum())-num;
+				lave = figClassDao.getlaveNum(figClassshowVo.getFigClass_id());
 				figClassshowVo.setFigClass_number(lave);
+				List<String> userids = new ArrayList<String>();
+				userids = figUserDao.getPage(figClassshowVo.getFigClass_id());
 				List<String> ids = new ArrayList<String>();
 				ids = user_FigClassDao.getUserByid(figClassshowVo.getFigClass_id());
-				if(ids != null && ids.size()>=0){
-					if(ids.contains(user_id)){
-						figClassshowVo.setUser_status("1");
+				if(userids != null && userids.size()>=0){
+					if(userids.contains(user_id)){
+						figClassshowVo.setBmstatus("1");
+						if(ids != null && ids.size()>=0){
+							if(ids.contains(user_id)){
+								figClassshowVo.setUser_status("1");
+							}
+							else
+								figClassshowVo.setUser_status("0");
+						}
+						else
+							figClassshowVo.setUser_status("0");
 					}
-					else
+					else{
+						figClassshowVo.setBmstatus("0");
 						figClassshowVo.setUser_status("0");
+					}
 				}
-				else
+				else{
+					figClassshowVo.setBmstatus("0");
 					figClassshowVo.setUser_status("0");
+				}
 				if("".equals(user_id)){
 					figClassshowVo.setIsdelete("1");//可删除
 				}else{
@@ -173,6 +199,9 @@ public class FigClassServiceImpl implements FigClassService {
 		List<EUser> newinsertEuser = new ArrayList<EUser>();
 		List<EUser> newupdateEuser = new ArrayList<EUser>();
 		List<User_Figclass> user_Figclasses = new ArrayList<User_Figclass>();
+		//创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
 		//获取旧的人员列表
 		List<EUser> oldEuser = new ArrayList<EUser>();
 		oldEuser = eUserDao.getListBycreater(user_id);
@@ -193,9 +222,6 @@ public class FigClassServiceImpl implements FigClassService {
 					newinsertEuser.add(eUser);
 				}
 				
-				//创建时间
-				SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-				String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
 				User_Figclass user_Figclass = new User_Figclass();
 				user_Figclass.setCreater(user_id);
 				user_Figclass.setCreatetime(APPLYDATE);
@@ -225,9 +251,7 @@ public class FigClassServiceImpl implements FigClassService {
 			//直接批量增加人员列表eUsers
 			insert = eUsers.size();
 			for (EUser eUser : eUsers) {
-				//创建时间
-				SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-				String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+				
 				User_Figclass user_Figclass = new User_Figclass();
 				user_Figclass.setCreater(user_id);
 				user_Figclass.setCreatetime(APPLYDATE);
@@ -242,8 +266,12 @@ public class FigClassServiceImpl implements FigClassService {
 			}
 			eUserDao.insertByBatch(eUsers);
 		}
-		
+		user_FigClassDao.deleteFig(user_id, APPLYDATE, figClass_id, user_id);
 		user_FigClassDao.insertUser_Fig(user_Figclasses);
+		FigUser figUser = new FigUser();
+		figUser = figUserDao.getByFigClassidanduserid(figClass_id, user_id).get(0);
+		figUser.setFiu_status("1");
+		figUserDao.updateStatus(figUser);
 		/*// 创建时间
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
@@ -253,6 +281,7 @@ public class FigClassServiceImpl implements FigClassService {
 		figClass.setFreeco_updater(user_id);
 		figClass.setFreeco_updatetime(APPLYDATE);
 		constomDao.uploadfile(free_constom);*/
+		
 		return insert+update;
 	}
 
@@ -319,7 +348,7 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_status(free_constom.getFreeco_status());
 					memProjectVo.setIsdelete("1");
 					memProjectVo.setIsbm(free_constom.getFreeco_numfile());
-					memProjectVo.setProject_person(free_constom.getFreeco_person());
+					memProjectVo.setProject_person(iUserDao.getDetailByid(free_constom.getFreeco_creater()).get(0).getUser_name());
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -341,7 +370,7 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_status(scheduledShiftShow.getScheduledshift().getScheduled_status());
 					memProjectVo.setIsbm("1");
 					memProjectVo.setIsdelete("0");
-					memProjectVo.setProject_person(scheduledShiftShow.getScheduledshift().getScheduled_address());
+					memProjectVo.setProject_person("管理员");
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -350,20 +379,27 @@ public class FigClassServiceImpl implements FigClassService {
 			mDataTable.setData(memProjectVos);
 			mDataTable.setMsg("");
 		}else if("2".equals(caogery)){//拼班
-			LayuiDataTable<FigClassshowVo> fDataTable = getListBypage("1",status, "", page, limit, user_id);
+			LayuiDataTable<FigClassshowVo> fDataTable = getListBypagemp("1",status, "", page, limit, user_id);
 			if(fDataTable.getData()!=null&&fDataTable.getData().size()>0){
 				for (FigClassshowVo figClassshowVo : fDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
 					memProjectVo.setProject_id(figClassshowVo.getFigClass_id());
-					memProjectVo.setProject_caogery("1");
+					memProjectVo.setProject_caogery("2");
 					memProjectVo.setProject_datanum(""+StringUtil.getDataSub(figClassshowVo.getFigClass_class_start(), figClassshowVo.getFigClass_class_end()));
 					memProjectVo.setProject_name(figClassshowVo.getFigClass_name());
 					memProjectVo.setProject_pernum(figClassshowVo.getFigClass_pernum());
 					memProjectVo.setProject_start(figClassshowVo.getFigClass_class_start());
 					memProjectVo.setProject_status(figClassshowVo.getFigClass_status());
-					memProjectVo.setIsbm("1");
-					memProjectVo.setIsdelete("0");
-					memProjectVo.setProject_person(figClassshowVo.getFigClass_name());
+					memProjectVo.setIsbm(figClassshowVo.getUser_status());
+					if(user_id.equals(figClassshowVo.getFigClass_creater())){
+						memProjectVo.setIsdelete("1");
+					}
+					else{
+						memProjectVo.setIsdelete("0");
+					}
+					String user_name = iUserDao.getDetailByid(figClassshowVo.getFigClass_creater()).get(0).getUser_name();
+					
+					memProjectVo.setProject_person(user_name);
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -383,6 +419,7 @@ public class FigClassServiceImpl implements FigClassService {
 					
 					memProjectVo.setProject_name(map.get("PROJECT_NAME").toString());
 					if("0".equals(caog)){//定制   方案定制上面有天数   FREECO_DAY  课程定制没有  自由定制有天数   FREECO_DATANUM
+						memProjectVo.setProject_person(iUserDao.getDetailByid(map.get("PROJECT_ISDELETE").toString()).get(0).getUser_name());
 						if(map.get("PROJECT_DATANUM") == null){
 							if(map.get("PROJECT_DAY") == null){
 								memProjectVo.setProject_datanum("待定");
@@ -396,15 +433,17 @@ public class FigClassServiceImpl implements FigClassService {
 						
 						
 					}else if ("1".equals(caog)){//规定  SCHEDULED_CLASS_START  SCHEDULED_CLASS_END
+						memProjectVo.setProject_person("管理员");
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}else if("2".equals(caog)){//拼班  FIGCLASS_CLASS_START FIGCLASS_CLASS_END
+						memProjectVo.setProject_person(iUserDao.getDetailByid(map.get("PROJECT_ISDELETE").toString()).get(0).getUser_name());
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}
 					memProjectVo.setIsbm(map.get("PROJECT_ISBM").toString());
 					memProjectVo.setIsdelete(user_id.equals(map.get("PROJECT_ISDELETE").toString())?"1":"0");
-					memProjectVo.setProject_person("");
+					
 					memProjectVo.setProject_start(map.get("PROJECT_START").toString());
 					memProjectVo.setProject_allnum(map.get("PROJECT_ALLNUM").toString());
 					memProjectVo.setProject_status(map.get("PROJECT_STATUS").toString());
@@ -455,8 +494,110 @@ public class FigClassServiceImpl implements FigClassService {
 		// TODO Auto-generated method stub
 		figClassDao.startScheduledFig();
 	}
-
+	public LayuiDataTable<FigClassshowVo> getListBypagemp(String isbm,String status, String caogery, int page, int limit, String user_id) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
+		List<FigClass> figClasses = new ArrayList<FigClass>();
+		int count = 0;
+		figClasses = figClassDao.getListBypagemp(isbm,user_id,status, caogery, (page-1)*limit, (page-1)*limit+limit);
+		List<FigClassshowVo> figClassshowVos = new ArrayList<FigClassshowVo>();
+		if(figClasses!=null&&figClasses.size()>0){
+			for (FigClass figClass : figClasses) {
+				FigClassshowVo figClassshowVo = tranfrom(figClass);
+				//获取创建人
+				String user_name = figClass.getFigClass_creater();
+				figClassshowVo.setFigClass_updatetime(figClass.getFigClass_updatetime());
+				figClassshowVo.setFigClass_creater(user_name);
+				int num = 0;
+				num = user_FigClassDao.getCountByid(null, figClassshowVo.getFigClass_id());				
+				int lave = 0;	
+				lave = Integer.valueOf(figClassshowVo.getFigClass_pernum())-num;
+				figClassshowVo.setFigClass_number(lave);
+				List<String> ids = new ArrayList<String>();
+				ids = user_FigClassDao.getUserByid(figClassshowVo.getFigClass_id());
+				if(ids != null && ids.size()>=0){
+					if(ids.contains(user_id)){
+						figClassshowVo.setUser_status("1");
+					}
+					else
+						figClassshowVo.setUser_status("0");
+				}
+				else
+					figClassshowVo.setUser_status("0");
+				if("".equals(user_id)){
+					figClassshowVo.setIsdelete("1");//可删除
+				}else{
+					if(user_id.equals(figClass.getFigClass_creater())){
+						figClassshowVo.setIsdelete("1");
+					}
+					else
+						figClassshowVo.setIsdelete("0");
+				}
+				figClassshowVos.add(figClassshowVo);
+				
+			}
+		}
+		fDataTable.setData(figClassshowVos);
+		count = figClassDao.getListCountmp(isbm,user_id,caogery, status);
+		fDataTable.setCount(count);
+		return fDataTable;
+	}
 	//李  鹏   永
+
+	@Override
+	public void applyFig(FigUser figUser) {
+		// TODO Auto-generated method stub
+		figUserDao.insertFiu(figUser);
+	}
+
+	@Override
+	public int getlaveNum(String figClass_id) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		count = figClassDao.getlaveNum(figClass_id);
+		return count;
+	}
+
+	@Override
+	public void cancelFiu(String fiu_id) {
+		// TODO Auto-generated method stub
+		figUserDao.deleteFiu(fiu_id);
+	}
+
+	@Override
+	public LayuiDataTable<FigUser> getPage(int start, int limit, String figClass_id) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<FigUser> fDataTable = new LayuiDataTable<>();
+		List<FigUser> figUsers = new ArrayList<>();
+		int count = 0;
+		figUsers = figUserDao.getByPage((start-1)*limit, start*limit, figClass_id);
+		List<String> userids = new ArrayList<>();
+		userids = user_FigClassDao.getUserByid(figClass_id);
+		if(figUsers != null && figUsers.size()>0){
+			for (FigUser figUser : figUsers) {
+				String user_id = figUser.getFiu_creater();
+				figUser.setFiu_creater(iUserDao.getDetailByid(user_id).get(0).getUser_name());
+				if(userids != null && userids.size()>0){
+					if(userids.contains(user_id)){
+						figUser.setFiu_status("1");
+					}
+					else
+						figUser.setFiu_status("0");
+				}else
+					figUser.setFiu_status("0");
+			}
+			fDataTable.setData(figUsers);
+			count = figUserDao.getcountByPage(figClass_id);
+		}
+		fDataTable.setCount(count);
+		return fDataTable;
+	}
+
+	@Override
+	public void updateStatus(FigClass figClass) {
+		// TODO Auto-generated method stub
+		figClassDao.updateStatus(figClass);
+	}
 	
 	
 }

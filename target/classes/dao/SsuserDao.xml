@@ -4,7 +4,7 @@
 	<resultMap type="entity.Ssuser" id="Ssuser">
 		<result column="SSU_ID" jdbcType="VARCHAR" property="Ssu_id"/>
 		<result column="SSU_USERID" jdbcType="VARCHAR" property="Ssu_userid"/>
-		<result column="SSU_SSID" jdbcType="VARCHAR" property="Ssu_ssid"/>
+		<result column="" jdbcType="VARCHAR" property="Ssu_ssid"/>
 		<result column="SSU_USERNUMBER" jdbcType="VARCHAR" property="Ssu_usernumber"/>
 		<result column="SSU_USERNAME" jdbcType="VARCHAR" property="Ssu_username"/>
 		<result column="SSU_YDPHONE" jdbcType="VARCHAR" property="Ssu_ydphone"/>
@@ -26,7 +26,12 @@
 	<select id="getSsuserByUserId" parameterType="Ssuser" resultType="Ssuser">
 		select *　from SSUSER s where s.SSU_ISDELETE = '0' and s.SSU_USERID = #{User_id}
 	</select>
-	
+	<select id="getDetailById" parameterType="String" resultType="Ssuser">
+		select * from SSUSER s where s.SSU_ISDELETE = '0' and s.SSU_ID = #{ssu_id}
+	</select>
+	<select id="getsuuid" resultType="String">
+		select s.SSU_ID from SSUSER s where s.SSU_ISDELETE = '0' and s.SSU_USERID = #{User_id} and s.SSU_SSID = #{scheduled_id}
+	</select>
 	<update id="deleteSsuser" parameterType="String">
 		UPDATE SSUSER U
 			SET U.SSU_ISDELETE = '1'
@@ -43,4 +48,48 @@
 	<select id="getListUserByscid" resultType="String">
 		SELECT * FROM USER_PROJECT  s where s.ISDELETE = '0' and s.PROJECT_ID = #{scheduled_id}
 	</select>
+	
+	<select id="getListUserByidsc" resultType="String">
+		select * from USER_PROJECT  s where s.ISDELETE = '0' and s.PROJECT_ID = #{scheduled_id} and s.SSU_ID in (
+			select U.SSU_ID from SSUSER U where U.SSU_ISDELETE = '0' and U.SSU_SSID = #{scheduled_id} and U.SSU_USERID = #{User_id}
+		)
+	</select>
+	
+	<select id="getLavenumber" resultType="int">
+		select COALESCE(SUM(PERNUM),0) AS PERNUMCOUNT FROM (select to_number(F.SSU_USERNUMBER) AS PERNUM from SSUSER F WHERE 
+		<if test="project_id != null and project_id != '' ">
+			F.SSU_SSID=#{project_id} AND
+		</if>
+		 F.SSU_ISDELETE='0')
+	</select>
+	<select id="getByPage" resultType="Ssuser">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from SSUSER F
+			where F.SSU_ISDELETE = '0' 
+			<if test="project_id != null and project_id != '' ">
+				and F.SSU_SSID = #{project_id}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{limit}
+		)  
+		WHERE RN &gt; #{start}
+	</select>
+	
+	<select id="getcountByPage" resultType="int">
+		select count(*) from (
+			select * from SSUSER F
+			where F.SSU_ISDELETE = '0' 
+			<if test="project_id != null and project_id != '' ">
+				and F.SSU_SSID = #{project_id}
+			</if>
+		)
+	</select>
+	<update id="updteStatus" parameterType="Ssuser">
+		UPDATE SSUSER S
+			SET S.SSU_STATUS = #{Ssu_status}
+				WHERE S.SSU_ID = #{Ssu_id}
+					AND S.SSU_ISDELETE='0'
+	</update> 
 </mapper>

@@ -11,5 +11,6 @@ import entity.User_Constom;
 public interface User_ConstomDao {
 	public void insertBatch(List<User_Constom> user_ConstomList);
 	public List<String> getListUserByid(@Param("user_id")String user_id,@Param("constom_id")String constom_id);
+	public void cancel(@Param("user_id")String user_id,@Param("constom_id")String constom_id);
 	
 }

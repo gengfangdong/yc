@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.FigUserDao">
+	<resultMap type="entity.FigUser" id="FigUser">
+		<result column="FIU_ID" jdbcType="VARCHAR" property="Fiu_id"/>
+		<result column="FIU_USERID" jdbcType="VARCHAR" property="Fiu_userid"/>
+		<result column="FIU_FIGID" jdbcType="VARCHAR" property="Fiu_figid"/>
+		<result column="FIU_NUMBER" jdbcType="VARCHAR" property="Fiu_number"/>
+		<result column="FIU_USERNAME" jdbcType="VARCHAR" property="Fiu_username"/>
+		<result column="FIU_YDPHONE" jdbcType="VARCHAR" property="Fiu_ydphone"/>
+		<result column="FIU_PHONE" jdbcType="VARCHAR" property="Fiu_phone"/>
+		<result column="FIU_DEPARTMENT" jdbcType="VARCHAR" property="Fiu_department"/>
+		<result column="FIU_CREATER" jdbcType="VARCHAR" property="Fiu_creater"/>
+		<result column="FIU_CREATETIME" jdbcType="VARCHAR" property="Fiu_createtime"/>
+		<result column="FIU_ISDELETE" jdbcType="VARCHAR" property="Fiu_isdelete"/>
+		<result column="FIU_STATUS" jdbcType="VARCHAR" property="Fiu_status"/>
+	</resultMap>
+	<insert id = "insertFiu" parameterType="entity.FigUser">
+		insert into FigUser (FIU_ID,FIU_USERID,FIU_FIGID,FIU_NUMBER,FIU_USERNAME,FIU_YDPHONE,FIU_PHONE,FIU_DEPARTMENT,
+		FIU_CREATER,FIU_CREATETIME,FIU_ISDELETE,FIU_STATUS) 
+		values(#{Fiu_id},#{Fiu_userid},#{Fiu_figid},#{Fiu_number},#{Fiu_username},
+		#{Fiu_ydphone},#{Fiu_phone},#{Fiu_department},#{Fiu_creater},
+		#{Fiu_createtime},#{Fiu_isdelete},#{Fiu_status})
+	</insert>
+	<update id="deleteFiu" parameterType="String">
+		UPDATE FIGUSER T 
+			SET T.FIU_ISDELETE = '1',
+				WHERE T.FIU_ID = #{fiu_id}
+	</update>
+	
+	<select id="getByPage" resultType="FigUser">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from FIGUSER F
+			where F.FIU_ISDELETE = '0' 
+			<if test="figClass_id != null and figClass_id != '' ">
+				and F.FIU_FIGID = #{figClass_id}
+			</if>
+			) A
+			WHERE ROWNUM &lt;= #{limit}
+		)  
+		WHERE RN &gt; #{start}
+	</select>
+	
+	<select id="getcountByPage" resultType="int">
+		select count(*) from (
+			select * from FIGUSER F
+			where F.FIU_ISDELETE = '0' 
+			<if test="figClass_id != null and figClass_id != '' ">
+				and F.FIU_FIGID = #{figClass_id}
+			</if>
+		)
+	</select>
+	
+	<select id="getPage" resultType="String">
+		select F.FIU_USERID from FIGUSER F
+			where F.FIU_ISDELETE = '0' 
+			<if test="figClass_id != null and figClass_id != '' ">
+				and F.FIU_FIGID = #{figClass_id}
+			</if>
+	</select>
+	
+	<select id="getByFigClassidanduserid" parameterType="String" resultType="FigUser">
+		select * from FIGUSER F
+			where F.FIU_ISDELETE = '0' 
+			<if test="figClass_id != null and figClass_id != '' ">
+				and F.FIU_FIGID = #{figClass_id}
+			</if>
+			<if test="user_id !=null and user_id != ''">
+				and F.FIU_USERID = #{user_id}
+			</if>
+	</select>
+	
+	<update id="updateStatus" parameterType="FigUser">
+		update FIGUSER F
+			SET F.FIU_STATUS = #{Fiu_status}
+				WHERE F.FIU_ID = #{Fiu_id}
+					AND F.FIU_ISDELETE ='0'
+	</update>
+	
+</mapper>

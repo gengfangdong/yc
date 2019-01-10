@@ -90,17 +90,13 @@
 		                                    SYSDATE &lt;
 		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') then
 		                                '2'
-		                                when SYSDATE &gt;=
-		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;=
-		                                    TO_DATE(SCHEDULED_CLASS_END, 'YYYY-MM-DD') then
-		                                '3'
 		                                when SYSDATE &gt;
 		                                    TO_DATE(SCHEDULED_CLASS_END, 'YYYY-MM-DD') then
 		                                '4'
 		                             end)
 		  where S.ISDELETE = '0'
 		  and s.SCHEDULED_STATUS &lt;&gt; '4'
+		  and s.SCHEDULED_STATUS &lt;&gt; '3'
 	</update>
 	
 	<select id="getLastNumber" parameterType="String" resultType="java.util.Map">
@@ -211,4 +207,10 @@
 					 and cc.scheduled_status = #{status}
 				 </if> )
 	</select>
+	
+	<update id="updateStatus" parameterType="Scheduledshift">
+		update SCHEDULEDSHIFT s
+		    set s.SCHEDULED_STATUS = #{Scheduled_status}
+		    	where s.Scheduled_id = #{Scheduled_id} and s.isdelete = '0'
+	</update>
 </mapper>

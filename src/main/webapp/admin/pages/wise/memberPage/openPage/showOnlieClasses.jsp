@@ -75,6 +75,17 @@
 			#downLoad:hover{
 				color:#FFF!important;
 			}
+			.disabledInput{
+				border:none;
+				border:1px solid #ccc;
+				border-radius:5px;
+				background:#FFF;
+				cursor:no-drop!important;
+			}
+			.layui-table-cell{
+				text-align:center;
+				margin:auto;
+			}
 		</style>
 	</head>
 	<body>
@@ -125,8 +136,8 @@
 									
 									<div class="layui-tab-item">
 										<div style="margin:20px 0 15px 30px;height:32px;">
-											<label for="" class="control-label" style="float: left;">大纲：</label>
-											<textarea style="width: 93%;height: 150px;border-radius:5px;"></textarea>
+											<label for="" class="control-label" style="float: left;">大纲：<span style="color:red;">*<span></label>
+											<textarea style="width: 93%;height: 150px;border-radius:5px;"  disabled="disabled" class="disabledInput"></textarea>
 										</div>
 									</div>
 									
@@ -144,52 +155,52 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">班级名称:</td>
+											<td class="leftTd">班级名称:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
+												<input type="text" id="classesName" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">拼班发起单位:</td>
+											<td class="leftTd">拼班发起单位:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
+												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办地点:</td>
+											<td class="leftTd">预计举办地点:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
+												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名开始日期:</td>
+											<td class="leftTd">报名开始日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  placeholder="YYYY-MM-DD" type="text"  disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名截止日期:</td>
+											<td class="leftTd">报名截止日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate" placeholder="YYYY-MM-DD" type="text"  disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										
 										<tr>
-											<td class="leftTd">预计举办日期:</td>
+											<td class="leftTd">预计举办日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input id="hostDate" name="hostDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input id="hostDate" name="hostDate" placeholder="YYYY-MM-DD" type="text"  disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计结课日期:</td>
+											<td class="leftTd">预计结课日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="classesEndDate" name="classesEndDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="classesEndDate" name="classesEndDate"  placeholder="YYYY-MM-DD" type="text"  disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 										</tr>
 										
@@ -208,9 +219,9 @@
 
 										</tr> -->
 										<tr>
-											<td class="leftTd">班级容纳人数:</td>
+											<td class="leftTd">班级容纳人数:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
+												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 										</tr>
 										
@@ -221,16 +232,22 @@
 											</td>
 										</tr> -->
 										<tr>
-											<td class="leftTd">拼班联系人员:</td>
+											<td class="leftTd">拼班联系人员:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="contactPersonnel" style="width: 100%;" />
+												<input type="text" id="contactPersonnel" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">拼班联系电话:</td>
+											<td class="leftTd">拼班联系电话:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="contactNumber" style="width: 100%;" />
+												<input type="text" id="contactNumber" style="width: 100%;" disabled="disabled" class="disabledInput" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">拼班联系办公电话:<span style="color:red;">*<span></td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="contactWorkNumber" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
 										</tr>
 										<tr>
@@ -328,14 +345,25 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
+			      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:90},
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false,
 			    done:function(){
+			    	var outline = freeco_outline.split(",");
+			    	var days = freeco_day.split(",");
+			    	
 			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
-			    		if($("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].id != freeco_outline){
-			    			$($("#sample-table-1 .layui-table-body tr")[i]).css('display','none');
+			    		var flag = false;
+			    		for(var j = 0;j<outline.length;j++){
+			    			if(outline[j] == $("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id){
+			    				$("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].value = days[j];
+			    				flag = true;
+			  				}		
+			    		}
+			    		if(flag == false){
+			    			$($("#sample-table-1 .layui-table-body tr")[i]).css("display","none");	
 			    		}
 			    	}
 			    }
@@ -352,7 +380,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [0, 0],
-						content: 'showCourseCatalogue.jsp?course_id='+data.course_id,
+						content: '../../adminPage/openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -388,7 +416,6 @@
 							  //{type:'numbers',title:"序号"},
 						      {field:'classplan_id', title: 'ID',style:'display:none;'},
 						      {field:'classplan_name', title: '方案名称'},
-						      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 						      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
@@ -397,8 +424,6 @@
 				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
 				    		if($("#sample-table-2 .layui-table-body tr")[i].children[0].children[0].innerHTML != freeco_outline){
 				    			$($("#sample-table-2 .layui-table-body tr")[i]).css('display','none');
-				    		}else{
-				    			$("#sample-table-2 .layui-table-body tr")[i].children[2].children[0].children[0].value = freeco_day;
 				    		}
 				    	}
 				    }
@@ -415,7 +440,7 @@
 							shade: 0,
 							maxmin: true,
 							offset: [0, 0],
-							content:  'showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
+							content:'../../adminPage/openPage/showClassesPlan.jsp?ClassPlan_id='+data.classplan_id,
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {
 								layer.setTop(layero); //重点2
@@ -426,9 +451,9 @@
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
-			    $('table.layui-table thead tr th:eq(2)').addClass('layui-hide');
+			    $('table.layui-table thead tr th:eq(0)').addClass('layui-hide');
 			  });
-			  $('table.layui-table thead tr th:eq(2)').addClass('layui-hide');
+			  $('table.layui-table thead tr th:eq(0)').addClass('layui-hide');
 			});
 		</script>
 		<script>
@@ -522,6 +547,7 @@
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
 						$("#contactNumber").val(data.data.figClass.figClass_phone);
+						$("#contactWorkNumber").val(data.data.figClass.figClass_worknum);
 						
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
@@ -544,7 +570,6 @@
 								$(nDivShow[0]).addClass('layui-show');
 							}
 							window.freeco_outline = data.data.figClass.figClass_outline;
-							window.freeco_day = data.data.figClass.figClass_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -573,6 +598,7 @@
 								$(nDivShow[1]).addClass('layui-show');
 							}
 							window.freeco_outline = data.data.figClass.figClass_outline;
+							window.freeco_day = data.data.figClass.figClass_day;
 			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
@@ -631,10 +657,10 @@
 		}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id={{d.course_id}}  lay-event="show" style="margin-right:10px;">查看</a>
+  			<a class="" id={{d.course_id}}  lay-event="show">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
-  			<a class="" lay-event="show2" style="margin-right:10px;">查看</a>
+  			<a class="" lay-event="show2">查看</a>
 		</script>
 		<script type="text/html" id="radio2">
 			<input type="radio" name="planRadio" value="{{d.id}}" />

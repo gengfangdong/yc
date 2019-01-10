@@ -86,13 +86,13 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">课程方案名称:</td>
+											<td class="leftTd">课程方案名称:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="classesName" style="width: 100%;"  /> 
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd" style="vertical-align: middle;">内容:</td>
+											<td class="leftTd" style="vertical-align: middle;">内容:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription" /></textarea>
 											</td>
@@ -204,11 +204,7 @@
 						
 					},
 					error:function(data){
-						layer.confirm('保存失败!', { title:'提示'}, function(index){				
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-						});
+						layer.alert('保存失败!');
 					}
 
 				})

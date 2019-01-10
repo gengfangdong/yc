@@ -336,19 +336,22 @@ String caogery = (String)session.getAttribute("isad");
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:60},
 
-			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:90},
-			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:90},
-			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:90},
-			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
-			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
-			      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:90},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90},
-			      {field:'number', title: '已报名人数',minWidth:100},
-			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:90},
+			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:180, sort: true},
+			      {field:'scheduledshift.createtime', title: '发起时间',templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>',minWidth:180, sort: true},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120, sort: true},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120, sort: true},
+			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120, sort: true},
+			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120, sort: true},
+			     	{field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:180, sort: true},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90, sort: true},
+			      {field:'number', title: '已报名人数',minWidth:120, sort: true},
+			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120, sort: true},
 			      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:120},
-			      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:200}
+			      {field:'numfilestatus', title: '是否上传名单',templet:'#typeBara',minWidth:160},
+			      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
+			    height:'full-181',
 			    page: true
 			  });
 			  
@@ -363,7 +366,7 @@ String caogery = (String)session.getAttribute("isad");
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
+						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id+"&number="+data.number,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -434,7 +437,86 @@ String caogery = (String)session.getAttribute("isad");
 						});	
 			        layer.close(index);
 			      });
-			    }
+			    }else if(obj.event === 'Userupload'){
+				    layui.layer.open({
+			            title: "名单上传",
+			            content: $('#upload_file_dialog').html(),
+			            area: ['500px', '300px'],
+			            btn: ['发送', '取消'],
+			            yes: function (index, layero) {//发送
+			                var f = document.getElementById("Userfile").files;
+			                if(f.length<=0){
+			                	layui.layer.alert("请选择文件!");
+			                	return;
+			                }
+			                var fd = new FormData();
+							fd.append("file",f[0]);
+							fd.append("Ssu_ssid",data.scheduledshift.scheduled_id);
+							fd.append("suuid",data.suuid)
+							$.ajax({
+								url:'<%=request.getContextPath()%>/Ssuser/SignUp',
+								type:'post',
+								encType: 'multipart/form-data', //表明上传类型为文件
+								processData: false,  //tell jQuery not to process the data
+			        			contentType: false,  //tell jQuery not to set contentType
+								data:fd,
+								success:function(data){
+									if(data.success == true){
+										if(data.message == "4"){
+											
+											layer.confirm('上传成功!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}
+									}
+									else if(data.message == "4"){
+
+										layer.confirm('excel存在身份证重复!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}else if(data.message == "2"){
+										layer.confirm('excel无数据!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}else if(data.message == "3"){
+										layer.confirm('人员数量与execl不符合!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}
+								},
+								error:function(data){
+
+								}
+							})
+			            },
+			            btn2:function(index, layero) {//取消
+			                
+			            }
+		       		});
+
+			        //文件上传change事件
+			        $("input[name=uploadfile][type=file]").on("change", function (e) {
+			            var filePath = $(this).val();
+			            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+			            $("#uploadFileName").text(filePath);
+			        });
+				}
 			  });
 			 var $ = layui.$, active = {
 			    reload: function(){
@@ -497,31 +579,35 @@ String caogery = (String)session.getAttribute("isad");
 		</script>
 		<script type="text/html" id="barDemo">
 			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
-		 {{#  if(d.scheduledshift.scheduled_status == "0"){ }}
+		 	{{#  if(d.scheduledshift.scheduled_status == "0"){ }}
 	        
-	     {{#  }else if(d.scheduledshift.scheduled_status=="1"){ }}
-	     	{{#  if(d.create_status == ""){ }}
-	       	 	<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
-	     	{{#  }else if(d.create_status=="0"){ }}
-	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
-	    		<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
-			{{# } }}
-	     {{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
+	     	{{#  }else if(d.scheduledshift.scheduled_status=="1"){ }}
+	     		{{#  if(d.create_status == ""){ }}
+	       	 		<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
+	     		{{#  }else if(d.create_status=="0"){ }}
+	    			<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+				{{# } }}
+	     	{{#  }else if(d.scheduledshift.scheduled_status=="2"){ }}
 	     	
-			{{# if(d.create_status=="0"){ }}
-	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
-			{{# } }}			
-		 {{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
+				{{# if(d.create_status=="0"){ }}		
+	     		
+				{{# } }}			
+		 	{{#  }else if(d.scheduledshift.scheduled_status=="3"){ }}
 	     	
-			{{# if(d.create_status=="0"){ }}
-	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
-			{{# } }}
-		 {{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
+				{{# if(d.create_status=="0"){ }}
+	     			{{# if(d.numfilestatus=="0"){ }}	
+	     				<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;" >上传名单</a>
+					{{# }else if(d.numfilestatus == "1"){ }}
+						<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
+						<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+					{{# } }}
+				{{# } }}
+		 	{{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
 	     	
-			{{# if(d.create_status=="0"){ }}
-	     		<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
-			{{# } }}
-	     {{# } }}
+				{{# if(d.create_status=="0"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.suuid}}">查看名单</a>
+				{{# } }}
+	     	{{# } }}
 		</script>
 
 		<script type="text/html" id="typeBar">
@@ -529,6 +615,13 @@ String caogery = (String)session.getAttribute("isad");
 	       	 未报名
 	     {{#  }else if(d.create_status=="0"){ }}
 	     	已报名
+	     {{# } }}
+ 		</script>
+ 		<script type="text/html" id="typeBara">
+	     {{#  if(d.numfilestatus == "0"){ }}
+	       	 未上传名单
+	     {{#  }else if(d.numfilestatus=="1"){ }}
+	     	已上传名单
 	     {{# } }}
  		</script>
  		<script type="text/html" id="typestatus">
@@ -544,7 +637,20 @@ String caogery = (String)session.getAttribute("isad");
 	     	已结课
 	     {{# } }}
  		</script>
- 		</script>
+ 		<script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">名单上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传名单
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            选择上传</label>
+		    </div>
+		</script>
 	</body>
 
 </html>

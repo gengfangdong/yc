@@ -21,4 +21,5 @@ public interface ScheduledshiftDao {
 			@Param("scstatus")String scstatus,@Param("memstatus")String memstatus);
 	public List<Map<String,Object>> getAdminLastNumber(@Param("start")int start,@Param("length")int limit,@Param("status")String status);
 	public int getAdminCountLastNumber(@Param("status")String status);
+	public void updateStatus(Scheduledshift scheduledshift);
 }

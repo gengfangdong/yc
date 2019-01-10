@@ -14,7 +14,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
 		<!-- DataTables -->
 		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
@@ -33,7 +33,7 @@ String caogery = (String)session.getAttribute("isad");
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../bootstrap/css/style.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../css/myStyle.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -298,7 +298,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Bootstrap 3.3.5 -->
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
-		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.4.5/layui/layui.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -334,17 +334,21 @@ String caogery = (String)session.getAttribute("isad");
 		    cols: [[
 			  {type:'numbers',title:"序号",minWidth:90},
 		      {field:'figClass_name', title: '班级名称',minWidth:140},
-		      {field:'figClass_start', title: '报名开始时间',minWidth:160},
-		      {field:'figClass_end', title: '报名截止时间',minWidth:160},
-		      {field:'figClass_class_start', title: '开课日期',minWidth:120},
-		      {field:'figClass_class_end', title: '结课日期',minWidth:120},
-		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
-		      {field:'figClass_number', title: '可拼人数',minWidth:120},
+		      {field:'figClass_creater',title:'发起人',minWidth:120},
+		      {field:'figClass_updatetime',title:'发起时间',minWidth:180,sort: true},
+		      {field:'figClass_start', title: '报名开始时间',minWidth:160,sort: true},
+		      {field:'figClass_end', title: '报名截止时间',minWidth:160,sort: true},
+		      {field:'figClass_class_start', title: '开课日期',minWidth:120,sort: true},
+		      {field:'figClass_class_end', title: '结课日期',minWidth:120,sort: true},
+		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160,sort: true},
+		      {field:'figClass_number', title: '已报名人数',minWidth:120,sort: true},
 		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-		      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
-		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
+		      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
+		      {field:'user_status', title: '是否已上传名单',templet:'#typeuserstatus',minWidth:120},
+		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:350}
 		    ]],
 		    id: 'testReload',
+		    height:'full-185',
 		    page: true
 		  });
 		  
@@ -474,6 +478,20 @@ String caogery = (String)session.getAttribute("isad");
 					maxmin: true,
 					offset: [100, 200],
 					content: 'openPage/updateOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }else if(obj.event === 'apply'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '报名',
+					area: ['70%', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
@@ -667,12 +685,12 @@ String caogery = (String)session.getAttribute("isad");
 			{{#  } else if(d.figClass_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
-				{{#  if(d.user_status == '0'){ }}
+				{{#  if(d.bmstatus == '0'){ }}
 			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">报名</a>
-	        	{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
+	        	{{#  } else if(d.bmstatus == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
+					
 					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "5"){ }}
@@ -682,9 +700,14 @@ String caogery = (String)session.getAttribute("isad");
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{#  if(d.user_status == "1"){ }}
+				
+				{{#  if(d.user_status == "0"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">上传名单</a>
+					
+				{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "7"){ }}
@@ -717,11 +740,18 @@ String caogery = (String)session.getAttribute("isad");
 	     	已结课
 	     {{# } }}
 	     </script>
-	     <script type="text/html" id="typeuserstatus">
-	     {{#  if(d.user_status == "0"){ }}
+	     <script type="text/html" id="typebmstatus">
+	     {{#  if(d.bmstatus == "0"){ }}
 	        	未报名
-	     {{#  }else if(d.user_status=="1"){ }}
+	     {{#  }else if(d.bmstatus=="1"){ }}
 	     		已报名
+	     {{# } }}
+	     </script>
+	      <script type="text/html" id="typeuserstatus">
+	     {{#  if(d.user_status == "0"){ }}
+	        	未上传名单
+	     {{#  }else if(d.user_status=="1"){ }}
+	     		已上传名单
 	     {{# } }}
 	     </script>
 	     <script id="upload_file_dialog" type="text/html">

@@ -290,54 +290,10 @@ String caogery = (String)session.getAttribute("isad");
 																						<tr>
 																							<th style="text-align: center;">序号</th>
 																							<th style="text-align: center;">课程方案</th>
-																							<!--<th style="text-align: center;">课程模块</th>
-																							<th style="text-align: center;">课程内容</th>-->
-																							<!--<th style="text-align: center;">课程天数</th>
-																							<th style="text-align: center;">状态</th>-->
 																							<th style="text-align: center;">操作</th>
 																						</tr>
 																					</thead>
-																					<!-- <tbody>
-																						<tr>
-																							<td style="text-align: center;">1</td>
-																							<td>税收经济分析培训班</td>
-																							<td>核心业务模块</td>
-																							<td>大数据背景下如何开展税收分析 </td>
-																							<td>16</td>
-																							<td>发布中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">2</td>
-																							<td>收入规划核算培训班</td>
-																							<td>核心业务模块</td>
-																							<td>税收形势分析 </td>
-																							<td>16</td>
-																							<td>暂停中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																						<tr>
-																							<td style="text-align: center;">3</td>
-																							<td>大数据和税收风险管理培训班</td>
-																							<td>核心业务模块</td>
-																							<td>税收政策效应分析</td>
-																							<td>20</td>
-																							<td>发布中</td>
-																							<td>
-																								<a href="#" onclick="addBranch(this);">查看</a>
-																								<a href="#" onclick="addBranch(this);">修改</a>
-																								<a onclick="isDelete(this);">删除</a>
-																							</td>
-																						</tr>
-																					</tbody> -->
+																					
 																				</table>
 																			</div>
 																		</div>
@@ -503,7 +459,7 @@ String caogery = (String)session.getAttribute("isad");
 						layer.open({
 							type: 2, //此处以iframe举例
 							title: '新增',
-							area: ['1063px', '530px'],
+							area: ['90%', '530px'],
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
@@ -521,7 +477,7 @@ String caogery = (String)session.getAttribute("isad");
 						layer.open({
 							type: 2, //此处以iframe举例
 							title: '查看',
-							area: ['1063px', '530px'],
+							area: ['90%', '530px'],
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],
@@ -539,7 +495,7 @@ String caogery = (String)session.getAttribute("isad");
 						layer.open({
 							type: 2, //此处以iframe举例
 							title: '修改',
-							area: ['1063px', '530px'],
+							area: ['90%', '530px'],
 							shade: 0,
 							maxmin: true,
 							offset: [100, 200],

@@ -26,4 +26,5 @@ public interface ScheduledshiftService {
 	//管理员规定班次
 	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage(int start,int limit,String status);
 	public List<EUser> getListUserByid(String user_id, String scheduled_id);
+	public void updateStatus(Scheduledshift scheduledshift);
 }

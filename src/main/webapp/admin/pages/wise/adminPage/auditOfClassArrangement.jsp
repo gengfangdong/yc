@@ -388,16 +388,19 @@ String caogery = (String)session.getAttribute("isad");
 			    url: '<%=request.getContextPath()%>/FigClass/LayFigad',
 			    cols: [[
 				  {type:'numbers',title:"序号"},
-			      {field:'figClass_name', title: '班级名称'},
-			      {field:'figClass_start', title: '开始报名日期'},
-			      {field:'figClass_end', title: '截止报名日期'},
-			      {field:'figClass_class_start', title: '开班日期'},
-			      {field:'figClass_class_end', title: '结课日期'},
-			      {field:'figClass_pernum', title: '计划参加人数'},
-			      {field:'figClass_number', title: '剩余报名人数'},
-			      {field:'figClass_status', title: '状态',templet:'#typestatus'},
-			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:250}
+			      {field:'figClass_name', title: '班级名称',minWidth:120},
+			      {field:'figClass_creater',title:'发起人',minWidth:120},
+			      {field:'figClass_updatetime',title:'发起时间',minWidth:180,sort: true},
+			      {field:'figClass_start', title: '开始报名日期',minWidth:120,sort: true},
+			      {field:'figClass_end', title: '截止报名日期',minWidth:120,sort: true},
+			      {field:'figClass_class_start', title: '开班日期',minWidth:120,sort: true},
+			      {field:'figClass_class_end', title: '结课日期',minWidth:120,sort: true},
+			      {field:'figClass_pernum', title: '计划参加人数',minWidth:90},
+			      {field:'figClass_number', title: '已报名人数',minWidth:90},
+			      {field:'figClass_status', title: '状态',templet:'#typestatus',minWidth:120},
+			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
+			    height:'full-181',
 			    id: 'testReload',
 			    page: true
 			  });
@@ -459,7 +462,98 @@ String caogery = (String)session.getAttribute("isad");
 						});	
 			        layer.close(index);
 			      });
-			    } else if(obj.event === 'edit'){
+			    }else if(obj.event === 'openClass'){
+			      	layer.confirm('是否开课？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/FigClass/openClass/'+data.figClass_id,
+							type : 'post',
+							dataType:"json",
+							success : function(data) {
+								if(data.message == "0"){
+									layer.confirm('未登录!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "1"){
+									layer.confirm('拼班不存在!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "2"){
+									layer.confirm('开课失败1', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}else if(data.message == "3"){
+									layer.confirm('开课成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+								layer.confirm('删除失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						});	
+			        layer.close(index);
+			      });
+			    } else if(obj.event === 'end'){
+			      	layer.confirm('确认结束该班次?', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/FigClass/endClass/'+data.figClass_id,
+							type : 'post',
+							dataType:"json",
+							success : function(data) {
+								if(data.message == "0"){
+									layer.confirm('未登录!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "1"){
+									layer.confirm('拼班不存在!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "2"){
+									layer.confirm('结课失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}else if(data.message == "3"){
+									layer.confirm('结课成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+								}
+							},
+							error : function(error) {
+								layer.confirm('删除失败!', { title:'提示'}, function(index){				
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+							}
+						});	
+			        layer.close(index);
+			      });
+			    }else if(obj.event === 'edit'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '修改',
@@ -468,6 +562,20 @@ String caogery = (String)session.getAttribute("isad");
 						maxmin: true,
 						offset: [100, 200],
 						content: 'openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
+						zIndex: layer.zIndex, //重点1
+						success: function(layero) {
+							layer.setTop(layero); //重点2
+						}
+					});
+			    }else if(obj.event === 'showbm'){
+			    	layer.open({
+						type: 2, //此处以iframe举例
+						title: '查看报名信息',
+						area: ['70%', '530px'],
+						shade: 0,
+						maxmin: true,
+						offset: [100, 200],
+						content: 'openPage/showbmOnlieClasses.jsp?figClass_id='+data.figClass_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -626,26 +734,36 @@ String caogery = (String)session.getAttribute("isad");
 			{{#  } else if(d.figClass_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{# if(d.figClass_number< d.figClass_pernum){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
+					<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
 				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+					无报名信息
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
+				<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
 				{{# if(d.figClass_number< d.figClass_pernum){ }}
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
 				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="end" style="margin-right:10px; cursor: pointer;">结束</a>
 				{{# if(d.figClass_number< d.figClass_pernum){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
 				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+						无人报名
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "7"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{# if(d.figClass_number< d.figClass_pernum){ }}
+					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
 				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+						无人报名
 				{{#  } }}
 			{{#  } }}
 			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>

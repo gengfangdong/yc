@@ -779,4 +779,72 @@ public class ShowController {
             os.close();  
         }  
     }
+	/**
+	 * 在职研项目列表获取
+	 * @param draw
+	 * @param start
+	 * @param length
+	 * @return
+	 */
+	@RequestMapping(value = "/getlistProject1")
+	@ResponseBody
+	public DatatablesViewPage<ProjectVo> ProjectGetlistPage(@RequestParam("draw")int draw,@RequestParam("start")int start,
+			@RequestParam("length")int length,HttpServletRequest request){
+		//DataTables  返回实例
+		DatatablesViewPage<Project> datatablesViewPage = new DatatablesViewPage<Project>();
+		DatatablesViewPage<ProjectVo> datatablesViewPage1 = new DatatablesViewPage<ProjectVo>();
+		IUser user =  (IUser) request.getSession().getAttribute("user");
+		datatablesViewPage = ProjectService.GetlistPage(start, length);
+		List<ProjectVo> ProjectVoList = new ArrayList<ProjectVo>();
+		if (user==null) {
+			for (Project project:datatablesViewPage.getData() ) {
+				ProjectVo projectVo=new ProjectVo();
+				projectVo.setProject_id(project.getProject_id());
+				projectVo.setProject_name(project.getProject_name());
+				projectVo.setProject_context(project.getProject_context());
+				projectVo.setProject_creater(project.getProject_creater());
+				projectVo.setProject_createtime(project.getProject_createtime());
+				projectVo.setProject_date(project.getProject_date());
+				projectVo.setStatus("5");
+				projectVo.setProject_status("1");
+				ProjectVoList.add(projectVo);
+			}
+			datatablesViewPage1.setData(ProjectVoList);
+			datatablesViewPage1.setDraw(draw);
+			datatablesViewPage1.setRecordsFiltered(datatablesViewPage.getRecordsFiltered());
+			datatablesViewPage1.setRecordsTotal(datatablesViewPage.getRecordsTotal());
+			return datatablesViewPage1;
+		}
+		String statue="0";
+		for (Project project:datatablesViewPage.getData() ) {
+			statue="0";
+			ProjectVo projectVo=new ProjectVo();
+			projectVo.setProject_id(project.getProject_id());
+			projectVo.setProject_name(project.getProject_name());
+			projectVo.setProject_context(project.getProject_context());
+			projectVo.setProject_creater(project.getProject_creater());
+			projectVo.setProject_createtime(project.getProject_createtime());
+			projectVo.setProject_date(project.getProject_date());
+			
+			List<Apply> applyList=applyService.getProjectStatus(user.getUser_id(),project.getProject_id());
+			List<ApplyUnit> applyUnitList=applyUnitService.getProjectStatus(user.getUser_id(),project.getProject_id());
+			if (applyList.size()>0) {
+				statue="1";
+				projectVo.setApply_id(applyList.get(0).getApply_id());
+				projectVo.setStatus(applyList.get(0).getCheck_status());
+			}
+			if (applyUnitList.size()>0) {
+				statue="2";
+				projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
+				projectVo.setStatus(applyUnitList.get(0).getApplyunit_status());
+			}
+			projectVo.setProject_status(statue);
+			ProjectVoList.add(projectVo);
+		}
+		datatablesViewPage1.setDraw(draw);
+		datatablesViewPage1.setData(ProjectVoList);
+		datatablesViewPage1.setRecordsFiltered(datatablesViewPage.getRecordsFiltered());
+		datatablesViewPage1.setRecordsTotal(datatablesViewPage.getRecordsTotal());
+		return datatablesViewPage1;
+	}
 }

@@ -2,6 +2,7 @@
 <%@page pageEncoding="UTF-8"%>
 <%
 	String scheduled_id = request.getParameter("scheduled_id");
+	String number = request.getParameter("number");
 %>
 <!DOCTYPE html>
 <html>
@@ -155,7 +156,7 @@
 										<tr>
 											<td class="leftTd">已经报名人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="0" id="enrollNumber" disabled="disabled" class="disabledStyle" style="width: 100%;" />
+												<input type="text" value='<%=number %>' id="enrollNumber" disabled="disabled" class="disabledStyle" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
@@ -225,37 +226,37 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">参加培训人数:</td>
+											<td class="leftTd">参加培训人数:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="numOfParticipants" placeholder="" style="width: 100%;"   />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">联系人姓名:</td>
+											<td class="leftTd">联系人姓名:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactPersonName" placeholder="请输入联系人姓名" style="width: 100%;"   />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">联系人联系方式:</td>
+											<td class="leftTd">联系人联系方式:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactPhone" placeholder="请输入联系人联系方式" style="width: 100%;"   />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">联系人办公电话:</td>
+											<td class="leftTd">联系人办公电话:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactWorkTel" placeholder="请输入联系人办公电话" style="width: 100%;"   />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">单位信息:</td>
+											<td class="leftTd">单位信息:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="companyInformation" placeholder="请输入单位信息" style="width: 100%;"   />
 											</td>
 										</tr>
-										<tr>
-											<td class="leftTd">参加人员名单:</td>
+										<!-- <tr>
+											<td class="leftTd">参加人员名单:<span style="color:red;">*</span></td>
 											<td class="rightTd">
 												<input type="text" id="studentList" value="参加人员名单一"  style="width: 100%;"  />
 											</td>
@@ -264,7 +265,7 @@
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
@@ -314,7 +315,7 @@
 			});
 		</script>
 		<script>
-			var filea;
+			/* var filea;
 			layui.use('upload', function() {
 				var upload = layui.upload;
 
@@ -338,7 +339,7 @@
 						//请求异常回调
 					}
 				});
-			});
+			}); */
 			function Baoming(){
 				var number = document.getElementById("numOfParticipants").value;
 				var name = document.getElementById("contactPersonName").value;
@@ -371,7 +372,7 @@
 	        		return;
 	        	}
 	        	var fd = new FormData();
-				fd.append('file', filea);
+				//fd.append('file', filea);
     			fd.append('Ssu_ssid', '<%=scheduled_id%>');
     			fd.append('Ssu_usernumber', number);
     			fd.append('Ssu_username', name);
@@ -379,7 +380,7 @@
     			fd.append('Ssu_phone', workPhone);
     			fd.append('Ssu_department', department);
 				$.ajax({
-					url:'<%=request.getContextPath()%>/Ssuser/SignUp',
+					url:'<%=request.getContextPath()%>/Ssuser/SignUpnf',
 					type:'post',
 					encType: 'multipart/form-data', //表明上传类型为文件
 					processData: false,  //tell jQuery not to process the data

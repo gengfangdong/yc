@@ -12,14 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dao.EUserDao;
+import dao.IUserDao;
 import dao.SsuserDao;
 import dao.User_projectDao;
 import entity.EUser;
+import entity.LayuiDataTable;
 import entity.Ssuser;
 import entity.User_project;
 import service.SsuserService;
 import util.UUIDUtil;
 @Service
+@Transactional
 public class SsuserServiceImpl implements SsuserService {
 
 	@Autowired
@@ -28,6 +31,8 @@ public class SsuserServiceImpl implements SsuserService {
 	private User_projectDao user_projectDao;
 	@Autowired
 	private SsuserDao ssuserDao;
+	@Autowired
+	private IUserDao iuserDao;
 	@Transactional
 	public int UpdateorInsert(List<EUser> eUsers,String creater,Ssuser ssuser) {
 		// TODO Auto-generated method stub
@@ -103,15 +108,25 @@ public class SsuserServiceImpl implements SsuserService {
 			}
 			eUserDao.insertByBatch(eUsers);
 		}
-			
+		user_projectDao.deleteUserProject(ssuser.getSsu_id());	
 		user_projectDao.insertUser_project(user_projects);
-		ssuserDao.insertSsuser(ssuser);
+		ssuserDao.updteStatus(ssuser);
 		return insert + update;
 	}
 	@Transactional
 	public void SignOut(String Project_id, String User_id,String ssuid) {
 		// TODO Auto-generated method stub
 		
+		//1、将ssuser 表中的数据置为已删除
+		ssuserDao.deleteSsuser(ssuid, Project_id, User_id);
+		//2、批量将user_project表中的数据置为已删除
+		user_projectDao.deleteUserProject(ssuid);
+	}
+	
+	@Transactional
+	public void SignOutmp(String Project_id, String User_id) {
+		// TODO Auto-generated method stub
+		String ssuid = ssuserDao.getsuuid(User_id, Project_id).get(0);
 		//1、将ssuser 表中的数据置为已删除
 		ssuserDao.deleteSsuser(ssuid, Project_id, User_id);
 		//2、批量将user_project表中的数据置为已删除
@@ -144,5 +159,57 @@ public class SsuserServiceImpl implements SsuserService {
 		}
 		return null;
 	}
+	@Override
+	public List<EUser> getListUserByidmp(String user_id, String sc_id) {
+		// TODO Auto-generated method stub
+		List<String> ssusers = new ArrayList<String>();
+		ssusers = ssuserDao.getListUserByidsc(user_id, sc_id);
+		if (ssusers != null && ssusers.size() > 0) {
+			List<EUser> eUsers = new ArrayList<EUser>();
+			eUsers = eUserDao.getEUserList(ssusers);
+			return eUsers;
+		}
+		return null;
+	}
+	@Override
+	public void insertSSuser(Ssuser ssuser) {
+		// TODO Auto-generated method stub
+		ssuserDao.insertSsuser(ssuser);
+	}
+	@Override
+	public int getLavenumber(String project_id) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		count = ssuserDao.getLavenumber(project_id);
+		return count;
+	}
+	@Override
+	public LayuiDataTable<Ssuser> getSsuserByPage(int start, int page, String project_id) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<Ssuser> sDataTable = new LayuiDataTable<>();
+		List<Ssuser> ssusers = new ArrayList<>();
+		int count = 0;
+		ssusers = ssuserDao.getByPage(project_id, (start-1)*page, start*page);
+		if(ssusers != null && ssusers.size()>0){
+			for (Ssuser ssuser : ssusers) {
+				ssuser.setSsu_creater(iuserDao.getDetailByid(ssuser.getSsu_creater()).get(0).getUser_name());
+			}
+			sDataTable.setData(ssusers);
+			count = ssuserDao.getcountByPage(project_id);
+		}
+		sDataTable.setCount(count);
+		return sDataTable;
+	}
+	@Override
+	public Ssuser getDetailById(String ssu_id) {
+		// TODO Auto-generated method stub
+		List<Ssuser> ssusers = new ArrayList<>();
+		ssusers = ssuserDao.getDetailById(ssu_id);
+		if(ssusers!=null&&ssusers.size()>0){
+			return ssusers.get(0);
+		}
+		return null;
+	}
+	
 
 }

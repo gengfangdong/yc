@@ -28,4 +28,9 @@
 			t.creater=#{user_id} and
 		</if> t.constom_id=#{constom_id} and t.isdelete='0'
 	</select>
+	<update id="cancel" parameterType="String">
+		update USER_CONSTOM	U
+			SET U.isdelete = '1'
+				WHERE U.USERID = #{user_id} AND U.CONSTOM_ID=#{constom_id} AND U.ISDELETE = '0'
+	</update>
 </mapper>

@@ -14,7 +14,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
 		<!-- DataTables -->
 		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
@@ -33,7 +33,7 @@ String caogery = (String)session.getAttribute("isad");
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../bootstrap/css/style.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../css/myStyle.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -291,7 +291,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Bootstrap 3.3.5 -->
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
-		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.4.5/layui/layui.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -332,16 +332,19 @@ String caogery = (String)session.getAttribute("isad");
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/Constom/LayConstom',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'freeco_name', title: '班级名称'},
-			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery'},
-			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum'},
-			      {field:'freeco_pernum', title: '计划参加人数'},
-			      {field:'freeco_data', title: '预计开始时间'},
-			      {field:'freeco_status', title: '状态',templet:'#typestatus'},
-			      {field:'freeco_id', title: '操作',toolbar: '#barDemo'}
+				  {type:'numbers',title:"序号",minWidth:60},
+			      {field:'freeco_name', title: '班级名称',minWidth:180,sort: true},
+			      {field:'freeco_creater',title:'发起人',minWidth:120},
+			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
+			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120,sort: true},
+			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:160,sort: true},
+			      {field:'freeco_pernum', title: '计划参加人数',minWidth:160,sort: true},
+			      {field:'freeco_data', title: '预计开始时间',minWidth:120,sort: true},
+			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120,sort: true},
+			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
+			    height:'full-181',
 			    page: true
 			  });
 			  
@@ -424,6 +427,37 @@ String caogery = (String)session.getAttribute("isad");
 						});	
 			        layer.close(index);
 			      });
+			    }else if(obj.event === 'cancel'){
+			      	layer.confirm('确认取消定制？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/Constom/cancel',
+							type : 'post',
+							dataType:"json",
+							data:{
+								Constom_id:data.freeco_id
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.alert("参数错误!");
+								}
+								else if(data.message == "1"){
+									layer.alert("定制班次不存在!");
+								}
+								else if(data.message == "2"){
+									layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
 			    }else if(obj.event === 'edit'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
@@ -454,7 +488,7 @@ String caogery = (String)session.getAttribute("isad");
 					});
 					}else if(obj.event === 'upload'){
 					    layui.layer.open({
-				            title: "文件上传",
+				            title: "名单上传",
 				            content: $('#upload_file_dialog').html(),
 				            area: ['500px', '300px'],
 				            btn: ['发送', '取消'],
@@ -502,7 +536,57 @@ String caogery = (String)session.getAttribute("isad");
 				            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
 				            $("#uploadFileName").text(filePath);
 				        });
-				}
+				}else if(obj.event === 'uploadto'){
+				    layui.layer.open({
+			            title: "名单上传",
+			            content: $('#upload_file_dialog').html(),
+			            area: ['500px', '300px'],
+			            btn: ['发送', '取消'],
+			            yes: function (index, layero) {//发送
+			                var f = document.getElementById("Userfile").files;
+			                if(f.length<=0){
+			                	layui.layer.alert("请选择文件!");
+			                	return;
+			                }
+			                var fd = new FormData();
+							fd.append("file",f[0]);
+							fd.append("Constom_id",data.freeco_id);
+							$.ajax({
+								url:'<%=request.getContextPath()%>/Constom/importUsertoo',
+								type:'post',
+								encType: 'multipart/form-data', //表明上传类型为文件
+								processData: false,  //tell jQuery not to process the data
+			        			contentType: false,  //tell jQuery not to set contentType
+								data:fd,
+								success:function(data){
+									if(data.success == true){
+										if(data.message == "5"){
+											layer.alert("上传成功!");
+										}
+									}
+									else if(data.message == "4"){
+										layer.alert("excel存在身份证重复!");
+									}else if(data.message == "2"){
+										layer.alert(" execl无数据!");
+									}
+								},
+								error:function(data){
+
+								}
+							})
+			            },
+			            btn2:function(index, layero) {//取消
+			                
+			            }
+		       		});
+
+			        //文件上传change事件
+			        $("input[name=uploadfile][type=file]").on("change", function (e) {
+			            var filePath = $(this).val();
+			            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+			            $("#uploadFileName").text(filePath);
+			        });
+			}
 			  });
 			  var $ = layui.$, active = {
 			    reload: function(){
@@ -628,6 +712,7 @@ String caogery = (String)session.getAttribute("isad");
 						<input type="file" lay-type="file" id="xxxxx" name="file" class="layui-upload-file">
 					{{#  } else if(d.freeco_numfile == "1"){ }}
 						<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="uploadto" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
 						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.freeco_id}}">下载名单</a>
 					{{#  } }}
 			{{#  } else if(d.freeco_status == "3"){ }}
@@ -654,7 +739,7 @@ String caogery = (String)session.getAttribute("isad");
 
 		<script type="text/html" id="typestatus">
 	     {{#  if(d.freeco_status == "0"){ }}
-	        未审核
+	                            未审核
 	     {{#  }else if(d.freeco_status=="1"){ }}
 	     	审核通过
 	     {{#  }else if(d.freeco_status=="2"){ }}
@@ -678,9 +763,9 @@ String caogery = (String)session.getAttribute("isad");
 	     {{#  if(d.freeco_datanum!=null){ }}
 	        {{d.freeco_datanum}}
 	     {{#  }else{ }}
-	     	{{#  if(d.freeco_gaoery == "0"){ }}
+	     	{{#  if(d.freeco_gaoery == "1"){ }}
 	        	{{d.freeco_day}}
-		     {{#  }else if(d.freeco_gaoery=="1"){ }}
+		     {{#  }else if(d.freeco_gaoery=="0"){ }}
 		     	待定
 		     {{# } }}
 	     	

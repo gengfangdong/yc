@@ -16,6 +16,7 @@ import dao.ConstomDao;
 import dao.ConstomfileDao;
 import dao.CourseDao;
 import dao.EUserDao;
+import dao.IUserDao;
 import dao.User_ConstomDao;
 import entity.ConstomVo;
 import entity.Constomfile;
@@ -24,6 +25,7 @@ import entity.Free_constom;
 import entity.LayuiDataTable;
 import entity.User_Constom;
 import service.ConstomService;
+import util.StringUtil;
 @Service
 @Transactional
 public class ConstomServiceImpl implements ConstomService {
@@ -40,6 +42,8 @@ public class ConstomServiceImpl implements ConstomService {
 	private CourseDao courseDao;
 	@Autowired
 	private ClassPlanDao classPlanDao;
+	@Autowired
+	private IUserDao iUserDao;
 	@Transactional
 	public void insertConstom(Free_constom free_constom, List<Constomfile> constomfiles) {
 		// TODO Auto-generated method stub
@@ -48,9 +52,9 @@ public class ConstomServiceImpl implements ConstomService {
 		
 	}
 
-	public void updateReview(String Constom_id, String status, String updater, String updatetime) {
+	public void updateReview(String Constom_id, String status, String updater, String updatetime,String freeco_remark) {
 		// TODO Auto-generated method stub
-		constomDao.updateReview(Constom_id, status, updater, updatetime);
+		constomDao.updateReview(Constom_id, status, updater, updatetime,freeco_remark);
 	}
 
 	public Free_constom getDetailByid(String constom_id) {
@@ -156,7 +160,7 @@ public class ConstomServiceImpl implements ConstomService {
 		constomDao.uploadfile(free_constom);
 		return insert+update;
 	}
-
+	
 	public LayuiDataTable<Free_constom> getListBypage(String status, String caogery, int page, int limit,String user_id) {
 		// TODO Auto-generated method stub
 		LayuiDataTable<Free_constom> fDataTable = new LayuiDataTable<Free_constom>();
@@ -164,6 +168,13 @@ public class ConstomServiceImpl implements ConstomService {
 		List<Free_constom> free_constoms = new ArrayList<Free_constom>();
 		free_constoms = constomDao.getListBypage((page-1)*limit, (page-1)*limit+limit, caogery, status, user_id);
 		if(free_constoms!=null&free_constoms.size()>0){
+			for (Free_constom free_constom : free_constoms) {
+				String user_name = free_constom.getFreeco_creater();
+				if("1".equals(free_constom.getFreeco_gaoery())){
+					free_constom.setFreeco_day(""+StringUtil.StringAdd(free_constom.getFreeco_day()));
+				}
+				free_constom.setFreeco_creater(iUserDao.getDetailByid(user_name).get(0).getUser_name());
+			}
 			fDataTable.setData(free_constoms);
 			count = constomDao.getListCount(caogery, status, user_id);
 		}
@@ -237,6 +248,108 @@ public class ConstomServiceImpl implements ConstomService {
 	public void startScheduledco() {
 		// TODO Auto-generated method stub
 		constomDao.startScheduledco();
+	}
+
+	@Transactional
+	public int ImportUsertoo(List<EUser> eUsers, String Constom_id, String user_id) {
+		// TODO Auto-generated method stub
+		calcelBM(Constom_id,user_id);
+		int insert = 0;
+		int update = 0;
+		List<EUser> newinsertEuser = new ArrayList<EUser>();
+		List<EUser> newupdateEuser = new ArrayList<EUser>();
+		List<User_Constom> user_Constoms = new ArrayList<User_Constom>();
+		//获取旧的人员列表
+		List<EUser> oldEuser = new ArrayList<EUser>();
+		oldEuser = eUserDao.getListBycreater(user_id);
+		if(oldEuser != null && oldEuser.size()>0){
+			//旧的人员map 身份证号为key 用来检测和新的人员表重复
+			Map<String,Object> oldMap = new HashMap<String, Object>();
+			for (EUser eUser : oldEuser) {
+				oldMap.put(eUser.getEUser_indentitynumber(), eUser);
+			}
+			//判断人员
+			for (EUser eUser : eUsers) {
+				String indentitynumber = eUser.getEUser_indentitynumber();
+				if(oldMap.get(indentitynumber)!=null){//如果人员存在  就把id替换
+					eUser.setEUser_id(((EUser)oldMap.get(indentitynumber)).getEUser_id());
+					newupdateEuser.add(eUser);
+				}
+				else{
+					newinsertEuser.add(eUser);
+				}
+				
+				//创建时间
+				SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+				String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+				User_Constom user_Constom = new User_Constom();
+				user_Constom.setConstom_id(Constom_id);
+				user_Constom.setCreater(user_id);
+				user_Constom.setCreatetime(APPLYDATE);
+				user_Constom.setIsdelete("0");
+				user_Constom.setStatus("1");
+				user_Constom.setUpdater(user_id);
+				user_Constom.setUpdatetime(APPLYDATE);
+				user_Constom.setUserid(eUser.getEUser_id());
+				user_Constoms.add(user_Constom);
+			}
+
+			insert = newinsertEuser.size();
+			update = newupdateEuser.size();
+			//获取新增的人员列表
+			if(newinsertEuser != null && newinsertEuser.size()>0){
+				eUserDao.insertByBatch(newinsertEuser);
+			}
+			if(newupdateEuser != null && newupdateEuser.size()>0){
+				eUserDao.updatebatch(newupdateEuser);
+			}
+			
+			
+		}
+		else{
+			//直接批量增加人员列表eUsers
+			insert = eUsers.size();
+			for (EUser eUser : eUsers) {
+				//创建时间
+				SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+				String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+				User_Constom user_Constom = new User_Constom();
+				user_Constom.setConstom_id(Constom_id);
+				user_Constom.setCreater(user_id);
+				user_Constom.setCreatetime(APPLYDATE);
+				user_Constom.setIsdelete("0");
+				user_Constom.setStatus("1");
+				user_Constom.setUpdater(user_id);
+				user_Constom.setUpdatetime(APPLYDATE);
+				user_Constom.setUserid(eUser.getEUser_id());
+				user_Constoms.add(user_Constom);
+			}
+			eUserDao.insertByBatch(eUsers);
+		}
+		user_ConstomDao.insertBatch(user_Constoms);
+		//创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		Free_constom free_constom = new Free_constom();
+		free_constom = getDetailByid(Constom_id);
+		free_constom.setFreeco_numfile("1");
+		free_constom.setFreeco_updater(user_id);
+		free_constom.setFreeco_updatetime(APPLYDATE);
+		constomDao.uploadfile(free_constom);
+		return insert+update;
+	}
+	public void calcelBM(String constom_id, String user_id) {
+		// TODO Auto-generated method stub
+		// 创建时间
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		Free_constom free_constom = new Free_constom();
+		free_constom = getDetailByid(constom_id);
+		free_constom.setFreeco_numfile("0");
+		free_constom.setFreeco_updater(user_id);
+		free_constom.setFreeco_updatetime(APPLYDATE);
+		constomDao.uploadfile(free_constom);
+		user_ConstomDao.cancel(user_id, constom_id);
 	}
 	
 }

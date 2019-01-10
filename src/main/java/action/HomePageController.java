@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class HomePageController {
 	
-	@RequestMapping("/show/dist")
+	@RequestMapping("/show/dist/index")
 	public ModelAndView index(ModelAndView mv){
 		mv.setViewName("/show/dist/index");
 		return mv;
@@ -34,7 +34,7 @@ public class HomePageController {
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute("user");
-		mv.setViewName("redirect:/show/dist");
+		mv.setViewName("redirect:/show/dist/index");
 		return mv;
 	}
 	@RequestMapping("/admin/login")

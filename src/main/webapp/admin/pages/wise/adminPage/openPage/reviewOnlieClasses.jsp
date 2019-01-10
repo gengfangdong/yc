@@ -75,6 +75,13 @@
 			#downLoad:hover{
 				color:#FFF!important;
 			}
+			.disabledInput{
+				border:none;
+				border:1px solid #ccc;
+				border-radius:5px;
+				background:#FFF;
+				cursor:no-drop!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -163,35 +170,35 @@
 										<tr>
 											<td class="leftTd">班级名称:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
+												<input type="text" id="classesName" style="width: 100%;" disabled="disabled" class="disabledInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">拼班发起单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
+												<input type="text" value="" id="togetherClassesCompany" style="width: 100%;"  disabled="disabled" class="disabledInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计举办地点:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
+												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;"  disabled="disabled" class="disabledInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名开始日期:</td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  placeholder="YYYY-MM-DD" type="text" disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名截止日期:</td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate" placeholder="YYYY-MM-DD" type="text" disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
@@ -199,14 +206,14 @@
 										<tr>
 											<td class="leftTd">预计举办日期:</td>
 											<td class="rightTd" colspan="2">
-												<input id="hostDate" name="hostDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input id="hostDate" name="hostDate" placeholder="YYYY-MM-DD" type="text" disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">预计结课日期:</td>
 											<td class="rightTd" colspan="2">
-												<input value="" id="classesEndDate" name="classesEndDate"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
+												<input value="" id="classesEndDate" name="classesEndDate"  placeholder="YYYY-MM-DD" type="text" disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
 										</tr>
 										
@@ -227,7 +234,7 @@
 										<tr>
 											<td class="leftTd">班级容纳人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
+												<input type="text" value="" id="maxClassesNumber" style="width: 100%;" disabled="disabled" class="disabledInput"/>
 											</td>
 										</tr>
 										
@@ -240,14 +247,20 @@
 										<tr>
 											<td class="leftTd">拼班联系人员:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="contactPersonnel" style="width: 100%;" />
+												<input type="text" id="contactPersonnel" style="width: 100%;" disabled="disabled" class="disabledInput"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">拼班联系电话:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="contactNumber" style="width: 100%;" />
+												<input type="text" id="contactNumber" style="width: 100%;" disabled="disabled" class="disabledInput"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">拼班联系办公电话:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="contactWorkNumber" style="width: 100%;" disabled="disabled" class="disabledInput"/>
 											</td>
 										</tr>
 										<tr>
@@ -271,7 +284,7 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">审核结果:</td>
+											<td class="leftTd">审核结果:<span style="color:red;">*<span></td>
 											<td class="rightTd">
 												<input type="radio" name="isPass" />通过
 												<input type="radio" name="isPass" />不通过
@@ -459,14 +472,17 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
+			      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false,
 			    done:function(){
 			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
-			    		if($("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].id != freeco_outline){
+			    		if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id != freeco_outline){
 			    			$($("#sample-table-1 .layui-table-body tr")[i]).css('display','none');
+			    		}else if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id == freeco_outline){
+			    			$("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].value = freeco_day;
 			    		}
 			    	}
 			    }
@@ -520,20 +536,10 @@
 					 // {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称'},
-				      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2'}
 				    ]],
 				    id: 'testReload2',
-				    page: false,
-				    done:function(){
-				    	for(var i=0;i<$('#sample-table-2 .layui-table-body tr').length;i++){
-				    		if($("#sample-table-2 .layui-table-body tr")[i].children[0].children[0].innerHTML != freeco_outline){
-				    			$($("#sample-table-2 .layui-table-body tr")[i]).css('display','none');
-				    		}else{
-				    			$("#sample-table-2 .layui-table-body tr")[i].children[2].children[0].children[0].value = freeco_day;
-				    		}
-				    	}
-				    }
+				    page: false
 				  });
 			  
 			//监听工具条
@@ -558,9 +564,9 @@
 			  $('.demoTable .layui-btn').on('click', function(){
 			    var type = $(this).data('type');
 			    active[type] ? active[type].call(this) : '';
-			    $('table.layui-table thead tr th:eq(2)').addClass('layui-hide');
+			    $('table.layui-table thead tr th:eq(0)').addClass('layui-hide');
 			  });
-			  $('table.layui-table thead tr th:eq(2)').addClass('layui-hide');
+			  $('table.layui-table thead tr th:eq(0)').addClass('layui-hide');
 			});
 		</script>
 		<script>
@@ -670,7 +676,7 @@
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
 						$("#contactNumber").val(data.data.figClass.figClass_phone);
-						debugger;
+						$("#contactWorkNumber").val(data.data.figClass.figClass_WorkPhone);
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
 							var nDivShow = $('.layui-tab-item');
@@ -691,8 +697,6 @@
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
-							window.freeco_outline = data.data.figClass.figClass_outline;
-							window.freeco_day = data.data.figClass.figClass_day;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -722,6 +726,7 @@
 							}
 
 							window.freeco_outline = data.data.figClass.figClass_outline;
+							window.freeco_day = data.data.figClass.figClass_day;
 			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
@@ -798,7 +803,12 @@
 					},
 					success:function(data){
 						if(data.success == true){
-							layer.alert("审核成功!");
+							layer.confirm('审核成功!', { title:'提示'}, function(index){
+								  
+								window.parent.location.reload();
+								var index1 = parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index1);
+							});
 						}
 						else if(data.success == false){
 							if(data.message == "1"){

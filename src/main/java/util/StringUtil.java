@@ -54,4 +54,18 @@ public class StringUtil {
 		}
 		return cnt;
 	}
+	public static Float StringAdd(String numbers){
+		if("".equals(numbers)){
+			return 0f;
+		}
+		else{
+			String[] n = numbers.split(",");
+			Float count = 0f;
+			for (String string : n) {
+				count += Float.parseFloat(String.valueOf(string));
+			}
+			return count;
+		}
+			
+	}
 }

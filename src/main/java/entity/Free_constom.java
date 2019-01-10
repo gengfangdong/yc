@@ -21,6 +21,8 @@ Freeco_OUTLINE	N	VARCHAR2(500)	N			课程定制大纲
 FREECO_GAOERY
 FREECO_NUMFILE
 FREECO_DAY
+FREECO_WORKNUM
+FREECO_REMARK
  * */
 public class Free_constom implements Serializable{
 	/**
@@ -45,6 +47,8 @@ public class Free_constom implements Serializable{
 	private String Freeco_gaoery;//分类 0为课程1为方案2为自由
 	private String Freeco_numfile;//是否长传名单 0为未上传 1为已上传
 	private String Freeco_day;//方案定制天数
+	private String Freeco_worknum;//办公电话
+	private String Freeco_remark;//审核备注
 	private List<Constomfile> constomFiles;//文件list  不在数据库存储
 	public Free_constom() {
 		super();
@@ -162,6 +166,18 @@ public class Free_constom implements Serializable{
 	}
 	public void setFreeco_day(String freeco_day) {
 		Freeco_day = freeco_day;
+	}
+	public String getFreeco_worknum() {
+		return Freeco_worknum;
+	}
+	public void setFreeco_worknum(String freeco_worknum) {
+		Freeco_worknum = freeco_worknum;
+	}
+	public String getFreeco_remark() {
+		return Freeco_remark;
+	}
+	public void setFreeco_remark(String freeco_remark) {
+		Freeco_remark = freeco_remark;
 	}
 	
 	

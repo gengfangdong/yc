@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import entity.EUser;
 import entity.IUser;
+import entity.LayuiDataTable;
 import entity.Scheduledshift;
 import entity.Ssuser;
 import service.ScheduledshiftService;
@@ -46,10 +47,8 @@ public class SsuserController {
 	
 	
 	
-
-	@RequestMapping("/SignUp")
-	@ResponseBody
-	public Map<String,Object> SignUp(@RequestParam("file") MultipartFile file,String Ssu_ssid,String Ssu_usernumber,
+	@RequestMapping("/SignUpnf")
+	public Map<String,Object> SignUpnf(String Ssu_ssid,String Ssu_usernumber,
 			String Ssu_username,String Ssu_ydphone,String Ssu_phone,String Ssu_department,HttpServletRequest request){
 		//结果map
 		Map<String,Object> resultmap = new HashMap<String, Object>();
@@ -69,10 +68,71 @@ public class SsuserController {
 			resultmap.put("message", "1");//班次不存在
 			return resultmap;
 		}
+		//人数判断
+		int all = Integer.valueOf(String.valueOf(scheduledshift.getScheduled_class_pnumber()));
+		int allbm = Integer.valueOf(ssuserService.getLavenumber(Ssu_ssid));
+		int wbm = Integer.valueOf(Ssu_usernumber);
+		if(wbm > all-allbm){
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//超出人数限制
+			return resultmap;
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String createtime = simpleDateFormat.format(new Date());
+		//人员信息表
+		Ssuser ssuser = new Ssuser();
+		ssuser.setSsu_creater(user.getUser_id());
+		ssuser.setSsu_createtime(createtime);
+		ssuser.setSsu_department(Ssu_department);
+		ssuser.setSsu_isdelete("0");
+		ssuser.setSsu_phone(Ssu_phone);
+		ssuser.setSsu_id(UUIDUtil.getUUid("ssu"));
+		ssuser.setSsu_status("0");
+		ssuser.setSsu_userid(user.getUser_id());
+		ssuser.setSsu_username(Ssu_username);
+		ssuser.setSsu_usernumber(Ssu_usernumber);
+		ssuser.setSsu_ydphone(Ssu_ydphone);
+		ssuser.setSsu_ssid(Ssu_ssid);
+		ssuserService.insertSSuser(ssuser);	
+		resultmap.put("success", true);
+		resultmap.put("message", "4");//报名成功!
+		return resultmap;
+		
+	}
+	@RequestMapping("/SignUp")
+	@ResponseBody
+	public Map<String,Object> SignUp(@RequestParam("file") MultipartFile file,String Ssu_ssid,String suuid,HttpServletRequest request){
+		//结果map
+		Map<String,Object> resultmap = new HashMap<String, Object>();
+		//获取人员
+		IUser user = new IUser();
+		user = (IUser) request.getSession().getAttribute("user");
+		if(user == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		//1、判断规定班次是否存在
+		Scheduledshift scheduledshift = new Scheduledshift();
+		scheduledshift = scheduledshiftService.getDetailByid(Ssu_ssid);
+		if(scheduledshift == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//班次不存在
+			return resultmap;
+		}
+		//2、获取报名信息
+		Ssuser ssuser = new Ssuser();
+		ssuser = ssuserService.getDetailById(suuid);
+		if(ssuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "2");//报名信息不存在
+			return resultmap;
+		}
+		String Ssu_usernumber = ssuser.getSsu_usernumber();
 		//2、判断报名人数是否超过剩余人数
 		//获取规定班次剩余的人数
 		int allSign = 0;
-		allSign = Integer.valueOf(scheduledshift.getScheduled_class_pnumber())-ssuserService.getCount(scheduledshift.getScheduled_id());
+		allSign = Integer.valueOf(scheduledshift.getScheduled_class_pnumber())-ssuserService.getLavenumber(Ssu_ssid);
 		// 获取上传的execl
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		// EUSER列表
@@ -86,10 +146,6 @@ public class SsuserController {
 		else if(list.size()>Integer.valueOf(Ssu_usernumber)){
 			resultmap.put("success", false);
 			resultmap.put("message", "3");//人员数量与execl不符合
-			return resultmap;
-		}else if(Integer.valueOf(Ssu_usernumber)>allSign){
-			resultmap.put("success", false);
-			resultmap.put("message", "5");//人员数量超出剩余人数
 			return resultmap;
 		}
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
@@ -126,22 +182,8 @@ public class SsuserController {
 				return resultmap;
 			}
 		}
-		//人员信息表
-		Ssuser ssuser = new Ssuser();
-		ssuser.setSsu_creater(user.getUser_id());
-		ssuser.setSsu_createtime(APPLYDATE);
-		ssuser.setSsu_department(Ssu_department);
-		ssuser.setSsu_isdelete("0");
-		ssuser.setSsu_phone(Ssu_phone);
-		ssuser.setSsu_id(UUIDUtil.getUUid("ssu"));
-		ssuser.setSsu_status("0");
-		ssuser.setSsu_userid(user.getUser_id());
-		ssuser.setSsu_username(Ssu_username);
-		ssuser.setSsu_usernumber(Ssu_usernumber);
-		ssuser.setSsu_ydphone(Ssu_ydphone);
-		ssuser.setSsu_ssid(Ssu_ssid);
-		ssuserService.UpdateorInsert(eUsers, user.getUser_id(),ssuser);
-		
+		ssuser.setSsu_status("1");
+		ssuserService.UpdateorInsert(eUsers, user.getUser_id(),ssuser);	
 		resultmap.put("success", true);
 		resultmap.put("message", "4");//报名成功!
 		return resultmap;
@@ -183,6 +225,41 @@ public class SsuserController {
 		return resultMap;
 	}
 	
+	@RequestMapping("SignOutmp")
+	@ResponseBody
+	public Map<String,Object> SignOutmp(String Project_id,HttpServletRequest request){
+		//结果集
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		
+		//检查班次是否存在
+		Scheduledshift scheduledshift = new Scheduledshift();
+		scheduledshift = scheduledshiftService.getDetailByid(Project_id);
+		if(scheduledshift==null){
+			resultMap.put("success", false);
+			resultMap.put("message", "0");//班次不存在
+			return resultMap;
+		}
+		//获取登录人
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		if(iUser==null){
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//未登录
+			return resultMap;
+		}
+		try{
+			ssuserService.SignOutmp(Project_id, iUser.getUser_id());
+		}catch(Exception e){
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "2");//取消报名失败
+			return resultMap;
+		}
+		resultMap.put("success", true);
+		resultMap.put("message", "3");//取消报名成功
+		return resultMap;
+	}
+	
 	@RequestMapping("/exportUser/{ssuid}")
 	public void ExportUser(HttpServletRequest request,HttpServletResponse response,@PathVariable String ssuid){
 		//获取登录用户
@@ -200,34 +277,35 @@ public class SsuserController {
 			HSSFCell cell = row1.createCell(i);
 			cell.setCellValue(titleValue[i]);
 		}
-		for(int j=0;j<eUsers.size();j++){
-			EUser eUser = eUsers.get(j);
-			HSSFRow row = sheet.createRow(j+1);
-			HSSFCell cell = row.createCell(0);
-			cell.setCellValue(eUser.getEUser_name());
-			HSSFCell cell1 = row.createCell(1);
-			String sex = eUser.getEUser_sex();
-			if("0".equals(sex)){
-				cell1.setCellValue("男");
-			}else if("1".equals(sex)){
-				cell1.setCellValue("女");
+		if(eUsers!=null){
+			for(int j=0;j<eUsers.size();j++){
+				EUser eUser = eUsers.get(j);
+				HSSFRow row = sheet.createRow(j+1);
+				HSSFCell cell = row.createCell(0);
+				cell.setCellValue(eUser.getEUser_name());
+				HSSFCell cell1 = row.createCell(1);
+				String sex = eUser.getEUser_sex();
+				if("0".equals(sex)){
+					cell1.setCellValue("男");
+				}else if("1".equals(sex)){
+					cell1.setCellValue("女");
+				}
+				
+				HSSFCell cell2 = row.createCell(2);
+				cell2.setCellValue(eUser.getEUser_companyname());
+				HSSFCell cell3 = row.createCell(3);
+				cell3.setCellValue(eUser.getEUser_department());
+				HSSFCell cell4 = row.createCell(4);
+				cell4.setCellValue(eUser.getEUser_hold());
+				HSSFCell cell5 = row.createCell(5);
+				cell5.setCellValue(eUser.getEUser_indentitynumber());
+				HSSFCell cell6 = row.createCell(6);
+				cell6.setCellValue(eUser.getEUser_phone());
+				HSSFCell cell7 = row.createCell(7);
+				cell7.setCellValue(eUser.getEUser_remark());
+				
 			}
-			
-			HSSFCell cell2 = row.createCell(2);
-			cell2.setCellValue(eUser.getEUser_companyname());
-			HSSFCell cell3 = row.createCell(3);
-			cell3.setCellValue(eUser.getEUser_department());
-			HSSFCell cell4 = row.createCell(4);
-			cell4.setCellValue(eUser.getEUser_hold());
-			HSSFCell cell5 = row.createCell(5);
-			cell5.setCellValue(eUser.getEUser_indentitynumber());
-			HSSFCell cell6 = row.createCell(6);
-			cell6.setCellValue(eUser.getEUser_phone());
-			HSSFCell cell7 = row.createCell(7);
-			cell7.setCellValue(eUser.getEUser_remark());
-			
 		}
-		
 		//输出Excel文件
 	    OutputStream output;
 		try {
@@ -253,7 +331,77 @@ public class SsuserController {
 		}
 	   
 	}
-	
+	@RequestMapping("/exportUsermp/{sc_id}")
+	public void ExportUsermp(HttpServletRequest request,HttpServletResponse response,@PathVariable String sc_id){
+		//获取登录用户
+		IUser iUser = new IUser();
+		iUser = (IUser)request.getSession().getAttribute("user");
+		List<EUser> eUsers = new ArrayList<EUser>();
+		eUsers = ssuserService.getListUserByidmp(iUser.getUser_id(), sc_id);
+		//导出excel
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row1 = sheet.createRow(0);//标题行
+		String[] titleValue ={"姓名","性别","工作单位","部门","职务","身份证号","联系方式","备注"}; 
+		for(int i=0;i<8;i++){
+			HSSFCell cell = row1.createCell(i);
+			cell.setCellValue(titleValue[i]);
+		}
+		if(eUsers!=null){
+			for(int j=0;j<eUsers.size();j++){
+				EUser eUser = eUsers.get(j);
+				HSSFRow row = sheet.createRow(j+1);
+				HSSFCell cell = row.createCell(0);
+				cell.setCellValue(eUser.getEUser_name());
+				HSSFCell cell1 = row.createCell(1);
+				String sex = eUser.getEUser_sex();
+				if("0".equals(sex)){
+					cell1.setCellValue("男");
+				}else if("1".equals(sex)){
+					cell1.setCellValue("女");
+				}
+				
+				HSSFCell cell2 = row.createCell(2);
+				cell2.setCellValue(eUser.getEUser_companyname());
+				HSSFCell cell3 = row.createCell(3);
+				cell3.setCellValue(eUser.getEUser_department());
+				HSSFCell cell4 = row.createCell(4);
+				cell4.setCellValue(eUser.getEUser_hold());
+				HSSFCell cell5 = row.createCell(5);
+				cell5.setCellValue(eUser.getEUser_indentitynumber());
+				HSSFCell cell6 = row.createCell(6);
+				cell6.setCellValue(eUser.getEUser_phone());
+				HSSFCell cell7 = row.createCell(7);
+				cell7.setCellValue(eUser.getEUser_remark());
+				
+			}
+		}
+		//输出Excel文件
+	    OutputStream output;
+		try {
+			response.setHeader("Content-Disposition", "attachment;filename="+new String("人员列表".getBytes("gbk"), "iso8859-1")+".xls");
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			output = response.getOutputStream();
+			wb.write(output);
+			output.flush();// 刷新流  
+			output.close();
+			wb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				wb.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally{
+			//logger.info("yes");
+		}
+	   
+	}
 	@RequestMapping("/exportUserad/{scheduled_id}")
 	public void ExportUserad(HttpServletRequest request,HttpServletResponse response,@PathVariable String scheduled_id){
 		//获取登录用户
@@ -326,6 +474,15 @@ public class SsuserController {
 	   
 	}
 	
+	@RequestMapping("/Laybm/{project_id}")
+	public LayuiDataTable<Ssuser> getSsuserByPage(@RequestParam("page")int page,@RequestParam("limit")int limit,@PathVariable String project_id,
+			HttpServletRequest request){
+		LayuiDataTable<Ssuser> sDataTable = new LayuiDataTable<>();
+		sDataTable = ssuserService.getSsuserByPage(page, limit, project_id);
+		sDataTable.setCode(0);
+		sDataTable.setMsg("");
+		return sDataTable;
+	}
 	
 	
 }

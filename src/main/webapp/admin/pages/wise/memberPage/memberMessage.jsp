@@ -335,19 +335,19 @@ String caogery = (String)session.getAttribute("isad");
 																			</div>
 																			<div class="" id="" style="padding-left: 10px;padding-right: 10px;border-top: 1px solid #F4F4F4;">
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" id="oldPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">原密码：</label>
+																					<label for="" class="control-label" id="oldPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>原密码：</label>
 																					<div class="col-sm-4">
 																						<input type="password" class="form-control searchInput1" id="oldPassword" placeholder="请输入原密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" id="newPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">新密码：</label>
+																					<label for="" class="control-label" id="newPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>新密码：</label>
 																					<div class="col-sm-4">
 																						<input type="password" class="form-control searchInput1" id="newPassword" placeholder="请输入新密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>
 																				</div>
 																				<div class="form-group" style="padding-top: 5px;height: 30px;margin-top: 5px;">
-																					<label for="" class="control-label" id="confirmPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;">确认密码：</label>
+																					<label for="" class="control-label" id="confirmPasswordLabel" style="float: left;margin-left: 5px;height: 30px;line-height: 30px;"><span style="color:red;float:left;">*</span>确认密码：</label>
 																					<div class="col-sm-4">
 																						<input type="password" class="form-control searchInput1" id="confirmPassword" placeholder="请再次输入新密码" style="height: 30px;font-size: 12px;" maxLength="6" />
 																					</div>

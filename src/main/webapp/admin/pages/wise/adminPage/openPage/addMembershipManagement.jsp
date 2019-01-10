@@ -87,21 +87,21 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">登录名称:</td>
+											<td class="leftTd">登录名称:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="signUpName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">用户姓名:</td>
+											<td class="leftTd">用户姓名:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="classesName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">用户座机:</td>
+											<td class="leftTd">用户座机:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="usersTel" value="" style="width: 100%;" />
 											</td>
@@ -115,14 +115,14 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">单位名称:</td>
+											<td class="leftTd">单位名称:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="unitName" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">所在部门:</td>
+											<td class="leftTd">所在部门:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="departmentInCharge" value="" style="width: 100%;" />
 											</td>
@@ -136,7 +136,7 @@
 
 										</tr> -->
 										<tr>
-											<td class="leftTd">担任职务:</td>
+											<td class="leftTd">担任职务:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="assumeOffice" value="" style="width: 100%;" />
 											</td>
@@ -150,21 +150,21 @@
 
 										</tr> -->
 										<tr>
-											<td class="leftTd">输入密码:</td>
+											<td class="leftTd">输入密码:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="password" id="usersPassword" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">确认密码:</td>
+											<td class="leftTd">确认密码:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="password" id="isPassword" value="" style="width: 100%;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">使用状态:</td>
+											<td class="leftTd">使用状态:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="radio" name="states" value="0" />暂停
 												<input type="radio" name="states" value="1"/>使用
@@ -217,50 +217,6 @@
 				element.on('tab(demo)', function(data) {
 					console.log(data);
 				});
-			});
-		</script>
-		<script type="text/javascript">
-			//分页
-			$(function() {
-				//设置结束日期为当前日期  
-				var date = new Date();
-				var seperator1 = "-";
-				var seperator2 = ":";
-				var month = date.getMonth() + 1;
-				var strDate = date.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if (strDate >= 0 && strDate <= 9) {
-					strDate = "0" + strDate;
-				}
-				var end = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-				/*$("#foundDate").val("万年历");*/
-
-				var dataTableLang = {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				};
 			});
 		</script>
 		<script>
@@ -318,22 +274,14 @@
 									console.log(error);
 								});
 							}else if(data.msg == "0"){
-								layer.confirm('保存失败！', { title:'提示'}, function(index){ 
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
-									console.log(error);
-								});
+								layer.alert('保存失败！');
+								console.log(error);
 							}
 						}
 
 					},error:function(data){
-						layer.confirm('保存失败！', { title:'提示'}, function(index){ 
-							window.parent.location.reload();
-							var index1 = parent.layer.getFrameIndex(window.name);
-							parent.layer.close(index1);
-							console.log(error);
-						});
+						layer.alert('保存失败！');
+						console.log(error);
 					}
 
 				})

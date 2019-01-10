@@ -14,7 +14,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/layui.css">
 		<!-- DataTables -->
 		<!-- <link rel="stylesheet" href="../../plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css"> -->
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
@@ -33,7 +33,7 @@ String caogery = (String)session.getAttribute("isad");
          folder instead of downloading all of them to reduce the load. -->
 		<link rel="stylesheet" href="../../../dist/css/skins/_all-skins.min.css">
 		<link rel="stylesheet" href="../../../bootstrap/css/style.css">
-		<link rel="stylesheet" href="../../../layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+		<link rel="stylesheet" href="../../../layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../../../css/myStyle.css">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -285,7 +285,7 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- Bootstrap 3.3.5 -->
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
-		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.4.5/layui/layui.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -332,16 +332,18 @@ String caogery = (String)session.getAttribute("isad");
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/Common/memProject',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'project_caogery', title: '班级类型',templet:'#caogery'},
-			      {field:'project_name', title: '班级名称'},
-			      {field:'project_datanum', title: '计划举办天数',templet:'#datanum'},
-			      {field:'project_pernum', title: '计划参加人数'},
-			      {field:'project_start', title: '预计开始日期'},
-			      {field:'project_status', title: '状态',templet:'#typestatus'},
-			      {field:'project_id', title: '操作',toolbar: '#barDemo'}
+				  {type:'numbers',title:"序号",minWidth:90},
+			      {field:'project_caogery', title: '班级类型',templet:'#caogery',minWidth:120},
+			      {field:'project_person',title:'发起人',minWidth:180},
+			      {field:'project_name', title: '班级名称',minWidth:160},
+			      {field:'project_datanum', title: '计划举办天数',templet:'#datanum',minWidth:120},
+			      {field:'project_pernum', title: '计划参加人数',minWidth:120},
+			      {field:'project_start', title: '预计开始日期',minWidth:120},
+			      {field:'project_status', title: '状态',templet:'#typestatus',minWidth:160},
+			      {field:'project_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
+			    height:'full-181',
 			    page: true
 			  });
 			  
@@ -393,28 +395,229 @@ String caogery = (String)session.getAttribute("isad");
 						});
 			    	}
 			    	
-			    } else if(obj.event === 'del'){
-			      	layer.confirm('确认取消报名？', function(index){
+			    } else if(obj.event === 'delete'){
+			    	if(data.project_caogery == '0'){//定制
+			    		layer.confirm('确认删除？', function(index){
+				      		$.ajax({
+								url : '<%=request.getContextPath()%>/Constom/cancel',
+								type : 'post',
+								dataType:"json",
+								data:{
+									Constom_id:data.project_id
+								},
+								success : function(data) {
+									if(data.message == "0"){
+										layer.alert("参数错误!");
+									}
+									else if(data.message == "1"){
+										layer.alert("定制班次不存在!");
+									}
+									else if(data.message == "2"){
+										layer.confirm('取消成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
+									}
+								},
+								error : function(error) {
+									console.log('接口不通' + error);
+								}
+							});	
+				        layer.close(index);
+				      });
+			    	}else if(data.project_caogery == '1'){//规定
+				      	layer.confirm('确认取消报名？', function(index){
+				      		$.ajax({
+								url : '<%=request.getContextPath()%>/Ssuser/SignOutmp',
+								type : 'post',
+								dataType:"json",
+								data:{
+									Project_id:data.project_id
+								},
+								success : function(data) {
+									if(data.message == "0"){
+										layer.confirm('班次不存在!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										});
+									}
+									else if(data.message == "1"){
+										layer.confirm('未登录!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										});
+									}
+									else if(data.message == "2"){
+										layer.confirm('取消报名失败!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										});
+									}
+									else if(data.message == "3"){
+										layer.confirm('取消报名成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										
+									});
+									}
+								},
+								error : function(error) {
+									console.log('接口不通' + error);
+								}
+							});	
+				        layer.close(index);
+				      });
+			    	}else if(data.project_caogery == '2'){//删除拼班
+			    		layer.confirm('确认取消拼班?', function(index){
+				      		$.ajax({
+								url : '<%=request.getContextPath()%>/FigClass/deleteFig/'+data.project_id,
+								type : 'post',
+								dataType:"json",
+								success : function(data) {
+									if(data.message == "0"){
+										layer.confirm('参数错误!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+										});
+									}
+									else if(data.message == "1"){
+										
+										layer.confirm('获取班次名称失败!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+										});
+									}
+									else if(data.message == "2"){
+										
+										layer.confirm('取消成功!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+										});
+									}
+								},
+								error : function(error) {
+									console.log('接口不通' + error);
+								}
+							});	
+				        layer.close(index);
+				      });
+			    	}
+			    }else if(obj.event === 'edit'){
+			    	if(data.project_caogery == '0'){//定制
+			    		layer.open({
+							type: 2, //此处以iframe举例
+							title: '修改',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/editCustomProject.jsp?constom_id='+data.project_id,
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+			    	}else if(data.project_caogery == '2'){//拼班
+			    		layer.open({
+							type: 2, //此处以iframe举例
+							title: '修改',
+							area: ['1063px', '530px'],
+							shade: 0,
+							maxmin: true,
+							offset: [100, 200],
+							content: 'openPage/editOnlieClasses.jsp?figClass_id='+data.project_id,
+							zIndex: layer.zIndex, //重点1
+							success: function(layero) {
+								layer.setTop(layero); //重点2
+							}
+						});
+			    	}
+			    	
+			    }else if(obj.event === 'cancelp'){//拼班取消报名
+			      	layer.confirm('确认取消报名?', function(index){
 			      		$.ajax({
-							url : '<%=request.getContextPath()%>/Ssuser/SignOut',
+							url : '<%=request.getContextPath()%>/FigClass/cancel',
 							type : 'post',
 							dataType:"json",
 							data:{
-								Project_id:data.scheduledshift.scheduled_id,
-								ssuid:data.suuid
+								Figclass_id:data.project_id
 							},
 							success : function(data) {
 								if(data.message == "0"){
-									layer.alert("班次不存在!");
+									layer.confirm('参数错误!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										console.log(error);
+									});
 								}
 								else if(data.message == "1"){
-									layer.alert("未登录!");
+									
+									layer.confirm('获取班次名称失败!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										console.log(error);
+									});
 								}
 								else if(data.message == "2"){
-									layer.alert("取消报名失败!");
+									
+									layer.confirm('取消成功!', { title:'提示'}, function(index){
+										  
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+										console.log(error);
+									});
 								}
-								else if(data.message == "3"){
-									layer.alert("取消报名成功!");
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
+			    }else if(obj.event === 'cancel'){
+			      	layer.confirm('确认取消定制？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/Constom/cancel',
+							type : 'post',
+							dataType:"json",
+							data:{
+								Constom_id:data.project_id
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.alert("参数错误!");
+								}
+								else if(data.message == "1"){
+									layer.alert("定制班次不存在!");
+								}
+								else if(data.message == "2"){
+									layer.confirm('取消成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 								}
 							},
 							error : function(error) {
@@ -486,7 +689,7 @@ String caogery = (String)session.getAttribute("isad");
 		        
 		        <a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 				{{#  if(d.project_caogery == "0"){ }}
-		        	<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消定制</a>
+		        	<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消定制</a>
 				{{#  } else if(d.project_caogery == "1"){ }}
 					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } else if(d.project_caogery == "2"){ }}
@@ -512,33 +715,96 @@ String caogery = (String)session.getAttribute("isad");
 		</script>
 		<script type="text/html" id="barDemo">
 			{{#  if(d.project_caogery == "2"){ }}
-	         	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-	     	{{#  }else if(d.project_caogery=="1"){ }}
-	     		{{#  if(d.project_status == "0"){ }}
-	        		<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
-	     		{{#  }else if(d.project_status=="2"){ }}
-	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>			
-		 		{{#  }else if(d.project_status=="3"){ }}
-	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-				
-		 		{{#  }else if(d.project_status=="4"){ }}
-	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{# } }}
-	     	{{#  }else if(d.project_caogery=="0"){ }}
-	     		{{#  if(d.project_status == '0'){ }}
-		        	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="edit21" style="margin-right:10px; cursor: pointer;">修改</a>
-					<a class="" lay-event="cancel22" style="margin-right:10px; cursor: pointer;">取消定制</a>
-	        	{{#  } else if(d.project_status == "2"){ }}
+	         	{{#  if(d.project_status == '0'){ }}
+		       		<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					{{#  if(d.isdelete == '1'){ }}
+						<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+						<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消拼班</a>
+					{{#  } }}
+				{{#  } else if(d.project_status == "2"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="delete23" style="margin-right:10px; cursor: pointer;">删除</a>
-				{{#  } else if(d.project_status == "1"){ }}
+					{{#  if(d.isdelete == '1'){ }}
+						<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+					{{#  } }}
+	        	{{#  } else if(d.project_status == "1"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  } else if(d.project_status == "3"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  } else if(d.project_status == "4"){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
+						<a class="" lay-event="cancelp" style="margin-right:10px; cursor: pointer;">取消报名</a>
+				{{#  } else if(d.project_status == "5"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="delete23" style="margin-right:10px; cursor: pointer;">删除</a>
+					{{#  if(d.isbm == "1"){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
+					{{#  } }}
+				{{#  } else if(d.project_status == "6"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					{{#  if(d.isbm == "1"){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
+					{{#  } }}
+				{{#  } else if(d.project_status == "7"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					{{#  if(d.isbm == "1"){ }}
+						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
+					{{#  } }}
+					{{#  if(d.isdelete == '1'){ }}
+						<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+					{{#  } }}
+				{{#  } }}
+	     	{{#  }else if(d.project_caogery=="1"){ }}
+	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
+		 	{{#  if(d.project_status == "0"){ }}
+	        
+	     	{{#  }else if(d.project_status=="1"){ }}
+	     		{{#  if(d.isbm == ""){ }}
+	       	 		<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
+	     		{{#  }else if(d.isbm=="1"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
+	    			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消报名</a>
+				{{# } }}
+	     	{{#  }else if(d.project_status=="2"){ }}
+	     	
+				{{# if(d.isbm=="1"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
+				{{# } }}			
+		 	{{#  }else if(d.project_status=="3"){ }}
+	     	
+				{{# if(d.isbm=="1"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
+				{{# } }}
+		 	{{#  }else if(d.project_status=="4"){ }}
+	     	
+				{{# if(d.isbm=="1"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
+				{{# } }}
+	     	{{# } }}
+	     	{{#  }else if(d.project_caogery=="0"){ }}
+	     		{{#  if(d.project_status == '0'){ }}
+		        	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
+					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消定制</a>
+	        	{{#  } else if(d.project_status == "2"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
+				{{#  } else if(d.project_status == "1"){ }}
+					{{#  if(d.isbm == '0'){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">提交名单</a>
+					{{#  } else if(d.isbm == "1"){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
+					{{#  } }}
+				{{#  } else if(d.project_status == "3"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
+				{{#  } else if(d.project_status == "4"){ }}
+					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
+					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 				{{#  } }}
 	     	{{# } }}
 		</script>
@@ -554,27 +820,35 @@ String caogery = (String)session.getAttribute("isad");
 
  		<script type="text/html" id="typestatus">
 		{{#  if(d.project_caogery == "2"){ }}
-	         {{#  if(d.project_status == "1"){ }}
-	      		  报名未开始
+	        {{#  if(d.project_status == "0"){ }}
+	                                        未审核
+	     	{{#  }else if(d.project_status=="1"){ }}
+	     		审核通过
 	     	{{#  }else if(d.project_status=="2"){ }}
-	    	 	审核未通过
+	     		审核未通过
 	     	{{#  }else if(d.project_status=="3"){ }}
-	     		报名进行中
+	     		报名未开始
 	     	{{#  }else if(d.project_status=="4"){ }}
-	     		待开课
-			{{#  }else if(d.project_status=="4"){ }}
-	     		开课中
-	    	 {{#  }else if(d.project_status=="0"){ }}
-	     		未审核
-	    	 {{# } }}
-	     {{#  }else if(d.project_caogery=="1"){ }}
-	     	{{#  if(d.project_status == "3"){ }}
-	      		  进行中
-	     	{{#  }else if(d.project_status=="4"){ }}
-	    	 	已结束
-	    	 {{#  }else{ }}
+	     		报名中
+		 	{{#  }else if(d.project_status=="5"){ }}
 	     		未开课
-	    	 {{# } }}
+		 	{{#  }else if(d.project_status=="6"){ }}
+	     		开课中
+		 	{{#  }else if(d.project_status=="7"){ }}
+	     		已结课
+	     	{{# } }}
+	     {{#  }else if(d.project_caogery=="1"){ }}
+	     	{{#  if(d.project_status == "0"){ }}
+	                             	报名未开始
+	     	{{#  }else if(d.project_status=="1"){ }}
+	     		报名进行中
+	     	{{#  }else if(d.project_status=="2"){ }}
+	     		未开课
+			 {{#  }else if(d.project_status=="3"){ }}
+	     		开课中
+		 	{{#  }else if(d.project_status=="4"){ }}
+	     		已结课
+	     	{{# } }}
 	     {{#  }else if(d.project_caogery=="0"){ }} 
 	     	 {{#  if(d.project_status == "1"){ }}
 	      		  审核通过

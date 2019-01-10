@@ -20,6 +20,9 @@
 		<result column="FREECO_GAOERY" jdbcType="VARCHAR" property="Freeco_gaoery"/>
 		<result column="FREECO_NUMFILE" jdbcType="VARCHAR" property="Freeco_numfile"/>
 		<result column="FREECO_DAY" jdbcType="VARCHAR" property="Freeco_day"/>
+		<result column="FREECO_WORKNUM" jdbcType="VARCHAR" property="Freeco_worknum"/>
+		<result column="FREECO_REMARK" jdbcType="VARCHAR" property="Freeco_remark"/>
+		
 	</resultMap>
 	<update id="startScheduledco">
 		 update FREE_COSTOM s
@@ -45,11 +48,11 @@
 	<insert id="insertConstom" parameterType="entity.Free_constom">
 		insert into FREE_COSTOM(FREECO_ID,FREECO_NAME,FREECO_DATA,FREECO_DATANUM,FREECO_PERNUM,FREECO_ADDRESS,FREECO_PERSON,
 		FREECO_PHONE,FREECO_CREATER,FREECO_CREATETIME,FREECO_UPDATER,FREECO_UPDATETIME,FREECO_ISDELETE,
-		FREECO_STATUS,FREECO_OUTLINE,FREECO_GAOERY,FREECO_NUMFILE,FREECO_DAY)
+		FREECO_STATUS,FREECO_OUTLINE,FREECO_GAOERY,FREECO_NUMFILE,FREECO_DAY,FREECO_WORKNUM)
 		values(#{Freeco_id},#{Freeco_name},#{Freeco_data},#{Freeco_datanum,jdbcType=VARCHAR},
 		#{Freeco_pernum},#{Freeco_address},#{Freeco_person},#{Freeco_phone},#{Freeco_creater},
 		#{Freeco_createtime},#{Freeco_updater},#{Freeco_updatetime},#{Freeco_isdelete},#{Freeco_status},
-		#{Freeco_outline},#{Freeco_gaoery},#{Freeco_numfile},#{Freeco_day,jdbcType=VARCHAR})
+		#{Freeco_outline},#{Freeco_gaoery},#{Freeco_numfile},#{Freeco_day,jdbcType=VARCHAR},#{Freeco_worknum})
 	</insert>
 	
 	<select id="getDetailByid" parameterType="String" resultMap="Free_constom">
@@ -60,7 +63,8 @@
 		update FREE_COSTOM
 		　　set FREECO_STATUS = #{status},
 			   Freeco_UPDATER = #{updater},
-				Freeco_UPDATETIME = #{updatetime}
+				Freeco_UPDATETIME = #{updatetime},
+				FREECO_REMARK = #{freeco_remark}
 		where FREECO_ID=#{Constom_id} and Freeco_ISDELETE = '0'
 	</update>
 	
@@ -120,7 +124,8 @@
 				F.FREECO_GAOERY = #{Freeco_gaoery},
 				F.Freeco_UPDATER = #{Freeco_updater},
 				F.Freeco_UPDATETIME = #{Freeco_updatetime},
-				F.FREECO_DAY = #{Freeco_day,jdbcType=VARCHAR}
+				F.FREECO_DAY = #{Freeco_day,jdbcType=VARCHAR},
+				F.FREECO_WORKNUM = #{Freeco_worknum}
 				WHERE F.FREECO_ID=#{Freeco_id} and F.Freeco_ISDELETE = '0'
 	</update>
 	

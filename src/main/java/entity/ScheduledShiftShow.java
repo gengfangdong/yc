@@ -12,6 +12,7 @@ public class ScheduledShiftShow implements Serializable{
 	private String create_status;
 	private String number;
 	private String suuid;
+	private String numfilestatus;//是否上传名单
 	public ScheduledShiftShow() {
 		super();
 	}
@@ -53,6 +54,12 @@ public class ScheduledShiftShow implements Serializable{
 	}
 	public void setDataNumber(String dataNumber) {
 		this.dataNumber = dataNumber;
+	}
+	public String getNumfilestatus() {
+		return numfilestatus;
+	}
+	public void setNumfilestatus(String numfilestatus) {
+		this.numfilestatus = numfilestatus;
 	}
 
 	

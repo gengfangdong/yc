@@ -87,7 +87,7 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">课程方案名称:</td>
+											<td class="leftTd">课程方案名称:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												 <input type="text" id="classesName" style="width: 100%;" /> 
 												<!--<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
@@ -99,59 +99,12 @@
 										</tr>
 										
 										<tr>
-											<td class="leftTd" style="vertical-align: middle;">内容:</td>
+											<td class="leftTd" style="vertical-align: middle;">内容:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription"/></textarea>
 											</td>
 										</tr>
-										<!--<tr>
-											<td class="leftTd">所属课程大纲:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													<option value="课程大纲一">课程大纲一</option>
-													<option value="课程大纲二">课程大纲二</option>
-												</select>
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">所属课程内容:</td>
-											<td class="rightTd" colspan="2">
-												<select id="catalog" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="内容一">内容一</option>
-											        <option value="内容二">内容二</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">名称:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="classesName" style="width: 100%;" />
-											</td>
-
-										</tr>
-										<tr>
-											<td class="leftTd">天数:</td>
-											<td class="rightTd" colspan="2">
-												&lt;!&ndash; <input type="text" id="hostDateNum" style="width: 100%;" /> &ndash;&gt;
-												<select id="dateNum" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-											        <option value="halfDay">0.5天</option>
-											        <option value="oneDay">1天</option>
-											        <option value="oneHalfDay">1.5天</option>
-											        <option value="twoDay">2天</option>
-											    </select>
-											</td>
-
-										</tr>-->
-										<!--<tr>
-											<td class="leftTd">状态:</td>
-											<td class="rightTd" colspan="2">
-												<input type="radio" name="states" />暂停
-												<input type="radio" name="states" />发布
-											</td>
-
-										</tr>-->
+										
 										
 									</tbody>
 								</table>

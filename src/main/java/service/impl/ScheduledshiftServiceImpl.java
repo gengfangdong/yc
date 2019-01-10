@@ -161,17 +161,23 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 				scheduledshift.setScheduled_status((String)map.get("SCHEDULED_STATUS"));
 				scheduledShiftShow.setDataNumber(""+StringUtil.getDataSub(scheduledshift.getScheduled_class_start(), scheduledshift.getScheduled_class_end()));
 				scheduledShiftShow.setScheduledshift(scheduledshift);
-				scheduledShiftShow.setNumber(num);
+				scheduledShiftShow.setNumber(num);//暂时无用
+				int lave = ssuserDao.getLavenumber((String)map.get("SCHEDULED_ID"));
+				scheduledShiftShow.setNumber(""+lave);
 				String project_id = (String)map.get("SCHEDULED_ID");
+				Ssuser ssuser = new Ssuser();
+				String status = "0";
 				if(ssuserMap.get(project_id)!=null){
-					String create_status = "";
-					Ssuser ssuser = (Ssuser) ssuserMap.get(project_id);
-					create_status = ssuser.getSsu_status();
-					scheduledShiftShow.setCreate_status(create_status);
+					ssuser = (Ssuser) ssuserMap.get(project_id);
+					scheduledShiftShow.setCreate_status("0");
 					scheduledShiftShow.setSuuid(ssuser.getSsu_id());
+					status = ssuser.getSsu_status();
 				}
 				else
 					scheduledShiftShow.setCreate_status("");
+				
+				
+				scheduledShiftShow.setNumfilestatus(status);
 				scheduledShiftShows.add(scheduledShiftShow);
 				
 			}
@@ -219,10 +225,11 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 					e.printStackTrace();
 				}
 				scheduledshift.setScheduled_status((String)map.get("SCHEDULED_STATUS"));
-				
 				scheduledShiftShow.setScheduledshift(scheduledshift);
 				scheduledShiftShow.setDataNumber(""+StringUtil.getDataSub(scheduledshift.getScheduled_class_start(), scheduledshift.getScheduled_class_end()));
 				scheduledShiftShow.setNumber(num);
+				int lave = ssuserDao.getLavenumber((String)map.get("SCHEDULED_ID"));
+				scheduledShiftShow.setNumber(""+lave);
 				scheduledShiftShows.add(scheduledShiftShow);				
 			}	
 			
@@ -252,6 +259,12 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 	public List<EUser> getListUserByid(String user_id, String scheduled_id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateStatus(Scheduledshift scheduledshift) {
+		// TODO Auto-generated method stub
+		scheduledshiftDao.updateStatus(scheduledshift);
 	}
 
 }

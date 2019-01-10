@@ -13,7 +13,7 @@
 		<result column="About_Creater" jdbcType="VARCHAR" property="About_Creater"/>
 		<result column="About_Createtime" jdbcType="VARCHAR" property="About_Createtime"/>
 	</resultMap>
-	<insert id = "insertAbout" parameterType="About">
+	<insert id = "insertAbout" parameterType="entity.About">
 		insert into About (About_ID,About_TITILE,About_TITLE_PAGE,About_INTRODUCTION,
 		About_KEYWORDS,About_RELEASE_TIME,About_STATUS,About_CONTEXT,About_CREATER,About_CREATETIME) 
 		values(#{About_id},#{About_titile},#{About_title_page},#{About_Introduction},
@@ -38,7 +38,7 @@
 		select * from ABOUT t
 		where t.ABOUT_ID = #{about_id}
 	</select>
-	<update id="updateAbout" parameterType="About">
+	<update id="updateAbout" parameterType="entity.About">
 		update ABOUT SET 
 			About_TITILE = #{About_titile},
 			About_TITLE_PAGE = #{About_title_page},

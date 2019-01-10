@@ -382,14 +382,16 @@ String caogery = (String)session.getAttribute("isad");
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/Constom/LayConstomad',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
-			      {field:'freeco_name', title: '班级名称'},
-			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery'},
-			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum'},
-			      {field:'freeco_pernum', title: '计划参加人数'},
-			      {field:'freeco_data', title: '预计开始时间'},
-			      {field:'freeco_status', title: '状态',templet:'#typestatus'},
-			      {field:'freeco_id', title: '操作',toolbar: '#barDemo'}
+				  {type:'numbers',title:"序号",minWidth:120},
+			      {field:'freeco_name', title: '班级名称',minWidth:180},
+			      {field:'freeco_creater',title:'发起人',minWidth:120},
+			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
+			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120},
+			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:90,sort: true},
+			      {field:'freeco_pernum', title: '计划参加人数',minWidth:90,sort: true},
+			      {field:'freeco_data', title: '预计开始时间',minWidth:120,sort: true},
+			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120},
+			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    id: 'testReload',
 			    page: true

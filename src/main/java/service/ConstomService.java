@@ -12,7 +12,7 @@ import entity.LayuiDataTable;
 
 public interface ConstomService {
 	public void insertConstom(Free_constom free_constom,List<Constomfile> constomfiles);
-	public void updateReview(String Constom_id,String status,String updater,String updatetime);
+	public void updateReview(String Constom_id,String status,String updater,String updatetime,String freeco_remark);
 	public Free_constom getDetailByid(String constom_id);
 	public int ImportUser(List<EUser> eUsers,String Constom_id,String user_id);
 	public LayuiDataTable<Free_constom> getListBypage(String status,String caogery,int page,int limit,String user_id);
@@ -22,5 +22,7 @@ public interface ConstomService {
 	public String getByfilename(String filename);
 	public List<EUser> getListUserByid(String user_id,String constom_id);
 	public void startScheduledco();
+	public void calcelBM(String constom_id,String user_id);
+	public int ImportUsertoo(List<EUser> eUsers, String Constom_id, String user_id);
 	
 }

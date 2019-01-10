@@ -8,6 +8,8 @@
 		<result column="applyunit_name" jdbcType="VARCHAR" property="applyunit_name"/>
 		<result column="applyunit_person" jdbcType="VARCHAR" property="applyunit_person"/>
 		<result column="applyunit_phone" jdbcType="VARCHAR" property="applyunit_phone"/>
+		<result column="phone_code" jdbcType="VARCHAR" property="phone_code"/>
+		<result column="person_number" jdbcType="VARCHAR" property="person_number"/>
 		<result column="applyunit_mail" jdbcType="VARCHAR" property="applyunit_mail"/>
 		<result column="applyunit_file" jdbcType="VARCHAR" property="applyunit_file"/>
 		<result column="creater" jdbcType="VARCHAR" property="applyunit_creater"/>
@@ -17,10 +19,10 @@
 		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
 	</resultMap>
 	<insert id = "insertApplyUnit" parameterType="ApplyUnit">
-		insert into APPLY_UNIT (APPLYUNIT_ID,APPLYUNIT_CAOGERY,APPLYUNIT_DATE,APPLYUNIT_NAME,APPLYUNIT_PERSON,APPLYUNIT_PHONE,
-		APPLYUNIT_MAIL,APPLYUNIT_FILE,CREATER,CREATETIME,PROJECT_ID,APPLYUNIT_STATUS,ISDELETE) 
+		insert into APPLY_UNIT (APPLYUNIT_ID,APPLYUNIT_CAOGERY,APPLYUNIT_DATE,APPLYUNIT_NAME,APPLYUNIT_PERSON,APPLYUNIT_PHONE,PERSON_NUMBER,
+		PHONE_CODE,APPLYUNIT_MAIL,APPLYUNIT_FILE,CREATER,CREATETIME,PROJECT_ID,APPLYUNIT_STATUS,ISDELETE) 
 		values(#{applyunit_id},#{applyunit_caogery},#{applyunit_date},#{applyunit_name},
-		#{applyunit_person},#{applyunit_phone},#{applyunit_mail},#{applyunit_file},
+		#{applyunit_person},#{applyunit_phone},#{person_number},#{phone_code},#{applyunit_mail},#{applyunit_file},
 		#{applyunit_creater},#{applyunit_createtime},#{project_id},#{applyunit_status},#{isdelete})
 	</insert>
 	
@@ -29,8 +31,13 @@
 	</select>
 	
 	 <update id="update">
-		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},
-		APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_FILE=#{applyunit_file},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
+		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},PERSON_NUMBER=#{person_number},
+		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
+	</update> 
+	
+	 <update id="updatefile">
+		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},PERSON_NUMBER=#{person_number},
+		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_FILE=#{applyunit_file},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
 	</update> 
 	
 	<update id="deleteapplyunit" parameterType="String">
@@ -38,7 +45,7 @@
 	</update>
 	<select id = "getProjectStatus" resultMap="ApplyUnit">
 		SELECT * FROM  
-			 APPLY_UNIT   
-			WHERE CREATER = #{user_id} AND PROJECT_ID=#{project_id}
+			 APPLY_UNIT   A 
+			WHERE CREATER = #{user_id} AND PROJECT_ID=#{project_id} AND A.ISDELETE='0'
 	</select>
 </mapper>

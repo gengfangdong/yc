@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import entity.Course;
 import entity.CourseVo;
 import entity.DatatablesViewPage;
+import entity.IUser;
 import entity.LayuiDataTable;
 import service.CourseService;
 import util.UUIDUtil;
@@ -54,9 +55,9 @@ public class CourseController {
 	@RequestMapping(value="/saveCourse",method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> InsertCourse(String First_course,String Second_course,
-			String Third_course,String Course_context){
+			String Third_course,String Course_context,HttpServletRequest request){
 		Map<String,Object> resultMap = new HashMap<String, Object>();
-		
+		IUser iuser = (IUser)request.getSession().getAttribute("user");
 		Course course = new Course();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String About_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
@@ -67,7 +68,7 @@ public class CourseController {
 		course.setIsDelete("0");
 		course.setSecond_course(Second_course);
 		course.setThird_course(Third_course);
-		course.setCreater("admin");
+		course.setCreater(iuser.getUser_id());
 		courseService.insertCourse(course);
 		resultMap.put("success", true);
 		resultMap.put("message", 1);
