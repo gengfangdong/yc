@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -86,14 +87,14 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 									<tr>
-										<td class="leftTd">您的姓名:</td>
+										<td class="leftTd">您的姓名:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请输入您的真实姓名"  id="entryByOneName" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您的真实姓名"  id="entryByOneName" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 										</td>
 
 									</tr>
 									<tr>
-										<td class="leftTd">您的性别:</td>
+										<td class="leftTd">您的性别:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
 											<!-- <input type="radio" name="sex" value="man" id="entryByOneSex" />男
 											<input type="radio" name="sex" value="woman" id="entryByOneSex"  />女 -->
@@ -104,21 +105,21 @@
 									</tr>
 
 									<tr>
-										<td class="leftTd">出生日期:</td>
+										<td class="leftTd">出生日期:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value="" id="entryByOneBirthday" placeholder="YYYY-MM-DD" />
+											<input type="text" value="" id="entryByOneBirthday" placeholder="YYYY-MM-DD"  style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;"/>
 										</td>
 
 									</tr>
 									<tr>
-										<td class="leftTd">身份证号:</td>
+										<td class="leftTd">身份证号:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请输入您的18位身份证号码"  maxlength="18"  id="entryByOneIDNum" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您的18位身份证号码"  maxlength="18"  id="entryByOneIDNum" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
 									<tr>
-										<td class="leftTd">政治面貌:</td>
+										<td class="leftTd">政治面貌:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
 											<!-- <input type="radio" value="党员" name="politicalOutlook"  />党员
 											<input type="radio" value="群众" name="politicalOutlook"   />群众
@@ -131,48 +132,53 @@
 									</tr>
 
 									<tr>
-										<td class="leftTd">手机号码:</td>
+										<td class="leftTd">手机号码:<span style="color:red;">*<span></td>
 										<td class="rightTd">
-											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="11"  id="entryByOnePhoneNum" style="width: 100%;" />
+											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="11"  id="entryByOnePhoneNum" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="leftTd">办公电话:<span style="color:red;">*<span></td>
+										<td class="rightTd">
+											<input type="text" value=""  placeholder="请输入您真实的办公电话"  maxlength="15"  id="entryByOnePhoneCode" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="leftTd">电子邮箱:<span style="color:red;">*<span></td>
+										<td class="rightTd" >
+											<input type="text" value="" placeholder="请输入您真实的邮箱"  id="entryByOneEmail" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 										</td>
 
 									</tr>
 									<tr>
-										<td class="leftTd">电子邮箱:</td>
+										<td class="leftTd">所在部门:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请输入您真实的邮箱"  id="entryByOneEmail" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您所在部门"  id="entryByOneDepartment" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 
 									</tr>
 									<tr>
-										<td class="leftTd">所在部门:</td>
+										<td class="leftTd">任职岗位:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您所在部门"  id="entryByOneDepartment" style="width: 100%;" />
-										</td>
-
-									</tr>
-									<tr>
-										<td class="leftTd">任职岗位:</td>
-										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您任职的岗位"  id="entryByOneJob" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您任职的岗位"  id="entryByOneJob" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 										</td>
 									</tr>
-									<tr>
+								<!-- 	<tr>
 										<td class="leftTd">任职职务:</td>
 										<td class="rightTd" >
-											<input type="text" value="" placeholder="请填写您担任的职务"  id="entryByOnePost" style="width: 100%;" />
+											<input type="text" value="" placeholder="请填写您担任的职务"  id="entryByOnePost" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
+										</td>
+									</tr> -->
+									<tr>
+										<td class="leftTd">通讯地址:<span style="color:red;">*<span></td>
+										<td class="rightTd" >
+											<input type="text" value=""  placeholder="请填写您详细的通讯地址" id="entryByOneAddress" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 										</td>
 									</tr>
 									<tr>
-										<td class="leftTd">通讯地址:</td>
+										<td class="leftTd">其他信息:<span style="color:red;">*<span></td>
 										<td class="rightTd" >
-											<input type="text" value=""  placeholder="请填写您详细的通讯地址" id="entryByOneAddress" style="width: 100%;" />
-										</td>
-									</tr>
-									<tr>
-										<td class="leftTd">其他信息:</td>
-										<td class="rightTd" >
-											<input type="text" value=""  id="entryByOneInformation"  placeholder="请输入您的学习方向、学习时间等信息"  style="width: 100%;" />
+											<input type="text" value=""  id="entryByOneInformation"  placeholder="请输入您的学习方向、学习时间等信息"  style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 										</td>
 									</tr>
 
@@ -181,7 +187,7 @@
 							</div>
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="branchSave();">保存</button>
+<!-- 									<button class="picSave" onclick="branchSave();">保存</button> -->
 									<button class="branchSave branchSub" onclick="entryByOneSave();">提交</button>
 								</div>
 							</div>
@@ -286,14 +292,16 @@
                 var brithday = $("#entryByOneBirthday").val();
                 var IDNum = $("#entryByOneIDNum").val();
                 var phone = $("#entryByOnePhoneNum").val();
+                var phoneCode = $("#entryByOnePhoneCode").val();
                 var email = $("#entryByOneEmail").val();
                 var department = $("#entryByOneDepartment").val();
                 var job = $("#entryByOneJob").val();
-                var post = $("#entryByOnePost").val();
+//                 var post = $("#entryByOnePost").val();
                 var address = $("#entryByOneAddress").val();
                 var otherInformation = $("#entryByOneInformation").val();
 
                 var testPhone = /^1\d{10}$/;
+                var testPhoneCode = /0\d{2,3}-\d{7,8}/;
 				var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
 				
                 if(name==""){
@@ -357,6 +365,13 @@
 					alert("请输入有效的手机号码！");
 					return;
 				}
+				if(phoneCode == "") {
+					alert("请输入您的办公电话！");
+					return;
+				} else if(testPhoneCode.test(phoneCode) == false) {
+					alert("请输入有效的办公电话！");
+					return;
+				}
 				if(email == "") {
 					alert("请输入您的电子邮箱！");
 					return;
@@ -372,10 +387,10 @@
                     alert("请输入您的任职岗位！");
                     return;
                 }
-                if(post==""){
-                    alert("请输入您的任职职务！");
-                    return;
-                }
+//                 if(post==""){
+//                     alert("请输入您的任职职务！");
+//                     return;
+//                 }
                 if(address==""){
                     alert("请输入您的通讯地址！");
                     return;
@@ -396,14 +411,28 @@
                         "indentity_number":IDNum,
                         "political_status":politicalStatus,
                         "phone_number":phone,
+                        "phone_code":phoneCode,
                         "mail":email,
                         "department":department,
                         "job":job,
-                        "position":post,
+                        "position":'1',
                         "address":address,
                         "other":otherInformation,
                         "project_id":'<%=project_id%>'
-                    }
+                    },
+                    success: function(data) {
+                    	layer.confirm('保存成功!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
+					},
+					error: function(error) {
+							alert("报名失败！");
+							return;
+						//error
+					}
                 })
             }
 

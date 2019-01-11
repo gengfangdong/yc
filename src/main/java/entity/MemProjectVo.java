@@ -19,6 +19,8 @@ public class MemProjectVo implements Serializable{
 	private String project_allnum;//已报名人数
 	private String isdelete;
 	private String isbm;
+	private String isfile;//是否上传名单
+	private String suuid;//规定的报名信息
 	public MemProjectVo() {
 		super();
 	}
@@ -88,14 +90,19 @@ public class MemProjectVo implements Serializable{
 	public void setIsbm(String isbm) {
 		this.isbm = isbm;
 	}
-	@Override
-	public String toString() {
-		return "MemProjectVo [project_id=" + project_id + ", project_caogery=" + project_caogery + ", project_name="
-				+ project_name + ", project_person=" + project_person + ", project_datanum=" + project_datanum
-				+ ", project_pernum=" + project_pernum + ", project_start=" + project_start + ", project_status="
-				+ project_status + ", project_allnum=" + project_allnum + ", isdelete=" + isdelete + ", isbm=" + isbm
-				+ "]";
+	public String getIsfile() {
+		return isfile;
 	}
+	public void setIsfile(String isfile) {
+		this.isfile = isfile;
+	}
+	public String getSuuid() {
+		return suuid;
+	}
+	public void setSuuid(String suuid) {
+		this.suuid = suuid;
+	}
+	
 	
 	
 	

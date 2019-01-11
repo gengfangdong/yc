@@ -10,8 +10,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,11 +35,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import entity.Apply;
 import entity.ApplyUnit;
 import entity.DatatablesViewPage;
+import entity.EUser;
 import entity.IUser;
 import entity.News;
 import entity.Project;
@@ -46,6 +51,7 @@ import service.ApplyUnitService;
 import service.IUserService;
 import service.NewsService;
 import service.ProjectService;
+import util.ExcelUtil;
 import util.FileUtil;
 import util.PropertiesUtil;
 import util.StringUtil;
@@ -210,7 +216,7 @@ public class ApplyUnitController {
 	@ResponseBody
 	public Map<String,Object> updatefile(String applyunit_id,String applyunit_status,
 			String applyunit_date,String applyunit_name,String applyunit_person,String person_number,
-			String applyunit_phone,String phone_code,String applyunit_mail,HttpServletRequest request,@RequestParam("file") MultipartFile file) throws IOException{
+			String applyunit_phone,String phone_code,String applyunit_mail,@RequestParam(value="remark",defaultValue="",required=false)String remark,HttpServletRequest request,@RequestParam("file") MultipartFile file) throws IOException{
 		//返回结果
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		
@@ -221,29 +227,69 @@ public class ApplyUnitController {
 		//初始化对象
 		ApplyUnit applyUnit = applyUnitService.getApplyUnitDetail(applyunit_id);
 				
-		//删除以前的文件
-		String oldfilename = applyUnit.getApplyunit_file();
-		//上传文件
-		FileUtil fileUtil = new FileUtil();
-				
-		if (oldfilename!=null && !oldfilename.equals("")) {
-			String result = fileUtil.delete(request.getRealPath("/Applyunit")+"\\"+applyunit_id+oldfilename);
-			if("2".equals(result)){
-				resultMap.put("code", 3);//上传失败
+		
+		
+		// 获取登录人的信息
+		IUser user = (IUser) request.getSession().getAttribute("user");
+
+		// 获取最大人数
+		int maxnumber = Integer.valueOf(String.valueOf(applyUnit.getPerson_number()));
+		// 获取上传的excel
+		List<List<Object>> list = new ArrayList<List<Object>>();
+
+		list = new ExcelUtil().getBankListByExcel(file);
+		if (list == null || list.size() == 0) {
+			resultMap.put("success", false);
+			resultMap.put("message", "2");// execl无数据
+			return resultMap;
+		} else if (list.size() > maxnumber) {
+			resultMap.put("success", false);
+			resultMap.put("message", "3");// 人员数量与execl不符合
+			return resultMap;
+		}
+		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
+		List<EUser> eUsers = new ArrayList<>();
+		// 姓名 性别 工作单位 部门 职务 身份证号 联系方式 备注
+
+		for (List<Object> list2 : list) {
+			EUser eUser = new EUser();
+			eUser.setEUser_id(UUIDUtil.getUUid("eus"));
+			eUser.setEUser_name(list2.get(0).toString());// 姓名
+			String sex = list2.get(1).toString();
+			if ("男".equals(sex)) {
+				eUser.setEUser_sex("0");// 性别
+			} else if ("女".equals(sex)) {
+				eUser.setEUser_sex("1");// 性别
+			}
+			eUser.setEUser_isdelete("0");
+			eUser.setEUser_companyname(list2.get(2).toString());// 工作单位
+			eUser.setEUser_department(list2.get(3).toString());// 部门
+			eUser.setEUser_hold(list2.get(4).toString());// 职务
+			eUser.setEUser_indentitynumber(list2.get(5).toString());// 身份证号
+			eUser.setEUser_phone(list2.get(6).toString());// 联系方式
+			eUser.setEUser_remark(list2.get(7).toString());// 备注
+			eUser.setEUser_creater(user.getUser_id());
+			eUser.setEUser_createtime(APPLYDATE);
+			eUser.setEUser_updatetime(APPLYDATE);
+			eUser.setEUser_updater(user.getUser_id());
+			eUsers.add(eUser);
+		}
+		// 检测excel里面身份证是否重复
+		Map<String, Object> idnumber = new HashMap<String, Object>();
+		for (EUser eUser : eUsers) {
+			if (idnumber.put(eUser.getEUser_indentitynumber(), eUser) != null) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// excel存在身份证重复!
 				return resultMap;
 			}
 		}
-		
-		//获取登录人的信息
-		IUser user = (IUser) request.getSession().getAttribute("user");
-
-		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String news_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
-		//文件名字
+		// 文件名字
 		String filename = file.getOriginalFilename();
-		
-		//设置属性
+
+		// 设置属性
 		applyUnit.setApplyunit_date(applyunit_date);
 		applyUnit.setApplyunit_mail(applyunit_mail);
 		applyUnit.setApplyunit_name(applyunit_name);
@@ -254,13 +300,25 @@ public class ApplyUnitController {
 		if(!StringUtil.isblack(applyunit_status)){
 			if(!applyunit_status.equals(applyUnit.getApplyunit_status())){
 				applyUnit.setApplyunit_status(applyunit_status);
+				applyUnit.setRemark(remark);
 				//短信接口
 			}
 		}
 
 		applyUnit.setApplyunit_file(filename);
 		applyUnitService.updatefile(applyUnit);
-		
+		// 删除以前的文件
+		String oldfilename = applyUnit.getApplyunit_file();
+		// 上传文件
+		FileUtil fileUtil = new FileUtil();
+
+		if (oldfilename != null && !oldfilename.equals("")) {
+			String result = fileUtil.delete(request.getRealPath("/Applyunit") + "\\" + applyunit_id + oldfilename);
+			if ("2".equals(result)) {
+				resultMap.put("code", 3);// 上传失败
+				return resultMap;
+			}
+		}
 		fileUtil.uploadFileold(file, applyUnit.getApplyunit_id()+file.getOriginalFilename(), request.getRealPath("/Applyunit"));
 		
 		//applyService.insertApply(apply);
@@ -300,8 +358,7 @@ public class ApplyUnitController {
 		int maxnumber = Integer.valueOf(String.valueOf(applyUnit.getPerson_number()));
 		// 获取上传的excel
 		List<List<Object>> list = new ArrayList<List<Object>>();
-		// EUSER列表
-		List<Apply> apply = new ArrayList<Apply>();
+		
 		list = new ExcelUtil().getBankListByExcel(file);
 		if (list == null || list.size() == 0) {
 			resultMap.put("success", false);
@@ -314,47 +371,58 @@ public class ApplyUnitController {
 		}
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
-		
+		List<EUser> eUsers = new ArrayList<>();
 //		姓名	性别	工作单位	部门	职务	身份证号	联系方式	备注
 
-//		for (List<Object> list2 : list) {
-//			Apply apply1 = new Apply();
-//			apply1.setEUser_id(UUIDUtil.getUUid("eus"));
-//			apply1.setEUser_name(list2.get(0).toString());// 姓名
-//			String sex = list2.get(1).toString();
-//			if ("男".equals(sex)) {
-//				apply1.setEUser_sex("0");// 性别
-//			} else if ("女".equals(sex)) {
-//				apply1.setEUser_sex("1");// 性别
-//			}
-//			apply1.setEUser_isdelete("0");
-//			apply1.setEUser_companyname(list2.get(2).toString());// 工作单位
-//			apply1.setEUser_department(list2.get(3).toString());// 部门
-//			apply1.setEUser_hold(list2.get(4).toString());// 职务
-//			apply1.setEUser_indentitynumber(list2.get(5).toString());// 身份证号
-//			apply1.setEUser_phone(list2.get(6).toString());// 联系方式
-//			apply1.setEUser_remark(list2.get(7).toString());// 备注
-//			apply1.setEUser_creater(iUser.getUser_id());
-//			apply1.setEUser_createtime(APPLYDATE);
-//			apply1.setEUser_updatetime(APPLYDATE);
-//			apply1.setEUser_updater(iUser.getUser_id());
-//			eUsers.add(apply1);
-//		}
+		for (List<Object> list2 : list) {
+			EUser eUser = new EUser();
+			eUser.setEUser_id(UUIDUtil.getUUid("eus"));
+			eUser.setEUser_name(list2.get(0).toString());// 姓名
+			String sex = list2.get(1).toString();
+			if ("男".equals(sex)) {
+				eUser.setEUser_sex("0");// 性别
+			} else if ("女".equals(sex)) {
+				eUser.setEUser_sex("1");// 性别
+			}
+			eUser.setEUser_isdelete("0");
+			eUser.setEUser_companyname(list2.get(2).toString());// 工作单位
+			eUser.setEUser_department(list2.get(3).toString());// 部门
+			eUser.setEUser_hold(list2.get(4).toString());// 职务
+			eUser.setEUser_indentitynumber(list2.get(5).toString());// 身份证号
+			eUser.setEUser_phone(list2.get(6).toString());// 联系方式
+			eUser.setEUser_remark(list2.get(7).toString());// 备注
+			eUser.setEUser_creater(user.getUser_id());
+			eUser.setEUser_createtime(APPLYDATE);
+			eUser.setEUser_updatetime(APPLYDATE);
+			eUser.setEUser_updater(user.getUser_id());
+			eUsers.add(eUser);
+		}
 		// 检测excel里面身份证是否重复
-//		Map<String, Object> idnumber = new HashMap<String, Object>();
-//		for (EUser eUser : eUsers) {
-//			if (idnumber.put(eUser.getEUser_indentitynumber(), eUser) != null) {
-//				resultMap.put("success", false);
-//				resultMap.put("message", "4");// excel存在身份证重复!
-//				return resultMap;
-//			}
-//		}
+		Map<String, Object> idnumber = new HashMap<String, Object>();
+		for (EUser eUser : eUsers) {
+			if (idnumber.put(eUser.getEUser_indentitynumber(), eUser) != null) {
+				resultMap.put("success", false);
+				resultMap.put("message", "4");// excel存在身份证重复!
+				return resultMap;
+			}
+		}
 //		constomService.ImportUser(eUsers, Constom_id, iUser.getUser_id());
 		String filename = file.getOriginalFilename();
 		applyUnit.setApplyunit_file(filename);
-		applyUnitService.update(applyUnit);
-		
+		applyUnitService.updatefile(applyUnit);
+		// 删除以前的文件
+		String oldfilename = applyUnit.getApplyunit_file();
+		// 上传文件
 		FileUtil fileUtil = new FileUtil();
+
+		if (oldfilename != null && !oldfilename.equals("")) {
+			String result = fileUtil.delete(request.getRealPath("/Applyunit") + "\\" + applyUnit_id + oldfilename);
+			if ("2".equals(result)) {
+				resultMap.put("success", false);
+				resultMap.put("message", "6");// 上传失败
+				return resultMap;
+			}
+		}
 		fileUtil.uploadFileold(file, applyUnit.getApplyunit_id()+file.getOriginalFilename(), request.getRealPath("/Applyunit"));
 		resultMap.put("success", true);
 		resultMap.put("message", "5");//导入成功
@@ -378,7 +446,7 @@ public class ApplyUnitController {
 	@ResponseBody
 	public Map<String,Object> update(String applyunit_id,String applyunit_status,
 			String applyunit_date,String applyunit_name,String applyunit_person,String person_number,
-			String applyunit_phone,String phone_code,String applyunit_mail,HttpServletRequest request) throws IOException{
+			String applyunit_phone,String phone_code,String applyunit_mail,@RequestParam(value="remark",required=false,defaultValue="")String remark,HttpServletRequest request) throws IOException{
 		//返回结果
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		
@@ -403,6 +471,7 @@ public class ApplyUnitController {
 		applyUnit.setApplyunit_person(applyunit_person);
 		applyUnit.setApplyunit_phone(applyunit_phone);
 		applyUnit.setPerson_number(person_number);
+		
 //		applyUnit.setApplyunit_file(filename);
 		applyUnit.setPhone_code(phone_code);
 		applyUnit.setApplyunit_createtime(news_Createtime);
@@ -412,6 +481,7 @@ public class ApplyUnitController {
 			if(!StringUtil.isblack(applyunit_status)){
 				if(!applyunit_status.equals(applyUnit.getApplyunit_status())){
 					applyUnit.setApplyunit_status(applyunit_status);
+					applyUnit.setRemark(remark);
 					//短信接口
 				}
 			}
@@ -474,7 +544,7 @@ public class ApplyUnitController {
 		applyUnit = applyUnitService.getApplyUnitDetail(applyUnit_id);
         FileUtil fileUtil = new FileUtil();
         HttpHeaders headers = new HttpHeaders();
-        return fileUtil.download(request.getRealPath("/Applyunit")+"\\"+applyUnit_id+applyUnit.getApplyunit_file(), applyUnit_id+applyUnit.getApplyunit_file(),headers);        
+        return fileUtil.download(request.getRealPath("/Applyunit")+"\\"+applyUnit_id+applyUnit.getApplyunit_file(), applyUnit.getApplyunit_file(),headers);        
     }
 	
 }

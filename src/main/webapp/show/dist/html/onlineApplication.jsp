@@ -12,9 +12,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<!-- DataTables -->
 		<link rel="stylesheet" href="../../../admin/plugins/DataTables-1.10.15/media/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="../../../admin/plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
+			<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/layui.css">
+		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<!-- <link rel="stylesheet" href="../../../admin/bootstrap/css/style.css" /> -->
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
@@ -183,18 +186,23 @@
 							<div class="am-u-md-8">
 								<div class="topbar-left">
 									<!--<i class="am-icon-globe"></i>-->
-									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
-										联系电话+86-010-83951120 / 83951097
-									</div>
+									<jsp:include   page="topbarLeft.jsp" flush="true"/>
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%} %>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
 									<%}; %>
-									<% if(user == null) {%><a href="login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="register.jsp" style="color: #000000;">注册</a>
+										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
 								</div>
 							</div>
 						</div>
@@ -279,18 +287,18 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.jsp">关于我们</a>
+															<a href="centerOverview.jsp">关于我们</a>
 															<!-- sub-menu start-->
-															<ul class="sub-menu">
+															<ul class="am-menu-sub am-collapse">
 																<li class="menu-item">
-																	<a href="centerOverview.jsp">中心概况</a>
+																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.jsp">组织结构</a>
+																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<li class="menu-item">
+																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li>
+																</li> -->
 															</ul>
 															<!-- sub-menu end-->
 														</li>
@@ -320,39 +328,45 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
-										<ul class="am-nav am-nav-pills am-nav-justify">
-											<li class="">
+
+
+										<ul class="am-menu-nav am-avg-sm-1">
+											<li>
 												<a href="../index.jsp">首页</a>
 											</li>
-											<li>
-												<a href="about.jsp">关于我们</a>
-											</li>
-											<li>
-												<a href="newsNotice.jsp">新闻中心</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
-													<li class="menu-item">
-														<a href="newsNotice.jsp">通知公告</a>
+											<li class="am-parent">
+												<a href="cultureSystem.jsp" >项目概况</a>
+												<ul class="am-menu-sub am-collapse ">
+													<li class="">
+														<a href="cultureSystem.jsp" >培养体系</a>
 													</li>
-													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
+													<li class="">
+														<a href="solution.jsp">解决方案</a>
+													</li>
+													<li class="">
+														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+													</li>
+													<li class="">
+														<a href="taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="expertTeam.jsp" class="">专家团队</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
 											</li>
-											<li>
-												<a href="regulationsClasses.jsp">规定班次</a>
+											<li class="">
+												<a href="regulationsClasses.jsp" >规定班次</a>
 											</li>
-											<li>
+											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
-											<li>
-												<a href="onlineClasses.jsp">在线拼班</a>
+											<li class="">
+												<a href="onlineClasses.jsp">拼班</a>
 											</li>
-											<li>
+
+											<li class="am-parent">
 												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
+												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
 														<a href="incumbencyStudent.jsp">招生简章</a>
 													</li>
@@ -360,10 +374,45 @@
 														<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
+											</li>
+											<li class="am-parent">
+												<a href="newsNotice.jsp">新闻公告</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="newsNotice.jsp">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.jsp">培训新闻</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="centerOverview.jsp" >关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<!-- <li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li> -->
+															</ul>
 											</li>
 											<li class="">
-												<a href="login.jsp" class="">登录</a>
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
+												<%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -394,7 +443,7 @@
 
 			<div class="am-g am-g-fixed myFixedSiderbar">
 				<!--正文-->
-				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+				<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 5%;">
 					<div class="breadcrumb-box">
 						<div class="am-container">
 							<ol class="am-breadcrumb">
@@ -536,37 +585,7 @@
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
-								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-	                  <i class="am-icon-phone" ></i>
-	                </span>-->
-									<dl>
-										<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-map-marker"></i>
-                </span>-->
-									<dl>
-										<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-envelope-o" ></i>
-                </span>-->
-									<dl>
-										<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
-								</li>
+								<jsp:include   page="mainBodyRight.jsp" flush="true"/>
 							</ul>
 						</div>
 					</div>
@@ -577,7 +596,50 @@
 
 			<!--===========layout-footer================-->
 			<div class="layout-footer">
-				<jsp:include   page="footer.jsp" flush="true"/>
+				<div class="footer">
+					<div style="background-color:#054371" class="footer--bg"></div>
+					<div class="footer--inner">
+						<div class="container">
+							<div class="footer_main">
+								<div class="am-g">
+									<div class="am-u-md-3 ">
+										<div class="footer_main--column">
+											<strong class="footer_main--column_title">友情链接</strong>
+											<ul class="footer_navigation">
+												<li class="footer_navigation--item"><a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a></li>
+												<li class="footer_navigation--item"><a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a></li>
+												<li class="footer_navigation--item"><a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a></li>
+												<li class="footer_navigation--item"><a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a></li>
+												<li class="footer_navigation--item"><a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="am-u-md-9 ">
+										<div class="footer_main--column am-u-md-8">
+											<strong class="footer_main--column_title">联系详情</strong>
+											<ul class="footer_contact_info">
+												<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>yunshipei.com</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
+											</ul>
+										</div>
+										<div class="am-u-md-4 " style="margin-top: 20px;">
+											<div class="footer_main--column">
+												<ul class="footer_navigation">
+													<div class="article-img">
+														<img src="../assets/img/index/wx_code.png" style="width: 150px;" />
+													</div>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -593,12 +655,31 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
+					<script src="../../../admin/layui-v2.4.5/layui/layui.js"></script>
+			<script src="../../../admin/layui-v2.4.5/layui/lay/modules/layer.js"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 		<!-- DataTables -->
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../admin/plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
 
 
+		<script>
+			window.onload = function(){
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			}
+			$(window).resize(function(){
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			});
+		</script>
+			<script>
+			$(document).ready(function() {
+				<%
+					if(user == null){
+						%> window.open("login.jsp",'_self');<% 
+						}
+				%>
+			});
+		</script>
 		<script>
 			function updatediv(id){
 				$.ajax({
@@ -666,13 +747,16 @@
 				"ordering": false,
 				"autoWidth": false,
 				ajax: {
-	                url: "<%=request.getContextPath()%>/Show/getlistProject"
+	                url: "<%=request.getContextPath()%>/Show/getlistProject1"
 	            },
 	            serverSide: true,
 	            columns: [
 	                
 	                {"data": "project_id",
 	                 "render":function(data,type,row,meta){
+// 	                	 if(row.status=='5'){
+// 	                		 window.open("login.jsp",'_self');
+// 	                	 }
 	                	           var startIndex = meta.settings._iDisplayStart;
 	                	     return startIndex+meta.row+1;
 	                }
@@ -692,13 +776,66 @@
                         "targets":-1,
                         "bSortable": false,
                         render: function(data, type, row) {
-                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">个人报名</a>';
-                            return html;
+                        	if(data.project_status=='0'){
+	                            var html ='<a id=\"show\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">单位报名</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id=\"edit\" href=\"#\" onclick=\"addBranch(this,\''+row.project_id+'\',\''+row.project_name+'\');\">个人报名</a>';
+	                            return html;
+                        	}
+//                         	else{
+//                         		var html='<a hrer="">查看报名信息</a>';
+//                         		return html;
+//                         	}
+                        	else if(data.project_status=='1'){
+                        		 var html ='<a id=\"show\" href=\"#\" onclick=\"showone(\''+row.apply_id+'\');\">查看报名信息</a>';
+ 	                            return html;
+                      			  
+                      	}
+	                      	else if(data.project_status=='2'){
+	                   		 var html ='<a id=\"show\" href=\"#\" onclick=\"showcom(\''+row.applyunit_id+'\',\''+row.project_name+'\');\">查看报名信息</a>';
+	                            return html;
+	                      	}
                         }
                     }], 
 				
 			});
 			
+		</script>
+		<script type="text/javascript"> 
+		
+// 			function forwa(){
+// 				 window.open("login.jsp",'_self');
+// 			}
+			function showcom(applyUnit_id,name){
+				layer.open({
+					type: 2, //此处以iframe举例
+					title: '查看报名信息',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content:encodeURI('openPage/showIncumbencyByCompany.jsp?applyUnit_id='+applyUnit_id+"&project_name="+name),
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+				
+			}
+			function showone(apply_id){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '查看项目',
+					area: ['1063px', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/showIncumbencyByOne.jsp?apply_id='+apply_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+			}
+		
 		</script>
 		<script type="text/javascript"> 
 			function addBranch(obj,id,name){
@@ -709,15 +846,16 @@
 					}else if(user != null){
 							%>
 							if(sText=='个人报名'){
-								window.open("onlineApplicationByOne.jsp?param="+id,'_self');
+								window.open("onlineApplicationByOne.jsp?param="+id,'_blank');
 							}<%	
 							%>else if(sText == '单位报名'){
-								window.open("onlineApplicationByCompany.jsp?param="+id+","+name,'_self');
+								window.open(encodeURI("onlineApplicationByCompany.jsp?param="+id+","+name),'_blank');
 							}<%
 						}
 				%>
 			}
 		</script>
+
 	</body>
 
 </html>

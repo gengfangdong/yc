@@ -11,6 +11,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">

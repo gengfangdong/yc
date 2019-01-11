@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import dao.FigClassDao;
 import dao.FigUserDao;
 import dao.FigfileDao;
 import dao.IUserDao;
+import dao.SsuserDao;
 import dao.User_FigClassDao;
 import entity.EUser;
 import entity.FigClass;
@@ -34,6 +36,7 @@ import entity.User_Figclass;
 import service.ConstomService;
 import service.FigClassService;
 import service.ScheduledshiftService;
+import service.SsuserService;
 import util.StringUtil;
 @Service
 @Transactional
@@ -59,6 +62,10 @@ public class FigClassServiceImpl implements FigClassService {
 	private User_FigClassDao user_FigClassDao;
 	@Autowired
 	private FigUserDao figUserDao;
+	@Autowired
+	private SsuserService ssuserService;
+	@Autowired
+	private SsuserDao ssuserDao;
 	public void insertFig(FigClass figClass, List<Figfile> figfiles) {
 		// TODO Auto-generated method stub
 		figClassDao.insertFig(figClass);
@@ -305,9 +312,9 @@ public class FigClassServiceImpl implements FigClassService {
 		return null;
 	}
 
-	public void updateReview(String figclass_id, String review_result, String updater, String updatetime) {
+	public void updateReview(String figclass_id, String review_result, String updater, String updatetime,String FigClass_remark) {
 		// TODO Auto-generated method stub
-		figClassDao.updateReview(figclass_id, review_result, updater, updatetime);
+		figClassDao.updateReview(figclass_id, review_result, updater, updatetime,FigClass_remark);
 	}
 
 	public List<EUser> getListUserByid(String user_id, String figclass_id) {
@@ -337,8 +344,8 @@ public class FigClassServiceImpl implements FigClassService {
 					MemProjectVo memProjectVo = new MemProjectVo();
 					memProjectVo.setProject_id(free_constom.getFreeco_id());
 					memProjectVo.setProject_caogery("0");
-					if("0".equals(free_constom.getFreeco_gaoery())){
-						memProjectVo.setProject_datanum(free_constom.getFreeco_day());
+					if("1".equals(free_constom.getFreeco_gaoery())){
+						memProjectVo.setProject_datanum(""+StringUtil.StringAdd(free_constom.getFreeco_day()));
 					}
 					else
 						memProjectVo.setProject_datanum(free_constom.getFreeco_datanum());
@@ -348,7 +355,12 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setProject_status(free_constom.getFreeco_status());
 					memProjectVo.setIsdelete("1");
 					memProjectVo.setIsbm(free_constom.getFreeco_numfile());
-					memProjectVo.setProject_person(iUserDao.getDetailByid(free_constom.getFreeco_creater()).get(0).getUser_name());
+					memProjectVo.setProject_person(free_constom.getFreeco_creater());
+					List<EUser> eUsers = constomService.getListUserByid(user_id,free_constom.getFreeco_id());
+					if(eUsers != null&&eUsers.size()>0){
+						memProjectVo.setIsfile("1");
+					}else
+						memProjectVo.setIsfile("0");
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -361,7 +373,7 @@ public class FigClassServiceImpl implements FigClassService {
 			if(sDataTable.getData()!=null&&sDataTable.getData().size()>0){
 				for (ScheduledShiftShow scheduledShiftShow : sDataTable.getData()) {
 					MemProjectVo memProjectVo = new MemProjectVo();
-					memProjectVo.setProject_id(scheduledShiftShow.getSuuid());
+					memProjectVo.setProject_id(scheduledShiftShow.getScheduledshift().getScheduled_id());
 					memProjectVo.setProject_caogery("1");
 					memProjectVo.setProject_datanum(scheduledShiftShow.getDataNumber());
 					memProjectVo.setProject_name(scheduledShiftShow.getScheduledshift().getScheduled_name());
@@ -371,6 +383,15 @@ public class FigClassServiceImpl implements FigClassService {
 					memProjectVo.setIsbm("1");
 					memProjectVo.setIsdelete("0");
 					memProjectVo.setProject_person("管理员");
+					List<EUser> eUsers = ssuserService.getListUserByid(user_id, scheduledShiftShow.getScheduledshift().getScheduled_id());
+					List<String> ssuids = ssuserDao.getsuuid(user_id,scheduledShiftShow.getScheduledshift().getScheduled_id());
+					if(ssuids!=null&&ssuids.size()>0){
+						memProjectVo.setSuuid(ssuids.get(0));
+					}
+					if(eUsers != null&&eUsers.size()>0){
+						memProjectVo.setIsfile("1");
+					}else
+						memProjectVo.setIsfile("0");
 					memProjectVos.add(memProjectVo);
 				}
 			}
@@ -425,18 +446,37 @@ public class FigClassServiceImpl implements FigClassService {
 								memProjectVo.setProject_datanum("待定");
 							}
 							else 
-								memProjectVo.setProject_datanum(map.get("PROJECT_DAY").toString());
+								memProjectVo.setProject_datanum(""+StringUtil.StringAdd(map.get("PROJECT_DAY").toString()));
 						}
 						else
 							memProjectVo.setProject_datanum(map.get("PROJECT_DATANUM").toString());
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
-						
+						List<EUser> eUsers = constomService.getListUserByid(user_id, map.get("PROJECT_ID").toString());
+						if(eUsers != null&&eUsers.size()>0){
+							memProjectVo.setIsfile("1");
+						}else
+							memProjectVo.setIsfile("0");
 						
 					}else if ("1".equals(caog)){//规定  SCHEDULED_CLASS_START  SCHEDULED_CLASS_END
+						List<EUser> eUsers = ssuserService.getListUserByid(user_id, map.get("PROJECT_ID").toString());
+						List<String> ssuids = ssuserDao.getsuuid(user_id, map.get("PROJECT_ID").toString());
+						if(ssuids!=null&&ssuids.size()>0){
+							memProjectVo.setSuuid(ssuids.get(0));
+						}
+						if(eUsers != null&&eUsers.size()>0){
+							memProjectVo.setIsfile("1");
+						}else
+							memProjectVo.setIsfile("0");
 						memProjectVo.setProject_person("管理员");
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}else if("2".equals(caog)){//拼班  FIGCLASS_CLASS_START FIGCLASS_CLASS_END
+						List<FigUser> figUsers = figUserDao.getByFigClassidanduserid(map.get("PROJECT_ID").toString(),user_id);
+						if (figUsers!=null&&figUsers.size()>0) {
+							memProjectVo.setIsfile(figUsers.get(0).getFiu_status());
+						} else {
+							memProjectVo.setIsfile("0");
+						}
 						memProjectVo.setProject_person(iUserDao.getDetailByid(map.get("PROJECT_ISDELETE").toString()).get(0).getUser_name());
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));

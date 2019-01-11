@@ -23,6 +23,7 @@
 		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
 		<result column="apply_caogery" jdbcType="VARCHAR" property="apply_caogery"/>
 		<result column="applydate" jdbcType="VARCHAR" property="applydate"/>
+		<result column="reamrk" jdbcType="VARCHAR" property="remark"/>
 	</resultMap>
 	<insert id = "insertApply" parameterType="Apply">
 		insert into APPLY (APPLY_ID,NAME,SEX,BRITHDAY,INDENTITY_NUMBER,POLITICAL_STATUS,PHONE_NUMBER,PHONE_CODE,MAIL,
@@ -85,7 +86,7 @@
 	<update id="updateapply" parameterType="Apply">
 		UPDATE APPLY A SET A.NAME=#{name},A.SEX=#{sex} ,A.BRITHDAY=#{brithday} ,A.INDENTITY_NUMBER=#{indentity_number},
 		A.POLITICAL_STATUS=#{political_status},A.PHONE_NUMBER=#{phone_number},A.PHONE_CODE=#{phone_code},A.MAIL=#{mail},A.DEPARTMENT=#{department},A.JOB=#{job},
-		A.ADDRESS=#{address},A.OTHER=#{other},A.POSITION=#{position},A.CHECK_STATUS=#{check_status} WHERE A.APPLY_ID=#{Apply_id}
+		A.ADDRESS=#{address},A.OTHER=#{other},A.POSITION=#{position},A.CHECK_STATUS=#{check_status},A.REMARK=#{remark,jdbcType=VARCHAR} WHERE A.APPLY_ID=#{Apply_id}
 	</update>
 	<select id = "getProjectStatus" resultMap="Apply">
 		SELECT * FROM  

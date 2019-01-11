@@ -67,5 +67,11 @@ public class ApplyUnitServiceImpl implements ApplyUnitService{
 	public List<ApplyUnit> getProjectStatus(String user_id, String project_id) {
 		return applyUnitDao.getProjectStatus(user_id,project_id);
 	}
+
+	@Override
+	public void updatefile(ApplyUnit applyUnit) {
+		// TODO Auto-generated method stub
+		applyUnitDao.updatefile(applyUnit);
+	}
 	
 }

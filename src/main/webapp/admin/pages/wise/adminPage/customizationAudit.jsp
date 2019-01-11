@@ -11,6 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -394,6 +395,7 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    id: 'testReload',
+			    height:'full-181',
 			    page: true
 			  });
 			  
@@ -633,9 +635,9 @@ String caogery = (String)session.getAttribute("isad");
 	     {{#  if(d.freeco_datanum!=null){ }}
 	        {{d.freeco_datanum}}
 	     {{#  }else{ }}
-	     	{{#  if(d.freeco_gaoery == "0"){ }}
+	     	{{#  if(d.freeco_gaoery == "1"){ }}
 	        	{{d.freeco_day}}
-		     {{#  }else if(d.freeco_gaoery=="1"){ }}
+		     {{#  }else if(d.freeco_gaoery=="0"){ }}
 		     	待定
 		     {{# } }}
 	     	

@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -135,7 +136,12 @@
 										<td class="rightTd">
 											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="11"  id="entryByOnePhoneNum" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
-
+									</tr>
+									<tr>
+										<td class="leftTd">手机号码:</td>
+										<td class="rightTd">
+											<input type="text" value=""  placeholder="请输入您真实的手机号码"  maxlength="15"  id="entryByOnePhoneCode" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
+										</td>
 									</tr>
 									<tr>
 										<td class="leftTd">电子邮箱:</td>
@@ -157,12 +163,12 @@
 											<input type="text" value="" placeholder="请填写您任职的岗位"  id="entryByOneJob" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
 									</tr>
-									<tr>
+							<!-- 		<tr>
 										<td class="leftTd">任职职务:</td>
 										<td class="rightTd" >
 											<input type="text" value="" placeholder="请填写您担任的职务"  id="entryByOnePost" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 										</td>
-									</tr>
+									</tr> -->
 									<tr>
 										<td class="leftTd">通讯地址:</td>
 										<td class="rightTd" >
@@ -252,10 +258,11 @@
 						var IDNum = document.getElementById("entryByOneIDNum");
 						var PoliticalStatus = document.getElementById("byOnePoliticalStatus");
 						var PhoneNum = document.getElementById("entryByOnePhoneNum");	
+						var PhoneCode = document.getElementById("entryByOnePhoneCode");	
 						var email = document.getElementById("entryByOneEmail");
 						var Department = document.getElementById("entryByOneDepartment");
 						var Job = document.getElementById("entryByOneJob");//岗位
-						var Post = document.getElementById("entryByOnePost");//职务
+// 						var Post = document.getElementById("entryByOnePost");//职务
 						var Address = document.getElementById("entryByOneAddress");
 						var others = document.getElementById("entryByOneInformation");
 
@@ -263,10 +270,11 @@
 						Birthday.value = data.data.brithday;
 						IDNum.value = data.data.indentity_number;
 						PhoneNum.value = data.data.phone_number;
+						PhoneCode.value = data.data.phone_code;
 						email.value=data.data.mail;
 						Department.value=data.data.department;
 						Job.value=data.data.job;
-						Post.value=data.data.position;
+// 						Post.value=data.data.position;
 						Address.value=data.data.address;
 						others.value=data.data.other;
 // 						<input class="onlineRadio byOneSex" type="radio" name="sex" value="man" />男

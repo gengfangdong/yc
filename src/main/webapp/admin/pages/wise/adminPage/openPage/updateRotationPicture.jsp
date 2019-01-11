@@ -73,14 +73,14 @@
 									<tbody>
 										<input type="text" id="newsid" hidden="hidden" id="noticeid"/>
 										<input type="text" id="filename" name="filename" hidden="hidden">
-										<tr>
+									<!-- 	<tr>
 											<td class="leftTd">标题:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="newsTitle" />
 											</td>
-										</tr>
+										</tr> -->
 										<tr>
-											<td class="leftTd">封面:</td>
+											<td class="leftTd">轮播图:</td>
 											<td class="rightTd">
 												<div class="layui-upload-list">
 												  <img class="layui-upload-img" id="demo1" style="width:150px;" src="<%=request.getContextPath()%>/RotationPic/RotationPic_title_page_Show?RotationPic_id=<%=rotationPic_id%>">
@@ -93,7 +93,7 @@
 												</button>
 											</td>
 										</tr>
-										<tr>
+							<!-- 			<tr>
 											<td class="leftTd">简介:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入50字以下文字" id="newsAbstract" />
@@ -104,6 +104,30 @@
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="newsKeyWords" />
 											</td>
+										</tr> -->
+										<tr>
+											<td class="leftTd">关键字:</td>
+											<td class="rightTd" colspan="2">
+												 <select name="modules" lay-verify="required" lay-search="" id="newsKeyWords">
+										          <option value="">请选择链接地址</option>
+										          <option value="cultureSystem.jsp">培养体系</option>
+										          <option value="solution.jsp">解决方案</option>
+										          <option value="teachingMaterialSystem.jsp">教材体系</option>
+										          <option value="taxCollectionFund.jsp">领税体系</option>
+										          <option value="expertTeam.jsp">专家团队</option>
+										          <option value="regulationsClasses.jsp">规定班次</option>
+										          <option value="customizedClasses.jsp">定制班次</option>
+										          <option value="onlineClasses.jsp">拼班</option>
+										          <option value="incumbencyStudent.jsp">招生简章</option>
+										          <option value="onlineApplication.jsp">在线报名</option>
+										          <option value="newsNotice.jsp">通知公告</option>
+										          <option value="newsTrain.jsp">培训新闻</option>
+										          <option value="about.jsp">关于我们</option>
+										          <option value="centerOverview.jsp">中心概况</option>
+										          <option value="organization.jsp">组织结构</option>
+										          <option value="aboutSchool.jsp">学校介绍</option>
+										        </select>
+											</td>
 										</tr>
 										<!--<tr>
 											<td class="leftTd">类别:</td>
@@ -111,7 +135,7 @@
 												<input type="text" id="newsCategory" />
 											</td>
 										</tr>-->
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
 												<input id="newsDate" name="newsDate"  autocomplete="off" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
@@ -130,7 +154,7 @@
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription" /></textarea>
 											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 								</form>
@@ -197,27 +221,27 @@
 			      document.getElementById("filename").value="";
 			    },
 			    before:function(obj){
-			    	var newsStatus = document.getElementsByName("newsStates");
-			    	var rotationPic_status="";
-					for(var i=0;i<newsStatus.length;i++){
-						if(newsStatus[i].checked == true){
-							if("发布"==newsStatus[i].value){
-								rotationPic_status = '1';
-							}
-							else
-								rotationPic_status = '0';
-							//news_status = newsStatus[i].value;
-							break;
-						}
-					}
+// 			    	var newsStatus = document.getElementsByName("newsStates");
+// 			    	var rotationPic_status="";
+// 					for(var i=0;i<newsStatus.length;i++){
+// 						if(newsStatus[i].checked == true){
+// 							if("发布"==newsStatus[i].value){
+// 								rotationPic_status = '1';
+// 							}
+// 							else
+// 								rotationPic_status = '0';
+// 							//news_status = newsStatus[i].value;
+// 							break;
+// 						}
+// 					}
 			    	this.data={
-			    	"RotationPic_Title": document.getElementById("newsTitle").value,
-			    	"RotationPic_Introduction":document.getElementById("newsAbstract").value,
+			    	"RotationPic_Title": '',
+			    	"RotationPic_Introduction":'',
 					"RotationPic_KeyWords":document.getElementById("newsKeyWords").value,
-					"RotationPic_Release_time":document.getElementById("newsDate").value,
-					"RotationPic_status":rotationPic_status,
-					"RotationPic_context":CKEDITOR.instances.newsDescription.getData(),
-					"filename":document.getElementById("filename").value,
+					"RotationPic_Release_time":'',
+					"RotationPic_status":'',
+					"RotationPic_context":'',
+					"filename":'',
 					"RotationPic_id":document.getElementById("newsid").value
 			    	}//携带额外的数据
 				    obj.preview(function(index, file, result){
@@ -266,74 +290,74 @@
 		<script>
 			function save(){
 				//debugger;
-				var newsTitle = $('#newsTitle').val();
-				var newsAbstract = $("#newsAbstract").val();
+// 				var newsTitle = $('#newsTitle').val();
+// 				var newsAbstract = $("#newsAbstract").val();
 				var newsKeyWords = $("#newsKeyWords").val();
-				var newsDate = $("#newsDate").val();
-				var newsStates = $(".newsStates");
-				var newsDescription = CKEDITOR.instances.newsDescription.getData();
-				if(newsTitle == "") {
-					layer.alert("请填写标题！");
-					return;
-				}
-				if(newsAbstract == "") {
-					layer.alert("请填写简介！");
-					return;
-				}
+// 				var newsDate = $("#newsDate").val();
+// 				var newsStates = $(".newsStates");
+// 				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+// 				if(newsTitle == "") {
+// 					layer.alert("请填写标题！");
+// 					return;
+// 				}
+// 				if(newsAbstract == "") {
+// 					layer.alert("请填写简介！");
+// 					return;
+// 				}
 				if(newsKeyWords == "") {
-					layer.alert("请填写关键字！");
+					layer.alert("请填链接地址！");
 					return;
 				}
-				if(newsDate == "") {
-					layer.alert("请选择日期！");
-					return;
-				}
-				if(newsDescription.length == "") {
-					layer.alert("请填写内容！");
-					return;
-				}
-				if(newsStates[0].checked == true) {
-// 					var sex = "0";
-				} else if(newsStates[1].checked == true) {
-// 					var sex = "1";
-				} else {
-					layer.alert("请选择状态！");
-					return;
-				}
+// 				if(newsDate == "") {
+// 					layer.alert("请选择日期！");
+// 					return;
+// 				}
+// 				if(newsDescription.length == "") {
+// 					layer.alert("请填写内容！");
+// 					return;
+// 				}
+// 				if(newsStates[0].checked == true) {
+// // 					var sex = "0";
+// 				} else if(newsStates[1].checked == true) {
+// // 					var sex = "1";
+// 				} else {
+// 					layer.alert("请选择状态！");
+// 					return;
+// 				}
 				
 				var oldfilename = document.getElementById("filename").value; 
 				if(oldfilename !=""){
 					var rotationPic_title_page = oldfilename;
-			    	var rotationPic_context = CKEDITOR.instances.newsDescription.getData();
-					var rotationPicTitle = document.getElementById("newsTitle").value;
-					var rotationPicAbstract = document.getElementById("newsAbstract").value;
+// 			    	var rotationPic_context = CKEDITOR.instances.newsDescription.getData();
+// 					var rotationPicTitle = document.getElementById("newsTitle").value;
+// 					var rotationPicAbstract = document.getElementById("newsAbstract").value;
 					var rotationPicKeyWords = document.getElementById("newsKeyWords").value;
-					var rotationPicDate = document.getElementById("newsDate").value;
-					var newsStatus = document.getElementsByName("newsStates");
+// 					var rotationPicDate = document.getElementById("newsDate").value;
+// 					var newsStatus = document.getElementsByName("newsStates");
 					var RotationPic_id = document.getElementById("newsid").value;
-					var rotationPic_status="";
-					for(var i=0;i<newsStatus.length;i++){
-						if(newsStatus[i].checked == true){
-							if("发布"==newsStatus[i].value){
-								rotationPic_status = '1';
-							}
-							else
-								rotationPic_status = '0';
-							//news_status = newsStatus[i].value;
-							break;
-						}
-					}
+// 					var rotationPic_status="";
+// 					for(var i=0;i<newsStatus.length;i++){
+// 						if(newsStatus[i].checked == true){
+// 							if("发布"==newsStatus[i].value){
+// 								rotationPic_status = '1';
+// 							}
+// 							else
+// 								rotationPic_status = '0';
+// 							//news_status = newsStatus[i].value;
+// 							break;
+// 						}
+// 					}
 					$.ajax({
 						url : '<%=request.getContextPath()%>/RotationPic/updateRotationPic',
 						type : 'post',
 						dataType:"json",
 						data:{
-							RotationPic_Title:rotationPicTitle,
-							RotationPic_Introduction:rotationPicAbstract,
+							RotationPic_Title:'',
+							RotationPic_Introduction:'',
 							RotationPic_KeyWords:rotationPicKeyWords,
-							RotationPic_Release_time:rotationPicDate,
-							RotationPic_status:rotationPic_status,
-							RotationPic_context:rotationPic_context,
+							RotationPic_Release_time:'',
+							RotationPic_status:'',
+							RotationPic_context:'',
 							filename:rotationPic_title_page,
 							RotationPic_id:RotationPic_id
 						},
@@ -364,7 +388,7 @@
 		</script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+//         		CKEDITOR.replace('newsDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/RotationPic/getRotationPicdetailByid',
 				type : 'GET',
@@ -373,37 +397,37 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var newscontext = CKEDITOR.instances.newsDescription;
-						var newsTitle = document.getElementById("newsTitle");
-						var newsAbstract = document.getElementById("newsAbstract");
+// 						var newscontext = CKEDITOR.instances.newsDescription;
+// 						var newsTitle = document.getElementById("newsTitle");
+// 						var newsAbstract = document.getElementById("newsAbstract");
 						var newsKeyWords = document.getElementById("newsKeyWords");
-						var newsDate = document.getElementById("newsDate");
-						var newsStatus = document.getElementsByName("newsStates");
+// 						var newsDate = document.getElementById("newsDate");
+// 						var newsStatus = document.getElementsByName("newsStates");
 						var newsid = document.getElementById("newsid");
 						var filename = document.getElementById("filename");
 						var rotationPic_id = data.data.rotationPic_id;
-						var rotationPic_Introduction = data.data.rotationPic_Introduction;
+// 						var rotationPic_Introduction = data.data.rotationPic_Introduction;
 						var rotationPic_KeyWords = data.data.rotationPic_KeyWords;
-						var rotationPic_Rlease_time = data.data.rotationPic_Release_time;
-						var rotationPic_context = data.data.rotationPic_context;
-						var rotationPic_titile = data.data.rotationPic_titile;
-						var rotationPic_status = data.data.rotationPic_status;
+// 						var rotationPic_Rlease_time = data.data.rotationPic_Release_time;
+// 						var rotationPic_context = data.data.rotationPic_context;
+// 						var rotationPic_titile = data.data.rotationPic_titile;
+// 						var rotationPic_status = data.data.rotationPic_status;
 						var rotationPic_title_page = data.data.rotationPic_title_page;
 						
 						newsid.value=rotationPic_id;//新闻id
-						newsTitle.value=rotationPic_titile; //标题
-						newsAbstract.value=rotationPic_Introduction;//简介
+// 						newsTitle.value=rotationPic_titile; //标题
+// 						newsAbstract.value=rotationPic_Introduction;//简介
 						newsKeyWords.value=rotationPic_KeyWords;//关键字
-						newsDate.value=rotationPic_Rlease_time;//发布日期
-						newsTitle.value=rotationPic_titile;//状态
-						newscontext.setData(rotationPic_context);//内容
+// 						newsDate.value=rotationPic_Rlease_time;//发布日期
+// 						newsTitle.value=rotationPic_titile;//状态
+// 						newscontext.setData(rotationPic_context);//内容
 						filename.value=rotationPic_title_page;
-						if(rotationPic_status == "1"||rotationPic_status == "2"){
-							newsStatus[0].checked = true;
-						}
-						else if(rotationPic_status == "0"){
-							newsStatus[1].checked = true;
-						}
+// 						if(rotationPic_status == "1"||rotationPic_status == "2"){
+// 							newsStatus[0].checked = true;
+// 						}
+// 						else if(rotationPic_status == "0"){
+// 							newsStatus[1].checked = true;
+// 						}
 
 					}
 					

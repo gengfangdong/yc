@@ -68,6 +68,13 @@
 			.layui-this a {
 				color: #555555;
 			}
+			#downLoad{
+				color:#fff;
+				margin-left:10px;
+			}
+			#downLoad:hover{
+				color:#FFF!important;
+			}
 		</style>
 	</head>
 	<body>
@@ -262,9 +269,9 @@
 										</tr>
 									</tbody>
 								</table>
-								<!-- <div style="text-align: center;margin-top: 100px;">
-									<button class="branchSave branchSub" onclick="branchSub();">提交</button>
-								</div> -->
+								<div style="text-align: center;margin-top: 100px;">
+									<button class="branchSave branchSub" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name))">关闭</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -596,7 +603,7 @@
     						memotr += '<tr id="upload-'+ i +'">'+
 					          '<td>'+ files[i].oldfilename +'</td>'+
 					          '<td>'+
-					          '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete" ><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor">下载</a></button>'+
+					          '<button class="layui-btn layui-btn-xs demo-delete" style="background:#1e9fff;"><a href="<%=request.getContextPath()%>/ScheduledShift/download/'+files[i].newfilename+' " class="hoverColor" id="downLoad">下载</a></button>'+
 					          '</td>'+
 					        '</tr>';
     					}

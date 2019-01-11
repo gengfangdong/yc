@@ -11,6 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -20,6 +21,7 @@ String caogery = (String)session.getAttribute("isad");
 		<link rel="stylesheet" href="../../../plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css">
 		<!-- zTree -->
 		<link rel="stylesheet" href="../../../zTree_v3/css/zTreeStyle/zTreeStyle.css">
+		
 		
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="../../../css/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -317,7 +319,9 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- <script type="text/javascript" src="../../My97DatePicker/WdatePicker.js"></script> -->
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
-		
+		<!-- qrcode -->
+		<script type="text/javascript" src="../../../qrcodejs-master/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../qrcodejs-master/qrcode.js"></script>
 		<script>
 			var firstObj="";
 			var secondObj="";
@@ -348,7 +352,7 @@ String caogery = (String)session.getAttribute("isad");
 		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:350}
 		    ]],
 		    id: 'testReload',
-		    height:'full-185',
+		    height:'full-250',
 		    page: true
 		  });
 		  
@@ -492,6 +496,20 @@ String caogery = (String)session.getAttribute("isad");
 					maxmin: true,
 					offset: [100, 200],
 					content: 'openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }else if(obj.event === 'showcode'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '报名',
+					area: ['70%', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/index.jsp',
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
@@ -672,6 +690,7 @@ String caogery = (String)session.getAttribute("isad");
 			{{#  if(d.figClass_status == '0'){ }}
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  if(d.isdelete == '1'){ }}
+					
 					<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消拼班</a>
 				{{#  } }}
@@ -686,11 +705,12 @@ String caogery = (String)session.getAttribute("isad");
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
 				{{#  if(d.bmstatus == '0'){ }}
+					
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
 	        	{{#  } else if(d.bmstatus == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					
 					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "5"){ }}

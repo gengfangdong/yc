@@ -17,6 +17,8 @@ public class ApplyUnit implements Serializable{
 	private String applyunit_name;//报名单位
 	private String applyunit_person;//联系人
 	private String applyunit_phone;//联系人电话
+	private String phone_code;//座机电话
+	private String person_number;//报名人数
 	private String applyunit_mail;//联系人邮箱
 	private String applyunit_file;//报名名单
 	private String applyunit_creater;//创建人
@@ -24,30 +26,19 @@ public class ApplyUnit implements Serializable{
 	private String project_id;//项目id
 	private String applyunit_status;//审核状态 0未审核 1审核不通过 2 审核通过
 	private String isdelete;// 是否删除 0为未删除 1为删除
+	private String remark;
 	public ApplyUnit() {
 		super();
 	}
-	public ApplyUnit(String applyunit_id, String applyunit_caogery,
-			String applyunit_date, String applyunit_name,
-			String applyunit_person, String applyunit_phone,
-			String applyunit_mail, String applyunit_file,
-			String applyunit_creater, String applyunit_createtime,
-			String project_id, String applyunit_status, String isdelete) {
-		super();
-		this.applyunit_id = applyunit_id;
-		this.applyunit_caogery = applyunit_caogery;
-		this.applyunit_date = applyunit_date;
-		this.applyunit_name = applyunit_name;
-		this.applyunit_person = applyunit_person;
-		this.applyunit_phone = applyunit_phone;
-		this.applyunit_mail = applyunit_mail;
-		this.applyunit_file = applyunit_file;
-		this.applyunit_creater = applyunit_creater;
-		this.applyunit_createtime = applyunit_createtime;
-		this.project_id = project_id;
-		this.applyunit_status = applyunit_status;
-		this.isdelete = isdelete;
+	
+	public String getRemark() {
+		return remark;
 	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public String getApplyunit_id() {
 		return applyunit_id;
 	}
@@ -83,6 +74,18 @@ public class ApplyUnit implements Serializable{
 	}
 	public void setApplyunit_phone(String applyunit_phone) {
 		this.applyunit_phone = applyunit_phone;
+	}
+	public String getPhone_code() {
+		return phone_code;
+	}
+	public void setPhone_code(String phone_code) {
+		this.phone_code = phone_code;
+	}
+	public String getPerson_number() {
+		return person_number;
+	}
+	public void setPerson_number(String person_number) {
+		this.person_number = person_number;
 	}
 	public String getApplyunit_mail() {
 		return applyunit_mail;
@@ -126,6 +129,5 @@ public class ApplyUnit implements Serializable{
 	public void setIsdelete(String isdelete) {
 		this.isdelete = isdelete;
 	}
-	
 	
 }

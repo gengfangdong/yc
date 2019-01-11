@@ -12,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -141,18 +142,24 @@
 							<div class="am-u-md-8">
 								<div class="topbar-left">
 									<!--<i class="am-icon-globe"></i>-->
-									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
-										联系电话+86-010-83951120 / 83951097
-									</div>
+									<jsp:include   page="topbarLeft.jsp" flush="true"/>
+									
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%} %>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
 									<%}; %>
-									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="html/register.jsp" style="color: #000000;">注册</a>
+										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
 								</div>
 							</div>
 						</div>
@@ -237,18 +244,18 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.jsp">关于我们</a>
+															<a href="centerOverview.jsp" >关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.jsp">中心概况</a>
+																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.jsp">组织结构</a>
+																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<li class="menu-item">
+																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li>
+																</li> -->
 															</ul>
 															<!-- sub-menu end-->
 														</li>
@@ -337,24 +344,32 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
-													</li>
-													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
-													</li>
-													<li class="menu-item">
-														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
-												</ul>
+												<a href="centerOverview.jsp">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="am-menu-sub am-collapse">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<!-- <li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li> -->
+															</ul>
 											</li>
 											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
 												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -369,7 +384,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -383,7 +398,7 @@
 
 				<div class="am-g am-g-fixed myFixedSiderbar">
 					<!--正文-->
-					<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 100px;">
+					<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 5%;">
 						<div class="breadcrumb-box">
 							<div class="am-container">
 								<ol class="am-breadcrumb">
@@ -475,13 +490,13 @@
 												<table class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
 													<tbody>
 														<tr>
-															<td class="tableLeftTd3">举办天数:</td>
+															<td class="tableLeftTd3">举办天数:<span style="color:red;">*<span></td>
 															<td class="tableRightTd3">
 																<input type="text" id="hostingDay" style="width:100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 															</td>
 														</tr>
 														<tr>
-															<td class="tableLeftTd3">备注：</td>
+															<td class="tableLeftTd3">备注：<span style="color:red;">*<span></td>
 															<td class="tableRightTd3">
 																<textarea placeholder="请输入您的学习方向、学习时间等信息" style="width: 100%;height: 150px;border-radius:5px;"></textarea>
 																<!--<input class="onlineInput" type="text" placeholder="请输入您的学习方向、学习时间等信息" />-->
@@ -500,40 +515,46 @@
 								<table class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
 									<tbody>
 										<tr>
-											<td class="tableLeftTd3">班级名称:</td>
+											<td class="tableLeftTd3">班级名称:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 												<input type="text" id="classesName" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">预计举办日期:</td>
+											<td class="tableLeftTd3">预计举办日期:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">计划参加人数:</td>
+											<td class="tableLeftTd3">计划参加人数:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 												<input type="text" id="planNumOfEntries" onBlur="judgesNumber(this);" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										
 										<tr>
-											<td class="tableLeftTd3">预计举办地点:</td>
+											<td class="tableLeftTd3">预计举办地点:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">联系人员:</td>
+											<td class="tableLeftTd3">联系人员:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 											<input type="text" id="contactPersonnel" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">联系电话:</td>
+											<td class="tableLeftTd3">联系电话:<span style="color:red;">*<span></td>
 											<td class="tableRightTd3">
 												<input type="text" id="contactNumber" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="tableLeftTd3">联系办公电话:<span style="color:red;">*<span></td>
+											<td class="tableRightTd3">
+												<input type="text" id="contactWorkNumber" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
 											</td>
 										</tr>
 										<tr>
@@ -558,27 +579,27 @@
 									<table id="branchTable2" class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
 										<tbody>
 											<tr>
-												<td class="tableLeftTd3">拼班发起单位:</td>
+												<td class="tableLeftTd3">拼班发起单位:<span style="color:red;">*<span></td>
 												<td class="tableRightTd3" colspan="2">
 													<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
 												</td>
 	
 											</tr>
 											<tr>
-												<td class="tableLeftTd3">班级容纳人数:</td>
+												<td class="tableLeftTd3">班级容纳人数:<span style="color:red;">*<span></td>
 												<td class="tableRightTd3" colspan="2">
 													<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
 												</td>
 											</tr>
 											<tr>
-												<td class="tableLeftTd3">报名开始日期:</td>
+												<td class="tableLeftTd3">报名开始日期:<span style="color:red;">*<span></td>
 												<td class="tableRightTd3" colspan="2">
 													<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 												</td>
 	
 											</tr>
 											<tr>
-												<td class="tableLeftTd3">报名截止日期:</td>
+												<td class="tableLeftTd3">报名截止日期:<span style="color:red;">*<span></td>
 												<td class="tableRightTd3" colspan="2">
 													<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 												</td>
@@ -586,7 +607,7 @@
 											</tr>
 											
 											<tr>
-												<td class="tableLeftTd3">预计结课日期:</td>
+												<td class="tableLeftTd3">预计结课日期:<span style="color:red;">*<span></td>
 												<td class="tableRightTd3" colspan="2">
 													<input value="" id="classesEndDate" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 												</td>
@@ -606,28 +627,7 @@
 						<div class="am-offcanvas" id="sidebar">
 							<div class="am-offcanvas-bar">
 								<ul class="am-nav">
-									<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">■联系我们</li>
-									<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
-										<dl>
-											<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<dl>
-											<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<dl>
-											<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
-									</li>
+									<jsp:include   page="mainBodyRight.jsp" flush="true"/>
 								</ul>
 							</div>
 						</div>
@@ -800,6 +800,7 @@
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
 			      {field:'third_course', title: '三级目录',minWidth:120},
+			      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:80},
 			      {field:'course_id', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
@@ -854,7 +855,6 @@
 					  {type:'numbers',title:"序号"},
 				      {field:'classplan_id', title: 'ID',style:'display:none;'},
 				      {field:'classplan_name', title: '方案名称',minWidth:120},
-				      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:120},
 				      {field:'handle', title: '操作',toolbar: '#barDemo2',minWidht:90}
 				    ]],
 				    id: 'testReload2',
@@ -980,20 +980,20 @@
 				var planHostAddress = $("#planHostAddress").val();
 				var contactPersonnel = $("#contactPersonnel").val();
 				var contactNumber = $("#contactNumber").val();
+				var contactWorkNumber = $("#contactWorkNumber").val();
 				var type = $(".am-tabs .am-active a")[0].innerHTML;
 				var selectList = new Array;
+				var selectList2 = new Array;
 				var reg=/^[1-9]\d*$|^0$/; // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;
 				var testTel = /([0-9]{3,4}-)?[0-9]{7,8}$/;//办公电话
 				var testPhone = /^1\d{10}$/;//手机
 				if(type=="方案定制"){
 					type=0;
-					if($('.layui-form-checked').length==1){
-						selectList[0] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[0].parentNode.parentNode.parentNode.children[4].children[0].children[0].value
-					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&&$('.layui-form-checked').length==2){
-						selectList[0] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
-						selectList[1] = $('.layui-form-checked')[1].parentNode.parentNode.parentNode.children[4].children[0].children[0].value;
-					}else if($('.layui-form-checked').length==0){
+					if($('#sample-table-2 .layui-form-checked').length==1){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[0].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+					}else if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")&& $('#sample-table-2 .layui-form-checked').length==2){
+						selectList[0] = $('#sample-table-2 .layui-form-checked')[1].parentNode.parentNode.parentNode.children[2].children[0].innerHTML;
+					}else if($('#sample-table-2 .layui-form-checked').length==0){
 						alert("请选择一个方案！");
 						return;
 					}else{
@@ -1003,16 +1003,18 @@
 					
 				}else if(type=="课程定制"){
 					type=1;
-					if($("#sample-table-2 th .layui-form-checkbox").is(".layui-form-checked")){
-						for(var i=1,j=0;i<$('.layui-form-checked').length;i++,j++){
-							selectList[j] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+					if($("#sample-table-1 th .layui-form-checkbox").is(".layui-form-checked")){
+						for(var i=1,j=0;i<$('#sample-table-1 .layui-form-checked').length;i++,j++){
+							selectList[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[6].children[0].children[0].id;
+							selectList2[j] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].value;
 						}
-					}else if($('.layui-form-checked').length==0){
+					}else if($('#sample-table-1 .layui-form-checked').length==0){
 						alert("请选择课程！");
 						return;
 					}else{
-						for(var i=0;i<$('.layui-form-checked').length;i++){
-							selectList[i] = $('.layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].id;
+						for(var i=0;i<$('#sample-table-1 .layui-form-checked').length;i++){
+							selectList[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[6].children[0].children[0].id;
+							selectList2[i] = $('#sample-table-1 .layui-form-checked')[i].parentNode.parentNode.parentNode.children[5].children[0].children[0].value;
 						}
 					}
 					
@@ -1058,8 +1060,15 @@
 				if(contactNumber==""){
 					alert("请填写联系电话！");
 					return;
-				}else if(testPhone.test(contactNumber)==false && testTel.test(contactNumber)==false){
+				}else if(testPhone.test(contactNumber)==false){
 					alert("请输入有效的联系电话！");
+					return;
+				}
+				if(contactWorkNumber==""){
+					alert("请填写办公电话！");
+					return;
+				}else if(testTel.test(contactWorkNumber)==false){
+					alert("请填写有效的办公电话！");
 					return;
 				}
 				
@@ -1100,7 +1109,7 @@
 						return;
 					}
 					if(togetherClassesStartDate>togetherClassesEndDate){
-						alert("报名开始日期应在报名结束日期之后！");
+						alert("报名开始日期应在报名结束日期之前！");
 						return;
 					}
 					if(classesEndDate==""){
@@ -1112,7 +1121,7 @@
 						return;
 					}
 					if(classesEndDate<hostDate){
-						alert("开课日期应在结课日期之后！");
+						alert("开课日期应在结课日期之前！");
 						return;
 					}
 					
@@ -1131,11 +1140,13 @@
 					fd.append('figClass_pernum',maxClassesNumber);
 					fd.append('figClass_person',contactPersonnel);
 					fd.append('figClass_phone',contactNumber);
+					fd.append('contactWorkNumber',contactWorkNumber);
 					fd.append('figClass_caogery',type);
 					fd.append('figClass_outline',selectList);
+					fd.append('figClass_day',selectList2);
 					
 					$.ajax({
-						url:'<%=request.getContextPath()%>/FigClass/addFig',
+						url:'<%=request.getContextPath()%>/FigClass/addFignew',
 						type:'post',
 						encType: 'multipart/form-data', //表明上传类型为文件
 						processData: false,  //tell jQuery not to process the data
@@ -1152,18 +1163,12 @@
 									});
 								}
 							}else{
-								alert("保存失败！");
+								layer.alert("保存失败！");
 							}
 						},
 						error:function(error){
 							console.log('error'+error);
-							layer.confirm('未选择文件！', { title:'提示'}, function(index){
-								  
-								window.parent.location.reload();
-								var index1 = parent.layer.getFrameIndex(window.name);
-								parent.layer.close(index1);
-								console.log(error);
-							});
+							layer.alert('未选择文件！');
 						}
 					})
 				}else{
@@ -1182,10 +1187,12 @@
 	    			fd.append('Constom_address', planHostAddress);
 	    			fd.append('Constom_person', contactPersonnel);
 	    			fd.append('Constom_phone', contactNumber);
+	    			fd.append('contactWorkNumber', contactWorkNumber);
 	    			fd.append('Constom_outline', selectList);
+	    			fd.append('Constom_day',selectList2);
 	    			fd.append('Constom_gaoery', type);
 					$.ajax({
-						url:'<%=request.getContextPath()%>/Constom/addConstom',
+						url:'<%=request.getContextPath()%>/Constom/addConstomnew',
 						type:'post',
 						encType: 'multipart/form-data', //表明上传类型为文件
 						processData: false,  //tell jQuery not to process the data
@@ -1195,7 +1202,6 @@
 							if(data.success == true){
 								if(data.message == "4"){
 									layer.confirm('保存成功!', { title:'提示'}, function(index){
-										  
 										window.parent.location.reload();
 										var index1 = parent.layer.getFrameIndex(window.name);
 										parent.layer.close(index1);
@@ -1206,13 +1212,7 @@
 							}
 						},
 						error:function(error){
-							layer.confirm('未选择文件！', { title:'提示'}, function(index){
-								  
-								window.parent.location.reload();
-								var index1 = parent.layer.getFrameIndex(window.name);
-								parent.layer.close(index1);
 								console.log(error);
-							});
 						}
 					})
 				}
@@ -1220,12 +1220,22 @@
 			}
 		</script>
 		<script type="text/html" id="barDemo">
-  			<a class="" id="{{d.crouse_id}}" lay-event="show" style="color:#0e90d2;cursor:pointer;">查看</a>
+  			<a class="" id={{d.course_id}} lay-event="show">查看</a>
 		</script>
 		<script type="text/html" id="barDemo2">
   			<a class="" lay-event="show2" >查看</a>
 		</script>
-		
+		<script>
+			window.onload = function(){
+				<%if(user == null){%>
+					alert("请您登录!");
+				<%}%>
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			}
+			$(window).resize(function(){
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			});
+		</script>
 		<script type="text/html" id="selected">
 			<select lay-ignore>
   				<option value="0.5">0.5天</option>

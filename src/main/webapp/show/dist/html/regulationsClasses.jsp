@@ -12,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/layui.css">
 		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/modules/layer/default/layer.css">
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
@@ -108,18 +109,23 @@
 							<div class="am-u-md-8">
 								<div class="topbar-left">
 									<!--<i class="am-icon-globe"></i>-->
-									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
-										联系电话+86-010-83951120 / 83951097
-									</div>
+									<jsp:include   page="topbarLeft.jsp" flush="true"/>
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%} %>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
 									<%}; %>
-									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="html/register.jsp" style="color: #000000;">注册</a>
+										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
 								</div>
 							</div>
 						</div>
@@ -204,18 +210,18 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.jsp">关于我们</a>
+															<a href="centerOverview.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.jsp">中心概况</a>
+																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.jsp">组织结构</a>
+																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<li class="menu-item">
+																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li>
+																</li> -->
 															</ul>
 															<!-- sub-menu end-->
 														</li>
@@ -304,24 +310,32 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
+												<a href="centerOverview.jsp" >关于我们</a>
+												<!-- sub-menu start-->
+												<ul class="am-menu-sub am-collapse ">
 													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
+														<a href="centerOverview.jsp" >概况</a>
 													</li>
 													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
+														<a href="organization.jsp">师资招聘</a>
 													</li>
-													<li class="menu-item">
+													<!-- <li class="menu-item">
 														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
+													</li> -->
 												</ul>
 											</li>
 											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
 												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -336,7 +350,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -350,7 +364,7 @@
 
 				<div class="am-g am-g-fixed myFixedSiderbar">
 					<!--正文-->
-					<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 100px;">
+					<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 5%;">
 						<div class="breadcrumb-box">
 							<div class="am-container">
 								<ol class="am-breadcrumb">
@@ -426,37 +440,7 @@
 								</li>
 							</ul>-->
 								<ul class="am-nav">
-									<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">■联系我们</li>
-									<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-	                  <i class="am-icon-phone" ></i>
-	                </span>-->
-										<dl>
-											<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-map-marker"></i>
-                </span>-->
-										<dl>
-											<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-envelope-o" ></i>
-                </span>-->
-										<dl>
-											<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
-											</dd>
-										</dl>
-									</li>
-									<li class="promo_detailed--list_item sidebarListLi">
-										<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
-									</li>
+									<jsp:include   page="mainBodyRight.jsp" flush="true"/>
 								</ul>
 							</div>
 						</div>
@@ -483,46 +467,19 @@
 			<script src="../../../admin/layui-v2.4.5/layui/lay/modules/layer.js"></script>
 			<script src="../assets/js/amazeui.js" charset="utf-8"></script>
 			<script src="../assets/js/common.js" charset="utf-8"></script>
+			
+			
 			<script>
-				function changeStyleColor1(obj) {
-					var nLi = $('.conditionYearUl li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-				function changeStyleColor2(obj) {
-					var nLi = $('.conditionProjectUl li');
-					if($(obj).is('.conditionSelectStyle')) {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					} else {
-						for(var i = 0; i < nLi.length; i++) {
-							if($(nLi[i].children[0]).is('.conditionSelectStyle')) {
-								$(nLi[i].children[0]).removeClass('conditionSelectStyle');
-							}
-						}
-						$(obj).addClass('conditionSelectStyle');
-					}
-//					debugger;
-				}
-			</script>
+			window.onload = function(){
+				<%if(user == null){%>
+					alert("请登录后报名!");
+				<%}%>
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			}
+			$(window).resize(function(){
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			});
+		</script>
 			<script>
 			layui.use('table', function(){
 				var table = layui.table;
@@ -535,7 +492,7 @@
 					  {type:'numbers',title:"序号",minWidth:120},
 				      //{field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
 
-				      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
+				      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:180},
 				      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
 				      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
 				      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
@@ -558,7 +515,7 @@
 						  {type:'numbers',title:"序号",minWidth:120},
 					      //{field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
 
-					      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:180},
 					      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
 					      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
 					      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
@@ -584,7 +541,7 @@
 						area: ['1063px', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: [100, 100],
 						content: 'openPage/showprescribedShift.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -598,7 +555,7 @@
 						area: ['1063px', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: [100, 100],
 						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -699,18 +656,18 @@
 			<%
 				if(user == null){
 			%>
-				<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="detail" style=" cursor: pointer;">查看</a>
 			<%
 				}else{
 			%>
 				{{#  if(d.create_status == '0'){ }}
-		        <a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">已报名</a>
+		        <a class="" lay-event="detail" style=" cursor: pointer;">查看</a>
 	        {{#  } else if(d.create_status == ""){ }}
-				<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
+				<a class="" lay-event="bm" style=" cursor: pointer;">报名</a>
 			{{#  } }}
 
   			{{#  if(d.create_status == '0'){ }}
-		        <a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+		        <a class="" lay-event="del" style=" cursor: pointer;">取消报名</a>
 	        {{#  } else if(d.create_status == ""){ }}
 				
 			{{#  } }}

@@ -14,6 +14,7 @@ public class Apply implements Serializable{
 	private String indentity_number;//"身份证号	"
 	private String political_status;//政治面貌  0党员 1群众 2民主党派
 	private String phone_number;//手机号码
+	private String phone_code;//电话号码
 	private String mail;//电子邮箱
 	private String department;//所在部门
 	private String job;//任职岗位
@@ -27,153 +28,154 @@ public class Apply implements Serializable{
 	private String isdelete;//是否删除 0为未删除 1为删除
 	private String apply_caogery;//报名类型
 	private String applydate;//申请日期
-	
+	private String remark;//审核理由
 	public Apply() {
 		super();
 	}
-	
-	
-	
-
 
 	
-
-
-
-
-
-	public Apply(String apply_id, String name, String sex, String brithday,
-			String indentity_number, String political_status,
-			String phone_number, String mail, String department, String job,
-			String address, String other, String project_id, String position,
-			String creater, String createtime, String check_status,
-			String isdelete, String apply_caogery, String applydate) {
-		super();
-		Apply_id = apply_id;
-		this.name = name;
-		this.sex = sex;
-		this.brithday = brithday;
-		this.indentity_number = indentity_number;
-		this.political_status = political_status;
-		this.phone_number = phone_number;
-		this.mail = mail;
-		this.department = department;
-		this.job = job;
-		this.address = address;
-		this.other = other;
-		this.project_id = project_id;
-		this.position = position;
-		this.creater = creater;
-		this.createtime = createtime;
-		this.check_status = check_status;
-		this.isdelete = isdelete;
-		this.apply_caogery = apply_caogery;
-		this.applydate = applydate;
+	public String getRemark() {
+		return remark;
 	}
 
 
-
-
-
-
-
-
-
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 
 	public String getApply_id() {
 		return Apply_id;
 	}
+
 	public void setApply_id(String apply_id) {
 		Apply_id = apply_id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getSex() {
 		return sex;
 	}
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
 	public String getBrithday() {
 		return brithday;
 	}
+
 	public void setBrithday(String brithday) {
 		this.brithday = brithday;
 	}
+
 	public String getIndentity_number() {
 		return indentity_number;
 	}
+
 	public void setIndentity_number(String indentity_number) {
 		this.indentity_number = indentity_number;
 	}
+
 	public String getPolitical_status() {
 		return political_status;
 	}
+
 	public void setPolitical_status(String political_status) {
 		this.political_status = political_status;
 	}
+
 	public String getPhone_number() {
 		return phone_number;
 	}
+
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
+
+	public String getPhone_code() {
+		return phone_code;
+	}
+
+	public void setPhone_code(String phone_code) {
+		this.phone_code = phone_code;
+	}
+
 	public String getMail() {
 		return mail;
 	}
+
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
 	public String getDepartment() {
 		return department;
 	}
+
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+
 	public String getJob() {
 		return job;
 	}
+
 	public void setJob(String job) {
 		this.job = job;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getOther() {
 		return other;
 	}
+
 	public void setOther(String other) {
 		this.other = other;
 	}
+
 	public String getProject_id() {
 		return project_id;
 	}
+
 	public void setProject_id(String project_id) {
 		this.project_id = project_id;
 	}
+
 	public String getPosition() {
 		return position;
 	}
+
 	public void setPosition(String position) {
 		this.position = position;
 	}
+
 	public String getCreater() {
 		return creater;
 	}
+
 	public void setCreater(String creater) {
 		this.creater = creater;
 	}
+
 	public String getCreatetime() {
 		return createtime;
 	}
+
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
@@ -186,19 +188,22 @@ public class Apply implements Serializable{
 		this.check_status = check_status;
 	}
 
-
 	public String getIsdelete() {
 		return isdelete;
 	}
+
 	public void setIsdelete(String isdelete) {
 		this.isdelete = isdelete;
 	}
+
 	public String getApply_caogery() {
 		return apply_caogery;
 	}
+
 	public void setApply_caogery(String apply_caogery) {
 		this.apply_caogery = apply_caogery;
 	}
+
 	public String getApplydate() {
 		return applydate;
 	}
@@ -206,6 +211,7 @@ public class Apply implements Serializable{
 	public void setApplydate(String applydate) {
 		this.applydate = applydate;
 	}
+	
 	
 	
 }

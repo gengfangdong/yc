@@ -32,12 +32,12 @@
 	
 	 <update id="update">
 		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},PERSON_NUMBER=#{person_number},
-		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
+		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_STATUS=#{applyunit_status} ,REMARK=#{remark}WHERE APPLYUNIT_ID=#{applyunit_id}
 	</update> 
 	
 	 <update id="updatefile">
 		update APPLY_UNIT set APPLYUNIT_NAME=#{applyunit_name},APPLYUNIT_DATE = #{applyunit_date},APPLYUNIT_PERSON=#{applyunit_person},APPLYUNIT_PHONE=#{applyunit_phone},PERSON_NUMBER=#{person_number},
-		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_FILE=#{applyunit_file},APPLYUNIT_STATUS=#{applyunit_status} WHERE APPLYUNIT_ID=#{applyunit_id}
+		PHONE_CODE=#{phone_code},APPLYUNIT_MAIL=#{applyunit_mail},APPLYUNIT_FILE=#{applyunit_file},APPLYUNIT_STATUS=#{applyunit_status},REMARK=#{remark} WHERE APPLYUNIT_ID=#{applyunit_id}
 	</update> 
 	
 	<update id="deleteapplyunit" parameterType="String">

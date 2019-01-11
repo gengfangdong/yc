@@ -11,6 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -499,15 +500,15 @@ String caogery = (String)session.getAttribute("isad");
 						},
 						success : function(data) {
 							if(data.message == "0"){
-								layer.alert("参数错误!");
+								alert("参数错误!");
 								return;
 							}
 							else if(data.message == "1"){
-								layer.alert("获取项目失败!");
+								alert("获取项目失败!");
 								return;
 							}
 							else if(data.message == "2"){
-								layer.alert("删除成功!");
+								alert("删除成功!");
 								window.parent.location.reload();
 								return;
 							}
@@ -515,7 +516,7 @@ String caogery = (String)session.getAttribute("isad");
 						},
 						error : function(error) {
 							console.log('接口不通' + error);
-							layer.alert("删除失败！");
+							alert("删除失败！");
 							return;
 						}
 					});	

@@ -10,6 +10,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -125,9 +126,22 @@
 
 										</tr>
 										<tr>
+											<td class="leftTd">报名人数:</td>
+											<td class="rightTd" colspan="3">
+												<input type="text" id="entryByCompanyPersonNumber" value=""  style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
+											</td>
+
+										</tr>
+										<tr>
 											<td class="leftTd">联系人电话:</td>
 											<td class="rightTd" colspan="3">
 												<input type="text" id="entryByCompanyPhoneNum" value="010-3456789"  style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">办公电话:</td>
+											<td class="rightTd" colspan="3">
+												<input type="text" id="entryByCompanyPhoneCode" value="010-3456789"  style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 										</tr>
 										<tr>
@@ -136,7 +150,7 @@
 												<input type="text" id="entryByCompanyEmail" value="123456789@qq.com"  style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
 											</td>
 										</tr>
-										<tr>
+										<tr id="fileShowTrue" style="display:none;">
 											<td class="leftTd" rowspan="2" style="vertical-align: middle;">报名名单:</td>
 											<td class="rightTd">
 												<input type="text" id="entryByCompanyfile" value="文件名" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" disabled="disabled">
@@ -154,6 +168,13 @@
 											</td>
 
 										</tr>
+										<tr id="fileShowFalse" >
+											<td class="leftTd" style="vertical-align: middle;">报名名单:</td>
+											<td class="rightTd" colspan="2">
+												未上传名单
+											</td>
+										</tr>
+										
 									</tbody>
 								</table>
 							</div>
@@ -161,10 +182,16 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="leftTd">审核结果:</td>
+											<td class="leftTd">审核结果:<span style="color:red;">*<span></td>
 											<td class="rightTd">
-												<input type="radio" name="isPass" />通过
-												<input type="radio" name="isPass" />不通过
+												<input type="radio" name="isPass" onclick="isPass(this);"/>通过
+												<input type="radio" name="isPass" onclick="isNotPass(this);"/>不通过
+											</td>
+										</tr>
+										<tr id="liyou" style="display:none;">
+											<td class="leftTd">理由:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="liyouInput" style="width: 100%;border:1px solid #ccc;border-radius:5px;" />
 											</td>
 										</tr>
 									</tbody>
@@ -301,8 +328,10 @@
 					var entryByCompanyDate = document.getElementById("entryByCompanyDate");
 					var entryByCompanyEntryCompany = document.getElementsByName("entryByCompanyEntryCompany");
 					var entryByCompanyContactMan = document.getElementById("entryByCompanyContactMan");
+					var entryByCompanyPersonNumber = document.getElementById("entryByCompanyPersonNumber");
 					var entryByCompanyEmail = document.getElementById("entryByCompanyEmail");
 					var entryByCompanyPhoneNum = document.getElementById("entryByCompanyPhoneNum");
+					var entryByCompanyPhoneCode = document.getElementById("entryByCompanyPhoneCode");
 					var isPass = document.getElementsByName("isPass");
 					var applyunitid = document.getElementById("applyunit_id");
 					var applyunit_status="";
@@ -317,7 +346,9 @@
 						"applyunit_date":entryByCompanyDate.value,
 						"applyunit_name":entryByCompanyEntryCompany.value,
 						"applyunit_person":entryByCompanyContactMan.value,
+						"person_number":entryByCompanyPersonNumber.value,
 						"applyunit_phone":entryByCompanyPhoneNum.value,
+						"phone_code":entryByCompanyPhoneCode.value,
 						"applyunit_mail":entryByCompanyEmail.value,
 			    	}//携带额外的数据
 				    obj.preview(function(index, file, result){
@@ -351,6 +382,17 @@
 		 });
 		</script>
 		<script>
+		
+		function isNotPass(obj){
+			if(obj.checked==true){
+				$("#liyou").css("display","");
+			}
+		}
+		function isPass(obj){
+			if(obj.checked==true){
+				$("#liyou").css("display","none");
+			}
+		}
 			window.onload = function(){
         		$.ajax({
 				url : '<%=request.getContextPath()%>/ApplyUnit/getdetailByid',
@@ -365,20 +407,24 @@
 						var entryByCompanyDate = document.getElementById("entryByCompanyDate");
 						var entryByCompanyEntryCompany = document.getElementsByName("entryByCompanyEntryCompany");
 						var entryByCompanyContactMan = document.getElementById("entryByCompanyContactMan");
+						var entryByCompanyPersonNumber = document.getElementById("entryByCompanyPersonNumber");
 						var entryByCompanyEmail = document.getElementById("entryByCompanyEmail");
 						var isPass = document.getElementsByName("isPass");
 						var applyunitid = document.getElementById("applyunit_id");
 						var entryByCompanyfile = document.getElementById("entryByCompanyfile");
 						var hiddenfilename = document.getElementById("hiddenfilename");
 						var entryByCompanyPhoneNum = document.getElementById("entryByCompanyPhoneNum");
+						var entryByCompanyPhoneCode = document.getElementById("entryByCompanyPhoneCode");
 
 						var projectname = data.name;
 						var apply_id = data.data.applyunit_id;
 						var applyunit_date = data.data.applyunit_date;
 						var applyunit_name = data.data.applyunit_name;
 						var applyunit_person = data.data.applyunit_person;
+						var person_number = data.data.person_number;
 						var applyunit_status = data.data.applyunit_status;
 						var applyunit_phone = data.data.applyunit_phone;
+						var phone_code = data.data.phone_code;
 						var file = data.data.applyunit_file;
 						var applyunit_mail = data.data.applyunit_mail;
 						
@@ -387,17 +433,25 @@
 						entryByCompanyDate.value=applyunit_date;
 						entryByCompanyEntryCompany.value=applyunit_name;
 						entryByCompanyContactMan.value=applyunit_person;
+						entryByCompanyPersonNumber.value=person_number;
 						entryByCompanyPhoneNum.value = applyunit_phone;
+						entryByCompanyPhoneCode.value = phone_code;
 						entryByCompanyEmail.value=applyunit_mail;
 						entryByCompanyfile.value=file;
-						hiddenfilename.value = file;
+						hiddenfilename.value = '1';
 						applyunitid.value = apply_id;
 						if(applyunit_status == "1"){
 							isPass[0].checked=true;
 						}else if(applyunit_status == "2"){
 							isPass[1].checked=true;
 						}
-
+						if(file == null ){
+							$("#fileShowTrue").css("display","none");
+							$("#fileShowFalse").css("display","");
+						}else{
+							$("#fileShowFalse").css("display","none");
+							$("#fileShowTrue").css("display","");
+						}
 
 					}
 					
@@ -420,8 +474,10 @@
 					var entryByCompanyDate = document.getElementById("entryByCompanyDate");
 					var entryByCompanyEntryCompany = document.getElementsByName("entryByCompanyEntryCompany");
 					var entryByCompanyContactMan = document.getElementById("entryByCompanyContactMan");
+					var entryByCompanyPersonNumber = document.getElementById("entryByCompanyPersonNumber");
 					var entryByCompanyEmail = document.getElementById("entryByCompanyEmail");
 					var entryByCompanyPhoneNum = document.getElementById("entryByCompanyPhoneNum");
+					var entryByCompanyPhoneCode = document.getElementById("entryByCompanyPhoneCode");
 					var isPass = document.getElementsByName("isPass");
 					var applyunitid = document.getElementById("applyunit_id");
 					var applyunit_status;
@@ -429,7 +485,43 @@
 						applyunit_status = "1";
 					}else if(isPass[1].checked==true){
 						applyunit_status = "2";
+						var liyou = $("#liyouInput").val();
+						if(liyou==""){
+							alert('请输入理由！');
+							return;
+						}
 					}
+					
+					if(entryByCompanyEntryCompany.value == "") {
+						layer.alert("请填写项目名称！");
+						return;
+					}
+					if(entryByCompanyDate.value == "") {
+						layer.alert("请填写日期！");
+						return;
+					}
+					if(entryByCompanyContactMan.value == "") {
+						layer.alert("请填写联系人！");
+						return;
+					}
+					if(entryByCompanyPersonNumber.value == "") {
+						layer.alert("请填写报名人数！");
+						return;
+					}
+					if(entryByCompanyEmail.value == "") {
+						layer.alert("请填写邮箱！");
+						return;
+					}
+					if(entryByCompanyPhoneNum.value == "") {
+						layer.alert("请填写联系手机号码！");
+						return;
+					}
+					if(entryByCompanyPhoneNum.value == "") {
+						layer.alert("请填写联系办公电话！");
+						return;
+					}
+					
+					
 					$.ajax({
 						url : '<%=request.getContextPath()%>/ApplyUnit/update',
 						type : 'POST',
@@ -439,8 +531,12 @@
 							"applyunit_date":entryByCompanyDate.value,
 							"applyunit_name":entryByCompanyEntryCompany.value,
 							"applyunit_person":entryByCompanyContactMan.value,
+							"person_number":entryByCompanyPersonNumber.value,
 							"applyunit_phone":entryByCompanyPhoneNum.value,
+							"phone_code":entryByCompanyPhoneCode.value,
 							"applyunit_mail":entryByCompanyEmail.value,
+							"remark":liyou
+// 							"filename": hiddenfilename,
 						},
 						success : function(data) {
 							if(data.success == true){

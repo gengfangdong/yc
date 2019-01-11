@@ -11,6 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -343,7 +344,7 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'project_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
-			    height:'full-181',
+			    height:'full-250',
 			    page: true
 			  });
 			  
@@ -395,7 +396,107 @@ String caogery = (String)session.getAttribute("isad");
 						});
 			    	}
 			    	
-			    } else if(obj.event === 'delete'){
+			    } else if(obj.event === 'uploadd'){
+				    layui.layer.open({
+			            title: "名单上传",
+			            content: $('#upload_file_dialog').html(),
+			            area: ['500px', '300px'],
+			            btn: ['发送', '取消'],
+			            yes: function (index, layero) {//发送
+			                var f = document.getElementById("Userfile").files;
+			                if(f.length<=0){
+			                	layui.layer.alert("请选择文件!");
+			                	return;
+			                }
+			                var fd = new FormData();
+							fd.append("file",f[0]);
+							fd.append("Constom_id",data.project_id);
+							$.ajax({
+								url:'<%=request.getContextPath()%>/Constom/importUser',
+								type:'post',
+								encType: 'multipart/form-data', //表明上传类型为文件
+								processData: false,  //tell jQuery not to process the data
+			        			contentType: false,  //tell jQuery not to set contentType
+								data:fd,
+								success:function(data){
+									if(data.success == true){
+										if(data.message == "5"){
+											layer.alert("上传成功!");
+										}
+									}
+									else if(data.message == "4"){
+										layer.alert("excel存在身份证重复!");
+									}else if(data.message == "2"){
+										layer.alert(" execl无数据!");
+									}
+								},
+								error:function(data){
+
+								}
+							})
+			            },
+			            btn2:function(index, layero) {//取消
+			                
+			            }
+		       		});
+
+			        //文件上传change事件
+			        $("input[name=uploadfile][type=file]").on("change", function (e) {
+			            var filePath = $(this).val();
+			            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+			            $("#uploadFileName").text(filePath);
+			        });
+			}else if(obj.event === 'uploadtod'){
+			    layui.layer.open({
+		            title: "名单上传",
+		            content: $('#upload_file_dialog').html(),
+		            area: ['500px', '300px'],
+		            btn: ['发送', '取消'],
+		            yes: function (index, layero) {//发送
+		                var f = document.getElementById("Userfile").files;
+		                if(f.length<=0){
+		                	layui.layer.alert("请选择文件!");
+		                	return;
+		                }
+		                var fd = new FormData();
+						fd.append("file",f[0]);
+						fd.append("Constom_id",data.project_id);
+						$.ajax({
+							url:'<%=request.getContextPath()%>/Constom/importUsertoo',
+							type:'post',
+							encType: 'multipart/form-data', //表明上传类型为文件
+							processData: false,  //tell jQuery not to process the data
+		        			contentType: false,  //tell jQuery not to set contentType
+							data:fd,
+							success:function(data){
+								if(data.success == true){
+									if(data.message == "5"){
+										layer.alert("上传成功!");
+									}
+								}
+								else if(data.message == "4"){
+									layer.alert("excel存在身份证重复!");
+								}else if(data.message == "2"){
+									layer.alert(" execl无数据!");
+								}
+							},
+							error:function(data){
+
+							}
+						})
+		            },
+		            btn2:function(index, layero) {//取消
+		                
+		            }
+	       		});
+
+		        //文件上传change事件
+		        $("input[name=uploadfile][type=file]").on("change", function (e) {
+		            var filePath = $(this).val();
+		            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+		            $("#uploadFileName").text(filePath);
+		        });
+		}else if(obj.event === 'delete'){
 			    	if(data.project_caogery == '0'){//定制
 			    		layer.confirm('确认删除？', function(index){
 				      		$.ajax({
@@ -549,6 +650,57 @@ String caogery = (String)session.getAttribute("isad");
 						});
 			    	}
 			    	
+			    }else if(obj.event === 'del'){
+			      	layer.confirm('确认取消报名？', function(index){
+			      		$.ajax({
+							url : '<%=request.getContextPath()%>/Ssuser/SignOut',
+							type : 'post',
+							dataType:"json",
+							data:{
+								Project_id:data.scheduledshift.scheduled_id,
+								ssuid:data.suuid
+							},
+							success : function(data) {
+								if(data.message == "0"){
+									layer.confirm('班次不存在!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "1"){
+									layer.confirm('未登录!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "2"){
+									layer.confirm('取消报名失败!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									});
+								}
+								else if(data.message == "3"){
+									layer.confirm('取消报名成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+									
+								});
+								}
+							},
+							error : function(error) {
+								console.log('接口不通' + error);
+							}
+						});	
+			        layer.close(index);
+			      });
 			    }else if(obj.event === 'cancelp'){//拼班取消报名
 			      	layer.confirm('确认取消报名?', function(index){
 			      		$.ajax({
@@ -595,7 +747,86 @@ String caogery = (String)session.getAttribute("isad");
 						});	
 			        layer.close(index);
 			      });
-			    }else if(obj.event === 'cancel'){
+			    }else if(obj.event === 'Useruploadg'){
+				    layui.layer.open({
+			            title: "名单上传",
+			            content: $('#upload_file_dialog').html(),
+			            area: ['500px', '300px'],
+			            btn: ['发送', '取消'],
+			            yes: function (index, layero) {//发送
+			                var f = document.getElementById("Userfile").files;
+			                if(f.length<=0){
+			                	layui.layer.alert("请选择文件!");
+			                	return;
+			                }
+			                var fd = new FormData();
+							fd.append("file",f[0]);
+							fd.append("Ssu_ssid",data.project_id);
+							fd.append("suuid",data.ssuid);
+							$.ajax({
+								url:'<%=request.getContextPath()%>/Ssuser/SignUp',
+								type:'post',
+								encType: 'multipart/form-data', //表明上传类型为文件
+								processData: false,  //tell jQuery not to process the data
+			        			contentType: false,  //tell jQuery not to set contentType
+								data:fd,
+								success:function(data){
+									if(data.success == true){
+										if(data.message == "4"){
+											
+											layer.confirm('上传成功!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}
+									}
+									else if(data.message == "4"){
+
+										layer.confirm('excel存在身份证重复!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}else if(data.message == "2"){
+										layer.confirm('excel无数据!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}else if(data.message == "3"){
+										layer.confirm('人员数量与execl不符合!', { title:'提示'}, function(index){
+											  
+											window.parent.location.reload();
+											var index1 = parent.layer.getFrameIndex(window.name);
+											parent.layer.close(index1);
+											console.log(error);
+										});
+									}
+								},
+								error:function(data){
+
+								}
+							})
+			            },
+			            btn2:function(index, layero) {//取消
+			                
+			            }
+		       		});
+
+			        //文件上传change事件
+			        $("input[name=uploadfile][type=file]").on("change", function (e) {
+			            var filePath = $(this).val();
+			            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+			            $("#uploadFileName").text(filePath);
+			        });
+				}else if(obj.event === 'cancel'){
 			      	layer.confirm('确认取消定制？', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/Constom/cancel',
@@ -726,29 +957,39 @@ String caogery = (String)session.getAttribute("isad");
 					{{#  if(d.isdelete == '1'){ }}
 						<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 					{{#  } }}
-	        	{{#  } else if(d.project_status == "1"){ }}
+	       		{{#  } else if(d.project_status == "1"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  } else if(d.project_status == "3"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  } else if(d.project_status == "4"){ }}
+					{{#  if(d.bmstatus == '0'){ }}
+			        	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
+	        		{{#  } else if(d.bmstatus == "1"){ }}
 						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-						<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
-						<a class="" lay-event="cancelp" style="margin-right:10px; cursor: pointer;">取消报名</a>
+					
+						<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
+					{{#  } }}
 				{{#  } else if(d.project_status == "5"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					{{#  if(d.isbm == "1"){ }}
+					{{#  if(d.user_status == "1"){ }}
 						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
 					{{#  } }}
 				{{#  } else if(d.project_status == "6"){ }}
-					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					{{#  if(d.isbm == "1"){ }}
+				
+					{{#  if(d.isfile == "0"){ }}
 						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">上传名单</a>
+					
+					{{#  } else if(d.isfile == "1"){ }}
+						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+						<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
 						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
 					{{#  } }}
 				{{#  } else if(d.project_status == "7"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					{{#  if(d.isbm == "1"){ }}
+					{{#  if(d.isfile == "1"){ }}
 						<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.project_id}}">下载名单</a>
 					{{#  } }}
 					{{#  if(d.isdelete == '1'){ }}
@@ -757,29 +998,33 @@ String caogery = (String)session.getAttribute("isad");
 				{{#  } }}
 	     	{{#  }else if(d.project_caogery=="1"){ }}
 	     			<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>  
-		 	{{#  if(d.project_status == "0"){ }}
+		 			{{#  if(d.project_status == "0"){ }}
 	        
-	     	{{#  }else if(d.project_status=="1"){ }}
-	     		{{#  if(d.isbm == ""){ }}
-	       	 		<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
-	     		{{#  }else if(d.isbm=="1"){ }}
-	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
-	    			<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消报名</a>
-				{{# } }}
-	     	{{#  }else if(d.project_status=="2"){ }}
+	     			{{#  }else if(d.project_status=="1"){ }}
+	     			{{#  if(d.isbm == "0"){ }}
+	       	 			<a class="" lay-event="bm" style="margin-right:10px; cursor: pointer;">报名</a>
+	     			{{#  }else if(d.isbm=="1"){ }}
+	    				<a class="" lay-event="del" style="margin-right:10px; cursor: pointer;">取消报名</a>
+					{{# } }}
+	     			{{#  }else if(d.project_status=="2"){ }}
 	     	
-				{{# if(d.isbm=="1"){ }}
-	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
-				{{# } }}			
-		 	{{#  }else if(d.project_status=="3"){ }}
+						{{# if(d.isbm=="0"){ }}		
+	     		
+						{{# } }}			
+		 			{{#  }else if(d.project_status=="3"){ }}
 	     	
-				{{# if(d.isbm=="1"){ }}
-	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
-				{{# } }}
-		 	{{#  }else if(d.project_status=="4"){ }}
+						{{# if(d.isbm=="1"){ }}
+	     					{{# if(d.isfile=="0"){ }}	
+	     						<a class="" lay-event="Useruploadg" style="margin-right:10px; cursor: pointer;" >上传名单</a>
+							{{# }else if(d.isfile == "1"){ }}
+								<a class="" lay-event="Useruploadg" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
+								<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.ssuid}}">查看名单</a>
+						{{# } }}
+					{{# } }}
+		 	{{#  }else if(d.scheduledshift.scheduled_status=="4"){ }}
 	     	
-				{{# if(d.isbm=="1"){ }}
-	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUsermp/{{d.project_id}}">查看名单</a>
+				{{# if(d.create_status=="0"){ }}
+	     			<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Ssuser/exportUser/{{d.ssuid}}">查看名单</a>
 				{{# } }}
 	     	{{# } }}
 	     	{{#  }else if(d.project_caogery=="0"){ }}
@@ -791,16 +1036,18 @@ String caogery = (String)session.getAttribute("isad");
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 				{{#  } else if(d.project_status == "1"){ }}
-					{{#  if(d.isbm == '0'){ }}
-						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-						<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">提交名单</a>
-					{{#  } else if(d.isbm == "1"){ }}
-						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-						<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
-					{{#  } }}
+						{{#  if(d.isfile == '0'){ }}
+							<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+							<a class="" lay-event="uploadd" style="margin-right:10px; cursor: pointer;">提交名单</a>
+							<input type="file" lay-type="file" id="xxxxx" name="file" class="layui-upload-file">
+						{{#  } else if(d.isfile == "1"){ }}
+							<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
+							<a class="" lay-event="uploadtod" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
+							<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
+						{{#  } }}
 				{{#  } else if(d.project_status == "3"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
 				{{#  } else if(d.project_status == "4"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/Constom/exportUser/{{d.project_id}}">下载名单</a>
@@ -863,6 +1110,20 @@ String caogery = (String)session.getAttribute("isad");
 	    	 {{# } }}
 	     {{# } }}
  		</script>
+ 		<script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">文件上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传文件
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            文件上传</label>
+		    </div>
+		</script>
 	</body>
 
 </html>

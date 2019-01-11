@@ -2,8 +2,8 @@
 <%@page pageEncoding="UTF-8"%>
 <%@page import="entity.IUser" %>
 <%
-	IUser user = (IUser)session.getAttribute("user");
 String caogery = (String)session.getAttribute("isad");
+	IUser user = (IUser)session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -260,9 +260,9 @@ String caogery = (String)session.getAttribute("isad");
 																				<tr>
 																					<th style="text-align: center;">序号</th>
 																					<th style="text-align:center;">轮播图片id</th>
-																					<th style="text-align: center;">标题</th>
-																					<th style="text-align: center;">添加日期</th>
-																					<th style="text-align: center;">状态</th>
+																					<th style="text-align: center;">链接地址</th>
+<!-- 																					<th style="text-align: center;">添加日期</th> -->
+<!-- 																					<th style="text-align: center;">状态</th> -->
 																					<th style="text-align: center;">操作</th>
 																				</tr>
 																			</thead>
@@ -427,22 +427,22 @@ String caogery = (String)session.getAttribute("isad");
 		                	     return startIndex+meta.row+1;
 		                }},
 		                {"data": "rotationPic_id"},
-		                {"data": "rotationPic_titile"},
-		                {"data": "rotationPic_Release_time"},
-		                {"data": "rotationPic_status",
-			              "render":function(data,type,row,meta){
-	                	         var status="";
-	                	         if(data == "1"){
-	                	        	 status = "已发布";
-	                	         }
-	                	         else if(data == "0"){
-	                	        	 status ="待发布";
-	                	         }
-	                	         else if(data == "2"){
-	                	        	 status ="发布中";
-	                	         }
-	                	    return status;
-	                	}},
+		                {"data": "rotationPic_KeyWords"},
+// 		                {"data": "rotationPic_Release_time"},
+// 		                {"data": "rotationPic_status",
+// 			              "render":function(data,type,row,meta){
+// 	                	         var status="";
+// 	                	         if(data == "1"){
+// 	                	        	 status = "已发布";
+// 	                	         }
+// 	                	         else if(data == "0"){
+// 	                	        	 status ="待发布";
+// 	                	         }
+// 	                	         else if(data == "2"){
+// 	                	        	 status ="发布中";
+// 	                	         }
+// 	                	    return status;
+// 	                	}},
 		                {"data": null}
 		            ],
 		            "aoColumnDefs":[{"targets":1,
@@ -487,7 +487,7 @@ String caogery = (String)session.getAttribute("isad");
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['70%', '530px'],
+					        area: ['70%', '330px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -505,7 +505,7 @@ String caogery = (String)session.getAttribute("isad");
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '查看',
-					        area: ['70%', '530px'],
+					        area: ['70%', '330px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,
@@ -523,7 +523,7 @@ String caogery = (String)session.getAttribute("isad");
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '修改',
-					        area: ['70%', '530px'],
+					        area: ['70%', '330px'],
 					        shade: 0,
 					        maxmin: true,
 					        offset: [100,200] ,

@@ -12,6 +12,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -93,28 +94,28 @@
 										<tr>
 											<td class="leftTd">报名项目:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="background:#FFF;border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名类别:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="background:#FFF;border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="background: #fff;border: 1px solid #ccc;" />
+												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="background:#FFF;border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名单位:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style="width: 100%;" />
+												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
@@ -128,36 +129,42 @@
 										<tr>
 											<td class="leftTd">联系人:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style="width: 100%;" />
+												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">联系人电话:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style="width: 100%;" />
+												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">办公电话:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="entryByCompanyPhoneCode" value=""  maxlength="15" placeholder="请输入联系人电话" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">联系人邮箱:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style="width: 100%;" />
+												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style=" border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
-										<tr>
+								<%-- 		<tr>
 											<td class="leftTd" style="vertical-align: middle;">报名名单模板:</td>
 											<td class="rightTd">
 												<input type="text"  id="file1" disabled="disabled" value="文件一" style="width: 100%;background: #fff;border: none;" />
 											</td>
 											<td>
-												<a class="download_a" href="../../../../../show/dist/doc/培训通知.docx" style="color: #FFFFFF;margin-right: 0;">
+												<a class="download_a"  href="<%=request.getContextPath()%>/ApplyUnit/download/<%=applyUnit_id%>" style="color: #FFFFFF;margin-right: 0;">
 													<button type="button" class="layui-btn lay_btn" style="width: 85px;">
 													<i class="layui-icon">&#xe67c;</i>下载
 												</button>
 												</a>
 											</td>
 
-										</tr>
+										</tr> --%>
 							<!-- 			<tr>
 											<td class="leftTd" style="vertical-align: middle;">报名名单上传:</td>
 											<td class="rightTd">
@@ -173,10 +180,10 @@
 									</tbody>
 								</table>
 							</div>
-							<!-- <div style="text-align: center;margin-top: 30px;">
-								<button class="branchSave" onclick="branchSave();">保存</button>
-								<button class="branchSave branchSub" id="CompanySubmit" onclick="entryByCompanySave();">提交</button>
-							</div> -->
+							 <div style="text-align: center;margin-top: 30px;">
+								<button class="branchSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));">关闭</button>
+								
+							</div> 
 
 						</div>
 					</div>
@@ -268,8 +275,9 @@
 						var PersonNum = document.getElementById("entryByCompanyEntryPersonNum");
 						var ContactMan = document.getElementById("entryByCompanyContactMan");
 						var PhoneNum = document.getElementById("entryByCompanyPhoneNum");
+						var PhoneCode = document.getElementById("entryByCompanyPhoneCode");
 						var email = document.getElementById("entryByCompanyEmail");	
-						var file1 = document.getElementById("file1");	
+// 						var file1 = document.getElementById("file1");	
 
 // 							applyunit_caogery: "1"
 // 							applyunit_creater: "usere491c4e7738a42aab5624ef202cfdfb2"
@@ -290,11 +298,12 @@
 							
 						CompanyDate.value = data.data.applyunit_createtime;
 						EntryCompany.value = data.data.applyunit_name;
-						PersonNum.value = "5";
+						PersonNum.value = data.data.person_number;
 						ContactMan.value=data.data.applyunit_person;
 						PhoneNum.value=data.data.applyunit_phone;
+						PhoneCode.value=data.data.phone_code;
 						email.value=data.data.applyunit_mail;
-						file1.value=data.data.applyunit_file;
+// 						file1.value=data.data.applyunit_file;
 
 					}
 				},

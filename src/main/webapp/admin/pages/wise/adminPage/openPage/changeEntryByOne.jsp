@@ -13,6 +13,7 @@ String applyshow_id = request.getParameter("applyshow_id");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -136,7 +137,12 @@ String applyshow_id = request.getParameter("applyshow_id");
                                 <td class="rightTd">
                                     <input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
                                 </td>
-
+                            </tr>
+                            <tr>
+                                <td class="leftTd">办公电话:</td>
+                                <td class="rightTd">
+                                    <input type="text" value="13312341234" id="entryByOnePhoneCode" style="width: 100%;height:23px;background:#FFF;border:none;border-radius:5px;border:1px solid #CCC;" />
+                                </td>
                             </tr>
                             <tr>
                                 <td class="leftTd">电子邮箱:</td>
@@ -191,13 +197,19 @@ String applyshow_id = request.getParameter("applyshow_id");
                     <div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
                         <table id="branchTable" class="table table-bordered table-hover example1_x">
                             <tbody>
-                            <tr>
-                                <td class="leftTd">审核结果:</td>
-                                <td class="rightTd">
-                                    <input type="radio" name="isPass" />通过
-                                    <input type="radio" name="isPass" />不通过
-                                </td>
-                            </tr>
+	                            <tr>
+									<td class="leftTd">审核结果:<span style="color:red;">*<span></td>
+									<td class="rightTd">
+										<input type="radio" name="isPass" onclick="isPass(this);"/>通过
+										<input type="radio" name="isPass" onclick="isNotPass(this);"/>不通过
+									</td>
+								</tr>
+								<tr id="liyou" style="display:none;">
+									<td class="leftTd">理由:</td>
+									<td class="rightTd" colspan="2">
+										<input type="text" id="liyouInput" style="width: 100%;border:1px solid #ccc;border-radius:5px;" />
+									</td>
+								</tr>
                             </tbody>
                         </table>
                         <div style="text-align: center;margin-top: 0px;">
@@ -314,6 +326,7 @@ String applyshow_id = request.getParameter("applyshow_id");
                         var entryByOneIDNum = document.getElementById("entryByOneIDNum");
                         var politicalOutlook = document.getElementsByName("politicalOutlook");
                         var entryByOnePhoneNum = document.getElementById("entryByOnePhoneNum");
+                        var entryByOnePhoneCode = document.getElementById("entryByOnePhoneCode");
                         var entryByOneEmail = document.getElementById("entryByOneEmail");
                         var entryByOneDepartment = document.getElementById("entryByOneDepartment");
                         var entryByOneJob = document.getElementById("entryByOneJob");
@@ -333,6 +346,7 @@ String applyshow_id = request.getParameter("applyshow_id");
                         var name = data.data.name;
                         var other = data.data.other;
                         var phone_number = data.data.phone_number;
+                        var phone_code = data.data.phone_code;
                         var position = data.data.position;
                         var sex = data.data.sex;
                         var mail = data.data.mail;
@@ -343,6 +357,7 @@ String applyshow_id = request.getParameter("applyshow_id");
                         entryByOneIDNum.value=indentity_number;//身份证号
                         entryByOneDepartment.value = department;
                         entryByOnePhoneNum.value=phone_number;//手机号
+                        entryByOnePhoneCode.value=phone_code;//手机号
                         entryByOneJob.value=job;//岗位
                         entryByOnePost.value=position;//职务
                         entryByOneAddress.value=address;//地址
@@ -380,13 +395,24 @@ String applyshow_id = request.getParameter("applyshow_id");
             }
         });
     };
-
+	
+    function isNotPass(obj){
+		if(obj.checked==true){
+			$("#liyou").css("display","");
+		}
+	}
+	function isPass(obj){
+		if(obj.checked==true){
+			$("#liyou").css("display","none");
+		}
+	}
 
     function entryByOneSave() {
         var name = $("#entryByOneName").val();
         var brithday = $("#entryByOneBirthday").val();
         var IDNum = $("#entryByOneIDNum").val();
         var phone = $("#entryByOnePhoneNum").val();
+        var phoneCode = $("#entryByOnePhoneCode").val();
         var email = $("#entryByOneEmail").val();
         var department = $("#entryByOneDepartment").val();
         var job = $("#entryByOneJob").val();
@@ -434,6 +460,10 @@ String applyshow_id = request.getParameter("applyshow_id");
             alert("请输入您的手机号码！");
             return;
         }
+        if(phoneCode==""){
+            alert("请输入您的手机号码！");
+            return;
+        }
         if(email==""){
             alert("请输入您的电子邮箱！");
             return;
@@ -462,6 +492,11 @@ String applyshow_id = request.getParameter("applyshow_id");
             checkstatus = "1";
         }else if(isPass[1].checked==true){
             checkstatus = "2";
+            var liyou = $("#liyouInput").val();
+			if(liyou==""){
+				alert('请输入理由！');
+				return;
+			}
         }
         else
             checkstatus = "0";
@@ -477,13 +512,15 @@ String applyshow_id = request.getParameter("applyshow_id");
                 "indentity_number":IDNum,
                 "political_status":politicalStatus,
                 "phone_number":phone,
+                "phone_code":phoneCode,
                 "mail":email,
                 "department":department,
                 "job":job,
                 "position":post,
                 "address":address,
                 "other":otherInformation,
-                "apply_status":checkstatus
+                "apply_status":checkstatus,
+				"remark":liyou
             },
             success : function(data) {
                 if(data.success == true){

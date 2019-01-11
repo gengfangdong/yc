@@ -55,6 +55,7 @@ public class FigClass implements Serializable{
 	private String FigClass_outline;//大纲
 	private String FigClass_day;//方案定制天数
 	private String FigClass_worknum;//办公电话
+	private String FigClass_remark;//审核理由
 	private List<Figfile> figFiles;//文件列表
 	public FigClass() {
 		super();
@@ -197,5 +198,12 @@ public class FigClass implements Serializable{
 	public void setFigClass_worknum(String figClass_worknum) {
 		FigClass_worknum = figClass_worknum;
 	}
+	public String getFigClass_remark() {
+		return FigClass_remark;
+	}
+	public void setFigClass_remark(String figClass_remark) {
+		FigClass_remark = figClass_remark;
+	}
+	
 	
 }

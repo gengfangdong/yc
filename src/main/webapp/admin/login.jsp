@@ -5,9 +5,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>登录</title>
+		<link rel="icon" href="image/logo.ico" type="image/x-icon"/>
 		<link href="css/style.css" type="text/css" rel="stylesheet"/>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/login.js" ></script>
+		<!-- <script type="text/javascript" src="js/login.js" ></script> -->
 	</head>
 	<body>
 		<div class="inp">
@@ -20,8 +21,8 @@
 						<input type="text" name="username" value="账号" id="username" onFocus="if(value==defaultValue){value='';this.style.color='#000000'}" onBlur="if(!value){value=defaultValue;this.style.color='#999999'}"/>
 					</div>
 					<div class="password">
-						<input type="password" name="password" id="login_passPwd" />
-						<input type="text" name="password" value="密码" id="login_showPwd" />
+						<input type="password" name="password" placeholder="密码" id="login_passPwd" />
+						<!-- <input type="text" name="password" value="密码" id="login_showPwd" /> -->
 					</div>
 					<!--
 					<div class="password">
@@ -44,7 +45,7 @@
 					if(e && e.keyCode==13){ // enter 键
 						//login();
 					//要做的事情
-					
+						document.getElementsByClassName("login")[0].children[0].click();
 					}
 				
 				};

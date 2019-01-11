@@ -9,7 +9,7 @@
 		<result column="Culture_KeyWords" jdbcType="VARCHAR" property="Culture_KeyWords"/>
 		<result column="Culture_Release_time" jdbcType="VARCHAR" property="Culture_Release_time"/>
 		<result column="Culture_status" jdbcType="VARCHAR" property="Culture_status"/>
-		<result column="Culture_context" jdbcType="VARCHAR" property="Culture_context"/>
+		<result column="Culture_context" javaType="String" jdbcType="VARBINARY" property="Culture_context"/>
 		<result column="Culture_Creater" jdbcType="VARCHAR" property="Culture_Creater"/>
 		<result column="Culture_Createtime" jdbcType="VARCHAR" property="Culture_Createtime"/>
 	</resultMap>

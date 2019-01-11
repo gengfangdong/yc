@@ -585,7 +585,7 @@
 	}
 	.page-header.regulations_bannerbg{
 		height:auto;
-		padding:30px 0;
+		padding:45px 0;
 	}
 }
 
@@ -616,9 +616,6 @@
 	}
 	.nav-contain .nav-inner .am-nav li a{
 		font-size:16px;
-	}
-	.logo a img{
-		margin-left:20px;
 	}
 	
 }

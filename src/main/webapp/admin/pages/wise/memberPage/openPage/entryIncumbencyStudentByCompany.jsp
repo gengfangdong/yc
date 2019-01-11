@@ -2,7 +2,9 @@
 <%@page pageEncoding="UTF-8"%>
 <%
 	String project_id=request.getParameter("project_id");
-	String project_name=request.getParameter("project_name");
+// 	java.net.URLDecoder.decode("需要解码的串","utf-8");
+// 	String project_name =java.net.URLDecoder.decode(request.getParameter("project_name"),"utf-8");
+	String project_name =request.getParameter("project_name");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +13,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -92,65 +95,73 @@
 										<tr>
 											<td class="leftTd">报名项目:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="<%=project_name%>" id="entryByCompanyProject" disabled="disabled" style="border:none;border-radius:5px;width: 100%;background: #fff;border:1px solid #ccc;" />
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名类别:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="width: 100%;background: #fff;border:1px solid #ccc;" />
+												<input type="text" value="单位" id="entryByCompanyStates" disabled="disabled" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;background: #fff;"/>
 											</td>
 
 										</tr>
 										<tr>
 											<td class="leftTd">报名日期:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="background: #fff;border: 1px solid #ccc;" />
+												<input type="text" value="" placeholder="YYYY-MM-DD" id="entryByCompanyDate" disabled="disabled" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 257px;height:23px;background: #fff;"/>
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名单位:</td>
+											<td class="leftTd">报名单位:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style="width: 100%;" />
+												<input type="text" value="" placeholder="请输入报名单位" id="entryByCompanyEntryCompany" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">报名人数:</td>
+											<td class="leftTd">报名人数:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value="" id="entryByCompanyEntryPersonNum" placeholder="请填写报名人数" style="width: 100%;height: 23px;border-radius: 5px;border: 1px solid #CCCCCC" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">联系人:</td>
+											<td class="leftTd">联系人:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style="width: 100%;" />
+												<input type="text" id="entryByCompanyContactMan" value="" placeholder="请输入联系人" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">联系人电话:</td>
+											<td class="leftTd">联系人电话:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style="width: 100%;" />
+												<input type="text" id="entryByCompanyPhoneNum" value=""  maxlength="11" placeholder="请输入联系人电话" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
+											</td>
+										</tr>
+											<td class="leftTd">办公电话:<span style="color:red;">*<span></td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="entryByCompanyPhoneCode" value=""  maxlength="15" placeholder="请输入联系人电话" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">联系人邮箱:</td>
+											<td class="leftTd">联系人邮箱:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style="width: 100%;" />
+												<input type="text" id="entryByCompanyEmail" value="" placeholder="请输入联系人邮箱" style="border: none; border: 1px solid #ccc; border-radius: 5px; width: 100%;height:23px;"/>
 											</td>
 										</tr>
-										<tr>
+									<!-- 	<tr>
 											<td class="leftTd" style="vertical-align: middle;">报名名单模板:</td>
 											<td class="rightTd">
 												<input type="text" disabled="disabled" value="文件一" style="width: 100%;background: #fff;border: none;" />
 											</td>
 											<td>
-												<a class="download_a" href="../../../../../show/dist/doc/培训通知.docx" style="color: #FFFFFF;margin-right: 0;">
+								<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="add saveMessage" style="margin-top: 5px;">
+								<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载</a></button>
+																	
 													<button type="button" class="layui-btn lay_btn" style="width: 85px;">
+												<a class="download_a" href="../../../../../show/dist/doc/1218.xlsx" style="color: #FFFFFF;margin-right: 0;">
 													<i class="layui-icon">&#xe67c;</i>下载
 												</button>
 												</a>
@@ -158,7 +169,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd" style="vertical-align: middle;">报名名单上传:</td>
+											<td class="leftTd" style="vertical-align: middle;">报名名单上传:<span style="color:red;">*<span></td>
 											<td class="rightTd">
 												<input type="text" id="test1Input" disabled="disabled" value="" style="width: 100%;background: #fff;border: none;" />
 											</td>
@@ -168,12 +179,12 @@
 											</button>
 											</td>
 
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 							</div>
 							<div style="text-align: center;margin-top: 30px;">
-								<button class="branchSave" onclick="branchSave();">保存</button>
+<!-- 								<button class="branchSave" onclick="branchSave();">保存</button> -->
 								<button class="branchSave branchSub" id="CompanySubmit" onclick="entryByCompanySave();">提交</button>
 							</div>
 
@@ -221,7 +232,7 @@
 				$("#entryByCompanyDate").val(newDay);
 			})
 		</script>
-		<script >
+	<%-- 	<script >
 		layui.use('upload', function() {
 			var upload = layui.upload;
 			var uploadInst = upload.render({
@@ -240,6 +251,7 @@
 			    	this.data={
 			    	"applyunit_name": '<%=project_name%>',
 			    	"applyunit_phone":document.getElementById("entryByCompanyPhoneNum").value,
+			    	"phone_code":document.getElementById("entryByCompanyPhoneCode").value,
 					"applyunit_mail":document.getElementById("entryByCompanyEmail").value,
 					"applyunit_date":document.getElementById("entryByCompanyDate").value,
 					"applyunit_person":document.getElementById("entryByCompanyContactMan").value,
@@ -251,25 +263,25 @@
 			    },
 			    done: function(res){
 				      //如果上传失败
-				      if(res.msg == 3){
-				        return layer.msg('没有选择文件!');
-				      }
-				      else if(res.msg == 1){
-				        return layer.msg('上传失败!');
-				      }
-				      //上传成功
-				      else if(res.msg == 2){
-				    	 layer.alert("保存成功!");
-				   	}
+					if(res.msg == 2){
+						layer.confirm('保存成功!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
+					}
 				      layer.closeAll('loading'); //关闭loading
 				    },
+				    
+				    
 				error: function() {
 					//请求异常回调
 					 layer.closeAll('loading'); //关闭loading
 				}
 			});
 		});
-		</script>
+		</script> --%>
 		<script type="text/javascript">
 			//分页
 			$(function() {
@@ -344,9 +356,12 @@
 				var entryNum = $("#entryByCompanyEntryPersonNum").val();
 				var entryMan = $("#entryByCompanyContactMan").val();
 				var entryPhone = $("#entryByCompanyPhoneNum").val();
+				var entryPhoneCode = $("#entryByCompanyPhoneCode").val();
 				var entryEmail = $("#entryByCompanyEmail").val();
 				var submitFile = $("#test1Input").val();
 				var testPhone = /^1\d{10}$/;
+				var testPhone1 = /^\+?[1-9][0-9]*$/;
+				var testPhoneCode = /0\d{2,3}-\d{7,8}/;
 				var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
 
 				if(entryCompany == "") {
@@ -355,6 +370,9 @@
 				}
 				if(entryNum == "") {
 					alert("请输入报名人数！");
+					return;
+				} else if(testPhone1.test(entryNum) == false) {
+					alert("请输入纯数字数量！");
 					return;
 				}
 				if(entryMan == "") {
@@ -365,6 +383,13 @@
 					alert("请输入联系人电话！");
 					return;
 				} else if(testPhone.test(entryPhone) == false) {
+					alert("请输入有效的电话号码！");
+					return;
+				}
+				if(entryPhoneCode == "") {
+					alert("请输入联系人电话！");
+					return;
+				} else if(testPhoneCode.test(entryPhoneCode) == false) {
 					alert("请输入有效的电话号码！");
 					return;
 				}
@@ -379,6 +404,39 @@
 					alert("请上传学员名单！");
 					return;
 				}
+				
+				
+				$.ajax({
+					url:'<%=request.getContextPath()%>/ApplyUnit/apply' ,
+					data: {
+							"applyunit_name": '<%=project_name%>',
+				    		"person_number":document.getElementById("entryByCompanyEntryPersonNum").value,
+					    	"applyunit_phone":document.getElementById("entryByCompanyPhoneNum").value,
+					    	"phone_code":document.getElementById("entryByCompanyPhoneCode").value,
+							"applyunit_mail":document.getElementById("entryByCompanyEmail").value,
+							"applyunit_date":document.getElementById("entryByCompanyDate").value,
+							"applyunit_person":document.getElementById("entryByCompanyContactMan").value,
+							"project_id":'<%=project_id%>'
+					},
+					dataType: "json",
+					type: "post",
+					success: function(data) {
+				     	layer.confirm('报名成功!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
+						//success
+					},
+					error: function(error) {
+							alert("报名失败！");
+							return;
+						//error
+					}
+
+				})
+				
 
 			}
 		</script>

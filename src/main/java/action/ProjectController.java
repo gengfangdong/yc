@@ -122,6 +122,7 @@ public class ProjectController {
 			for (Project project:datatablesViewPage.getData()) {
 				statue="0";
 				ProjectVo projectVo=new ProjectVo();
+				projectVo.setIsuploadfile("0");
 				projectVo.setProject_id(project.getProject_id());
 				projectVo.setProject_name(project.getProject_name());
 				projectVo.setProject_context(project.getProject_context());
@@ -133,13 +134,17 @@ public class ProjectController {
 				List<ApplyUnit> applyUnitList=applyUnitService.getProjectStatus(user.getUser_id(),project.getProject_id());
 				if (applyList.size()>0) {
 					statue="1";
+					projectVo.setIsuploadfile("0");
 					projectVo.setApply_id(applyList.get(0).getApply_id());
 					projectVo.setStatus(applyList.get(0).getCheck_status());
 				}
 				if (applyUnitList.size()>0) {
 					statue="2";
+					if(!"".equals(applyUnitList.get(0).getApplyunit_file())&&applyUnitList.get(0).getApplyunit_file()!=null){
+						projectVo.setIsuploadfile("1");
+					}
 					projectVo.setApplyunit_id(applyUnitList.get(0).getApplyunit_id());
-					projectVo.setStatus(applyList.get(0).getCheck_status());
+					projectVo.setStatus(applyUnitList.get(0).getApplyunit_status());
 				}
 				projectVo.setProject_status(statue);
 				ProjectVoList.add(projectVo);

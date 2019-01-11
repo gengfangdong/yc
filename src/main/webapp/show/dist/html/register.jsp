@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>中央财经大学</title>
+		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../assets/css/amazeui.css"/>
     <link rel="stylesheet" href="../assets/css/common.min.css"/>
     <link rel="stylesheet" href="../assets/css/other.min.css"/>
@@ -43,11 +44,18 @@
                     </div>
                     <div class="am-u-md-4">
                         <div class="topbar-right am-text-right am-fr">
-                            <% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+                          <% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%} %>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
 									<%}; %>
-									<% if(user == null) {%><a href="login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="register.jsp" style="color: #000000;">注册</a>
+										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
                         </div>
                     </div>
                 </div>
@@ -133,19 +141,19 @@
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li>
-                                                    <a href="about.jsp">关于我们</a>
-                                                    <!-- sub-menu start-->
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item">
-                                                            <a href="centerOverview.jsp">中心概况</a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="organization.jsp">组织结构</a>
-                                                        </li>
-                                                        <li class="menu-item">
-                                                            <a href="aboutSchool.jsp">学校介绍</a>
-                                                        </li>
-                                                    </ul>
+                                                   <a href="centerOverview.jsp">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<!-- <li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li> -->
+															</ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                             </ul>
@@ -232,24 +240,32 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="about.jsp">关于我们</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="centerOverview.jsp">中心概况</a>
-													</li>
-													<li class="menu-item">
-														<a href="organization.jsp">组织结构</a>
-													</li>
-													<li class="menu-item">
-														<a href="aboutSchool.jsp">学校介绍</a>
-													</li>
-												</ul>
+												<a href="centerOverview.jsp">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="am-menu-sub am-collapse">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<!-- <li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li> -->
+															</ul>
 											</li>
 											<li class="">
-												<% if(user != null) {%><a >欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href="<%=request.getContextPath()%>/Logout">注销</a>
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
 												<%}; %>
-												<% if(user == null) {%><a href="login.jsp" >登录</a><%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -264,7 +280,7 @@
 					</div>
 					<div class="am-u-sm-5 am-u-end">
 						<div class="m-logo">
-							<a href=""><img src="assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
+							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
 						</div>
 					</div>
 				</div>
@@ -545,9 +561,9 @@
                 if(data.success == true){
                    var r = confirm("注册成功！是否登录？");
                     if(r==true){
-                    	window.open('','_self','');
-                    	window.close();
-                        window.open('login.jsp',"_self");
+                    	/* window.open('','_self','');
+                    	window.close(); */
+                    	window.open('<%=request.getContextPath()%>/show/dist/html/login.jsp','_self');
                     }else{
                         return;
                     }

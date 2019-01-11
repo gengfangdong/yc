@@ -15,6 +15,7 @@ public class ProjectVo implements Serializable{
 	private String Project_createtime;//创建时间
 	private String Project_status;//会员在职研个人报名状态
 	private String status;
+	private String isuploadfile;//是否上传名单
 	private String Apply_id;//个人报名id
 	private String Applyunit_id;//单位报名id
 	public ProjectVo() {
@@ -79,5 +80,11 @@ public class ProjectVo implements Serializable{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getIsuploadfile() {
+		return isuploadfile;
+	}
+	public void setIsuploadfile(String isuploadfile) {
+		this.isuploadfile = isuploadfile;
 	}
 }

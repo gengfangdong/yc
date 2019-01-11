@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import entity.About;
+import entity.Apply;
+import entity.ApplyUnit;
 import entity.ClassPlanVo;
 import entity.CourseVo;
 import entity.Culture;
@@ -34,12 +36,15 @@ import entity.LayuiDataTable;
 import entity.News;
 import entity.Notice;
 import entity.Project;
+import entity.ProjectVo;
 import entity.RotationPic;
 import entity.Rules;
 import entity.ScheduledShiftShow;
 import entity.Solution;
 import entity.Tax;
 import entity.Teaching;
+import service.ApplyService;
+import service.ApplyUnitService;
 import service.ClassPlanService;
 import service.CourseService;
 import service.CultureService;
@@ -91,6 +96,10 @@ public class ShowController {
 	private RotationPicService rotationPicService;
 	@Autowired
 	private service.AboutService AboutService;
+	@Autowired
+	private ApplyService applyService;
+	@Autowired
+	private ApplyUnitService applyUnitService;
 	/**
 	 * 新闻列表获取
 	 * @param draw

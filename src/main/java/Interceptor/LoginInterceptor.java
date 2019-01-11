@@ -88,7 +88,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			// 告诉ajax我是重定向
 			response.setHeader("REDIRECT", "REDIRECT");
 			// 告诉ajax我重定向的路径
-			response.setHeader("CONTENTPATH", basePath+"/show/dist/");
+			response.setHeader("CONTENTPATH", basePath+"/show/dist/index");
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		} else {
 			response.sendRedirect(basePath+"/show/dist/index");

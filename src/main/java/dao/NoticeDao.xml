@@ -9,7 +9,7 @@
 		<result column="Notice_KeyWords" jdbcType="VARCHAR" property="Notice_KeyWords"/>
 		<result column="Notice_Release_time" jdbcType="VARCHAR" property="Notice_Release_time"/>
 		<result column="Notice_status" jdbcType="VARCHAR" property="Notice_status"/>
-		<result column="Notice_context" jdbcType="VARCHAR" property="Notice_context"/>
+		<result column="Notice_context" javaType="String" jdbcType="VARBINARY" property="Notice_context"/>
 		<result column="Notice_Creater" jdbcType="VARCHAR" property="Notice_Creater"/>
 		<result column="Notice_Createtime" jdbcType="VARCHAR" property="Notice_Createtime"/>
 	</resultMap>

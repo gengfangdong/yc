@@ -3,7 +3,6 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
-String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -375,6 +375,7 @@ String caogery = (String)session.getAttribute("isad");
 		<script src="../../../bootstrap/js/bootstrap.min.js"></script>
 		<!-- layui 2.3.0 -->
 		<script src="../../../layui-v2.3.0/layui/layui.js"></script>
+		<script src="../../../layui-v2.3.0/layui/lay/modules/layer.js"></script>
 		<!-- DataTables -->
 		<script src="../../../plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
 		<script src="../../../plugins/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
@@ -560,6 +561,7 @@ String caogery = (String)session.getAttribute("isad");
                             });
                         })
                     }else if(sText=='删除'){
+                    	layer.confirm('确定删除吗?', {title:'提示'},function(index){
 			        	$.ajax({
 							url : '<%=request.getContextPath()%>/ApplyUnit/deleteApplyUnit',
 							type : 'post',
@@ -569,16 +571,25 @@ String caogery = (String)session.getAttribute("isad");
 							},
 							success : function(data) {
 								if(data.msg == "0"){
-									alert("参数错误!");
-									return;
+									layer.confirm('删除失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								else if(data.msg == "1"){
-									alert("没有找到实体!");
-									return;
+									layer.confirm('删除失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								else if(data.msg == "2"){
-									alert("删除成功!");
-									window.parent.location.reload();
+									layer.confirm('删除成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 									return;
 								}
 								
@@ -588,6 +599,7 @@ String caogery = (String)session.getAttribute("isad");
 								alert("删除失败！");
 								return;
 							}
+						});	
 						});	
 		        	}
 				}else if(sStates == '个人'){
@@ -628,6 +640,7 @@ String caogery = (String)session.getAttribute("isad");
                             });
                         })
                     }else if(sText=='删除'){
+                    	layer.confirm('确定删除吗?', {title:'提示'},function(index){
 			        	$.ajax({
 							url : '<%=request.getContextPath()%>/Apply/deleteapply',
 							type : 'post',
@@ -637,16 +650,25 @@ String caogery = (String)session.getAttribute("isad");
 							},
 							success : function(data) {
 								if(data.msg == "0"){
-									alert("参数错误!");
-									return;
+									layer.confirm('删除失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								else if(data.msg == "1"){
-									alert("未获取个人申请详情!");
-									return;
+									layer.confirm('删除失败!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 								}
 								else if(data.msg == "2"){
-									alert("删除成功!");
-									window.parent.location.reload();
+									layer.confirm('删除成功!', { title:'提示'}, function(index){				
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
+									});
 									return;
 								}
 								
@@ -657,6 +679,7 @@ String caogery = (String)session.getAttribute("isad");
 								return;
 							}
 						});	
+						});	
 		        	}
 				}
 				//debugger;
@@ -664,8 +687,7 @@ String caogery = (String)session.getAttribute("isad");
 		</script>
 		<script>
 			window.onload = function(){
-				<% if(user == null||!"1".equals(caogery)){%>
-					
+				<% if(user == null){%>
 					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');

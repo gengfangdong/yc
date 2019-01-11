@@ -19,6 +19,6 @@ public interface SsuserService {
 	public void insertSSuser(Ssuser ssuser);
 	public int getLavenumber(String project_id);
 	public LayuiDataTable<Ssuser> getSsuserByPage(int start,int page,String project_id);
-	public Ssuser getDetailById(@Param("ssu_id")String ssu_id);
+	public Ssuser getDetailById(String ssu_id);
 	
 }

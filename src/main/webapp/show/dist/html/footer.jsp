@@ -30,10 +30,11 @@
 								<div class="footer_main--column am-u-md-8">
 									<strong class="footer_main--column_title">联系详情</strong>
 									<ul class="footer_contact_info">
-										<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>yunshipei.com</span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
+										<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>办公电话010-62280881 </span></li>
+										<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>移动电话16601021525/16601021533</span></li>
+										<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>E-mail：lingshui100@163.com</span></li>
+										<!-- <li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
+										<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li> -->
 									</ul>
 								</div>
 								<div class="am-u-md-4 " style="margin-top: 20px;">

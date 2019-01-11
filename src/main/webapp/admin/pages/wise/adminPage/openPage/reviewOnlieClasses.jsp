@@ -11,6 +11,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -81,6 +82,10 @@
 				border-radius:5px;
 				background:#FFF;
 				cursor:no-drop!important;
+			}
+			.layui-table-cell{
+				text-align:center;
+				margin:auto;
 			}
 		</style>
 	</head>
@@ -281,13 +286,19 @@
 									</tbody>
 								</table>
 								<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-								<table id="branchTable" class="table table-bordered table-hover example1_x">
+								<table id="branchTable2" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
 											<td class="leftTd">审核结果:<span style="color:red;">*<span></td>
 											<td class="rightTd">
-												<input type="radio" name="isPass" />通过
-												<input type="radio" name="isPass" />不通过
+												<input type="radio" name="isPass" onclick="isPass(this);"/>通过
+												<input type="radio" name="isPass" onclick="isNotPass(this);"/>不通过
+											</td>
+										</tr>
+										<tr id="liyou" style="display:none;">
+											<td class="leftTd">理由:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="liyouInput" style="width: 100%;border:1px solid #ccc;border-radius:5px;" />
 											</td>
 										</tr>
 									</tbody>
@@ -330,6 +341,18 @@
 		<script src="../../../../layui-v2.3.0/layui/layui.js"></script>
 		
 		<script>
+		
+			function isNotPass(obj){
+				if(obj.checked==true){
+					$("#liyou").css("display","");
+				}
+			}
+			function isPass(obj){
+				if(obj.checked==true){
+					$("#liyou").css("display","none");
+				}
+			}
+			
 			var firstObj="";
 			var secondObj="";
 			function firstSelect(obj){
@@ -471,12 +494,27 @@
 			     /*  {field:'course_id', title: 'ID',style:'display:none;'}, */
 			      {field:'first_course', title: '一级目录',minWidth:120},
 			      {field:'second_course', title: '二级目录',minWidth:120},
-			      {field:'third_course', title: '三级目录',minWidth:120},
-			      {field:'classplan_date', title: '选择天数',toolbar: '#selected'},
+			      {field:'third_course', title: '三级目录',minWidth:160},
+			      {field:'classplan_date', title: '选择天数',toolbar: '#selected',minWidth:130},
 			      {field:'handle', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
 			    page: false,
+			    done:function(){
+			    	var outline = freeco_outline.split(",");
+			    	var days = freeco_day.split(",");
+			    	
+			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
+			    		for(var j = 0;j<outline.length;j++){
+			    			if($("#sample-table-1 .layui-table-body tr")[j].children[4].children[0].children[0].id != outline[j]){
+				    			$($("#sample-table-1 .layui-table-body tr")[j]).css('display','none');
+				    		}else if($("#sample-table-1 .layui-table-body tr")[j].children[4].children[0].children[0].id == outline[j]){
+				    			$("#sample-table-1 .layui-table-body tr")[j].children[3].children[0].children[0].value = days[j];
+				    		}	
+			    		}
+			    	}
+			    }
+			   /*  ,
 			    done:function(){
 			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
 			    		if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id != freeco_outline){
@@ -485,7 +523,7 @@
 			    			$("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].value = freeco_day;
 			    		}
 			    	}
-			    }
+			    } */
 			  });
 			  
 			//监听工具条
@@ -697,6 +735,8 @@
 								}
 								$(nDivShow[0]).addClass('layui-show');
 							}
+
+							window.freeco_outline = data.data.figClass.figClass_outline;
 							/*for(var n=0;n<nLiShow.length;n++){
 								if(nLiShow[n].is(".layui-this")){
 									return true;
@@ -727,7 +767,6 @@
 
 							window.freeco_outline = data.data.figClass.figClass_outline;
 							window.freeco_day = data.data.figClass.figClass_day;
-			
 						}else if(data.data.figClass.figClass_caogery==2){
 							var type="自由定制";
 							var nDivShow = $('.layui-tab-item');
@@ -793,13 +832,19 @@
 					applyunit_status = "1";
 				}else if(isPass[1].checked==true){
 					applyunit_status = "2";
+					var liyou = $("#liyouInput").val();
+					if(liyou==""){
+						alert('请输入理由！');
+						return;
+					}
 				}
 				$.ajax({
 					url:'<%=request.getContextPath()%>/FigClass/Review',
 					type:"post",
 					data:{
 						figclass_id:'<%=figClass_id%>',
-						review_result:applyunit_status
+						review_result:applyunit_status,
+						result:liyou
 					},
 					success:function(data){
 						if(data.success == true){

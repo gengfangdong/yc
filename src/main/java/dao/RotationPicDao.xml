@@ -58,10 +58,10 @@
 	</delete>
 	
 		<select id = "findAllRotation" resultMap="RotationPic">
-		SELECT * FROM  RotationPic where RotationPic_STATUS='1'
+		SELECT * FROM  RotationPic 
 	</select>
 	
 	<select id="findAllRotationcount" resultType="int">
-		select count(*) from RotationPic where RotationPic_STATUS='1'
+		select count(*) from RotationPic 
 	</select>
 </mapper>

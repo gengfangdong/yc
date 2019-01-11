@@ -72,14 +72,14 @@
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 								<table id="newsTable" class="table table-bordered table-hover example1_x">
 									<tbody>
-										<tr>
-											<td class="leftTd">标题:</td>
+								<!-- 		<tr>
+											<td class="leftTd">标题:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="newsTitle" style="width: 100%;" />
 											</td>
-										</tr>
+										</tr> -->
 										<tr>
-											<td class="leftTd">封面:</td>
+											<td class="leftTd">封面:<span style="color:red;">*<span></td>
 											<td class="rightTd">
 												<div class="layui-upload-list">
 												  <img class="layui-upload-img" id="demo1" style="width:150px;">
@@ -93,31 +93,62 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">简介:</td>
+											<td class="leftTd">链接地址:<span style="color:red;">*<span></td>
+											<td class="rightTd" colspan="2">
+<!-- 												<input type="text" placeholder="请输入50字以下文字" id="newsAbstract" style="width: 100%;" /> -->
+										        <select name="modules" lay-verify="required" lay-search="" id="newsKeyWords">
+										          <option value="">请选择链接地址</option>
+										          <option value="cultureSystem.jsp">培养体系</option>
+										          <option value="solution.jsp">解决方案</option>
+										          <option value="teachingMaterialSystem.jsp">教材体系</option>
+										          <option value="taxCollectionFund.jsp">领税体系</option>
+										          <option value="expertTeam.jsp">专家团队</option>
+										          <option value="regulationsClasses.jsp">规定班次</option>
+										          <option value="customizedClasses.jsp">定制班次</option>
+										          <option value="onlineClasses.jsp">拼班</option>
+										          <option value="incumbencyStudent.jsp">招生简章</option>
+										          <option value="onlineApplication.jsp">在线报名</option>
+										          <option value="newsNotice.jsp">通知公告</option>
+										          <option value="newsTrain.jsp">培训新闻</option>
+										          <option value="about.jsp">关于我们</option>
+										          <option value="centerOverview.jsp">中心概况</option>
+										          <option value="organization.jsp">组织结构</option>
+										          <option value="aboutSchool.jsp">学校介绍</option>
+										        </select>
+											</td>
+<!-- 											<div class="layui-inline"> -->
+<!-- 										      <label class="layui-form-label">搜索选择框</label> -->
+<!-- 										      <div class="layui-input-inline"> -->
+<!-- 										      </div> -->
+<!-- 										    </div> -->
+											
+										</tr>
+										<!-- <tr>
+											<td class="leftTd">简介:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入50字以下文字" id="newsAbstract" style="width: 100%;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">关键字:</td>
+											<td class="leftTd">关键字:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="newsKeyWords" style="width: 100%;" />
 											</td>
-										</tr>
+										</tr> -->
 										<!--<tr>
 											<td class="leftTd">类别:</td>
 											<td class="rightTd">
 												<input type="text" id="newsCategory" />
 											</td>
 										</tr>-->
-										<tr>
-											<td class="leftTd">发布日期:</td>
+				<!-- 						<tr>
+											<td class="leftTd">发布日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input id="newsDate" name="newsDate"  autocomplete="off" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" />
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">状态:</td>
+											<td class="leftTd">状态:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="radio" value="发布" name="newsStates" class="newsStates" style="margin-right: 5px;" /><span>发布</span>
 												<input type="radio" value="保存" name="newsStates" class="newsStates" style="margin-right: 5px;margin-left: 10px;" /><span>保存</span>
@@ -125,11 +156,11 @@
 										</tr>
 										
 										<tr>
-											<td class="leftTd" style="vertical-align: middle;">内容:</td>
+											<td class="leftTd" style="vertical-align: middle;">内容:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription"/></textarea>
 											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 								<div style="text-align: center;">
@@ -202,26 +233,26 @@
 			      });
 			    },
 			    before:function(obj){
-			    	var noticeStatus = document.getElementsByName("newsStates");
-			    	var rotationPic_status="";
-					for(var i=0;i<noticeStatus.length;i++){
-						if(noticeStatus[i].checked == true){
-							if("发布"==noticeStatus[i].value){
-								rotationPic_status = '1';
-							}
-							else
-								rotationPic_status = '0';
-							//news_status = newsStatus[i].value;
-							break;
-						}
-					}
+// 			    	var noticeStatus = document.getElementsByName("newsStates");
+// 			    	var rotationPic_status="";
+// 					for(var i=0;i<noticeStatus.length;i++){
+// 						if(noticeStatus[i].checked == true){
+// 							if("发布"==noticeStatus[i].value){
+// 								rotationPic_status = '1';
+// 							}
+// 							else
+// 								rotationPic_status = '0';
+// 							//news_status = newsStatus[i].value;
+// 							break;
+// 						}
+// 					}
 			    	this.data={
-			    	"RotationPic_Title": document.getElementById("newsTitle").value,
-			    	"RotationPic_Introduction":document.getElementById("newsAbstract").value,
+			    	"RotationPic_Title": '',
+			    	"RotationPic_Introduction":'',
 					"RotationPic_KeyWords":document.getElementById("newsKeyWords").value,
-					"RotationPic_Release_time":document.getElementById("newsDate").value,
-					"RotationPic_status":rotationPic_status,
-					"RotationPic_context":CKEDITOR.instances.newsDescription.getData()
+					"RotationPic_Release_time":'',
+					"RotationPic_status":'',
+					"RotationPic_context":''
 			    	}//携带额外的数据
 				    obj.preview(function(index, file, result){
 				        $('#demo1').attr('src', result); //图片链接（base64）
@@ -261,40 +292,40 @@
 		<script>
 			function newsSave(){
 				//debugger;
-				var newsTitle = $('#newsTitle').val();
-				var newsAbstract = $("#newsAbstract").val();
+// 				var newsTitle = $('#newsTitle').val();
+// 				var newsAbstract = $("#newsAbstract").val();
 				var newsKeyWords = $("#newsKeyWords").val();
-				var newsDate = $("#newsDate").val();
-				var newsStates = $(".newsStates");
-				var newsDescription = CKEDITOR.instances.newsDescription.getData();
-				if(newsTitle == "") {
-					layer.alert("请填写标题！");
-					return;
-				}
-				if(newsAbstract == "") {
-					layer.alert("请填写简介！");
-					return;
-				}
+// 				var newsDate = $("#newsDate").val();
+// 				var newsStates = $(".newsStates");
+// 				var newsDescription = CKEDITOR.instances.newsDescription.getData();
+// 				if(newsTitle == "") {
+// 					layer.alert("请填写标题！");
+// 					return;
+// 				}
+// 				if(newsAbstract == "") {
+// 					layer.alert("请填写简介！");
+// 					return;
+// 				}
 				if(newsKeyWords == "") {
-					layer.alert("请填写关键字！");
+					layer.alert("请填链接地址！");
 					return;
 				}
-				if(newsDate == "") {
-					layer.alert("请选择日期！");
-					return;
-				}
-				if(newsDescription.length == "") {
-					layer.alert("请填写内容！");
-					return;
-				}
-				if(newsStates[0].checked == true) {
-// 					var sex = "0";
-				} else if(newsStates[1].checked == true) {
-// 					var sex = "1";
-				} else {
-					layer.alert("请选择状态！");
-					return;
-				}
+// 				if(newsDate == "") {
+// 					layer.alert("请选择日期！");
+// 					return;
+// 				}
+// 				if(newsDescription.length == "") {
+// 					layer.alert("请填写内容！");
+// 					return;
+// 				}
+// 				if(newsStates[0].checked == true) {
+// // 					var sex = "0";
+// 				} else if(newsStates[1].checked == true) {
+// // 					var sex = "1";
+// 				} else {
+// 					layer.alert("请选择状态！");
+// 					return;
+// 				}
 				
 				var s=$("#demo1").attr("src");
 				if(s==undefined){

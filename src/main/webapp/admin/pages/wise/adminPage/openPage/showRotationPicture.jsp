@@ -71,12 +71,12 @@
 							<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 								<table id="newsTable" class="table table-bordered table-hover example1_x">
 									<tbody>
-										<tr>
+									<!-- 	<tr>
 											<td class="leftTd">标题:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="newsTitle" readonly="readonly"/>
 											</td>
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="leftTd">封面:</td>
 											<td class="rightTd">
@@ -84,7 +84,7 @@
 												  <img class="layui-upload-img" id="demo1" style="width:150px;" src="<%=request.getContextPath()%>/RotationPic/RotationPic_title_page_Show?RotationPic_id=<%=rotationPic_id%>">
 											</td>
 										</tr>
-										<tr>
+							<!-- 			<tr>
 											<td class="leftTd">简介:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入50字以下文字" id="newsAbstract" readonly="readonly"/>
@@ -95,6 +95,31 @@
 											<td class="rightTd" colspan="2">
 												<input type="text" placeholder="请输入5个以内关键字，用逗号隔开" id="newsKeyWords" readonly="readonly"/>
 											</td>
+										</tr> -->
+										<tr>
+											<td class="leftTd">链接地址:</td>
+											<td class="rightTd" colspan="2">
+<!-- 												<input type="text" placeholder="链接地址" id="newsKeyWords" readonly="readonly"/> -->
+												 <select name="modules" lay-verify="required" lay-search="" id="newsKeyWords" readonly="readonly">
+										          <option value="">请选择链接地址</option>
+										          <option value="cultureSystem.jsp">培养体系</option>
+										          <option value="solution.jsp">解决方案</option>
+										          <option value="teachingMaterialSystem.jsp">教材体系</option>
+										          <option value="taxCollectionFund.jsp">领税体系</option>
+										          <option value="expertTeam.jsp">专家团队</option>
+										          <option value="regulationsClasses.jsp">规定班次</option>
+										          <option value="customizedClasses.jsp">定制班次</option>
+										          <option value="onlineClasses.jsp">拼班</option>
+										          <option value="incumbencyStudent.jsp">招生简章</option>
+										          <option value="onlineApplication.jsp">在线报名</option>
+										          <option value="newsNotice.jsp">通知公告</option>
+										          <option value="newsTrain.jsp">培训新闻</option>
+										          <option value="about.jsp">关于我们</option>
+										          <option value="centerOverview.jsp">中心概况</option>
+										          <option value="organization.jsp">组织结构</option>
+										          <option value="aboutSchool.jsp">学校介绍</option>
+										        </select>
+											</td>
 										</tr>
 										<!--<tr>
 											<td class="leftTd">类别:</td>
@@ -102,7 +127,7 @@
 												<input type="text" id="newsCategory" />
 											</td>
 										</tr>-->
-										<tr>
+										<!-- <tr>
 											<td class="leftTd">发布日期:</td>
 											<td class="rightTd" colspan="2">
 												<input id="newsDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;" readonly="readonly"/>
@@ -121,7 +146,7 @@
 											<td class="rightTd" colspan="2">
 												<textarea name="description" id="newsDescription" readonly="readonly"/></textarea>
 											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 								<div style="text-align: center;">
@@ -160,7 +185,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+//         		CKEDITOR.replace('newsDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/RotationPic/getRotationPicdetailByid',
 				type : 'GET',
@@ -169,35 +194,35 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var newscontext = CKEDITOR.instances.newsDescription;
-						var newsTitle = document.getElementById("newsTitle");
-						var newsAbstract = document.getElementById("newsAbstract");
+// 						var newscontext = CKEDITOR.instances.newsDescription;
+// 						var newsTitle = document.getElementById("newsTitle");
+// 						var newsAbstract = document.getElementById("newsAbstract");
 						var newsKeyWords = document.getElementById("newsKeyWords");
-						var newsDate = document.getElementById("newsDate");
-						var newsStatus = document.getElementsByName("newsStates");
+// 						var newsDate = document.getElementById("newsDate");
+// 						var newsStatus = document.getElementsByName("newsStates");
 
-						var rotationPic_id = data.data.rotationPic_id;
-						var rotationPic_Introduction = data.data.rotationPic_Introduction;
+// 						var rotationPic_id = data.data.rotationPic_id;
+// 						var rotationPic_Introduction = data.data.rotationPic_Introduction;
 						var rotationPic_KeyWords = data.data.rotationPic_KeyWords;
-						var rotationPic_Rlease_time = data.data.rotationPic_Release_time;
-						var rotationPic_context = data.data.rotationPic_context;
-						var rotationPic_titile = data.data.rotationPic_titile;
-						var rotationPic_status = data.data.rotationPic_status;
-						var rotationPic_title_page = rotationPic_title_page;
+// 						var rotationPic_Rlease_time = data.data.rotationPic_Release_time;
+// 						var rotationPic_context = data.data.rotationPic_context;
+// 						var rotationPic_titile = data.data.rotationPic_titile;
+// 						var rotationPic_status = data.data.rotationPic_status;
+// 						var rotationPic_title_page = rotationPic_title_page;
 						
-						newsTitle.value=rotationPic_titile; //标题
-						newsAbstract.value=rotationPic_Introduction;//简介
+// 						newsTitle.value=rotationPic_titile; //标题
+// 						newsAbstract.value=rotationPic_Introduction;//简介
 						newsKeyWords.value=rotationPic_KeyWords;//关键字
-						newsDate.value=rotationPic_Rlease_time;//发布日期
-						newsTitle.value=rotationPic_titile;//状态
-						newscontext.setData(rotationPic_context);//内容
+// 						newsDate.value=rotationPic_Rlease_time;//发布日期
+// 						newsTitle.value=rotationPic_titile;//状态
+// 						newscontext.setData(rotationPic_context);//内容
 
-						if(rotationPic_status == "1"||rotationPic_status == "2"){
-							newsStatus[0].checked = true;
-						}
-						else if(rotationPic_status == "0"){
-							newsStatus[1].checked = true;
-						}
+// 						if(rotationPic_status == "1"||rotationPic_status == "2"){
+// 							newsStatus[0].checked = true;
+// 						}
+// 						else if(rotationPic_status == "0"){
+// 							newsStatus[1].checked = true;
+// 						}
 
 					}
 					

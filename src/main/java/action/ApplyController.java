@@ -387,7 +387,7 @@ public class ApplyController {
 	public Map<String,Object> updateapply(String apply_id,String name,
 			String sex,String brithday,String indentity_number,
 			String political_status,String phone_number,String phone_code,String mail,
-			String department,String job,String address,String apply_status,
+			String department,String job,String address,String apply_status,@RequestParam(value="remark",defaultValue="",required=false) String remark,
 			String other,String position){
 		//结果map
 		Map<String,Object> resultmap = new HashMap<String, Object>();
@@ -422,6 +422,7 @@ public class ApplyController {
 		apply.setSex(sex);
 		if(!StringUtil.isblack(apply_status)){
 			apply.setCheck_status(apply_status);
+			apply.setRemark(remark);
 			//短信接口
 		}
 		applyService.updateApply(apply);

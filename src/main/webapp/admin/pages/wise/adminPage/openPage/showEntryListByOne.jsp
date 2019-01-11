@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../../bootstrap/css/bootstrap.min.css">
@@ -132,7 +133,12 @@
 											<td class="rightTd">
 												<input type="text" value="13312341234" id="entryByOnePhoneNum" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
 											</td>
-
+										</tr>
+										<tr>
+											<td class="leftTd">办公电话:</td>
+											<td class="rightTd">
+												<input type="text" value="13312341234" id="entryByOnePhoneCode" style="width: 100%;background:#FFF;height:23px;border:none;border-radius:5px;border:1px solid #CCC;"  disabled="disabled" class="disableInput"/>
+											</td>
 										</tr>
 										<tr>
 											<td class="leftTd">电子邮箱:</td>
@@ -310,6 +316,7 @@
 						var entryByOneIDNum = document.getElementById("entryByOneIDNum");
 						var politicalOutlook = document.getElementsByName("politicalOutlook");
 						var entryByOnePhoneNum = document.getElementById("entryByOnePhoneNum");
+						var entryByOnePhoneCode = document.getElementById("entryByOnePhoneCode");
 						var entryByOneEmail = document.getElementById("entryByOneEmail");
 						var entryByOneDepartment = document.getElementById("entryByOneDepartment");
 						var entryByOneJob = document.getElementById("entryByOneJob");
@@ -329,6 +336,7 @@
 						var name = data.data.name;
 						var other = data.data.other;
 						var phone_number = data.data.phone_number;
+						var phone_code = data.data.phone_code;
 						var position = data.data.position;
 						var sex = data.data.sex;
 						var mail = data.data.mail;
@@ -338,6 +346,7 @@
 						entryByOneBirthday.value=brithday;//出生日期
 						entryByOneIDNum.value=indentity_number;//身份证号
 						entryByOnePhoneNum.value=phone_number;//手机号
+						entryByOnePhoneCode.value=phone_code;//手机号
 						entryByOneJob.value=job;//岗位
 						entryByOnePost.value=position;//职务
 						entryByOneAddress.value=address;//地址

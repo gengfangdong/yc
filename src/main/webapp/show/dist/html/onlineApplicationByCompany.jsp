@@ -14,6 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../../../admin/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/layui.css" />
 		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/modules/layer/default/layer.css" />
@@ -111,18 +112,23 @@
 							<div class="am-u-md-8">
 								<div class="topbar-left">
 									<!--<i class="am-icon-globe"></i>-->
-									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
-										联系电话+86-010-83951120 / 83951097
-									</div>
+									<jsp:include   page="topbarLeft.jsp" flush="true"/>
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</a>
+									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
+									<%} %>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
 									<%}; %>
-									<% if(user == null) {%><a href="html/login.jsp" style="color: #000000;">登录</a><%}; %>
-									<a href="html/register.jsp" style="color: #000000;">注册</a>
+										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
 								</div>
 							</div>
 						</div>
@@ -207,18 +213,18 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="about.jsp">关于我们</a>
+															<a href="centerOverview.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
 																<li class="menu-item">
-																	<a href="centerOverview.jsp">中心概况</a>
+																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
-																	<a href="organization.jsp">组织结构</a>
+																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<li class="menu-item">
+																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li>
+																</li> -->
 															</ul>
 															<!-- sub-menu end-->
 														</li>
@@ -248,39 +254,45 @@
 
 								<div class="am-offcanvas">
 									<div class="am-offcanvas-bar">
-										<ul class="am-nav am-nav-pills am-nav-justify">
-											<li class="">
+
+
+										<ul class="am-menu-nav am-avg-sm-1">
+											<li>
 												<a href="../index.jsp">首页</a>
 											</li>
-											<li>
-												<a href="about.jsp">关于我们</a>
-											</li>
-											<li>
-												<a href="newsNotice.jsp">新闻中心</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
-													<li class="menu-item">
-														<a href="newsNotice.jsp">通知公告</a>
+											<li class="am-parent">
+												<a href="cultureSystem.jsp" >项目概况</a>
+												<ul class="am-menu-sub am-collapse ">
+													<li class="">
+														<a href="cultureSystem.jsp" >培养体系</a>
 													</li>
-													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
+													<li class="">
+														<a href="solution.jsp">解决方案</a>
+													</li>
+													<li class="">
+														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+													</li>
+													<li class="">
+														<a href="taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="expertTeam.jsp" class="">专家团队</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
 											</li>
-											<li>
-												<a href="regulationsClasses.jsp">规定班次</a>
+											<li class="">
+												<a href="regulationsClasses.jsp"  >规定班次</a>
 											</li>
-											<li>
+											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
 											</li>
-											<li>
-												<a href="onlineClasses.jsp">在线拼班</a>
+											<li class="">
+												<a href="onlineClasses.jsp">拼班</a>
 											</li>
-											<li>
+
+											<li class="am-parent">
 												<a href="incumbencyStudent.jsp" style="color: #FF2F2F;">在职研</a>
-												<!-- sub-menu start-->
-												<ul class="sub-menu">
+												<ul class="am-menu-sub am-collapse  ">
 													<li class="menu-item">
 														<a href="incumbencyStudent.jsp">招生简章</a>
 													</li>
@@ -288,10 +300,45 @@
 														<a href="onlineApplication.jsp" style="color: #FF2F2F;">在线报名</a>
 													</li>
 												</ul>
-												<!-- sub-menu end-->
+											</li>
+											<li class="am-parent">
+												<a href="newsNotice.jsp">新闻公告</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="newsNotice.jsp">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.jsp">培训新闻</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="centerOverview.jsp">关于我们</a>
+															<!-- sub-menu start-->
+															<ul class="am-menu-sub am-collapse">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<!-- <li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li> -->
+															</ul>
 											</li>
 											<li class="">
-												<a href="login.jsp" class="">登录</a>
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
+												<%}; %>
 											</li>
 											<li class="">
 												<a href="register.jsp" class="">注册</a>
@@ -322,7 +369,7 @@
 
 			<div class="am-g am-g-fixed myFixedSiderbar">
 				<!--正文-->
-				<div class="am-u-md-9 am-u-md-push-3" style="padding-right: 100px;">
+				<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 5%;">
 					<div class="breadcrumb-box">
 						<div class="am-container">
 							<ol class="am-breadcrumb">
@@ -399,10 +446,16 @@
 											<td class="tableLeftTd">报名日期</td>
 											<td class="tableRightTd">
 												<!-- <input class="onlineDate" type="date"/> -->
-												<input id="entryDate" type="text" class="am-form-field am-datepicker-add-on onlineInput" style="height:23px;border-radius: 5px;background-color:#fff;height: 27px;line-height: 27px;border: 1px solid #a9a9a9;" readonly />
+<!-- 												<input id="entryDate" type="text"  value=""  class="am-form-field am-datepicker-add-on onlineInput" style="height:23px;border-radius: 5px;background-color:#fff;height: 27px;line-height: 27px;border: 1px solid #a9a9a9;" readonly /> -->
+												<input type="text" value=""  readonly  id="entryDate" disabled="disabled"   class="am-form-field am-datepicker-add-on onlineInput" style="height:23px;border-radius: 5px;background-color:#fff;height: 27px;line-height: 27px;border: 1px solid #a9a9a9;"/>
 
 											</td>
 										</tr>
+										<tr>
+											<td class="tableLeftTd">报名人数</td>
+											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" id="entryByCompanyEntryPersonNum" type="text" maxlength="5" placeholder="请输入您的报名人数" /></td>
+										</tr>
+										<tr>
 										<tr>
 											<td class="tableLeftTd">报名单位</td>
 											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" id="entryCompany" type="text" maxlength="16" placeholder="请输入您的单位名称" /></td>
@@ -418,6 +471,10 @@
 											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactTel" maxlength="11" placeholder="请输入您真实的手机号码" /></td>
 										</tr>
 										<tr>
+											<td class="tableLeftTd">联系人办公电话</td>
+											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactTelCode" maxlength="15" placeholder="请输入您真实的手机号码" /></td>
+										</tr>
+										<tr>
 											<td class="tableLeftTd">联系人邮箱</td>
 											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactEmail" placeholder="请输入您真实的邮箱" /></td>
 										</tr>
@@ -425,7 +482,7 @@
 											<td class="tableLeftTd">报名名单模板</td>
 											<td class="tableRightTd">
 												<button type="button" class="layui-btn lay_btn" style="height: 25px;line-height: 10px;background-color: #0e90d2;border-radius: 1000px;" >
-												  <i class="layui-icon">&#xe67c;</i><a href="../doc/报名表格.xlsx" style="color: #FFFFFF;">下载</a>
+												  <i class="layui-icon">&#xe67c;</i><a href="../doc/1218.xlsx" style="color: #FFFFFF;">下载</a>
 												</button>
 												<button type="button" class="layui-btn lay_btn" id="test11"  style="height: 25px;line-height: 10px;background-color: #0e90d2;border-radius: 1000px;">
 												  <i class="layui-icon">&#xe67c;</i>上传
@@ -481,37 +538,7 @@
 								</li>
 							</ul>
 							<ul class="am-nav">
-								<li class="sidebar_contactUs" style="border-bottom: 1px solid #001A35;">联系我们</li>
-								<li class="promo_detailed--list_item sidebarListLi" style="padding-top: 20px;">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-	                  <i class="am-icon-phone" ></i>
-	                </span>-->
-									<dl>
-										<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-map-marker"></i>
-                </span>-->
-									<dl>
-										<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<!--<span class="promo_detailed--list_item_icon noBorder">
-                  <i class="am-icon-envelope-o" ></i>
-                </span>-->
-									<dl>
-										<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
-										</dd>
-									</dl>
-								</li>
-								<li class="promo_detailed--list_item sidebarListLi">
-									<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
-								</li>
+								<jsp:include   page="mainBodyRight.jsp" flush="true"/>
 							</ul>
 						</div>
 					</div>
@@ -521,7 +548,60 @@
 
 			<!--===========layout-footer================-->
 			<div class="layout-footer">
-				<jsp:include   page="footer.jsp" flush="true"/>
+				<div class="footer">
+					<div style="background-color:#054371" class="footer--bg"></div>
+					<div class="footer--inner">
+						<div class="container">
+							<div class="footer_main">
+								<div class="am-g">
+									<div class="am-u-md-3 ">
+										<div class="footer_main--column">
+											<strong class="footer_main--column_title">友情链接</strong>
+											<ul class="footer_navigation">
+												<li class="footer_navigation--item">
+													<a href="http://www.cufe.edu.cn/" class="footer_navigation--link">中央财经大学</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://spft.cufe.edu.cn/index.htm" class="footer_navigation--link">中央财经大学财政税务学院</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://www.cscse.edu.cn/publish/portal0/" class="footer_navigation--link">中国(教育部)留学服务中心</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="http://www.moe.gov.cn/" class="footer_navigation--link">中华人民共和国教育部</a>
+												</li>
+												<li class="footer_navigation--item">
+													<a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="am-u-md-9 ">
+										<div class="footer_main--column am-u-md-8">
+											<strong class="footer_main--column_title">联系详情</strong>
+											<ul class="footer_contact_info">
+												<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：400 069 0309</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>yunshipei.com</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
+												<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li>
+											</ul>
+										</div>
+										<div class="am-u-md-4 " style="margin-top: 20px;">
+											<div class="footer_main--column">
+												<ul class="footer_navigation">
+													<div class="article-img">
+														<img src="../assets/img/index/wx_code.png" style="width: 150px;" />
+													</div>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -535,10 +615,26 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
+			<script src="../../../admin/layui-v2.4.5/layui/layui.js"></script>
+			<script src="../../../admin/layui-v2.4.5/layui/lay/modules/layer.js"></script>
 		<script src="../../../admin/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
 		<script src="../../../admin/layui-v2.3.0/layui/layui.all.js" charset="utf-8"></script>
 		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+		
 		<script>
+			window.onload = function(){
+				<%
+				if(user == null){
+					%> window.open("login.jsp",'_self');<% 
+				}
+				%>
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			}
+			$(window).resize(function(){
+				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			});
+		</script>
+		<%-- <script>
 			layui.use('upload', function() {
 				var upload = layui.upload;
 				var uploadInst = upload.render({
@@ -559,6 +655,7 @@
 				    	this.data={
 				    	"applyunit_name": document.getElementById("entryProjectName").value,
 				    	"applyunit_phone":document.getElementById("contactTel").value,
+				    	"phone_code":document.getElementById("contactTelCode").value,
 						"applyunit_mail":document.getElementById("contactEmail").value,
 						"applyunit_date":document.getElementById("entryDate").value,
 						"applyunit_person":document.getElementById("contactPersonnel").value,
@@ -578,7 +675,12 @@
 					      }
 					      //上传成功
 					      else if(res.msg == 2){
-					    	 layer.alert("保存成功!");
+						     	layer.confirm('报名成功!', { title:'提示'}, function(index){
+									  
+									window.parent.location.reload();
+									var index1 = parent.layer.getFrameIndex(window.name);
+									parent.layer.close(index1);
+								});
 					   	}
 					      layer.closeAll('loading'); //关闭loading
 					    },
@@ -588,9 +690,9 @@
 					}
 				});
 			});
-		</script>
+		</script> --%>
 		<script>
-			$(function() {
+					$(function() {
 				var myDate = new Date();
 				var year = myDate.getFullYear();
 				var month = myDate.getMonth() + 1;
@@ -609,13 +711,17 @@
 				var category = $("#entryCategory").val();
 				var entryDate = $("#entryDate").val();
 				var company = $("#entryCompany").val();
+				var PersonNum = $("#entryByCompanyEntryPersonNum").val();
 				var personnel = $("#contactPersonnel").val();
 				var phone = $("#contactTel").val();
+				var phoneCode = $("#contactTelCode").val();
 				var email = $("#contactEmail").val();
 // 				var file = $("#isupload").val();
-				var submitFile = $("#test1Input").val();
+// 				var submitFile = $("#test1Input").val();
 				
 				var testPhone = /^1\d{10}$/;
+				var testPhone1 = /^\+?[1-9][0-9]*$/;
+				var testPhoneCode = /0\d{2,3}-\d{7,8}/;
 				var testEmail = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
 
 				if(names == "") {
@@ -628,6 +734,13 @@
 				}
 				if(entryDate == "") {
 					alert("报名日期不能为空！");
+					return;
+				}
+				if(PersonNum == "") {
+					alert("请输入报名人数！");
+					return;
+				}else if(testPhone1.test(PersonNum) == false) {
+					alert("请输入有效的报名人数！");
 					return;
 				}
 				if(company == "") {
@@ -645,6 +758,13 @@
 					alert("请输入有效的手机号码！");
 					return;
 				}
+				if(phoneCode == "") {
+					alert("请输入您的办公电话！");
+					return;
+				} else if(testPhoneCode.test(phoneCode) == false) {
+					alert("请输入有效的办公电话！");
+					return;
+				}
 				if(email == "") {
 					alert("请输入您的电子邮箱！");
 					return;
@@ -652,10 +772,56 @@
 					alert("请输入有效的邮箱！");
 					return;
 				} 
-				if(submitFile == "") {
-					alert("请上传报名名单！");
-					return;
-				} 
+// 				if(submitFile == "") {
+// 					alert("请上传报名名单！");
+// 					return;
+// 				}									 ApplyUnit/apply'
+
+				var fd = new FormData();
+				fd.append('project_id','<%=id%>');
+    			fd.append('applyunit_name', document.getElementById("entryProjectName").value);
+//     			fd.append('file', '');
+				fd.append('applyunit_phone',document.getElementById("contactTel").value);
+				fd.append('person_number',document.getElementById("entryByCompanyEntryPersonNum").value);
+				
+				fd.append('phone_code',document.getElementById("contactTelCode").value);	
+				fd.append('applyunit_mail',document.getElementById("contactEmail").value);
+				fd.append('applyunit_date',document.getElementById("entryDate").value);
+				fd.append('applyunit_person',document.getElementById("contactPersonnel").value);
+				$.ajax({
+					url:'<%=request.getContextPath()%>/ApplyUnit/apply' ,
+					data:fd,
+// 					{
+// 						"applyunit_name": document.getElementById("entryProjectName").value,
+// 				    	"applyunit_phone":document.getElementById("contactTel").value,
+// 				    	"person_number":document.getElementById("entryByCompanyEntryPersonNum").value,
+// 				    	"phone_code":document.getElementById("contactTelCode").value,
+// 						"applyunit_mail":document.getElementById("contactEmail").value,
+// 						"applyunit_date":document.getElementById("entryDate").value,
+// 						"applyunit_person":document.getElementById("contactPersonnel").value,
+<%-- 						"project_id":'<%=id%>' --%>
+// 					},
+// 					dataType: "json",
+					type: "post",
+					encType: 'multipart/form-data', //表明上传类型为文件
+					processData: false,  //tell jQuery not to process the data
+        			contentType: false,  //tell jQuery not to set contentType
+					success: function(data) {
+				     	layer.confirm('报名成功!', { title:'提示'}, function(index){
+							  
+							window.parent.location.reload();
+							var index1 = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index1);
+						});
+						//success
+					},
+					error: function(error) {
+							alert("报名失败！");
+							return;
+						//error
+					}
+
+				})
 
 			}
 		</script>

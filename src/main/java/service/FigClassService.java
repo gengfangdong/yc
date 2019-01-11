@@ -21,7 +21,7 @@ public interface FigClassService {
 	public void applyFig(FigUser figUser);
 	public void deleteFigClass(String figclass_id, String user_id);
 	public String getByfilename(String filename);
-	public void updateReview(String figclass_id, String review_result, String updater, String updatetime);
+	public void updateReview(String figclass_id, String review_result, String updater, String updatetime,String FigClass_remark);
 	public List<EUser> getListUserByid(String user_id, String figclass_id);
 	public LayuiDataTable<MemProjectVo> getMemProjectByuser(String caogery,String status,String user_id,int page,int limit);
 	public void deleteFig(String figclass_id, IUser iuser);

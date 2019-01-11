@@ -3,7 +3,6 @@
 <%@page import="entity.IUser" %>
 <%
 	IUser user = (IUser)session.getAttribute("user");
-String caogery = (String)session.getAttribute("isad");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>中央财经大学</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -317,17 +317,17 @@ String caogery = (String)session.getAttribute("isad");
 			    elem: '#LAY_table_user',
 			    url: '<%=request.getContextPath()%>/Project/getlist1',
 			    cols: [[
-				  {type:'numbers',title:"序号"},
+				  {type:'numbers',title:"序号",minWidth:90},
 // 			      {field:'course_id', title: 'ID',style:'display:none;'},
-			      {field:'project_name', title: '项目名称'},
-			      {field:'project_date', title: '报名开始时间'},
-			      {field:'project_status', title: '报名状态',templet:'#typeuserstatus'},
+			      {field:'project_name', title: '项目名称',minWidth:90},
+			      {field:'project_date', title: '报名开始时间',minWidth:90},
+			      {field:'project_status', title: '报名状态',templet:'#typeuserstatus',minWidth:120},
 // 			      {field:'handle', title: '操作',toolbar: '#barDemo'}
-			      {field:'status', title: '审核状态',templet:'#statusbar'},     
-			      {field:'handle', title: '操作',  templet: '#barDemo'}
+			      {field:'status', title: '审核状态',templet:'#statusbar',minWidth:120},
+			      {field:'isuploadfile', title: '是否上传文件',templet:'#statusbarf',minWidth:150},
+			      {field:'handle', title: '操作',  templet: '#barDemo',minWidth:500}
 			    ]],
 			    id: 'testReload',
-			    height:'full-181',
 			    page: true
 			    
 			  });
@@ -361,7 +361,7 @@ String caogery = (String)session.getAttribute("isad");
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/entryIncumbencyStudentByCompany.jsp?project_id='+project_id+"&project_name="+name,
+						content: encodeURI('openPage/entryIncumbencyStudentByCompany.jsp?project_id='+project_id+'&project_name='+name),
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -395,6 +395,58 @@ String caogery = (String)session.getAttribute("isad");
 							layer.setTop(layero); //重点2
 						}
 					});
+			    }else if(obj.event === 'upload'){
+				    layui.layer.open({
+			            title: "文件上传",
+			            content: $('#upload_file_dialog').html(),
+			            area: ['500px', '300px'],
+			            btn: ['发送', '取消'],
+			            yes: function (index, layero) {//发送
+			                var f = document.getElementById("Userfile").files;
+			                if(f.length<=0){
+			                	layui.layer.alert("请选择文件!");
+			                	return;
+			                }
+			                var fd = new FormData();
+							fd.append("file",f[0]);
+							fd.append("applyUnit_id",applyUnit_id);
+							$.ajax({
+								url:'<%=request.getContextPath()%>/ApplyUnit/importApplyUnit',
+								type:'post',
+								encType: 'multipart/form-data', //表明上传类型为文件
+								processData: false,  //tell jQuery not to process the data
+			        			contentType: false,  //tell jQuery not to set contentType
+								data:fd,
+								success:function(data){
+									if(data.success == true){
+										if(data.message == "5"){
+											layer.alert("上传成功!");
+										}
+									}
+									else if(data.message == "4"){
+										layer.alert("excel存在身份证重复!");
+									}else if(data.message == "2"){
+										layer.alert(" execl无数据!");
+									}else if(data.message == "3"){
+										layer.alert(" 人员数量与execl不符合!");
+									}
+								},
+								error:function(data){
+
+								}
+							})
+			            },
+			            btn2:function(index, layero) {//取消
+			                
+			            }
+			            
+		       		});
+			            //文件上传change事件
+			        $("input[name=uploadfile][type=file]").on("change", function (e) {
+			            var filePath = $(this).val();
+			            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+			            $("#uploadFileName").text(filePath);
+			        });
 			    }else if(obj.event === 'showEntryByCompany'){
 			    	layer.open({
 						type: 2, //此处以iframe举例
@@ -403,7 +455,7 @@ String caogery = (String)session.getAttribute("isad");
 						shade: 0,
 						maxmin: true,
 						offset: [100, 200],
-						content: 'openPage/showIncumbencyByCompany.jsp?applyUnit_id='+applyUnit_id+"&project_name="+name,
+						content:encodeURI('openPage/showIncumbencyByCompany.jsp?applyUnit_id='+applyUnit_id+"&project_name="+name),
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -463,14 +515,34 @@ String caogery = (String)session.getAttribute("isad");
 			
 
 		</script>
+		 <script id="upload_file_dialog" type="text/html">
+		    <div class="layui-form-item">
+		        <label class="layui-form-label">文件上传</label>
+		        <div class="layui-input-block">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		                <i class="layui-icon">&#xe67c;</i>上传文件
+		            </button>
+		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
+		        </div>
+		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
+		            id="uploadFileName">
+		            文件上传</label>
+		    </div>
+		</script>
 		<script type="text/html" id="barDemo">
 			{{#  if(d.project_status == '0'){ }}
 		        <a class="" lay-event="show"  style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="company" style="margin-right:10px; cursor: pointer;">单位报名</a>
 				<a class="" lay-event="one" style="margin-right:10px; cursor: pointer;">个人报名</a>
-	        {{#  } else if(d.project_status == "2"){ }}
+	        {{#  } else if(d.project_status == "2"  ){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="showEntryByCompany" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
+				{{#  if(d.isuploadfile == '0'){ }}		        
+					<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">上传名单</a>
+				{{# }else if(d.isuploadfile == '1'){ }}		        
+					<a class="" lay-event="upload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
+					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/ApplyUnit/download/{{d.applyunit_id}}">下载名单</a>
+				{{#  } }}
 			{{#  } else if(d.project_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看项目</a>
 				<a class="" lay-event="showEntryByOne" style="margin-right:10px; cursor: pointer;">查看报名信息</a>
@@ -478,7 +550,7 @@ String caogery = (String)session.getAttribute("isad");
 		</script>
 		<script type="text/html" id="statusbar">
 			{{#  if(d.project_status == '0'){ }}
-		        	未报名
+		        	未审核
 	        {{#  } else if(d.project_status == "2"){ }}
 				{{#  if(d.status == '0'){ }}		        
 					未审核
@@ -501,8 +573,7 @@ String caogery = (String)session.getAttribute("isad");
 		
 		<script>
 			window.onload = function(){
-				<% if(user == null||!"0".equals(caogery)){%>
-					
+				<% if(user == null){%>
 					window.open('<%=request.getContextPath()%>/admin/login.jsp','_self');				
 				<%}%>
 				var treeUls = document.getElementsByClassName('menu_tree');
@@ -518,6 +589,13 @@ String caogery = (String)session.getAttribute("isad");
 	     	个人已报名
 	     {{#  }else if(d.project_status=="2"){ }}
 	     	单位已报名
+	     {{# } }}
+	     </script>
+	     <script type="text/html" id="statusbarf">
+	     {{#  if(d.isuploadfile == "0"){ }}
+	                           未上传名单
+	     {{#  }else if(d.isuploadfile=="1"){ }}
+	     	已上传名单
 	     {{# } }}
 	     </script>
 	</body>

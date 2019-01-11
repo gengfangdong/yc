@@ -921,7 +921,7 @@ public class FigClassController {
     
 
 	@RequestMapping("/Review")
-	public Map<String,Object> ReviewFigclass(String figclass_id,HttpServletRequest request,String review_result){
+	public Map<String,Object> ReviewFigclass(String figclass_id,HttpServletRequest request,String review_result,String result){
 		//结果map
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		
@@ -945,7 +945,7 @@ public class FigClassController {
 		String updatetime = dateFormat.format(new Date());
 		String updater = iUser.getUser_id();
 		try{
-			figClassService.updateReview(figclass_id, review_result, updater, updatetime);
+			figClassService.updateReview(figclass_id, review_result, updater, updatetime,result);
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
