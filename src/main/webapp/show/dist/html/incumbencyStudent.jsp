@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
@@ -132,7 +132,7 @@
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
@@ -167,7 +167,7 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.jsp">首页</a>
+															<a href="<%=request.getContextPath() %>/">首页</a>
 														</li>
 														<li>
 															<a href="cultureSystem.jsp">项目概况</a>
@@ -192,7 +192,7 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.jsp">规定班次</a>
+															<a href="regulationsClasses.jsp">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.jsp">定制班次</a>
@@ -272,7 +272,7 @@
 
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp">首页</a>
+												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="cultureSystem.jsp" >项目概况</a>
@@ -295,7 +295,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp" >规定班次</a>
+												<a href="regulationsClasses.jsp" >自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -388,7 +388,7 @@
 						<div class="am-container">
 							<ol class="am-breadcrumb">
 								<li>
-									<a href="../index.jsp">首页</a>
+									<a href="<%=request.getContextPath() %>/">首页</a>
 								</li>
 								<li class="am-active">在职研</li>
 								<li class="am-active">招生简章</li>

@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -156,7 +156,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.jsp" ><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp" ><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
@@ -334,13 +334,13 @@ String caogery = (String)session.getAttribute("isad");
 			    url: '<%=request.getContextPath()%>/Common/memProject',
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:90},
-			      {field:'project_caogery', title: '班级类型',templet:'#caogery',minWidth:120},
-			      {field:'project_person',title:'发起人',minWidth:180},
-			      {field:'project_name', title: '班级名称',minWidth:160},
-			      {field:'project_datanum', title: '计划举办天数',templet:'#datanum',minWidth:120},
-			      {field:'project_pernum', title: '计划参加人数',minWidth:120},
-			      {field:'project_start', title: '预计开始日期',minWidth:120},
-			      {field:'project_status', title: '状态',templet:'#typestatus',minWidth:160},
+			      {field:'project_caogery', title: '班级类型',templet:'#caogery',minWidth:120,sort:true},
+			      {field:'project_person',title:'发起人',minWidth:180,sort:true},
+			      {field:'project_name', title: '班级名称',minWidth:160,sort:true},
+			      {field:'project_datanum', title: '计划举办天数',templet:'#datanum',minWidth:120,sort:true},
+			      {field:'project_pernum', title: '计划参加人数',minWidth:120,sort:true},
+			      {field:'project_start', title: '预计开始日期',minWidth:120,sort:true},
+			      {field:'project_status', title: '状态',templet:'#typestatus',minWidth:160,sort:true},
 			      {field:'project_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
@@ -962,10 +962,10 @@ String caogery = (String)session.getAttribute("isad");
 				{{#  } else if(d.project_status == "3"){ }}
 					<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  } else if(d.project_status == "4"){ }}
-					{{#  if(d.bmstatus == '0'){ }}
+					{{#  if(d.isbm == '0'){ }}
 			        	<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 						<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
-	        		{{#  } else if(d.bmstatus == "1"){ }}
+	        		{{#  } else if(d.isbm == "1"){ }}
 						<a class="" lay-event="detail" style="margin-right:10px; cursor: pointer;">查看</a>
 					
 						<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
@@ -1059,7 +1059,7 @@ String caogery = (String)session.getAttribute("isad");
 	     {{#  if(d.project_caogery == "2"){ }}
 	                            拼班班次
 	     {{#  }else if(d.project_caogery=="1"){ }}
-	     	规定班次
+	     	自主报名
 	     {{#  }else if(d.project_caogery=="0"){ }}
 	     	定制班次
 	     {{# } }}
@@ -1111,17 +1111,18 @@ String caogery = (String)session.getAttribute("isad");
 	     {{# } }}
  		</script>
  		<script id="upload_file_dialog" type="text/html">
-		    <div class="layui-form-item">
-		        <label class="layui-form-label">文件上传</label>
-		        <div class="layui-input-block">
-		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
-		                <i class="layui-icon">&#xe67c;</i>上传文件
+		     <div class="layui-form-item">
+		        <label class="layui-form-label" style="display:none;">名单上传</label>
+		        <div class="layui-input-block" style="margin-left:0;">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+		                <i class="layui-icon">&#xe67c;</i>上传名单
 		            </button>
+					<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="layui-btn" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+						<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载名单模板</a>
+					</button>
+		        	<label class="layui-form-label" style="color:#000;width:90px;float:inherit;" id="uploadFileName">文件名</label>
 		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
 		        </div>
-		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
-		            id="uploadFileName">
-		            文件上传</label>
 		    </div>
 		</script>
 	</body>

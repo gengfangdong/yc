@@ -9,8 +9,8 @@ public class Scheduledshift implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 3157241306168536673L;
-	private String Scheduled_id; //规定班次id
-	private String Scheduled_name;//规定班次名字
+	private String Scheduled_id; //自主报名id
+	private String Scheduled_name;//自主报名名字
 	private String Scheduled_initiator; //发起单位
 	private String Scheduled_address; //培训开课地点
 	private String Scheduled_start;//报名开始日期
@@ -24,18 +24,18 @@ public class Scheduledshift implements Serializable{
 	private String isdelete;//是否删除
 	private String creater;//创建人
 	private String createtime;//创建时间
+	private String Scheduled_dname;//单位名称 SCHEDULED_DNAME
+	private String Scheduled_yh;//银行 SCHEDULED_YH
+	private String Scheduled_zh;//账号 SCHEDULED_ZH
 	private List<Scheduledfile> scheduleds;//不映射表字段
 	public Scheduledshift() {
 		super();
 	}
-	public Scheduledshift(String scheduled_id, String scheduled_name,
-			String scheduled_initiator, String scheduled_address,
-			String scheduled_start, String scheduled_end,
-			String scheduled_class_start, String scheduled_class_end,
-			String scheduled_class_pnumber, String scheduled_class_context,
-			String scheduled_other_context, String scheduled_status,
-			String isdelete, String creater, String createtime,
-			List<Scheduledfile> scheduleds) {
+	public Scheduledshift(String scheduled_id, String scheduled_name, String scheduled_initiator,
+			String scheduled_address, String scheduled_start, String scheduled_end, String scheduled_class_start,
+			String scheduled_class_end, String scheduled_class_pnumber, String scheduled_class_context,
+			String scheduled_other_context, String scheduled_status, String isdelete, String creater, String createtime,
+			String scheduled_dname, String scheduled_yh, String scheduled_zh, List<Scheduledfile> scheduleds) {
 		super();
 		Scheduled_id = scheduled_id;
 		Scheduled_name = scheduled_name;
@@ -52,8 +52,40 @@ public class Scheduledshift implements Serializable{
 		this.isdelete = isdelete;
 		this.creater = creater;
 		this.createtime = createtime;
+		Scheduled_dname = scheduled_dname;
+		Scheduled_yh = scheduled_yh;
+		Scheduled_zh = scheduled_zh;
 		this.scheduleds = scheduleds;
 	}
+
+	public String getScheduled_dname() {
+		return Scheduled_dname;
+	}
+
+	public void setScheduled_dname(String scheduled_dname) {
+		Scheduled_dname = scheduled_dname;
+	}
+
+	public String getScheduled_yh() {
+		return Scheduled_yh;
+	}
+
+	public void setScheduled_yh(String scheduled_yh) {
+		Scheduled_yh = scheduled_yh;
+	}
+
+	public String getScheduled_zh() {
+		return Scheduled_zh;
+	}
+
+	public void setScheduled_zh(String scheduled_zh) {
+		Scheduled_zh = scheduled_zh;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public String getScheduled_id() {
 		return Scheduled_id;
 	}

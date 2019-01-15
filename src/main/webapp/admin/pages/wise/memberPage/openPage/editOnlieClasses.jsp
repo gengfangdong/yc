@@ -10,7 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -119,20 +119,22 @@
 									<div class="layui-tab-item">
 										<div class="form-group">
 											 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													 <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">一级目录：</label>
-														<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													  <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">二级目录：</label>
-														<select id="secondObj" class="select" onclick="secondSelect(this);"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													<button class="layui-btn selectBtn" data-type="reload">搜索</button>
+												<div class="demoTable">
+												  <!-- 搜索ID： -->
+												  <div class="layui-inline selectObj">
+												   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+												    <label for="" class="control-label" style="float: left;">一级目录：</label>
+													<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <div class="layui-inline selectObj">
+												    <label for="" class="control-label" style="float: left;">二级目录：</label>
+													<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
 												</div>
 											</div>	
 										</div>
@@ -497,23 +499,23 @@
 			     }  
 			  });
 			  
-			  var $ = layui.$, active = {
-			    reload: function(){
-			      var demoReload = $('#demoReload');
-			      
-			      //执行重载
-			      table.reload('testReload', {
-			        page: {
-			          curr: 1 //重新从第 1 页开始
-			        },
-			        method:'post',
-			        where: {
-			        	    First_course:firstObj,
-							Second_course:secondObj
-			        }
-			      });
-			    }
-			  };
+			 var $ = layui.$, active = {
+					    reload: function(){
+					      var demoReload = $('#demoReload');
+					      
+					      //执行重载
+					      table.reload('testReload', {
+					        page: {
+					          curr: 1 //重新从第 1 页开始
+					        },
+					        method:'post',
+					        where: {
+					        	    First_course:firstObj,
+									Second_course:secondObj
+					        }
+					      });
+					    }
+					  };
 			  
 			  //方案定制
 			  table.render({
@@ -590,12 +592,14 @@
 		      //读取本地文件
 		      obj.preview(function(index, file, result){
 		    	  var filenamea = file.name;
-				    for(var o = 0 ;o<filesa.length;o++){
-				      	if(filesa[o].oldfilename == filenamea){
-				      		layer.alert("文件已存在!");
-				      		return ;
-				      	}
-				    }
+				  if(filesa!=null){
+			    	  for(var o = 0 ;o<filesa.length;o++){
+					      	if(filesa[o].oldfilename == filenamea){
+					      		layer.alert("文件已存在!");
+					      		return ;
+					      	}
+					    }
+		   			}
 		      	filelist.push(file);
 		        var tr = $(['<tr id="upload-'+ index +'">'
 		          ,'<td>'+ file.name +'</td>'
@@ -786,11 +790,15 @@
 					return;
 				}  */ 
 				var fd = new FormData();
-				for(var i=0;i<filelist.length;i++){
-					fd.append('file',filelist[i]);
+				if(filelist!=undefined&&filelist!=null){
+					for(var i=0;i<filelist.length;i++){
+						fd.append('file',filelist[i]);
+					}
 				}
-				for(var ttt = 0;ttt<filesa.length;ttt++){
-					fd.append('oldfilename',filesa[ttt].newfilename);
+				if(filesa!=null){
+					for(var ttt = 0;ttt<filesa.length;ttt++){
+						fd.append('oldfilename',filesa[ttt].newfilename);
+					}
 				}
 				fd.append('figClass_id','<%=figClass_id%>');
 				fd.append('figClass_name',classesName);
@@ -843,6 +851,24 @@
 		<script>
 		var filesa = new Array();
 		window.onload = function(){
+			$.ajax({
+				url:"<%=request.getContextPath()%>/Course/getFirst",
+				type:"post",
+				success:function(data){
+					if(data.success==true){
+						//document.getElementById("firstObj").innerHTML = '<option value="全部">全部</option>';
+						for(var i=0;i<data.data.length;i++){
+							document.getElementById("firstObj").innerHTML += '<option value='+data.data[i]+'>'+data.data[i]+'</option>';
+						}
+						
+					}else{
+						alert("没有数据！");
+					}
+				},
+				error:function(error){
+					alert("接口错误"+error);
+				}
+			})
 			
 			$.ajax({
 				url:'<%=request.getContextPath()%>/FigClass/getDetailByid',

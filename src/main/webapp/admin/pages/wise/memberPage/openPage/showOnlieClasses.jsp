@@ -10,7 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -125,6 +125,7 @@
 									</div>
 									<div class="layui-tab-item">
 										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
+										<div class="demoTable">
 											<table id="LAY_table_user" lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
 												<thead>
 												</thead>
@@ -132,6 +133,7 @@
 												</tbody>
 											</table>
 											
+										</div>
 										</div>
 									</div>
 									

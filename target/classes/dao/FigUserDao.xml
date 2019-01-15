@@ -79,4 +79,12 @@
 					AND F.FIU_ISDELETE ='0'
 	</update>
 	
+	<select id="getBynoPage" resultType="FigUser">
+		select * from FIGUSER F
+			where F.FIU_ISDELETE = '0' 
+			<if test="figClass_id != null and figClass_id != '' ">
+				and F.FIU_FIGID = #{figClass_id}
+			</if>
+	</select>
+	
 </mapper>

@@ -92,4 +92,11 @@
 				WHERE S.SSU_ID = #{Ssu_id}
 					AND S.SSU_ISDELETE='0'
 	</update> 
+	<select id="getcountBynoPage" resultType="Ssuser">
+		select * from SSUSER F
+			where F.SSU_ISDELETE = '0' 
+			<if test="project_id != null and project_id != '' ">
+				and F.SSU_SSID = #{project_id}
+			</if>
+	</select>
 </mapper>

@@ -13,7 +13,7 @@
 				<div class="container">
 					<div class="footer_main">
 						<div class="am-g">
-							<div class="am-u-md-3 ">
+							<!-- <div class="am-u-md-3 ">
 								<div class="footer_main--column">
 									<strong class="footer_main--column_title">友情链接</strong>
 									<ul class="footer_navigation">
@@ -24,27 +24,23 @@
 										<li class="footer_navigation--item"><a href="https://cn.accaglobal.com" class="footer_navigation--link">ACCA（特许公认会计师工会）</a></li>
 									</ul>
 								</div>
-							</div>
+							</div> -->
 
-							<div class="am-u-md-9 ">
-								<div class="footer_main--column am-u-md-8">
-									<strong class="footer_main--column_title">联系详情</strong>
+							<div class="am-u-md-12">
+								<div class="footer_main--column am-u-md-12" style="margin-top:0;">
 									<ul class="footer_contact_info">
-										<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>办公电话010-62280881 </span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>移动电话16601021525/16601021533</span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>E-mail：lingshui100@163.com</span></li>
-										<!-- <li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市海淀区海淀大街27号天使大厦（原亿景大厦）三层</span></li>
-										<li class="footer_contact_info--item"><i class="am-icon-clock-o"></i><span>Monday - Friday, 9am - 6 pm; </span></li> -->
+										<li class="footer_contact_info--item" style="margin-left:11%;">
+											<img alt="logo" src="../assets/img/logo_bottom.png"  style="width: 30px">
+										</li>
+										<li class="footer_contact_info--item">联系方式</li>
+										<li class="footer_contact_info--item"><i class="am-icon-phone"></i>
+											<span style="padding:0 0 0 15px;">办公电话010-62280881 </span>
+											<span style="padding:0 0 0 15px;">移动电话16601021525/16601021533</span>
+										</li>
+										<li class="footer_contact_info--item">
+											<i class="am-icon-envelope-o"></i><span style="padding:0 0 0 15px;">E-mail：lingshui100@163.com</span>
+										</li>
 									</ul>
-								</div>
-								<div class="am-u-md-4 " style="margin-top: 20px;">
-									<div class="footer_main--column">
-										<ul class="footer_navigation">
-											<div class="article-img">
-												<img src="../assets/img/index/wx_code.png" style="width: 150px;" />
-											</div>
-										</ul>
-									</div>
 								</div>
 							</div>
 						</div>

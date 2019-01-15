@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -197,7 +197,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
 										</li>
 										<li>
-											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
@@ -389,16 +389,16 @@ String caogery = (String)session.getAttribute("isad");
 			    url: '<%=request.getContextPath()%>/FigClass/LayFigad',
 			    cols: [[
 				  {type:'numbers',title:"序号"},
-			      {field:'figClass_name', title: '班级名称',minWidth:120},
-			      {field:'figClass_creater',title:'发起人',minWidth:120},
+			      {field:'figClass_name', title: '班级名称',minWidth:120,sort:true},
+			      {field:'figClass_creater',title:'发起人',minWidth:120,sort:true},
 			      {field:'figClass_updatetime',title:'发起时间',minWidth:180,sort: true},
 			      {field:'figClass_start', title: '开始报名日期',minWidth:120,sort: true},
 			      {field:'figClass_end', title: '截止报名日期',minWidth:120,sort: true},
 			      {field:'figClass_class_start', title: '开班日期',minWidth:120,sort: true},
 			      {field:'figClass_class_end', title: '结课日期',minWidth:120,sort: true},
-			      {field:'figClass_pernum', title: '计划参加人数',minWidth:90},
-			      {field:'figClass_number', title: '已报名人数',minWidth:90},
-			      {field:'figClass_status', title: '状态',templet:'#typestatus',minWidth:120},
+			      {field:'figClass_pernum', title: '计划参加人数',minWidth:90,sort:true},
+			      {field:'figClass_number', title: '已报名人数',minWidth:90,sort:true},
+			      {field:'figClass_status', title: '状态',templet:'#typestatus',minWidth:120,sort:true},
 			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    height:'full-181',
@@ -723,9 +723,9 @@ String caogery = (String)session.getAttribute("isad");
 				<a class="" lay-event="review" style="margin-right:10px; cursor: pointer;">审核</a>
 	        {{#  } else if(d.figClass_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{# if(d.figClass_number< d.figClass_pernum){ }}
+				{{# if(d.figClass_number<= d.figClass_pernum && d.figClass_number>0){ }}
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
-				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+				{{#  } else if(d.figClass_number <= 0){ }}
 				{{#  } }}
 
 			{{#  } else if(d.figClass_status == "2"){ }}
@@ -734,36 +734,36 @@ String caogery = (String)session.getAttribute("isad");
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{# if(d.figClass_number< d.figClass_pernum){ }}
+				{{# if(d.figClass_number<= d.figClass_pernum&& d.figClass_number>0){ }}
 					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 					<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
-				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+				{{#  } else if(d.figClass_number <= 0){ }}
 					无报名信息
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 				<a class="" lay-event="openClass" style="margin-right:10px; cursor: pointer;" >开课</a>
-				{{# if(d.figClass_number< d.figClass_pernum){ }}
+				{{# if(d.figClass_number<= d.figClass_pernum&& d.figClass_number>0){ }}
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
-				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+				{{#  } else if(d.figClass_number <=0){ }}
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="end" style="margin-right:10px; cursor: pointer;">结束</a>
-				{{# if(d.figClass_number< d.figClass_pernum){ }}
+				{{# if(d.figClass_number<= d.figClass_pernum&& d.figClass_number>0){ }}
 					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
-				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+				{{#  } else if(d.figClass_number <=0){ }}
 						无人报名
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "7"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{# if(d.figClass_number< d.figClass_pernum){ }}
+				{{# if(d.figClass_number<= d.figClass_pernum&& d.figClass_number>0){ }}
 					<a class="" lay-event="showbm" style="margin-right:10px; cursor: pointer;" >查看报名信息</a>
 					<a class="" lay-event="" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUserad/{{d.figClass_id}}">查看名单</a>
-				{{#  } else if(d.figClass_number >= d.figClass_pernum){ }}
+				{{#  } else if(d.figClass_number <= 0){ }}
 						无人报名
 				{{#  } }}
 			{{#  } }}

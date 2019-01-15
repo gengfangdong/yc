@@ -48,7 +48,8 @@ public class ConstomServiceImpl implements ConstomService {
 	public void insertConstom(Free_constom free_constom, List<Constomfile> constomfiles) {
 		// TODO Auto-generated method stub
 		constomDao.insertConstom(free_constom);
-		constomfileDao.insertBatch(constomfiles);
+		if(constomfiles!=null&&constomfiles.size()>0)
+			constomfileDao.insertBatch(constomfiles);
 		
 	}
 
@@ -218,7 +219,8 @@ public class ConstomServiceImpl implements ConstomService {
 		// TODO Auto-generated method stub
 		constomfileDao.deleteConstom(free_constom.getFreeco_id());
 		constomDao.updateConstom(free_constom);
-		constomfileDao.insertBatch(free_constom.getConstomFiles());
+		if(free_constom.getConstomFiles()!=null&&free_constom.getConstomFiles().size()>0)
+			constomfileDao.insertBatch(free_constom.getConstomFiles());
 	}
 	
 	public String getByfilename(String filename) {

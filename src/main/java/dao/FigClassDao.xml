@@ -37,9 +37,7 @@
 		 update FIGCLASS f
 		    set f.FIGCLASS_STATUS = (case
 		                                when SYSDATE &lt;
-		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
-		                                    SYSDATE &gt;
-		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') then
+		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') then 
 		                                '3'
 		                               when SYSDATE &gt;=
 		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
@@ -51,15 +49,13 @@
 		                                    SYSDATE &lt;
 		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') then
 		                                '5'
-		                                when SYSDATE &gt;
-		                                    TO_DATE(FIGCLASS_CLASS_END, 'YYYY-MM-DD') then
-		                                '7'
 		                             end)
 		  where f.FIGCLASS_ISDELETE = '0'
 		  and f.FIGCLASS_STATUS &lt;&gt; '7' 
 		  and f.FIGCLASS_STATUS &lt;&gt; '0'
 		  and f.FIGCLASS_STATUS &lt;&gt; '2'
 		  and f.FIGCLASS_STATUS &lt;&gt; '6'
+		  and f.FIGCLASS_STATUS &lt;&gt; '5'
 	</update>
 	 <insert id="insertFig" parameterType="entity.FigClass">
 		insert into FIGCLASS(FIGCLASS_ID,FIGCLASS_NAME,FIGCLASS_DEPARMENT,FIGCLASS_ADDRESS,FIGCLASS_START_DATE,FIGCLASS_END_DATE,FIGCLASS_CLASS_START,
@@ -362,7 +358,7 @@
 			FIGCLASS_UPDATETIME=#{FigClass_updatetime},
 			FIGCLASS_CAOGERY=#{FigClass_caogery},
 			FIGCLASS_OUTLINE=#{FigClass_outline},
-			FIGCLASS_DAY = #{FigClass_day},
+			FIGCLASS_DAY = #{FigClass_day,jdbcType=VARCHAR},
 			FIGCLASS_WORKNUM = #{FigClass_worknum}
 				WHERE FIGCLASS_ID = #{FigClass_id} AND FIGCLASS_ISDELETE = '0'
 	</update>

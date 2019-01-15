@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
@@ -134,7 +134,7 @@
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
@@ -169,7 +169,7 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.jsp">首页</a>
+															<a href="<%=request.getContextPath() %>/">首页</a>
 														</li>
 														<li>
 															<a href="cultureSystem.jsp">项目概况</a>
@@ -194,7 +194,7 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.jsp">规定班次</a>
+															<a href="regulationsClasses.jsp">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.jsp">定制班次</a>
@@ -274,7 +274,7 @@
 
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp">首页</a>
+												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="cultureSystem.jsp" >项目概况</a>
@@ -297,7 +297,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
+												<a href="regulationsClasses.jsp">自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -388,7 +388,7 @@
 							<div class="am-container">
 								<ol class="am-breadcrumb">
 									<li>
-										<a href="../index.jsp">首页</a>
+										<a href="<%=request.getContextPath() %>/">首页</a>
 									</li>
 									<li class="am-active">在线拼班</li>
 								</ol>
@@ -492,14 +492,14 @@
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:90},
 			      {field:'figClass_name', title: '班级名称',minWidth:140},
-			      {field:'figClass_start', title: '报名开始时间',minWidth:160},
-			      {field:'figClass_end', title: '报名截止时间',minWidth:160},
-			      {field:'figClass_class_start', title: '开课日期',minWidth:120},
-			      {field:'figClass_class_end', title: '结课日期',minWidth:120},
-			      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
-			      {field:'figClass_number', title: '可拼人数',minWidth:120},
+			      {field:'figClass_start',sort:true, title: '报名开始时间',minWidth:160},
+			      {field:'figClass_end',sort:true, title: '报名截止时间',minWidth:160},
+			      {field:'figClass_class_start',sort:true, title: '开课日期',minWidth:120},
+			      {field:'figClass_class_end',sort:true, title: '结课日期',minWidth:120},
+			      {field:'figClass_pernum',sort:true, title: '班级容纳人数',minWidth:160},
+			      {field:'figClass_number',sort:true, title: '可拼人数',minWidth:120},
 			      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-			      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
+			      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
 			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
 			    ]],
 			    id: 'testReload',
@@ -513,14 +513,14 @@
 		    cols: [[
 			  {type:'numbers',title:"序号",minWidth:90},
 		      {field:'figClass_name', title: '班级名称',minWidth:140},
-		      {field:'figClass_start', title: '报名开始时间',minWidth:160},
-		      {field:'figClass_end', title: '报名截止时间',minWidth:160},
-		      {field:'figClass_class_start', title: '开课日期',minWidth:120},
-		      {field:'figClass_class_end', title: '结课日期',minWidth:120},
-		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160},
-		      {field:'figClass_number', title: '可拼人数',minWidth:120},
+		      {field:'figClass_start',sort:true, title: '报名开始时间',minWidth:160},
+		      {field:'figClass_end',sort:true, title: '报名截止时间',minWidth:160},
+		      {field:'figClass_class_start',sort:true, title: '开课日期',minWidth:120},
+		      {field:'figClass_class_end',sort:true, title: '结课日期',minWidth:120},
+		      {field:'figClass_pernum',sort:true, title: '班级容纳人数',minWidth:160},
+		      {field:'figClass_number',sort:true, title: '可拼人数',minWidth:120},
 		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-		      {field:'user_status', title: '是否已报名',templet:'#typeuserstatus',minWidth:120},
+		      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
 		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
 		    ]],
 		    id: 'testReload',
@@ -538,7 +538,7 @@
 					shade: 0,
 					maxmin: true,
 					offset: [100, 200],
-					content: 'openPage/showOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					content: '../../../../admin/pages/wise/memberPage/openPage/showOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
@@ -638,77 +638,111 @@
 					shade: 0,
 					maxmin: true,
 					offset: [100, 200],
-					content: 'openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					content: '../../../../admin/pages/wise/memberPage/openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
 					}
 				});
-		    }else if(obj.event === 'update'){
+		    }else if(obj.event === 'apply'){
 		    	layer.open({
 					type: 2, //此处以iframe举例
-					title: '上传名单',
-					area: ['1063px', '530px'],
+					title: '报名',
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
 					offset: [100, 200],
-					content: 'openPage/updateOnlieClassesNameList.jsp',
+					content: '../../../../admin/pages/wise/memberPage/openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
+					zIndex: layer.zIndex, //重点1
+					success: function(layero) {
+						layer.setTop(layero); //重点2
+					}
+				});
+		    }else if(obj.event === 'showcode'){
+		    	layer.open({
+					type: 2, //此处以iframe举例
+					title: '报名',
+					area: ['70%', '530px'],
+					shade: 0,
+					maxmin: true,
+					offset: [100, 200],
+					content: 'openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
 					}
 				});
 		    }else if(obj.event === 'Userupload'){
-			    layui.layer.open({
-		            title: "文件上传",
-		            content: $('#upload_file_dialog').html(),
-		            area: ['500px', '300px'],
-		            btn: ['发送', '取消'],
-		            yes: function (index, layero) {//发送
-		                var f = document.getElementById("Userfile").files;
-		                if(f.length<=0){
-		                	layui.layer.alert("请选择文件!");
-		                	return;
-		                }
-		                var fd = new FormData();
-						fd.append("file",f[0]);
-						fd.append("figClass_id",data.figClass_id);
-						$.ajax({
-							url:'<%=request.getContextPath()%>/FigClass/importUser',
-							type:'post',
-							encType: 'multipart/form-data', //表明上传类型为文件
-							processData: false,  //tell jQuery not to process the data
-		        			contentType: false,  //tell jQuery not to set contentType
-							data:fd,
-							success:function(data){
-								if(data.success == true){
-									if(data.message == "5"){
-										layer.alert("上传成功!");
+					    layui.layer.open({
+				            title: "文件上传",
+				            content: $('#upload_file_dialog').html(),
+				            area: ['500px', '300px'],
+				            btn: ['发送', '取消'],
+				            yes: function (index, layero) {//发送
+				                var f = document.getElementById("Userfile").files;
+				                if(f.length<=0){
+				                	layui.layer.alert("请选择文件!");
+				                	return;
+				                }
+				                var fd = new FormData();
+								fd.append("file",f[0]);
+								fd.append("figClass_id",data.figClass_id);
+								$.ajax({
+									url:'<%=request.getContextPath()%>/FigClass/importUser',
+									type:'post',
+									encType: 'multipart/form-data', //表明上传类型为文件
+									processData: false,  //tell jQuery not to process the data
+				        			contentType: false,  //tell jQuery not to set contentType
+									data:fd,
+									success:function(data){
+										if(data.success == true){
+											if(data.message == "5"){
+												
+												layer.confirm('上传成功!', { title:'提示'}, function(index){
+													  
+													window.parent.location.reload();
+													var index1 = parent.layer.getFrameIndex(window.name);
+													parent.layer.close(index1);
+													console.log(error);
+												});
+											}
+										}
+										else if(data.message == "4"){
+
+											layer.confirm('excel存在身份证重复!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}else if(data.message == "2"){
+											layer.confirm('excel无数据!', { title:'提示'}, function(index){
+												  
+												window.parent.location.reload();
+												var index1 = parent.layer.getFrameIndex(window.name);
+												parent.layer.close(index1);
+												console.log(error);
+											});
+										}
+									},
+									error:function(data){
+
 									}
-								}
-								else if(data.message == "4"){
-									layer.alert("excel存在身份证重复!");
-								}else if(data.message == "2"){
-									layer.alert(" execl无数据!");
-								}
-							},
-							error:function(data){
+								})
+				            },
+				            btn2:function(index, layero) {//取消
+				                
+				            }
+			       		});
 
-							}
-						})
-		            },
-		            btn2:function(index, layero) {//取消
-		                
-		            }
-	       		});
-
-		        //文件上传change事件
-		        $("input[name=uploadfile][type=file]").on("change", function (e) {
-		            var filePath = $(this).val();
-		            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
-		            $("#uploadFileName").text(filePath);
-		        });
-		}
+				        //文件上传change事件
+				        $("input[name=uploadfile][type=file]").on("change", function (e) {
+				            var filePath = $(this).val();
+				            filePath = filePath.substring(filePath.lastIndexOf("\\")+1);
+				            $("#uploadFileName").text(filePath);
+				        });
+				}
 		    
 		  });
 		  var $ = layui.$, active = {
@@ -787,6 +821,7 @@
 			{{#  if(d.figClass_status == '0'){ }}
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  if(d.isdelete == '1'){ }}
+					
 					<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
 					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">取消拼班</a>
 				{{#  } }}
@@ -800,12 +835,13 @@
 			{{#  } else if(d.figClass_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 			{{#  } else if(d.figClass_status == "4"){ }}
-				{{#  if(d.user_status == '0'){ }}
+				{{#  if(d.bmstatus == '0'){ }}
+					
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">报名</a>
-	        	{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
+	        	{{#  } else if(d.bmstatus == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "5"){ }}
@@ -815,9 +851,15 @@
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
-				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				{{#  if(d.user_status == "1"){ }}
+				
+				{{#  if(d.user_status == "0"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					{{#  if(d.bmstatus == '1'){ }}
+							<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">上传名单</a>
+					 {{#  } }}
+				{{#  } else if(d.user_status == "1"){ }}
+					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "7"){ }}
@@ -851,25 +893,26 @@
 	     	已结课
 	     {{# } }}
 	     </script>
-	     <script type="text/html" id="typeuserstatus">
-	     {{#  if(d.user_status == "0"){ }}
-	        未报名
-	     {{#  }else if(d.figClass_status=="1"){ }}
-	     	已报名
+	     <script type="text/html" id="typebmstatus">
+	     {{#  if(d.bmstatus == "0"){ }}
+	        	未报名
+	     {{#  }else if(d.bmstatus=="1"){ }}
+	     		已报名
 	     {{# } }}
 	     </script>
 	     <script id="upload_file_dialog" type="text/html">
 		    <div class="layui-form-item">
-		        <label class="layui-form-label">文件上传</label>
-		        <div class="layui-input-block">
-		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
-		                <i class="layui-icon">&#xe67c;</i>上传文件
+		        <label class="layui-form-label" style="display:none;">名单上传</label>
+		        <div class="layui-input-block" style="margin-left:0;">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+		                <i class="layui-icon">&#xe67c;</i>上传名单
 		            </button>
+					<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="layui-btn" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+						<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载名单模板</a>
+					</button>
+		        	<label class="layui-form-label" style="color:#000;width:90px;float:inherit;" id="uploadFileName">文件名</label>
 		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
 		        </div>
-		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
-		            id="uploadFileName">
-		            文件上传</label>
 		    </div>
 		</script>
 	</body>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>中央财经大学</title>
+  <title>领税教育网</title>
   <link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
   <link rel="stylesheet" href="../assets/css/amazeui.css" />
   <link rel="stylesheet" href="../assets/css/other.min.css" />
@@ -51,7 +51,7 @@
 					<%-- javascript:location.href='<%=request.getContextPath()%>/show/dist/';
 					return false; --%>
 					
-               		window.open('<%=request.getContextPath()%>/show/dist/index','_blank');
+               		window.open('<%=request.getContextPath()%>/','_blank');
 				}
 				
 			},

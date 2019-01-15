@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import aop.RequestAop;
 import entity.ApplyUnit;
 import entity.UploadFilevo;
 
@@ -31,8 +33,8 @@ import entity.UploadFilevo;
  * @ClassName:tFileUpload
  */
 public class FileUtil {
-	
-	private String filePath="/file/";
+	private static Logger logger = Logger.getLogger(FileUtil.class);//参数里面的类名称是logger所在类的名称
+ 	private String filePath="/file/";
 	private String getExt(String fileName){
 		return fileName.substring(fileName.lastIndexOf(".")+1);
 	}
@@ -41,8 +43,9 @@ public class FileUtil {
 	}
 	
 	public String delete(String fileName){
+		String newpath = fileName.replace("ssmtest", "file");//上传到webapp下
 		
-		File file=new File(fileName);
+		File file=new File(newpath);
 		if (file.exists()) {
 		    //"删除文件失败："+fName+"文件不存在";
 			System.out.println("文件存在！");
@@ -58,10 +61,12 @@ public class FileUtil {
 		 
 	}
 	public String uploadFile(MultipartFile file,String fileName,String path) throws IOException{
+		logger.info(path);
 		if(path!=null){
 			filePath=path;
 		}
 		System.out.println(path);
+		
 		fileName = createFileName(fileName);
 		return this.uploadFile(file, fileName);
 	}
@@ -75,19 +80,22 @@ public class FileUtil {
 	public String uploadFile(MultipartFile file,String fileName) throws IOException{
 		//String newName=createFileName(fileName);
 		String name=filePath+"\\"+fileName;
+		String newpath = name.replace("ssmtest", "file");//上传到webapp下
+		logger.info(name);
+		logger.info(newpath);
 		File filepath = new File(filePath);
 		if(!filepath.exists()){
 			filepath.mkdir();
 		}
 		//System.out.println(name);
-		File filenew = new File(name);
+		File filenew = new File(newpath);
 		if(!filenew.exists()){
 		    
 		    filenew.createNewFile();
 
 		}
 	
-		file.transferTo(new File(name));	   
+		file.transferTo(new File(newpath));	   
 		return fileName;
 	}
 	public boolean uploadbatch(List<UploadFilevo> filenamelist,List<MultipartFile> filelist,String path) {
@@ -111,9 +119,10 @@ public class FileUtil {
 		return true;
 	}
 	public ResponseEntity<byte[]> download(String downloadFilePath,String FileName,HttpHeaders headers ) throws IOException{
-
-        File file = new File(downloadFilePath);//新建一个文件
-        
+		String newpath = downloadFilePath.replace("ssmtest", "file");//上传到webapp下、
+		logger.info(newpath);
+        //File file = new File(downloadFilePath);//新建一个文件
+		File file = new File(newpath);//新建一个文件//webapp下
         String downloadFileName = new String(FileName.getBytes("UTF-8"),"iso-8859-1");//设置编码
         headers.setContentDispositionFormData("attachment", downloadFileName);  
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -122,8 +131,10 @@ public class FileUtil {
     }
 	
 	public MultipartFile getFileByname(String filename){
-	    MultipartFile multipartFile = getMulFileByPath(filename);
-	    
+		String newpath = filename.replace("ssmtest", "file");//下载到webapp下
+	    //MultipartFile multipartFile = getMulFileByPath(filename);
+		logger.info(newpath);
+		MultipartFile multipartFile = getMulFileByPath(newpath);
 
 		/*File pdfFile = new File(filename);
 		FileInputStream fileInputStream;

@@ -9,7 +9,7 @@
 		<result column="About_KeyWords" jdbcType="VARCHAR" property="About_KeyWords"/>
 		<result column="About_Release_time" jdbcType="VARCHAR" property="About_Release_time"/>
 		<result column="About_status" jdbcType="VARCHAR" property="About_status"/>
-		<result column="About_context" jdbcType="VARCHAR" property="About_context"/>
+		<result column="About_context"  javaType="String" jdbcType="VARBINARY" property="About_context"/>
 		<result column="About_Creater" jdbcType="VARCHAR" property="About_Creater"/>
 		<result column="About_Createtime" jdbcType="VARCHAR" property="About_Createtime"/>
 	</resultMap>

@@ -204,8 +204,10 @@ public class RulesController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("rules_id")String rules_id) throws IOException {
 		Rules rules = new Rules();
 		rules = rulesService.getRulesDetailByid(rules_id);
-		 
-        String imagePath = request.getRealPath("/RulesimagePage")+"/"+rules.getRules_title_page();
+		String imagepath = request.getRealPath("/RulesimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+rules.getRules_title_page();
+        //String imagePath = request.getRealPath("/RulesimagePage")+"/"+rules.getRules_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

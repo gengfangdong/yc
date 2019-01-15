@@ -21,6 +21,7 @@ public interface SsuserDao {
 	public int getLavenumber(@Param("project_id")String project_id);
 	public List<Ssuser> getByPage(@Param("project_id")String project_id,@Param("start")int start,@Param("limit")int limit);
 	public int getcountByPage(@Param("project_id")String project_id);
+	public List<Ssuser> getcountBynoPage(@Param("project_id")String project_id);
 	public List<Ssuser> getDetailById(@Param("ssu_id")String ssu_id);
 	public void updteStatus(Ssuser ssuser);
 }

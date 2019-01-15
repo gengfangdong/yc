@@ -53,6 +53,7 @@ import service.NewsService;
 import service.ProjectService;
 import util.ExcelUtil;
 import util.FileUtil;
+import util.MessageUtil;
 import util.PropertiesUtil;
 import util.StringUtil;
 import util.UUIDUtil;
@@ -302,6 +303,44 @@ public class ApplyUnitController {
 				applyUnit.setApplyunit_status(applyunit_status);
 				applyUnit.setRemark(remark);
 				//短信接口
+				//获取在职研申请
+				Project project = new Project();
+				project = projectService.getProjectDetailByid(applyUnit.getProject_id());
+				// 发送短信提醒
+				if ("1".equals(applyunit_status)) {
+					String context = "您的在职研: " + project.getProject_name() + " 审核通过!";
+					String phone = applyUnit.getApplyunit_phone();
+					try {
+						if ("0".equals(MessageUtil.httpPost(phone, context))) {
+							resultMap.put("success", false);
+							resultMap.put("message", "0");// 审核成功!
+							return resultMap;
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						resultMap.put("success", false);
+						resultMap.put("message", "0");// 审核成功!
+						return resultMap;
+					}
+
+				} else if ("2".equals(applyunit_status)) {
+					String context = "您的在职研: " + project.getProject_name() + " 审核不通过!理由:"+remark;
+					String phone = applyUnit.getApplyunit_phone();
+					try {
+						if ("0".equals(MessageUtil.httpPost(phone, context))) {
+							resultMap.put("success", false);
+							resultMap.put("message", "0");// 审核成功!
+							return resultMap;
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						resultMap.put("success", false);
+						resultMap.put("message", "0");// 审核成功!
+						return resultMap;
+					}
+				}
 			}
 		}
 

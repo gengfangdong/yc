@@ -11,7 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -199,7 +199,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
 										</li>
 										<li>
-											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
@@ -524,10 +524,10 @@ String caogery = (String)session.getAttribute("isad");
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '查看',
-						area: ['90%', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/showCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -569,10 +569,10 @@ String caogery = (String)session.getAttribute("isad");
 			    	layer.open({
 						type: 2, //此处以iframe举例
 						title: '修改',
-						area: ['90%', '530px'],
+						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/updateCourseCatalogue.jsp?course_id='+data.course_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -618,10 +618,10 @@ String caogery = (String)session.getAttribute("isad");
 						layer.open({
 							type: 2, //此处以iframe举例
 							title: '新增',
-							area: ['90%', '530px'],
+							area: ['70%', '530px'],
 							shade: 0,
 							maxmin: true,
-							offset: [100, 200],
+							offset: ['10%', '15%'],
 							content: 'openPage/addCourseCatalogue.jsp',
 							zIndex: layer.zIndex, //重点1
 							success: function(layero) {

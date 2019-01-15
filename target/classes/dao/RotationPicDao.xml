@@ -9,7 +9,7 @@
 		<result column="RotationPic_KeyWords" jdbcType="VARCHAR" property="RotationPic_KeyWords"/>
 		<result column="RotationPic_Release_time" jdbcType="VARCHAR" property="RotationPic_Release_time"/>
 		<result column="RotationPic_status" jdbcType="VARCHAR" property="RotationPic_status"/>
-		<result column="RotationPic_context" jdbcType="VARCHAR" property="RotationPic_context"/>
+		<result column="RotationPic_context" javaType="String" jdbcType="VARBINARY" property="RotationPic_context"/>
 		<result column="RotationPic_Creater" jdbcType="VARCHAR" property="RotationPic_Creater"/>
 		<result column="RotationPic_Createtime" jdbcType="VARCHAR" property="RotationPic_Createtime"/>
 	</resultMap>

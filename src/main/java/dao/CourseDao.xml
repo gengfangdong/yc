@@ -5,7 +5,7 @@
 		<result column="Course_id" jdbcType="VARCHAR" property="Course_id"/>
 		<result column="First_course" jdbcType="VARCHAR" property="First_course"/>
 		<result column="Second_course" jdbcType="VARCHAR" property="Second_course"/>
-		<result column="Third_course" jdbcType="VARCHAR" property="Third_course"/>
+		<result column="Third_course" javaType="String" jdbcType="VARBINARY" property="Third_course"/>
 		<result column="Creater" jdbcType="VARCHAR" property="Creater"/>
 		<result column="Createtime" jdbcType="VARCHAR" property="Createtime"/>
 		<result column="isDelete" jdbcType="VARCHAR" property="isDelete"/>

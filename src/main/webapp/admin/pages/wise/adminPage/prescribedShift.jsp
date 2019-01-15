@@ -11,7 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -199,7 +199,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
 										</li>
 										<li>
-											<a href="prescribedShift.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="prescribedShift.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="membershipManagement.jsp" ><i class="fa fa-square-o"></i> 会员管理</a>
@@ -230,11 +230,11 @@ String caogery = (String)session.getAttribute("isad");
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>项目管理 <small>规定班次</small></h1>
+					<h1>项目管理 <small>自主报名</small></h1>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-dashboard"></i> 首页</li>
 						<li> 项目管理</li>
-						<li class="active">规定班次</li>
+						<li class="active">自主报名</li>
 					</ol>
 				</section>
 
@@ -277,7 +277,7 @@ String caogery = (String)session.getAttribute("isad");
 																			        <option value="报名未开始">报名未开始</option>
 																			        <option value="报名进行中">报名进行中</option>
 																			        <option value="未开课">未开课</option>
-																			        <option value="课程进行中">课程进行中</option>
+																			        <option value="自主报名">自主报名</option>
 																			        <option value="已结课">已结课</option>
 																			   </select>
 																			  </div>
@@ -384,16 +384,16 @@ String caogery = (String)session.getAttribute("isad");
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:40},/* 
 			      {field:'', title: 'ID',style:'display:none;'}, */
-			      {field:'scheduledshift.createtime', title: '发布日期',minWidth:120,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>'},
-			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120},
-			      {field:'dataNumber', title: '举办天数',minWidth:90},
-			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
-			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
-			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
-			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
+			      {field:'scheduledshift.createtime', title: '发布日期',minWidth:120,templet:'<div>{{d.scheduledshift.createtime ? d.scheduledshift.createtime: ""}}</div>',sort:true},
+			      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:120,sort:true},
+			      {field:'dataNumber', title: '举办天数',minWidth:90,sort:true},
+			      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120,sort:true},
+			      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120,sort:true},
+			      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120,sort:true},
+			      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120,sort:true},
 			     {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:160},
-			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90},
-			      {field:'number', title: '已报名人数',minWidth:120},
+			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90,sort:true},
+			      {field:'number', title: '已报名人数',minWidth:120,sort:true},
 			     {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
 			      {field:'d.scheduledshift.scheduled_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
@@ -466,7 +466,7 @@ String caogery = (String)session.getAttribute("isad");
 			        layer.close(index);
 			      });
 			    } else if(obj.event === 'delete'){
-			      	layer.confirm('确认删除规定班次？', function(index){
+			      	layer.confirm('确认删除自主报名？', function(index){
 			      		$.ajax({
 							url : '<%=request.getContextPath()%>/ScheduledShift/deleteScheduled',
 							type : 'post',
@@ -485,7 +485,7 @@ String caogery = (String)session.getAttribute("isad");
 								});
 								}
 								else if(data.message == "1"){
-									layer.confirm('获取规定班次失败!', { title:'提示'}, function(index){
+									layer.confirm('获取自主报名失败!', { title:'提示'}, function(index){
 									  
 									window.parent.location.reload();
 									var index1 = parent.layer.getFrameIndex(window.name);
@@ -590,7 +590,7 @@ String caogery = (String)session.getAttribute("isad");
 						status = 1;
 					}else if(status == '未开课'){
 						status = 2;
-					}else if(status == '课程进行中'){
+					}else if(status == '自主报名'){
 						status = 3;
 					}else if(status == '已结课'){
 						status = 4;

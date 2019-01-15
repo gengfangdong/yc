@@ -9,7 +9,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -158,6 +158,24 @@
 											<td class="leftTd">已经报名人数:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" value='<%=number %>' id="enrollNumber" disabled="disabled" class="disabledStyle" style="width: 100%;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">单位名称:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_dname" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">开户银行:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_yh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">账号:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_zh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
 											</td>
 										</tr>
 										<tr>
@@ -379,9 +397,9 @@
 							}else if(data.message == "1"){
 								layer.alert("班次不存在!");
 							}else if(data.message == "2"){
-								layer.alert("Execl无数据!");
+								layer.alert("人员数量超出限制!");
 							}else if(data.message == "3"){
-								layer.alert("人员数量与Execl数据数量不符!");
+								layer.alert("不是报名时间!");
 							}else if(data.message == "4"){
 								layer.alert("Execl存在身份证重复!");
 							}
@@ -414,6 +432,9 @@
         					var scheduled_class_pnumber = data.data.scheduled_class_pnumber;
         					var scheduled_class_context = data.data.scheduled_class_context;
         					var scheduled_other_context = data.data.scheduled_other_context;
+							var scheduled_dname = data.data.scheduled_dname;
+							var scheduled_yh = data.data.scheduled_yh;
+							var scheduled_zh = data.data.scheduled_zh;
         					var memotr = "";
 							var files=new Array();
         					files = data.data.scheduleds;
@@ -424,6 +445,9 @@
         					document.getElementById("classesStartDate").value=scheduled_class_start;
         					document.getElementById("classesEndDate").value=scheduled_class_end;
         					document.getElementById("maxClassesNumber").value=scheduled_class_pnumber;
+        					document.getElementById("scheduled_dname").value=scheduled_dname;
+        					document.getElementById("scheduled_yh").value=scheduled_yh;
+        					document.getElementById("scheduled_zh").value=scheduled_zh;
         					$("#syllabus").html(scheduled_class_context);
 							$("#syllabusother").html(scheduled_class_context);
         					for(var i = 0 ;i<files.length;i++){
@@ -442,7 +466,7 @@
         						layer.alert("参数错误!");
         					}
         					else
-        						layer.alert("未获取规定班次!");
+        						layer.alert("未获取自主报名!");
         				}
         			},error:function(data){
 
@@ -461,7 +485,7 @@
 				name.value=data.data.user_name;
 				phone.value=data.data.user_ydphone;
 				workPhone.value = data.data.user_phone;
-				department.value = data.data.user_department;
+				department.value = data.data.user_companyname;
 
 			},error:function(data){
 

@@ -13,7 +13,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../../../admin/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../../../admin/layui-v2.3.0/layui/css/layui.css" />
@@ -118,7 +118,7 @@
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
@@ -153,7 +153,7 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.jsp">首页</a>
+															<a href="<%=request.getContextPath() %>/">首页</a>
 														</li>
 														<li>
 															<a href="cultureSystem.jsp">项目概况</a>
@@ -178,7 +178,7 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.jsp">规定班次</a>
+															<a href="regulationsClasses.jsp">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.jsp">定制班次</a>
@@ -258,7 +258,7 @@
 
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp">首页</a>
+												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="cultureSystem.jsp" >项目概况</a>
@@ -281,7 +281,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp"  >规定班次</a>
+												<a href="regulationsClasses.jsp"  >自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -374,11 +374,11 @@
 						<div class="am-container">
 							<ol class="am-breadcrumb">
 								<li>
-									<a href="../index.jsp">首页</a>
+									<a href="<%=request.getContextPath() %>/">首页</a>
 								</li>
 								<li class="am-active">在职研</li>
 								<li class="am-active">在线报名</li>
-								<li class="am-active">个人报名</li>
+								<li class="am-active">单位报名</li>
 							</ol>
 						</div>
 					</div>
@@ -478,7 +478,7 @@
 											<td class="tableLeftTd">联系人邮箱</td>
 											<td class="tableRightTd"><input style="height:23px;border-radius: 5px;background:#ffffff;border: 1px solid #a9a9a9;" class="onlineInput" type="text" id="contactEmail" placeholder="请输入您真实的邮箱" /></td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td class="tableLeftTd">报名名单模板</td>
 											<td class="tableRightTd">
 												<button type="button" class="layui-btn lay_btn" style="height: 25px;line-height: 10px;background-color: #0e90d2;border-radius: 1000px;" >
@@ -488,11 +488,11 @@
 												  <i class="layui-icon">&#xe67c;</i>上传
 												</button>
 												
-<!-- 												<input type="text"  disabled="disabled"  id="isupload" ></input> -->
+												<input type="text"  disabled="disabled"  id="isupload" ></input>
 												<input type="text" id="test1Input" disabled="disabled" value="" style="width:70%;background: #fff;border: none;" />
 
 											</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 								<button type="button" class="am-btn am-btn-primary am-round subBtn" id="subBtn" onclick="byCompanySubmit();" style="line-height:10px;hiehgt:25px;width:64px;border-radius:5px;font-size:14px;">提交</button>

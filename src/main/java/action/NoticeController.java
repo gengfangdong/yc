@@ -209,8 +209,10 @@ public class NoticeController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("notice_id")String notice_id) throws IOException {
 		Notice notice = new Notice();
 		notice = noticeService.getNoticeDetailByid(notice_id);
-		 
-        String imagePath = request.getRealPath("/NoticeimagePage")+"/"+notice.getNotice_title_page();
+		String imagepath = request.getRealPath("/NoticeimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+notice.getNotice_title_page(); 
+        //String imagePath = request.getRealPath("/NoticeimagePage")+"/"+notice.getNotice_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

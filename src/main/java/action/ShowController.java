@@ -183,8 +183,9 @@ public class ShowController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("news_id")String news_id) throws IOException {
 		News news = new News();
 		news = newsService.getNewsDetailByid(news_id);
-		 
-        String imagePath = request.getRealPath("/NewimagePage")+"/"+news.getNews_title_page();
+		String imagepath = request.getRealPath("/NewimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+news.getNews_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  
@@ -772,8 +773,9 @@ public class ShowController {
 	public void Rotation_title_page_Show(HttpServletRequest request,HttpServletResponse response,@RequestParam("rotation_id")String rotation_id) throws IOException {
 		RotationPic ratationPic = new RotationPic();
 		ratationPic = rotationPicService.getRotationPicDetailByid(rotation_id);
-		 
-        String imagePath = request.getRealPath("/RotationPicimagePage")+"/"+ratationPic.getRotationPic_title_page();
+		String imagepath = request.getRealPath("/RotationPicimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+ratationPic.getRotationPic_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  
@@ -815,7 +817,7 @@ public class ShowController {
 				projectVo.setProject_createtime(project.getProject_createtime());
 				projectVo.setProject_date(project.getProject_date());
 				projectVo.setStatus("5");
-				projectVo.setProject_status("1");
+				projectVo.setProject_status("0");
 				ProjectVoList.add(projectVo);
 			}
 			datatablesViewPage1.setData(ProjectVoList);

@@ -11,7 +11,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -197,7 +197,7 @@
 											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
 										</li>
 										<li>
-											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>

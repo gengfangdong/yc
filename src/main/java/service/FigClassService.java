@@ -2,6 +2,8 @@ package service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import entity.EUser;
 import entity.FigClass;
 import entity.FigClassVo;
@@ -31,5 +33,6 @@ public interface FigClassService {
 	public int getlaveNum(String figClass_id);
 	public void cancelFiu(String fiu_id);
 	public LayuiDataTable<FigUser> getPage(int start,int limit,String figClass_id);
+	public List<FigUser> getBynoPage(String figClass_id);
 	public void updateStatus(FigClass figClass);
 }

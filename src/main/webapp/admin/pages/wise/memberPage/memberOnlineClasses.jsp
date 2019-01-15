@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -156,7 +156,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="memberOnlineClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 在线拼班</a>
@@ -337,8 +337,8 @@ String caogery = (String)session.getAttribute("isad");
 		    url: '<%=request.getContextPath()%>/FigClass/LayFig',
 		    cols: [[
 			  {type:'numbers',title:"序号",minWidth:90},
-		      {field:'figClass_name', title: '班级名称',minWidth:140},
-		      {field:'figClass_creater',title:'发起人',minWidth:120},
+		      {field:'figClass_name', title: '班级名称',minWidth:140,sort:true},
+		      {field:'figClass_creater',title:'发起人',minWidth:120,sort:true},
 		      {field:'figClass_updatetime',title:'发起时间',minWidth:180,sort: true},
 		      {field:'figClass_start', title: '报名开始时间',minWidth:160,sort: true},
 		      {field:'figClass_end', title: '报名截止时间',minWidth:160,sort: true},
@@ -346,9 +346,9 @@ String caogery = (String)session.getAttribute("isad");
 		      {field:'figClass_class_end', title: '结课日期',minWidth:120,sort: true},
 		      {field:'figClass_pernum', title: '班级容纳人数',minWidth:160,sort: true},
 		      {field:'figClass_number', title: '已报名人数',minWidth:120,sort: true},
-		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
-		      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
-		      {field:'user_status', title: '是否已上传名单',templet:'#typeuserstatus',minWidth:120},
+		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120,sort:true},
+		      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120,sort:true},
+		      {field:'user_status', title: '是否已上传名单',templet:'#typeuserstatus',minWidth:120,sort:true},
 		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:350}
 		    ]],
 		    id: 'testReload',
@@ -504,12 +504,12 @@ String caogery = (String)session.getAttribute("isad");
 		    }else if(obj.event === 'showcode'){
 		    	layer.open({
 					type: 2, //此处以iframe举例
-					title: '报名',
-					area: ['70%', '530px'],
+					title: '查看二维码',
+					area: ['1063px', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
-					content: 'openPage/index.jsp',
+					offset: ['10%','15%'],
+					content: 'openPage/index.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
@@ -696,42 +696,52 @@ String caogery = (String)session.getAttribute("isad");
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "2"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				
 				{{#  if(d.isdelete == '1'){ }}
 					<a class="" lay-event="delete" style="margin-right:10px; cursor: pointer;">删除</a>
 				{{#  } }}
 	        {{#  } else if(d.figClass_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			{{#  } else if(d.figClass_status == "3"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			{{#  } else if(d.figClass_status == "4"){ }}
+				
 				{{#  if(d.bmstatus == '0'){ }}
 					
-					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
+					
 			        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="apply" style="margin-right:10px; cursor: pointer;">报名</a>
 	        	{{#  } else if(d.bmstatus == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 					<a class="" lay-event="cancel" style="margin-right:10px; cursor: pointer;">取消报名</a>
 				{{#  } }}
+				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{#  if(d.user_status == "1"){ }}
-					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
 				
 				{{#  if(d.user_status == "0"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">上传名单</a>
-					
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
+						{{#  if(d.bmstatus == '1'){ }}
+		
+							<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">上传名单</a>
+						{{#  } }}
 				{{#  } else if(d.user_status == "1"){ }}
 					<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 					<a class="" lay-event="Userupload" style="margin-right:10px; cursor: pointer;">重新上传名单</a>
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "7"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 				{{#  if(d.user_status == "1"){ }}
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
@@ -775,17 +785,18 @@ String caogery = (String)session.getAttribute("isad");
 	     {{# } }}
 	     </script>
 	     <script id="upload_file_dialog" type="text/html">
-		    <div class="layui-form-item">
-		        <label class="layui-form-label">文件上传</label>
-		        <div class="layui-input-block">
-		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
-		                <i class="layui-icon">&#xe67c;</i>上传文件
+		     <div class="layui-form-item">
+		        <label class="layui-form-label" style="display:none;">名单上传</label>
+		        <div class="layui-input-block" style="margin-left:0;">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+		                <i class="layui-icon">&#xe67c;</i>上传名单
 		            </button>
+					<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="layui-btn" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+						<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载名单模板</a>
+					</button>
+		        	<label class="layui-form-label" style="color:#000;width:90px;float:inherit;" id="uploadFileName">文件名</label>
 		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
 		        </div>
-		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
-		            id="uploadFileName">
-		            文件上传</label>
 		    </div>
 		</script>
 	</body>

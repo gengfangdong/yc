@@ -209,8 +209,10 @@ public class TeachingController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("teaching_id")String teaching_id) throws IOException {
 		Teaching teaching = new Teaching();
 		teaching = teachingService.getTeachingDetailByid(teaching_id);
-		 
-        String imagePath = request.getRealPath("/TeachingimagePage")+"/"+teaching.getTeaching_title_page();
+		String imagepath = request.getRealPath("/TeachingimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+teaching.getTeaching_title_page();
+        //String imagePath = request.getRealPath("/TeachingimagePage")+"/"+teaching.getTeaching_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

@@ -16,4 +16,5 @@ public interface FigUserDao {
 	public List<String> getPage(@Param("figClass_id")String figClass_id);
 	public List<FigUser> getByFigClassidanduserid(@Param("figClass_id")String figClass_id,@Param("user_id")String user_id);
 	public void updateStatus(FigUser figUser);
+	public List<FigUser> getBynoPage(@Param("figClass_id")String figClass_id);
 }

@@ -1,9 +1,9 @@
 package entity;
 
 public class ScheduledshiftVo {
-	private String Scheduled_id; //规定班次id
+	private String Scheduled_id; //自主报名id
 	private String Scheduled_publish;//发布时间
-	private String Scheduled_name;//规定班次名字
+	private String Scheduled_name;//自主报名名字
 	private String datanumber;//举办天数
 	private String Scheduled_class_start;//预计开课日期
 	private String Scheduled_start;//报名开始日期

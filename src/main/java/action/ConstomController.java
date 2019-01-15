@@ -196,7 +196,7 @@ public class ConstomController {
 	public Map<String,Object> addConstomnew(String Constom_name,
 			String Constom_data,@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
 			String Constom_pernum,String Constom_address,
-			String Constom_person,String Constom_phone,@RequestParam("file")MultipartFile[] files,
+			String Constom_person,String Constom_phone,@RequestParam(value="file",required=false)MultipartFile[] files,
 			String[] Constom_outline,String Constom_gaoery,String[] Constom_day,String contactWorkNumber,
 			HttpServletRequest request){
 		Map<String,Object> resultMap = new HashMap<String, Object>();
@@ -381,23 +381,41 @@ public class ConstomController {
 			e.printStackTrace();
 			return null;
 		}
-		/*try {
-			//发送短信提醒
-			if("1".equals(review_result)){
-				String context = "您的定制: "+free_constom.getFreeco_name()+" 审核通过!";
-				String phone = free_constom.getFreeco_phone();
-				
-					//MessageUtil.httpPost(phone, context);
-				
-			}else if("2".equals(review_result)){
-				String context = "您的定制: "+free_constom.getFreeco_name()+" 审核不通过!";
-				String phone = free_constom.getFreeco_phone();
-				//MessageUtil.httpPost(phone, context);
+		//发送短信提醒
+		if("1".equals(review_result)){
+			String context = "您的定制: "+free_constom.getFreeco_name()+" 审核通过!";
+			String phone = free_constom.getFreeco_phone();
+			try {
+				if("0".equals(MessageUtil.httpPost(phone, context))){
+					resultMap.put("success", false);
+					resultMap.put("message", "1");//审核成功!
+					return resultMap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//审核成功!
+				return resultMap;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+			
+		}else if("2".equals(review_result)){
+			String context = "您的定制: "+free_constom.getFreeco_name()+" 审核不通过! 理由:"+freeco_remark;
+			String phone = free_constom.getFreeco_phone();
+			try {
+				if("0".equals(MessageUtil.httpPost(phone, context))){
+					resultMap.put("success", false);
+					resultMap.put("message", "1");//审核成功!
+					return resultMap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultMap.put("success", false);
+				resultMap.put("message", "1");//审核成功!
+				return resultMap;
+			}
+		}
 		resultMap.put("success", true);
 		resultMap.put("message", "2");//审核成功!
 		return resultMap;
@@ -764,7 +782,7 @@ public class ConstomController {
 	}
 	@RequestMapping("/updateConstomnew")
 	@ResponseBody
-	public Map<String,Object> updateConstomnew(String constom_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
+	public Map<String,Object> updateConstomnew(String constom_id,@RequestParam("file") MultipartFile[] file,@RequestParam(value="oldfilename",required=false)String[] oldfilename,
 			String Constom_name,String Constom_data,
 			@RequestParam(value="Constom_datanum",required=false,defaultValue="")String Constom_datanum,
 			String Constom_pernum,String Constom_address,
@@ -798,26 +816,29 @@ public class ConstomController {
 		}
 		List<Constomfile> constomfiles = free_constom.getConstomFiles();
 		List<Constomfile> deletesList = new ArrayList<Constomfile>();
-		for(int j = constomfiles.size()-1;j>=0;j--){
-			boolean flag = false;
-			if(oldfilename !=null){
-				for (String oldscheduledfile : oldfilename) {
-					if(oldscheduledfile.equals(constomfiles.get(j).getNewfilename())){
-						flag = true;
+		if(constomfiles!=null && constomfiles.size()>0){
+			for(int j = constomfiles.size()-1;j>=0;j--){
+				boolean flag = false;
+				if(oldfilename !=null){
+					for (String oldscheduledfile : oldfilename) {
+						if(oldscheduledfile.equals(constomfiles.get(j).getNewfilename())){
+							flag = true;
+						}
+					}
+					if(flag == true){
+						flag = false;
+					}
+					else{
+						deletesList.add(constomfiles.get(j));
+						constomfiles.remove(j);
 					}
 				}
-				if(flag == true){
-					flag = false;
-				}
 				else{
-					deletesList.add(constomfiles.get(j));
 					constomfiles.remove(j);
 				}
 			}
-			else{
-				constomfiles.remove(j);
-			}
-		}
+		}else
+			constomfiles = new ArrayList<>();
 		for (Constomfile constomfile : deletesList) {
 			if("2".equals(fileUtil.delete(request.getRealPath("/constomfile")+"\\"+constomfile.getNewfilename()))){
 				resultMap.put("success", false);

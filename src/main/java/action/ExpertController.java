@@ -209,8 +209,10 @@ public class ExpertController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("expert_id")String expert_id) throws IOException {
 		Expert expert = new Expert();
 		expert = expertService.getExpertDetailByid(expert_id);
-		 
-        String imagePath = request.getRealPath("/ExpertimagePage")+"/"+expert.getExpert_title_page();
+		String imagepath = request.getRealPath("/ExpertimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+expert.getExpert_title_page();
+        //String imagePath = request.getRealPath("/ExpertimagePage")+"/"+expert.getExpert_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

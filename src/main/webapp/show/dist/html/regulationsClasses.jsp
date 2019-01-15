@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/layui.css">
 		<link rel="stylesheet" href="../../../admin/layui-v2.4.5/layui/css/modules/layer/default/layer.css">
@@ -115,7 +115,7 @@
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
@@ -150,7 +150,7 @@
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
 														<li class="">
-															<a href="../index.jsp">首页</a>
+															<a href="<%=request.getContextPath() %>/">首页</a>
 														</li>
 														<li>
 															<a href="cultureSystem.jsp">项目概况</a>
@@ -175,7 +175,7 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.jsp" style="color: #FF2F2F;">规定班次</a>
+															<a href="regulationsClasses.jsp" style="color: #FF2F2F;">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.jsp">定制班次</a>
@@ -255,7 +255,7 @@
 
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp">首页</a>
+												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="cultureSystem.jsp" >项目概况</a>
@@ -278,7 +278,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp"  style="color: #FF2F2F;">规定班次</a>
+												<a href="regulationsClasses.jsp"  style="color: #FF2F2F;">自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -369,9 +369,9 @@
 							<div class="am-container">
 								<ol class="am-breadcrumb">
 									<li>
-										<a href="../index.jsp">首页</a>
+										<a href="<%=request.getContextPath() %>/">首页</a>
 									</li>
-									<li class="am-active">规定班次</li>
+									<li class="am-active">自主报名</li>
 								</ol>
 							</div>
 						</div>
@@ -405,7 +405,7 @@
 											    <option value="报名未开始">报名未开始</option>
 												<option value="报名进行中">报名进行中</option>
 												<option value="未开课">未开课</option>
-												<option value="课程进行中">课程进行中</option>
+												<option value="自主报名">自主报名</option>
 												<option value="已结课">已结课</option>
 										   </select>
 										  </div>
@@ -516,13 +516,13 @@
 					      //{field:'scheduledshift.scheduled_id', title: 'ID',style:'display:none;'},
 
 					      {field:'scheduledshift.scheduled_name', title: '班次名称',templet:'<div>{{d.scheduledshift.scheduled_name ? d.scheduledshift.scheduled_name: ""}}</div>',minWidth:180},
-					      {field:'scheduledshift.scheduled_class_start', title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
-					      {field:'scheduledshift.scheduled_class_end', title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
-					      {field:'scheduledshift.scheduled_start', title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
-					      {field:'scheduledshift.scheduled_end', title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_start',sort:true, title: '开班日期',templet:'<div>{{d.scheduledshift.scheduled_class_start ? d.scheduledshift.scheduled_class_start: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_end',sort:true, title: '结课日期',templet:'<div>{{d.scheduledshift.scheduled_class_end ? d.scheduledshift.scheduled_class_end: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_start',sort:true, title: '开始报名时间',templet:'<div>{{d.scheduledshift.scheduled_start ? d.scheduledshift.scheduled_start: ""}}</div>',minWidth:120},
+					      {field:'scheduledshift.scheduled_end',sort:true, title: '结束报名时间',templet:'<div>{{d.scheduledshift.scheduled_end ? d.scheduledshift.scheduled_end: ""}}</div>',minWidth:120},
 					      {field:'scheduledshift.scheduled_address', title: '培训地点',templet:'<div>{{d.scheduledshift.scheduled_address ? d.scheduledshift.scheduled_address: ""}}</div>',minWidth:120},
-					      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
-					      {field:'number', title: '已报名人数',minWidth:120},
+					      {field:'scheduledshift.scheduled_class_pnumber',sort:true, title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:120},
+					      {field:'number',sort:true, title: '已报名人数',minWidth:120},
 					      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120},
 					      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:140},
 					      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:160}
@@ -556,7 +556,7 @@
 						shade: 0,
 						maxmin: true,
 						offset: [100, 100],
-						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id,
+						content: 'openPage/addRegulationClasses.jsp?scheduled_id='+data.scheduledshift.scheduled_id+"&number="+data.number,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
 							layer.setTop(layero); //重点2
@@ -624,7 +624,7 @@
 						status = 1;
 					}else if(status == '未开课'){
 						status = 2;
-					}else if(status == '课程进行中'){
+					}else if(status == '自主报名'){
 						status = 3;
 					}else if(status == '已结课'){
 						status = 4;

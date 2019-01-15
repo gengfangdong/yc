@@ -546,9 +546,10 @@
 		padding: 0 0 0 0!important;
 	}
 	.promo_detailed--list_item_pic{
-		width:60%!important;
+		/* width:60%!important;
 		height:60%!important;
-		margin-left:20%;
+		margin-left:20%; */
+		float:left;
 		border:none!important;
 	}
 	.promo_detailed .am-g .promo_detailed--list .promo_detailed--list_item .promo_detailed--list_item_icon{
@@ -599,6 +600,14 @@
 	.news_bannerBg{
 		height:auto;
 	}
+	.layout-footer .footer .footer_contact_info--item{
+		float:left;
+		padding:10px 20px 10px 0;
+	}
+	.layout-footer .footer .footer_contact_info{
+		margin-top:0!important;
+		margin-bottom:0!important;
+	}
 }
 
 @media screen and (min-width: 1200px){
@@ -617,5 +626,12 @@
 	.nav-contain .nav-inner .am-nav li a{
 		font-size:16px;
 	}
-	
+	.layout-footer .footer .footer_contact_info--item{
+		float:left;
+		padding:10px 20px 10px 0;
+	}
+	.layout-footer .footer .footer_contact_info{
+		margin-top:0!important;
+		margin-bottom:0!important;
+	}
 }

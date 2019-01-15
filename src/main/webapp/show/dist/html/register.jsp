@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>中央财经大学</title>
+    <title>领税教育网</title>
 		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../assets/css/amazeui.css"/>
     <link rel="stylesheet" href="../assets/css/common.min.css"/>
@@ -81,7 +81,7 @@
                                         <div class="nav-inner">
                                             <ul class="am-nav am-nav-pills am-nav-justify">
                                                 <li class="">
-                                                    <a href="../index.jsp">首页</a>
+                                                    <a href="<%=request.getContextPath() %>/">首页</a>
                                                 </li>
                                                 <li>
                                                     <a href="cultureSystem.jsp">项目概况</a>
@@ -106,7 +106,7 @@
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li>
-                                                    <a href="regulationsClasses.jsp">规定班次</a>
+                                                    <a href="regulationsClasses.jsp">自主报名</a>
                                                 </li>
                                                 <li>
                                                     <a href="customizedClasses.jsp">定制班次</a>
@@ -185,7 +185,7 @@
 
 										<ul class="am-menu-nav am-avg-sm-1">
 											<li>
-												<a href="../index.jsp">首页</a>
+												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
 												<a href="cultureSystem.jsp" >项目概况</a>
@@ -208,7 +208,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
+												<a href="regulationsClasses.jsp">自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>

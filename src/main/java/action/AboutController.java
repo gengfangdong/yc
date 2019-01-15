@@ -207,8 +207,10 @@ public class AboutController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("About_id")String About_id) throws IOException {
 		About About = new About();
 		About = AboutService.getAboutDetailByid(About_id);
-		 
-        String imagePath = request.getRealPath("/AboutimagePage")+"/"+About.getAbout_title_page();
+		String imagepath = request.getRealPath("/AboutimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+About.getAbout_title_page();
+        //String imagePath = request.getRealPath("/AboutimagePage")+"/"+
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

@@ -11,7 +11,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
 		<link rel="stylesheet" href="../assets/css/contact.min.css" />
@@ -199,7 +199,7 @@
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.jsp">规定班次</a>
+															<a href="regulationsClasses.jsp">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.jsp" style="color: #FF2F2F;">定制班次</a>
@@ -302,7 +302,7 @@
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
+												<a href="regulationsClasses.jsp">自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp"  style="color: #FF2F2F;">定制班次</a>

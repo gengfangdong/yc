@@ -98,7 +98,7 @@ public class CourseServiceImpl implements CourseService{
 		int count = 0;
 		count = courseDao.getCourseCount(First_course, Second_course);
 		List<Course> courses = new ArrayList<Course>();
-		courses = courseDao.getbyfands(First_course, Second_course, (page-1)*limit, limit);
+		courses = courseDao.getbyfands(First_course, Second_course, (page-1)*limit, page*limit);
 		cDataTable.setCount(count);
 		cDataTable.setData(courses);
 		return cDataTable;

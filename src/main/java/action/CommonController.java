@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,16 +31,19 @@ import util.PropertiesUtil;
 public class CommonController {
 	@Autowired
 	private FigClassService figClssService;
-
+	private static Logger logger = Logger.getLogger(CommonController.class);//参数里面的类名称是logger所在类的名称
 	@RequestMapping("/uploadFile")
 	@ResponseBody
 	public Map<String,Object> upload(@RequestParam("upload") MultipartFile file,HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultmap=new HashMap<String, Object>();
+		String pathname = request.getSession().getServletContext().getRealPath("/");
+		String newpath = pathname.replace("ssmtest", "file");
+		logger.info(newpath);
 		String path=PropertiesUtil.getProperty("ckeditor_uploadurl");
 		FileUtil fileUtil = new FileUtil();
 		String filenewName="";
 		try {
-			filenewName=fileUtil.uploadFile(file, file.getOriginalFilename(),request.getRealPath("/uploadFile"));
+			filenewName=fileUtil.uploadFile(file, file.getOriginalFilename(),newpath+"\\"+"uploadFile");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +63,10 @@ public class CommonController {
 	 */
 	@RequestMapping("/image_Show")
 	public void image_Show(HttpServletRequest request,HttpServletResponse response,@RequestParam("filename")String filenewName) throws IOException {
-        String imagePath = request.getRealPath("/uploadFile")+"\\"+filenewName;
+		String pathname = request.getSession().getServletContext().getRealPath("/");
+		String newpath = pathname.replace("ssmtest", "file");
+		logger.info(newpath);
+		String imagePath = newpath+"\\"+"uploadFile"+"\\"+filenewName;
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

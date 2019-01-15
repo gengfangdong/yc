@@ -9,7 +9,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -132,22 +132,22 @@
 										<div class="form-group">
 											 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 												<div class="demoTable">
-																		  <!-- 搜索ID： -->
-																		  <div class="layui-inline selectObj">
-																		   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
-																		    <label for="" class="control-label" style="float: left;">一级目录：</label>
-																			<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
-																		   </select>
-																		  </div>
-																		  <div class="layui-inline selectObj">
-																		    <label for="" class="control-label" style="float: left;">二级目录：</label>
-																			<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-																		        <option value="全部">全部</option>
-																		   </select>
-																		  </div>
-																		  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
-																		</div>
+												  <!-- 搜索ID： -->
+												  <div class="layui-inline selectObj">
+												   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+												    <label for="" class="control-label" style="float: left;">一级目录：</label>
+													<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <div class="layui-inline selectObj">
+												    <label for="" class="control-label" style="float: left;">二级目录：</label>
+													<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
+												</div>
 											</div>	
 										</div>
 										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
@@ -668,8 +668,8 @@
 		</script>
 		<script>
 			function judgesNumber(obj){
-				if(obj.value<50){
-					alert("参加人数少于50人时会自动进行拼班！");
+				if(obj.value<60){
+					alert("参加人数少于60人时会自动进行拼班！");
 					$("#sample-table-00").css('display','block');
 				}else{
 					$("#sample-table-00").css('display','none');
@@ -774,7 +774,7 @@
 					return;
 				}
 				
-				if(planNumOfEntries<50){
+				if(planNumOfEntries<60){
 					var togetherClassesStartDate = $("#togetherClassesStartDate").val();
 					var togetherClassesEndDate = $("#togetherClassesEndDate").val(); 
 					var classesEndDate = $("#classesEndDate").val();
@@ -874,9 +874,12 @@
 					})
 				}else{
 					var fd = new FormData();
-					for(var j = 0;j<filelist.length;j++){
-						fd.append('file', filelist[j]);
+					if(filelist!=null){
+						for(var j = 0;j<filelist.length;j++){
+							fd.append('file', filelist[j]);
+						}
 					}
+					
 	    			fd.append('Constom_name', classesName);
 	    			fd.append('Constom_data', hostDate);
 	    			if(type == '2'){

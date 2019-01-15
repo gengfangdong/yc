@@ -4,7 +4,7 @@
 	<resultMap type="entity.ClassPlan" id="ClassPlan">
 		<result column="classplan_id" jdbcType="VARCHAR" property="classplan_id"/>
 		<result column="classplan_name" jdbcType="VARCHAR" property="classplan_name"/>
-		<result column="classplan_context" jdbcType="VARCHAR" property="classplan_context"/>
+		<result column="classplan_context" javaType="String" jdbcType="VARBINARY" property="classplan_context"/>
 		<result column="creater" jdbcType="VARCHAR" property="creater"/>
 		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
 		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>

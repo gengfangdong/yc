@@ -9,7 +9,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href=" ../../../../../admin/bootstrap/css/bootstrap.min.css">
@@ -114,20 +114,22 @@
 									<div class="layui-tab-item">
 										<div class="form-group">
 											 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													 <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">一级目录：</label>
-														<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													  <div class="layui-inline selectObj">
-													    <label for="" class="control-label" style="float: left;">二级目录：</label>
-														<select id="secondObj" class="select" onclick="secondSelect(this);"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-													        <option value="全部">全部</option>
-													   </select>
-													  </div>
-													<button class="layui-btn selectBtn" data-type="reload">搜索</button>
+												<div class="demoTable">
+												  <!-- 搜索ID： -->
+												  <div class="layui-inline selectObj">
+												   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+												    <label for="" class="control-label" style="float: left;">一级目录：</label>
+													<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <div class="layui-inline selectObj">
+												    <label for="" class="control-label" style="float: left;">二级目录：</label>
+													<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+												        <option value="全部">全部</option>
+												   </select>
+												  </div>
+												  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
 												</div>
 											</div>	
 										</div>

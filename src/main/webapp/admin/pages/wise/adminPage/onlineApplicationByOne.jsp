@@ -12,7 +12,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="../assets/css/amazeui.css" />
 		<link rel="stylesheet" href="../assets/css/common.min.css" />
@@ -163,7 +163,7 @@ String caogery = (String)session.getAttribute("isad");
 															<!-- sub-menu end-->
 														</li>
 														<li>
-															<a href="regulationsClasses.html">规定班次</a>
+															<a href="regulationsClasses.html">自主报名</a>
 														</li>
 														<li>
 															<a href="customizedClasses.html">定制班次</a>
@@ -260,7 +260,7 @@ String caogery = (String)session.getAttribute("isad");
 												<!-- sub-menu end-->
 											</li>
 											<li>
-												<a href="regulationsClasses.html">规定班次</a>
+												<a href="regulationsClasses.html">自主报名</a>
 											</li>
 											<li>
 												<a href="customizedClasses.html">定制班次</a>

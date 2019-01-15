@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -156,7 +156,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="memberCustomProject.jsp"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
@@ -184,11 +184,11 @@ String caogery = (String)session.getAttribute("isad");
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>我的项目 <small>规定班次</small></h1>
+					<h1>我的项目 <small>自主报名</small></h1>
 					<ol class="breadcrumb">
 						<li><i class="fa fa-dashboard"></i> 首页</li>
 						<li> 我的项目</li>
-						<li class="active">规定班次</li>
+						<li class="active">自主报名</li>
 					</ol>
 				</section>
 				
@@ -216,7 +216,7 @@ String caogery = (String)session.getAttribute("isad");
 																			        <option value="报名未开始">报名未开始</option>
 																			        <option value="报名进行中">报名进行中</option>
 																			        <option value="未开课">未开课</option>
-																			        <option value="课程进行中">课程进行中</option>
+																			        <option value="自主报名">自主报名</option>
 																			        <option value="已结课">已结课</option>
 																			  </select>
 																		  </div>
@@ -347,8 +347,8 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'scheduledshift.scheduled_class_pnumber', title: '容纳人数',templet:'<div>{{d.scheduledshift.scheduled_class_pnumber ? d.scheduledshift.scheduled_class_pnumber: "0"}}</div>',minWidth:90, sort: true},
 			      {field:'number', title: '已报名人数',minWidth:120, sort: true},
 			      {field:'scheduledshift.scheduled_status', title: '班次状态',templet:'#typestatus',minWidth:120, sort: true},
-			      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:120},
-			      {field:'numfilestatus', title: '是否上传名单',templet:'#typeBara',minWidth:160},
+			      {field:'create_status', title: '是否已报名',templet:'#typeBar',minWidth:120,sort:true},
+			      {field:'numfilestatus', title: '是否上传名单',templet:'#typeBara',minWidth:160,sort:true},
 			      {field:'suuid', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],
 			    id: 'testReload',
@@ -530,7 +530,7 @@ String caogery = (String)session.getAttribute("isad");
 						status = 1;
 					}else if(status == '未开课'){
 						status = 2;
-					}else if(status == '课程进行中'){
+					}else if(status == '自主报名'){
 						status = 3;
 					}else if(status == '已结课'){
 						status = 4;
@@ -639,17 +639,18 @@ String caogery = (String)session.getAttribute("isad");
 	     {{# } }}
  		</script>
  		<script id="upload_file_dialog" type="text/html">
-		    <div class="layui-form-item">
-		        <label class="layui-form-label">名单上传</label>
-		        <div class="layui-input-block">
-		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
+		      <div class="layui-form-item">
+		        <label class="layui-form-label" style="display:none;">名单上传</label>
+		        <div class="layui-input-block" style="margin-left:0;">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
 		                <i class="layui-icon">&#xe67c;</i>上传名单
 		            </button>
+					<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="layui-btn" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+						<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载名单模板</a>
+					</button>
+		        	<label class="layui-form-label" style="color:#000;width:90px;float:inherit;" id="uploadFileName">文件名</label>
 		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
 		        </div>
-		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
-		            id="uploadFileName">
-		            选择上传</label>
 		    </div>
 		</script>
 	</body>

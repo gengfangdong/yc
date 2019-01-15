@@ -60,12 +60,17 @@ public class SsuserController {
 			resultmap.put("message", "0");//未登录
 			return resultmap;
 		}
-		//1、判断规定班次是否存在
+		//1、判断自主报名是否存在
 		Scheduledshift scheduledshift = new Scheduledshift();
 		scheduledshift = scheduledshiftService.getDetailByid(Ssu_ssid);
 		if(scheduledshift == null){
 			resultmap.put("success", false);
 			resultmap.put("message", "1");//班次不存在
+			return resultmap;
+		}
+		if(!"1".equals(scheduledshift.getScheduled_status())){
+			resultmap.put("success", false);
+			resultmap.put("message", "3");//班次不存在
 			return resultmap;
 		}
 		//人数判断
@@ -112,7 +117,7 @@ public class SsuserController {
 			resultmap.put("message", "0");//未登录
 			return resultmap;
 		}
-		//1、判断规定班次是否存在
+		//1、判断自主报名是否存在
 		Scheduledshift scheduledshift = new Scheduledshift();
 		scheduledshift = scheduledshiftService.getDetailByid(Ssu_ssid);
 		if(scheduledshift == null){
@@ -130,7 +135,7 @@ public class SsuserController {
 		}
 		String Ssu_usernumber = ssuser.getSsu_usernumber();
 		//2、判断报名人数是否超过剩余人数
-		//获取规定班次剩余的人数
+		//获取自主报名剩余的人数
 		int allSign = 0;
 		allSign = Integer.valueOf(scheduledshift.getScheduled_class_pnumber())-ssuserService.getLavenumber(Ssu_ssid);
 		// 获取上传的execl

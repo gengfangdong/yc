@@ -8,7 +8,7 @@ public class Scheduledfile implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2233800491060159187L;
-	private String Scheduled_id;//规定班次id
+	private String Scheduled_id;//自主报名id
 	private String Scheduled_file;//文件uuid名字
 	private String Scheduled_oldfile;//文件原名
 	private String isdelete;//是否删除 0为未删除 1为删除

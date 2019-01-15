@@ -183,7 +183,7 @@ public class FigClassController {
 	public Map<String,Object> addFigClassnew(String figClass_name, String figClass_deparment, String figClass_address,
 			String figClass_start_date, String figClass_end_date, String figClass_class_start,String contactWorkNumber,
 			String figClass_class_end, String figClass_pernum, String figClass_phone, String figClass_person,String figClass_caogery,
-			String[] figClass_outline,String[] figClass_day,@RequestParam("file")MultipartFile[] files,HttpServletRequest request){
+			String[] figClass_outline,String[] figClass_day,@RequestParam(value="file",required=false)MultipartFile[] files,HttpServletRequest request){
 		//结果map
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 获取登录用户
@@ -536,6 +536,11 @@ public class FigClassController {
 			resultMap.put("message", "1");// 定制班次不存在
 			return resultMap;
 		}
+		if(!"4".equals(figClass.getFigClass_status())){
+			resultMap.put("success", false);
+			resultMap.put("message", "4");// 定制班次不存在
+			return resultMap;
+		}
 		//校验人数
 		int count = Integer.valueOf(Fiu_number);
 		int allcount = Integer.valueOf(figClass.getFigClass_pernum());
@@ -790,23 +795,26 @@ public class FigClassController {
 		}
 		List<Figfile> figfiles = figClass.getFigFiles();
 		List<Figfile> deletesList = new ArrayList<Figfile>();
-		for(int j = figfiles.size()-1;j>=0;j--){
-			boolean flag = false;
-			if(oldfilename !=null){
-				for (String oldscheduledfile : oldfilename) {
-					if(oldscheduledfile.equals(figfiles.get(j).getNewfilename())){
-						flag = true;
+		if(figfiles!=null&&figfiles.size()>0){
+			for(int j = figfiles.size()-1;j>=0;j--){
+				boolean flag = false;
+				if(oldfilename !=null){
+					for (String oldscheduledfile : oldfilename) {
+						if(oldscheduledfile.equals(figfiles.get(j).getNewfilename())){
+							flag = true;
+						}
+					}
+					if(flag == true){
+						flag = false;
+					}
+					else{
+						deletesList.add(figfiles.get(j));
+						figfiles.remove(j);
 					}
 				}
-				if(flag == true){
-					flag = false;
-				}
-				else{
-					deletesList.add(figfiles.get(j));
-					figfiles.remove(j);
-				}
 			}
-		}
+		}else
+			figfiles =new ArrayList<>();
 		for (Figfile figfile : deletesList) {
 			if("2".equals(fileUtil.delete(request.getRealPath("/figclassfile")+"\\"+figfile.getNewfilename()))){
 				resultMap.put("success", false);
@@ -893,6 +901,7 @@ public class FigClassController {
 		try{
 			figClassService.updateFig(figClass);
 		}catch(Exception e){
+			e.printStackTrace();
 			resultMap.put("success", false);
 			resultMap.put("message", "3");//修改成功!
 			return resultMap;
@@ -950,25 +959,43 @@ public class FigClassController {
 			e.printStackTrace();
 			return null;
 		}
-		try {
-			//发送短信提醒
-			if("1".equals(review_result)){
-				String context = "您的拼班: "+figClass.getFigClass_name()+" 审核通过!";
-				String phone = figClass.getFigClass_phone();
-				
-				
-				new MessageUtil().httpPost(phone, context);
-			}else if("2".equals(review_result)){
-				String context = "您的拼班: "+figClass.getFigClass_name()+" 审核不通过!";
-				String phone = figClass.getFigClass_phone();
-				new MessageUtil().httpPost(phone, context);
+		// 发送短信提醒
+		if ("1".equals(review_result)) {
+			String context = "您的拼班: "+figClass.getFigClass_name()+" 审核通过!";
+			String phone = figClass.getFigClass_phone();
+			try {
+				if ("0".equals(MessageUtil.httpPost(phone, context))) {
+					resultMap.put("success", false);
+					resultMap.put("message", "10");// 审核成功!
+					return resultMap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultMap.put("success", false);
+				resultMap.put("message", "10");// 审核成功!
+				return resultMap;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		} else if ("2".equals(review_result)) {
+			String context = "您的拼班: "+figClass.getFigClass_name()+" 审核不通过!  理由:"+result;
+			String phone = figClass.getFigClass_phone();
+			try {
+				if ("0".equals(MessageUtil.httpPost(phone, context))) {
+					resultMap.put("success", false);
+					resultMap.put("message", "10");// 审核成功!
+					return resultMap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultMap.put("success", false);
+				resultMap.put("message", "10");// 审核成功!
+				return resultMap;
+			}
 		}
 		resultMap.put("success", true);
-		resultMap.put("message", "2");//审核成功!
+		resultMap.put("message", "2");// 审核成功!
 		return resultMap;
 	}
 	
@@ -1145,27 +1172,52 @@ public class FigClassController {
 		Map<String,Object> resultmap = new HashMap<>();
 		IUser iuser = new IUser();
 		iuser = (IUser)request.getSession().getAttribute("user");
-		if(iuser == null){
+		if (iuser == null) {
 			resultmap.put("success", false);
-			resultmap.put("message", "0");//未登录
+			resultmap.put("message", "0");// 未登录
 			return resultmap;
 		}
-		//获取拼版实例
+		// 获取拼版实例
 		FigClass figClass = new FigClass();
 		figClass = figClassService.getDetailByid(figClass_id);
-		if(figClass == null){
+		if (figClass == null) {
 			resultmap.put("success", false);
-			resultmap.put("message", "1");//实例不存在
+			resultmap.put("message", "1");// 实例不存在
 			return resultmap;
 		}
-		//更新状态
+		// 更新状态
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String updatetime = format.format(new Date());
 		figClass.setFigClass_status("6");
 		figClass.setFigClass_updater(iuser.getUser_id());
 		figClass.setFigClass_updatetime(updatetime);
-		try{
+		try {
 			figClassService.updateStatus(figClass);
+			// 发送短信提醒
+			List<FigUser> figUsers = new ArrayList<>();
+			figUsers = figClassService.getBynoPage(figClass_id);
+			if (figUsers != null && figUsers.size() > 0) {
+
+				try {
+
+					for (FigUser figUser : figUsers) {
+						String context = "您报名的拼班: " + figClass.getFigClass_name() + " 开课成功!";
+						String phone = figUser.getFiu_ydphone();
+						if ("0".equals(MessageUtil.httpPost(phone, context))) {
+							resultmap.put("success", false);
+							resultmap.put("message", "1");// 审核成功!
+							return resultmap;
+						}
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					resultmap.put("success", false);
+					resultmap.put("message", "1");// 审核成功!
+					return resultmap;
+				}
+			}
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();

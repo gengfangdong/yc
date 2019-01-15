@@ -207,8 +207,10 @@ public class RotationPicController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("RotationPic_id")String RotationPic_id) throws IOException {
 		RotationPic RotationPic = new RotationPic();
 		RotationPic = RotationPicService.getRotationPicDetailByid(RotationPic_id);
-		 
-        String imagePath = request.getRealPath("/RotationPicimagePage")+"/"+RotationPic.getRotationPic_title_page();
+		String imagepath = request.getRealPath("/RotationPicimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+RotationPic.getRotationPic_title_page();
+        //String imagePath = request.getRealPath("/RotationPicimagePage")+"/"+RotationPic.getRotationPic_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

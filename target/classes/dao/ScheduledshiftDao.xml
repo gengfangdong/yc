@@ -11,19 +11,22 @@
 		<result column="Scheduled_class_start" jdbcType="VARCHAR" property="Scheduled_class_start"/>
 		<result column="Scheduled_class_end" jdbcType="VARCHAR" property="Scheduled_class_end"/>
 		<result column="Scheduled_class_pnumber" jdbcType="VARCHAR" property="Scheduled_class_pnumber"/>
-		<result column="Scheduled_class_context" jdbcType="VARCHAR" property="Scheduled_class_context"/>
-		<result column="Scheduled_other_context" jdbcType="VARCHAR" property="Scheduled_other_context"/>
+		<result column="Scheduled_class_context" javaType="String" jdbcType="VARBINARY" property="Scheduled_class_context"/>
+		<result column="Scheduled_other_context" javaType="String" jdbcType="VARBINARY" property="Scheduled_other_context"/>
 		<result column="Scheduled_status" jdbcType="VARCHAR" property="Scheduled_status"/>
 		<result column="isdelete" jdbcType="VARCHAR" property="isdelete"/>
 		<result column="creater" jdbcType="VARCHAR" property="creater"/>
 		<result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+		<result column="SCHEDULED_DNAME" jdbcType="VARCHAR" property="Scheduled_dname"/>
+		<result column="SCHEDULED_YH" jdbcType="VARCHAR" property="Scheduled_yh"/>
+		<result column="SCHEDULED_ZH" jdbcType="VARCHAR" property="Scheduled_zh"/>
 	</resultMap>
 	<insert id = "insertScheduledshift" parameterType="Scheduledshift">
 		insert into SCHEDULEDSHIFT (SCHEDULED_ID,SCHEDULED_NAME,SCHEDULED_INITIATOR,SCHEDULED_ADDRESS,SCHEDULED_START,SCHEDULED_END,SCHEDULED_CLASS_START,SCHEDULED_CLASS_END,
-		SCHEDULED_CLASS_PNUMBER,SCHEDULED_CLASS_CONTEXT,SCHEDULED_OTHER_CONTEXT,SCHEDULED_STATUS,ISDELETE,CREATER,CREATETIME) 
+		SCHEDULED_CLASS_PNUMBER,SCHEDULED_CLASS_CONTEXT,SCHEDULED_OTHER_CONTEXT,SCHEDULED_STATUS,ISDELETE,CREATER,CREATETIME,SCHEDULED_DNAME,SCHEDULED_YH,SCHEDULED_ZH) 
 		values(#{Scheduled_id},#{Scheduled_name},#{Scheduled_initiator},#{Scheduled_address},#{Scheduled_start},
 		#{Scheduled_end},#{Scheduled_class_start},#{Scheduled_class_end},#{Scheduled_class_pnumber},
-		#{Scheduled_class_context},#{Scheduled_other_context},#{Scheduled_status},#{isdelete},#{creater},#{createtime})
+		#{Scheduled_class_context},#{Scheduled_other_context},#{Scheduled_status},#{isdelete},#{creater},#{createtime},#{Scheduled_dname,jdbcType=VARCHAR},#{Scheduled_yh,jdbcType=VARCHAR},#{Scheduled_zh,jdbcType=VARCHAR})
 	</insert>
 
 	
@@ -44,7 +47,10 @@
 			SCHEDULED_CLASS_CONTEXT = #{Scheduled_class_context},
 			SCHEDULED_OTHER_CONTEXT = #{Scheduled_other_context},
 			CREATER = #{creater},
-			CREATETIME = #{createtime}
+			CREATETIME = #{createtime},
+			SCHEDULED_DNAME=#{Scheduled_dname,jdbcType=VARCHAR},
+			SCHEDULED_YH=#{Scheduled_yh,jdbcType=VARCHAR},
+			SCHEDULED_ZH=#{Scheduled_zh,jdbcType=VARCHAR}
 		where SCHEDULED_ID = #{Scheduled_id}
 	</update>
 	
@@ -90,9 +96,7 @@
 		                                    SYSDATE &lt;
 		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') then
 		                                '2'
-		                                when SYSDATE &gt;
-		                                    TO_DATE(SCHEDULED_CLASS_END, 'YYYY-MM-DD') then
-		                                '4'
+		                                
 		                             end)
 		  where S.ISDELETE = '0'
 		  and s.SCHEDULED_STATUS &lt;&gt; '4'

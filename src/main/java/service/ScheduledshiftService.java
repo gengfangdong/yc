@@ -23,7 +23,7 @@ public interface ScheduledshiftService {
 	public String getByScheduledfile(String filename);
 	public void startScheduled();
 	public LayuiDataTable<ScheduledShiftShow> getScByPage(int start,int limit,String user_id,String scstatus,String memstatus);
-	//管理员规定班次
+	//管理员自主报名
 	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage(int start,int limit,String status);
 	public List<EUser> getListUserByid(String user_id, String scheduled_id);
 	public void updateStatus(Scheduledshift scheduledshift);

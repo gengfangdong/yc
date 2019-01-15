@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -197,7 +197,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="classesPlan.jsp"><i class="fa fa-square-o"></i> 课程方案</a>
 										</li>
 										<li>
-											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="prescribedShift.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
@@ -384,14 +384,14 @@ String caogery = (String)session.getAttribute("isad");
 			    url: '<%=request.getContextPath()%>/Constom/LayConstomad',
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:120},
-			      {field:'freeco_name', title: '班级名称',minWidth:180},
-			      {field:'freeco_creater',title:'发起人',minWidth:120},
+			      {field:'freeco_name', title: '班级名称',minWidth:180,sort:true},
+			      {field:'freeco_creater',title:'发起人',minWidth:120,sort:true},
 			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
-			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120},
+			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120,sort:true},
 			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:90,sort: true},
 			      {field:'freeco_pernum', title: '计划参加人数',minWidth:90,sort: true},
 			      {field:'freeco_data', title: '预计开始时间',minWidth:120,sort: true},
-			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120},
+			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120,sort:true},
 			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
 			    id: 'testReload',
@@ -409,7 +409,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/showCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -463,7 +463,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/editCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -477,7 +477,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/reviewCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -544,7 +544,7 @@ String caogery = (String)session.getAttribute("isad");
 					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
+					        offset: ['10%', '15%'] ,
 					        content: 'openPage/addCustomAudit.html',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){

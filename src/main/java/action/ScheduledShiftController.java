@@ -31,15 +31,19 @@ import entity.ApplyUnit;
 import entity.DatatablesViewPage;
 import entity.EUser;
 import entity.FigClass;
+import entity.FigUser;
 import entity.IUser;
 import entity.LayuiDataTable;
 import entity.ScheduledShiftShow;
 import entity.Scheduledfile;
 import entity.Scheduledshift;
 import entity.ScheduledshiftVo;
+import entity.Ssuser;
 import entity.UploadFilevo;
 import service.ScheduledshiftService;
+import service.SsuserService;
 import util.FileUtil;
+import util.MessageUtil;
 import util.StringUtil;
 import util.UUIDUtil;
 
@@ -48,19 +52,28 @@ import util.UUIDUtil;
 public class ScheduledShiftController {
 	@Autowired
 	private ScheduledshiftService scheduledshiftService;
+	@Autowired
+	private SsuserService ssuserService;
 	
 	@RequestMapping("/SaveScheduledShift")
 	@ResponseBody
 	public Map<String,Object> saveScheduledShift(@RequestParam("file") MultipartFile[] file,String Scheduled_name,String Scheduled_initiator,
 			String Scheduled_address,String Scheduled_start,String Scheduled_end,String Scheduled_class_start,
-			String Scheduled_class_end,String Scheduled_class_pnumber,String Scheduled_class_context,String Scheduled_other_context,
+			String Scheduled_class_end,String Scheduled_class_pnumber,String Scheduled_class_context,String Scheduled_other_context,String Scheduled_dname,String Scheduled_yh,String Scheduled_zh,
 			HttpServletRequest request) throws IOException{
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		String Sid = UUIDUtil.getUUid("sch");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String Scheduled_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
 		Scheduledshift scheduledshift = new Scheduledshift();
-		scheduledshift.setCreater("admin");
+		//获取登录人的信息
+		IUser user = (IUser) request.getSession().getAttribute("user");
+		if(user == null){
+			resultMap.put("success", false);
+			resultMap.put("message", "0");//失败
+			return resultMap;
+		}
+		scheduledshift.setCreater(user.getUser_id());
 		scheduledshift.setCreatetime(Scheduled_Createtime);
 		scheduledshift.setIsdelete("0");
 		scheduledshift.setScheduled_name(Scheduled_name);
@@ -74,6 +87,9 @@ public class ScheduledShiftController {
 		scheduledshift.setScheduled_initiator(Scheduled_initiator);
 		scheduledshift.setScheduled_other_context(Scheduled_other_context);
 		scheduledshift.setScheduled_start(Scheduled_start);
+		scheduledshift.setScheduled_dname(Scheduled_dname);
+		scheduledshift.setScheduled_yh(Scheduled_yh);
+		scheduledshift.setScheduled_zh(Scheduled_zh);
 		scheduledshift.setScheduled_status("0");
 		
 		//批量上传文件
@@ -94,7 +110,7 @@ public class ScheduledShiftController {
 		
 		for (UploadFilevo filevo : uploadFilevos) {
 			Scheduledfile scheduledfile = new Scheduledfile();
-			scheduledfile.setCreater("admin");
+			scheduledfile.setCreater(user.getUser_id());
 			scheduledfile.setCreatetime(Scheduled_Createtime);
 			scheduledfile.setIsdelete("0");
 			scheduledfile.setScheduled_file(filevo.getFilename());
@@ -165,7 +181,7 @@ public class ScheduledShiftController {
 		scheduledshift = scheduledshiftService.getDetailByid(Scheduled_id);
 		if(scheduledshift == null){
 			resultMap.put("success", false);
-			resultMap.put("msg", "1");//未获取规定班次
+			resultMap.put("msg", "1");//未获取自主报名
 			return resultMap;
 		}
 		
@@ -188,7 +204,7 @@ public class ScheduledShiftController {
 	@RequestMapping("/updateScheduled")
 	@ResponseBody
 	public Map<String,Object> updateScheduled(@RequestParam("file") MultipartFile[] file,String Scheduled_id,String[] oldfilename,String Scheduled_name,String Scheduled_initiator,
-			String Scheduled_address,String Scheduled_start,String Scheduled_end,String Scheduled_class_start,
+			String Scheduled_address,String Scheduled_start,String Scheduled_end,String Scheduled_class_start,String Scheduled_dname,String Scheduled_yh,String Scheduled_zh,
 			String Scheduled_class_end,String Scheduled_class_pnumber,String Scheduled_class_context,String Scheduled_other_context,
 			HttpServletRequest request){
 		Map<String,Object> resultMap = new HashMap<String, Object>();
@@ -201,12 +217,12 @@ public class ScheduledShiftController {
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String Scheduled_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
-		//获取规定班次信息
+		//获取自主报名信息
 		Scheduledshift scheduledshift = new Scheduledshift();
 		scheduledshift = scheduledshiftService.getDetailByid(Scheduled_id);
 		if(scheduledshift == null){
 			resultMap.put("success", false);
-			resultMap.put("message", "1");//获取规定班次失败!
+			resultMap.put("message", "1");//获取自主报名失败!
 			return resultMap;
 		}
 		List<Scheduledfile> scheduledfiles = scheduledshift.getScheduleds();
@@ -246,11 +262,17 @@ public class ScheduledShiftController {
 			List<MultipartFile> files = Arrays.asList(file);
 			fileUtil.uploadbatch(uploadFilevos, files, request.getRealPath("/scheduledfile"));
 		}
-		
-		
+
+		// 获取登录人的信息
+		IUser user = (IUser) request.getSession().getAttribute("user");
+		if (user == null) {
+			resultMap.put("success", false);
+			resultMap.put("message", "0");// 失败
+			return resultMap;
+		}
 		for (UploadFilevo filevo : uploadFilevos) {
 			Scheduledfile scheduledfile = new Scheduledfile();
-			scheduledfile.setCreater("admin");
+			scheduledfile.setCreater(user.getUser_id());
 			scheduledfile.setCreatetime(Scheduled_Createtime);
 			scheduledfile.setIsdelete("0");
 			scheduledfile.setScheduled_file(filevo.getFilename());
@@ -259,7 +281,7 @@ public class ScheduledShiftController {
 			scheduledfiles.add(scheduledfile);
 		}
 		
-		scheduledshift.setCreater("admin");
+		scheduledshift.setCreater(user.getUser_id());
 		scheduledshift.setCreatetime(Scheduled_Createtime);
 		scheduledshift.setScheduled_address(Scheduled_address);
 		scheduledshift.setScheduled_class_context(Scheduled_class_context);
@@ -267,10 +289,14 @@ public class ScheduledShiftController {
 		scheduledshift.setScheduled_class_pnumber(Scheduled_class_pnumber);
 		scheduledshift.setScheduled_class_start(Scheduled_class_start);
 		scheduledshift.setScheduled_end(Scheduled_end);
+		scheduledshift.setScheduled_start(Scheduled_start);
 		scheduledshift.setScheduled_initiator(Scheduled_initiator);
 		scheduledshift.setScheduled_name(Scheduled_name);
 		scheduledshift.setScheduled_other_context(Scheduled_other_context);
 		scheduledshift.setScheduleds(scheduledfiles);
+		scheduledshift.setScheduled_dname(Scheduled_dname);
+		scheduledshift.setScheduled_yh(Scheduled_yh);
+		scheduledshift.setScheduled_zh(Scheduled_zh);
 		scheduledshiftService.updateSch(scheduledshift);
 		resultMap.put("success", true);
 		resultMap.put("message", "3");//修改成功!
@@ -409,7 +435,28 @@ public class ScheduledShiftController {
 		scheduledshift.setScheduled_status("3");
 		try{
 			scheduledshiftService.updateStatus(scheduledshift);
-			
+			List<Ssuser> ssusers = new ArrayList<>();
+			ssusers = ssuserService.getcountBynoPage(scheduled_id);
+			if(ssusers!=null&&ssusers.size()>0){
+				try {
+
+					for (Ssuser figUser : ssusers) {
+						String context = "您报名的规定班次: " + scheduledshift.getScheduled_name() + " 开课成功!";
+						String phone = figUser.getSsu_ydphone();
+						if ("0".equals(MessageUtil.httpPost(phone, context))) {
+							resultmap.put("success", false);
+							resultmap.put("message", "1");// 审核成功!
+							return resultmap;
+						}
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					resultmap.put("success", false);
+					resultmap.put("message", "1");// 审核成功!
+					return resultmap;
+				}
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			resultmap.put("success", false);

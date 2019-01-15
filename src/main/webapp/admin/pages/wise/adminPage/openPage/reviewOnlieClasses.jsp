@@ -10,7 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -124,7 +124,7 @@
 										</div>
 									</div>
 									<div class="layui-tab-item">
-										<div class="form-group">
+										<!-- <div class="form-group">
 											 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
 												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 													 <div class="layui-inline selectObj">
@@ -141,7 +141,7 @@
 													  </div>
 													<button class="layui-btn selectBtn" data-type="reload">搜索</button>
 												</div>
-											</div>	
+											</div> -->	
 										</div>
 										<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
 											<table id="LAY_table_user" lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
@@ -506,10 +506,10 @@
 			    	
 			    	for(var i=0;i<$('#sample-table-1 .layui-table-body tr').length;i++){
 			    		for(var j = 0;j<outline.length;j++){
-			    			if($("#sample-table-1 .layui-table-body tr")[j].children[4].children[0].children[0].id != outline[j]){
-				    			$($("#sample-table-1 .layui-table-body tr")[j]).css('display','none');
-				    		}else if($("#sample-table-1 .layui-table-body tr")[j].children[4].children[0].children[0].id == outline[j]){
-				    			$("#sample-table-1 .layui-table-body tr")[j].children[3].children[0].children[0].value = days[j];
+			    			if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id != outline[j]){
+				    			$($("#sample-table-1 .layui-table-body tr")[i]).css('display','none');
+				    		}else if($("#sample-table-1 .layui-table-body tr")[i].children[4].children[0].children[0].id == outline[j]){
+				    			$("#sample-table-1 .layui-table-body tr")[i].children[3].children[0].children[0].value = days[j];
 				    		}	
 			    		}
 			    	}
@@ -714,7 +714,7 @@
 						$("#maxClassesNumber").val(data.data.figClass.figClass_pernum);
  						$("#contactPersonnel").val(data.data.figClass.figClass_person);
 						$("#contactNumber").val(data.data.figClass.figClass_phone);
-						$("#contactWorkNumber").val(data.data.figClass.figClass_WorkPhone);
+						$("#contactWorkNumber").val(data.data.figClass.figClass_worknum);
 						if(data.data.figClass.figClass_caogery==0){
 							var type="方案定制";
 							var nDivShow = $('.layui-tab-item');
@@ -858,6 +858,8 @@
 						else if(data.success == false){
 							if(data.message == "1"){
 								layer.alert("当前拼班不存在!");
+							}else if(data.message == "10"){
+								layer.alert("审核成功!,短信发送失败!");
 							}
 						}
 

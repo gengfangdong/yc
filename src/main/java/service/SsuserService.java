@@ -20,5 +20,6 @@ public interface SsuserService {
 	public int getLavenumber(String project_id);
 	public LayuiDataTable<Ssuser> getSsuserByPage(int start,int page,String project_id);
 	public Ssuser getDetailById(String ssu_id);
+	public List<Ssuser> getcountBynoPage(String project_id);
 	
 }

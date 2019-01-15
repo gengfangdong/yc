@@ -10,7 +10,7 @@ String caogery = (String)session.getAttribute("isad");
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -156,7 +156,7 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="memberCustomProject.jsp" style="color: #FFFFFF;"><i class="fa fa-square-o"></i> 定制项目</a>
 										</li>
 										<li>
-											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 规定班次</a>
+											<a href="memberRegulationClasses.jsp"><i class="fa fa-square-o"></i> 自主报名</a>
 										</li>
 										<li>
 											<a href="memberOnlineClasses.jsp" ><i class="fa fa-square-o"></i> 在线拼班</a>
@@ -335,7 +335,7 @@ String caogery = (String)session.getAttribute("isad");
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:60},
 			      {field:'freeco_name', title: '班级名称',minWidth:180,sort: true},
-			      {field:'freeco_creater',title:'发起人',minWidth:120},
+			      {field:'freeco_creater',title:'发起人',minWidth:120,sort:true},
 			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
 			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120,sort: true},
 			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:160,sort: true},
@@ -359,7 +359,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/showCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -385,9 +385,9 @@ String caogery = (String)session.getAttribute("isad");
 								else if(data.message == "2"){
 									layer.confirm('取消成功!', { title:'提示'}, function(index){
 									  
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
+										window.parent.location.reload();
+										var index1 = parent.layer.getFrameIndex(window.name);
+										parent.layer.close(index1);
 								});
 								}
 							},
@@ -466,7 +466,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/editCustomProject.jsp?constom_id='+data.freeco_id,
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -480,7 +480,7 @@ String caogery = (String)session.getAttribute("isad");
 						area: ['70%', '530px'],
 						shade: 0,
 						maxmin: true,
-						offset: [100, 200],
+						offset: ['10%', '15%'],
 						content: 'openPage/updateCustomProjectNameList.jsp',
 						zIndex: layer.zIndex, //重点1
 						success: function(layero) {
@@ -646,10 +646,10 @@ String caogery = (String)session.getAttribute("isad");
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,200] ,
+					        offset: ['10%', '15%'] ,
 					        content: 'openPage/addCustomProject.jsp',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
@@ -775,17 +775,18 @@ String caogery = (String)session.getAttribute("isad");
 
 
  		<script id="upload_file_dialog" type="text/html">
-		    <div class="layui-form-item">
-		        <label class="layui-form-label">文件上传</label>
-		        <div class="layui-input-block">
-		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();">
-		                <i class="layui-icon">&#xe67c;</i>上传文件
+		     <div class="layui-form-item">
+		        <label class="layui-form-label" style="display:none;">名单上传</label>
+		        <div class="layui-input-block" style="margin-left:0;">
+		            <button type="button" class="layui-btn" onclick="$('input[name=uploadfile]').click();" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+		                <i class="layui-icon">&#xe67c;</i>上传名单
 		            </button>
+					<button href="../../../../show/dist/doc/学员名单上传1218.xlsx" class="layui-btn" style="background-color:#1e9fff;border-radius:5px;font-size:12px;">
+						<a href="../../../../show/dist/doc/1218.xlsx" style="font-size: 12px;line-height: 24px;color: #FFFFFF;">下载名单模板</a>
+					</button>
+		        	<label class="layui-form-label" style="color:#000;width:90px;float:inherit;" id="uploadFileName">文件名</label>
 		            <input type="file" name="uploadfile" style="display: none;" id="Userfile"/>
 		        </div>
-		        <label class="layui-form-label" style="width: 100%; text-align: left; padding-left: 110px;color:red;"
-		            id="uploadFileName">
-		            文件上传</label>
 		    </div>
 		</script>
 	</body>

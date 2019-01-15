@@ -33,10 +33,13 @@ import entity.ApplyShowVo;
 import entity.DatatablesViewPage;
 import entity.IUser;
 import entity.News;
+import entity.Project;
 import service.ApplyService;
 import service.IUserService;
 import service.NewsService;
+import service.ProjectService;
 import util.FileUtil;
+import util.MessageUtil;
 import util.PropertiesUtil;
 import util.StringUtil;
 import util.UUIDUtil;
@@ -53,6 +56,8 @@ public class ApplyController {
 	
 	@Autowired
 	private ApplyService applyService;
+	@Autowired
+	private ProjectService projectService;
 	
 	
 	
@@ -293,10 +298,48 @@ public class ApplyController {
 		apply = applyService.getApplyDetailByid(apply_id);
 		if(apply == null){
 			resultmap.put("success", false);
-			resultmap.put("msg", "1");//未获取个人申请详情
+			resultmap.put("msg", "1");// 未获取个人申请详情
 			return resultmap;
 		}
 		applyService.updatestatus(status, apply_id);
+		//获取在职研申请
+		Project project = new Project();
+		project = projectService.getProjectDetailByid(apply.getProject_id());
+		// 发送短信提醒
+		if ("1".equals(status)) {
+			String context = "您的在职研: " + project.getProject_name() + " 审核通过!";
+			String phone = apply.getPhone_number();
+			try {
+				if ("0".equals(MessageUtil.httpPost(phone, context))) {
+					resultmap.put("success", false);
+					resultmap.put("message", "0");// 审核成功!
+					return resultmap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultmap.put("success", false);
+				resultmap.put("message", "0");// 审核成功!
+				return resultmap;
+			}
+
+		} else if ("2".equals(status)) {
+			String context = "您的拼班: " + project.getProject_name() + " 审核不通过!";
+			String phone = apply.getPhone_number();
+			try {
+				if ("0".equals(MessageUtil.httpPost(phone, context))) {
+					resultmap.put("success", false);
+					resultmap.put("message", "0");// 审核成功!
+					return resultmap;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resultmap.put("success", false);
+				resultmap.put("message", "0");// 审核成功!
+				return resultmap;
+			}
+		}
 		resultmap.put("success", true);
 		resultmap.put("msg", "2");//审核成功!
 		return resultmap;
@@ -423,7 +466,44 @@ public class ApplyController {
 		if(!StringUtil.isblack(apply_status)){
 			apply.setCheck_status(apply_status);
 			apply.setRemark(remark);
-			//短信接口
+			//获取在职研申请
+			Project project = new Project();
+			project = projectService.getProjectDetailByid(apply.getProject_id());
+			// 发送短信提醒
+			if ("1".equals(apply_status)) {
+				String context = "您的在职研: " + project.getProject_name() + " 审核通过!";
+				String phone = apply.getPhone_number();
+				try {
+					if ("0".equals(MessageUtil.httpPost(phone, context))) {
+						resultmap.put("success", false);
+						resultmap.put("message", "0");// 审核成功!
+						return resultmap;
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					resultmap.put("success", false);
+					resultmap.put("message", "0");// 审核成功!
+					return resultmap;
+				}
+
+			} else if ("2".equals(apply_status)) {
+				String context = "您的在职研: " + project.getProject_name() + " 审核不通过!理由:"+remark;
+				String phone = apply.getPhone_number();
+				try {
+					if ("0".equals(MessageUtil.httpPost(phone, context))) {
+						resultmap.put("success", false);
+						resultmap.put("message", "0");// 审核成功!
+						return resultmap;
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					resultmap.put("success", false);
+					resultmap.put("message", "0");// 审核成功!
+					return resultmap;
+				}
+			}
 		}
 		applyService.updateApply(apply);
 		resultmap.put("success", true);

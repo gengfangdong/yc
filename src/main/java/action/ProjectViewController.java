@@ -209,8 +209,10 @@ public class ProjectViewController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("ProjectView_id")String ProjectView_id) throws IOException {
 		ProjectView ProjectView = new ProjectView();
 		ProjectView = ProjectViewService.getProjectViewDetailByid(ProjectView_id);
-		 
-        String imagePath = request.getRealPath("/ProjectViewimagePage")+"/"+ProjectView.getProjectView_title_page();
+		String imagepath = request.getRealPath("/ProjectViewimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+ProjectView.getProjectView_title_page();
+        //String imagePath = request.getRealPath("/ProjectViewimagePage")+"/"+ProjectView.getProjectView_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

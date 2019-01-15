@@ -9,7 +9,7 @@
 		<result column="Tax_KeyWords" jdbcType="VARCHAR" property="Tax_KeyWords"/>
 		<result column="Tax_Release_time" jdbcType="VARCHAR" property="Tax_Release_time"/>
 		<result column="Tax_status" jdbcType="VARCHAR" property="Tax_status"/>
-		<result column="Tax_context" jdbcType="VARCHAR" property="Tax_context"/>
+		<result column="Tax_context" javaType="String" jdbcType="VARBINARY" property="Tax_context"/>
 		<result column="Tax_Creater" jdbcType="VARCHAR" property="Tax_Creater"/>
 		<result column="Tax_Createtime" jdbcType="VARCHAR" property="Tax_Createtime"/>
 	</resultMap>

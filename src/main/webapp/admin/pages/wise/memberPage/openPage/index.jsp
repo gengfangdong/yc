@@ -4,8 +4,7 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%
-	String url=request.getParameter("url");
-url = "http://www.baidu.com";
+	String figClass_id=request.getParameter("figClass_id");
 %>
 <title>Cross-Browser QRCode generator for Javascript</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
@@ -15,13 +14,13 @@ url = "http://www.baidu.com";
 <script type="text/javascript" src="../../../../qrcodejs-master/qrcode.js"></script>
 </head>
 <body>
-<input id="text" type="text" value="<%=url %>" style="width:80%" /><br />
-<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+<input id="text" type="text" value="http://39.96.70.152/show/dist/html/openPage/showOnlieClasses.jsp?figClass_id=<%=figClass_id %>" style="height:23px;line-height:23px;width:100%;border-radius:5px;border:1px solid #ccc;background:#fff;" disabled="disabled" /><br />
+<div id="qrcode" style=" margin-top:15px;margin-left:35%;"></div>
 
 <script type="text/javascript">
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 100,
-	height : 100
+	width : 300,
+	height : 300
 });
 
 function makeCode () {		

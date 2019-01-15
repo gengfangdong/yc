@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>中央财经大学</title>
+		<title>领税教育网</title>
 		<link rel="icon" href="../../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -94,7 +94,7 @@
 								<div class="col-sm-9 col-md-9">
 									<label style="font-size: 14px; padding-left: 10px;">
 										<img src="../../../../image/square.png" style="margin-top: -1px;width: 12px;">
-										规定班次信息
+										自主报名信息
 									</label>
 								</div>
 							</div>
@@ -152,6 +152,24 @@
 											<td class="leftTd">班级容纳人数:<span style="color:red;">*</span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="peopleNum" placeholder="请输入班级容纳人数" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;"  />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">单位名称:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_dname"  style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">开户银行:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_yh" style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
+											</td>
+										</tr>
+										<tr>
+											<td class="leftTd">账号:</td>
+											<td class="rightTd" colspan="2">
+												<input type="text" id="scheduled_zh"  style="width: 100%;border:none;border:1px solid #ccc;height:23px;border-radius:5px;" />
 											</td>
 										</tr>
 										<tr>
@@ -297,6 +315,9 @@
         					var scheduled_class_pnumber = data.data.scheduled_class_pnumber;
         					var scheduled_class_context = data.data.scheduled_class_context;
         					var scheduled_other_context = data.data.scheduled_other_context;
+							var scheduled_dname = data.data.scheduled_dname;
+							var scheduled_yh = data.data.scheduled_yh;
+							var scheduled_zh = data.data.scheduled_zh;
         					var memotr = "";
 							
         					filesa = data.data.scheduleds;
@@ -308,6 +329,9 @@
         					document.getElementById("startClassDate").value=scheduled_class_start;
         					document.getElementById("endClassDate").value=scheduled_class_end;
         					document.getElementById("peopleNum").value=scheduled_class_pnumber;
+        					document.getElementById("scheduled_dname").value=scheduled_dname;
+        					document.getElementById("scheduled_yh").value=scheduled_yh;
+        					document.getElementById("scheduled_zh").value=scheduled_zh;
         					
         					CKEDITOR.instances.syllabus.setData(scheduled_class_context);
         					CKEDITOR.instances.otherInformation.setData(scheduled_other_context);
@@ -329,7 +353,7 @@
         						layer.alert("参数错误!");
         					}
         					else
-        						layer.alert("未获取规定班次!");
+        						layer.alert("未获取自主报名!");
         				}
         			},error:function(data){
 
@@ -436,7 +460,9 @@
 				var peopleNum = $("#peopleNum").val();
 				var Scheduled_class_context = CKEDITOR.instances.syllabus.getData();
 				var Scheduled_other_context = CKEDITOR.instances.otherInformation.getData();
-				
+				var scheduled_dname = $("#scheduled_dname").val();
+				var scheduled_yh = $("#scheduled_dname").val();
+				var scheduled_zh = $("#scheduled_dname").val();
 				if(className==""){
 					alert("请输入班次名称！");
 					return;
@@ -503,6 +529,9 @@
     			fd.append('Scheduled_class_pnumber', peopleNum);
     			fd.append('Scheduled_class_context', Scheduled_class_context);
     			fd.append('Scheduled_other_context', Scheduled_other_context);
+    			fd.append('Scheduled_dname',scheduled_dname);
+				fd.append('Scheduled_yh',scheduled_yh);
+				fd.append('Scheduled_zh',scheduled_zh);
 				$.ajax({
 					url:'<%=request.getContextPath()%>/ScheduledShift/updateScheduled',
 					type:'post',

@@ -5,7 +5,7 @@
 		<result column="Project_id" jdbcType="VARCHAR" property="Project_id"/>
 		<result column="Project_name" jdbcType="VARCHAR" property="Project_name"/>
 		<result column="Project_date" jdbcType="VARCHAR" property="Project_date"/>
-		<result column="Project_context" jdbcType="VARCHAR" property="Project_context"/>
+		<result column="Project_context" javaType="String" jdbcType="VARBINARY" property="Project_context"/>
 		<result column="Project_creater" jdbcType="VARCHAR" property="Project_creater"/>
 		<result column="Project_createtime" jdbcType="VARCHAR" property="Project_createtime"/>
 	</resultMap>

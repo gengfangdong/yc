@@ -69,7 +69,8 @@ public class FigClassServiceImpl implements FigClassService {
 	public void insertFig(FigClass figClass, List<Figfile> figfiles) {
 		// TODO Auto-generated method stub
 		figClassDao.insertFig(figClass);
-		figfileDao.insertBatch(figfiles);
+		if(figfiles!=null&&figfiles.size()>0)
+			figfileDao.insertBatch(figfiles);
 	}
 
 	public FigClass getDetailByid(String FigClass_id) {
@@ -456,7 +457,7 @@ public class FigClassServiceImpl implements FigClassService {
 							memProjectVo.setIsfile("1");
 						}else
 							memProjectVo.setIsfile("0");
-						
+						memProjectVo.setIsbm(map.get("PROJECT_ISBM").toString());
 					}else if ("1".equals(caog)){//规定  SCHEDULED_CLASS_START  SCHEDULED_CLASS_END
 						List<EUser> eUsers = ssuserService.getListUserByid(user_id, map.get("PROJECT_ID").toString());
 						List<String> ssuids = ssuserDao.getsuuid(user_id, map.get("PROJECT_ID").toString());
@@ -467,21 +468,24 @@ public class FigClassServiceImpl implements FigClassService {
 							memProjectVo.setIsfile("1");
 						}else
 							memProjectVo.setIsfile("0");
+						memProjectVo.setIsbm(map.get("PROJECT_ISBM").toString());
 						memProjectVo.setProject_person("管理员");
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}else if("2".equals(caog)){//拼班  FIGCLASS_CLASS_START FIGCLASS_CLASS_END
 						List<FigUser> figUsers = figUserDao.getByFigClassidanduserid(map.get("PROJECT_ID").toString(),user_id);
 						if (figUsers!=null&&figUsers.size()>0) {
+							memProjectVo.setIsbm("1");
 							memProjectVo.setIsfile(figUsers.get(0).getFiu_status());
 						} else {
+							memProjectVo.setIsbm("0");
 							memProjectVo.setIsfile("0");
 						}
 						memProjectVo.setProject_person(iUserDao.getDetailByid(map.get("PROJECT_ISDELETE").toString()).get(0).getUser_name());
 						memProjectVo.setProject_pernum(map.get("PROJECT_PERNUM").toString());
 						memProjectVo.setProject_datanum(""+StringUtil.getDataSub(map.get("PROJECT_START").toString(), map.get("PROJECT_END").toString()));
 					}
-					memProjectVo.setIsbm(map.get("PROJECT_ISBM").toString());
+					
 					memProjectVo.setIsdelete(user_id.equals(map.get("PROJECT_ISDELETE").toString())?"1":"0");
 					
 					memProjectVo.setProject_start(map.get("PROJECT_START").toString());
@@ -527,7 +531,8 @@ public class FigClassServiceImpl implements FigClassService {
 	public void updateFig(FigClass figClass) {
 		figfileDao.deleteByfig(figClass.getFigClass_id());
 		figClassDao.updatefigClass(figClass);
-		figfileDao.insertBatch(figClass.getFigFiles());
+		if(figClass.getFigFiles()!=null&&figClass.getFigFiles().size()>0)
+			figfileDao.insertBatch(figClass.getFigFiles());
 	}
 
 	public void startScheduledFig() {
@@ -637,6 +642,12 @@ public class FigClassServiceImpl implements FigClassService {
 	public void updateStatus(FigClass figClass) {
 		// TODO Auto-generated method stub
 		figClassDao.updateStatus(figClass);
+	}
+
+	@Override
+	public List<FigUser> getBynoPage(String figClass_id) {
+		// TODO Auto-generated method stub
+		return figUserDao.getBynoPage(figClass_id);
 	}
 	
 	

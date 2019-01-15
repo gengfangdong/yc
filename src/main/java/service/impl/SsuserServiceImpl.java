@@ -210,6 +210,11 @@ public class SsuserServiceImpl implements SsuserService {
 		}
 		return null;
 	}
+	@Override
+	public List<Ssuser> getcountBynoPage(String project_id) {
+		// TODO Auto-generated method stub
+		return ssuserDao.getcountBynoPage(project_id);
+	}
 	
 
 }

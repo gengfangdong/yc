@@ -9,7 +9,7 @@
 		<result column="Expert_KeyWords" jdbcType="VARCHAR" property="Expert_KeyWords"/>
 		<result column="Expert_Release_time" jdbcType="VARCHAR" property="Expert_Release_time"/>
 		<result column="Expert_status" jdbcType="VARCHAR" property="Expert_status"/>
-		<result column="Expert_context" jdbcType="VARCHAR" property="Expert_context"/>
+		<result column="Expert_context" javaType="String" jdbcType="VARBINARY" property="Expert_context"/>
 		<result column="Expert_Creater" jdbcType="VARCHAR" property="Expert_Creater"/>
 		<result column="Expert_Createtime" jdbcType="VARCHAR" property="Expert_Createtime"/>
 	</resultMap>

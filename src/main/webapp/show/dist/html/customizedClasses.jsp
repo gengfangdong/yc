@@ -1,266 +1,254 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page import="entity.IUser" %>
+<%@page import="entity.IUser"%>
 <%
 	IUser user = (IUser)session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>中央财经大学</title>
-		<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon"/>
-		<link rel="stylesheet" href="../assets/css/amazeui.css" />
-		<link rel="stylesheet" href="../assets/css/common.min.css" />
-		<link rel="stylesheet" href="../assets/css/contact.min.css" />
-		<link rel="stylesheet" href="../assets/css/myStyle.css" />
-		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> -->
-		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/layui.css">
-		<!-- <link rel="stylesheet" href="../assets/bootstrap/css/style.css"> -->
-		<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/modules/layer/default/layer.css">
-		<style>
-			@media only screen and (min-width: 641px) {
-				.am-offcanvas {
-					display: block;
-					position: static;
-					background: none;
-				}
-				.am-offcanvas-bar {
-					position: static;
-					width: auto;
-					background: none;
-					-webkit-transform: translate3d(0, 0, 0);
-					-ms-transform: translate3d(0, 0, 0);
-					transform: translate3d(0, 0, 0);
-				}
-				.am-offcanvas-bar:after {
-					content: none;
-				}
-			}
-			
-			@media only screen and (max-width: 640px) {
-				.am-offcanvas-bar .am-nav>li>a {
-					color: #ccc;
-					border-radius: 0;
-					border-top: 1px solid rgba(0, 0, 0, .3);
-					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05)
-				}
-				.am-offcanvas-bar .am-nav>li>a:hover {
-					background: #404040;
-					color: #fff
-				}
-				.am-offcanvas-bar .am-nav>li.am-nav-header {
-					color: #777;
-					background: #404040;
-					box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
-					text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
-					border-top: 1px solid rgba(0, 0, 0, .3);
-					font-weight: 400;
-					font-size: 75%
-				}
-				.am-offcanvas-bar .am-nav>li.am-active>a {
-					background: #1a1a1a;
-					color: #fff;
-					box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
-				}
-				.am-offcanvas-bar .am-nav>li+li {
-					margin-top: 0;
-				}
-				.screeningConditions{
-					height:80px;
-				}
-				.screeningConditions button{
-					margin-left:40%;
-				}
-				#hostDate{
-					width:100%!important;
-				}
-			}
-			
-			.my-head {
-				margin-top: 40px;
-				text-align: center;
-			}
-			
-			.my-button {
-				position: fixed;
-				top: 0;
-				right: 0;
-				border-radius: 0;
-			}
-			
-			.my-sidebar {
-				padding-right: 0;
-				border-right: 1px solid #eeeeee;
-			}
-			
-			.my-footer {
-				border-top: 1px solid #eeeeee;
-				padding: 10px 0;
-				margin-top: 10px;
-				text-align: center;
-			}
-			.layui-table-cell{
-				text-align:center;
-			}
-			.layui-table-cell.laytable-cell-1-handle a{
-				color:#0e90d2;
-				cursor:pointer;
-			}
-			.layui-table-cell.laytable-cell-2-handle a{
-				color:#0e90d2;
-				cursor:pointer;
-			}
-			#testList{
-				float:right;
-				height:28px;
-				line-height:28px;
-				margin-left:10px;
-				margin-right:10px;
-				font-size:12px;
-			}
-			#togetherClassesCompany,#maxClassesNumber,#togetherClassesStartDate,#togetherClassesEndDate,#classesEndDate{
-				border:none;
-				border-radius:5px;
-				border:1px solid #a9a9a9;
-				height:23px;
-			}
-		</style>
-	</head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>领税教育网</title>
+<link rel="icon" href="../assets/img/logo.ico" type="image/x-icon" />
+<link rel="stylesheet" href="../assets/css/amazeui.css" />
+<link rel="stylesheet" href="../assets/css/common.min.css" />
+<link rel="stylesheet" href="../assets/css/contact.min.css" />
+<link rel="stylesheet" href="../assets/css/myStyle.css" />
+<!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="../assets/layui-v2.3.0/layui/css/layui.css">
+<!-- <link rel="stylesheet" href="../assets/bootstrap/css/style.css"> -->
+<link rel="stylesheet"
+	href="../assets/layui-v2.3.0/layui/css/modules/layer/default/layer.css">
+<style>
+@media only screen and (min-width: 641px) {
+	.am-offcanvas {
+		display: block;
+		position: static;
+		background: none;
+	}
+	.am-offcanvas-bar {
+		position: static;
+		width: auto;
+		background: none;
+		-webkit-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+	.am-offcanvas-bar:after {
+		content: none;
+	}
+}
 
-	<body>
-		<div class="layout">
-			<!--===========layout-header================-->
-			<div class="layout-header am-hide-sm-only">
-				<!--topbar start-->
-				<div class="topbar" style="background: #FFFFFF;">
-					<div class="container" style="background: #FFFFFF;width: auto!important;">
-						<div class="am-g">
-							<div class="am-u-md-8">
-								<div class="topbar-left">
-									<!--<i class="am-icon-globe"></i>-->
-									<jsp:include   page="topbarLeft.jsp" flush="true"/>
-									
-								</div>
+@media only screen and (max-width: 640px) {
+	.am-offcanvas-bar .am-nav>li>a {
+		color: #ccc;
+		border-radius: 0;
+		border-top: 1px solid rgba(0, 0, 0, .3);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05)
+	}
+	.am-offcanvas-bar .am-nav>li>a:hover {
+		background: #404040;
+		color: #fff
+	}
+	.am-offcanvas-bar .am-nav>li.am-nav-header {
+		color: #777;
+		background: #404040;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+		text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+		border-top: 1px solid rgba(0, 0, 0, .3);
+		font-weight: 400;
+		font-size: 75%
+	}
+	.am-offcanvas-bar .am-nav>li.am-active>a {
+		background: #1a1a1a;
+		color: #fff;
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
+	}
+	.am-offcanvas-bar .am-nav>li+li {
+		margin-top: 0;
+	}
+	.screeningConditions {
+		height: 80px;
+	}
+	.screeningConditions button {
+		margin-left: 40%;
+	}
+	#hostDate {
+		width: 100% !important;
+	}
+}
+
+.my-head {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.my-button {
+	position: fixed;
+	top: 0;
+	right: 0;
+	border-radius: 0;
+}
+
+.my-sidebar {
+	padding-right: 0;
+	border-right: 1px solid #eeeeee;
+}
+
+.my-footer {
+	border-top: 1px solid #eeeeee;
+	padding: 10px 0;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.layui-table-cell {
+	text-align: center;
+}
+
+.layui-table-cell.laytable-cell-1-handle a {
+	color: #0e90d2;
+	cursor: pointer;
+}
+
+.layui-table-cell.laytable-cell-2-handle a {
+	color: #0e90d2;
+	cursor: pointer;
+}
+
+#testList {
+	float: right;
+	height: 28px;
+	line-height: 28px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 12px;
+}
+
+#togetherClassesCompany, #maxClassesNumber, #togetherClassesStartDate,
+	#togetherClassesEndDate, #classesEndDate {
+	border: none;
+	border-radius: 5px;
+	border: 1px solid #a9a9a9;
+	height: 23px;
+}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+	background-color:#1e9fff;
+}
+</style>
+</head>
+
+<body>
+	<div class="layout">
+		<!--===========layout-header================-->
+		<div class="layout-header am-hide-sm-only">
+			<!--topbar start-->
+			<div class="topbar" style="background: #FFFFFF;">
+				<div class="container"
+					style="background: #FFFFFF; width: auto !important;">
+					<div class="am-g">
+						<div class="am-u-md-8">
+							<div class="topbar-left">
+								<!--<i class="am-icon-globe"></i>-->
+								<jsp:include page="topbarLeft.jsp" flush="true" />
+
 							</div>
-							<div class="am-u-md-4">
-								<div class="topbar-right am-text-right am-fr">
-									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
-									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
-										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
-										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
-									<%} %>
-									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
-										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
-									<%}; %>
-										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
-								</div>
+						</div>
+						<div class="am-u-md-4">
+							<div class="topbar-right am-text-right am-fr">
+								<% if(user != null&&"1".equals(user.getIsadmin())) {%><a
+									style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
+									a> <a
+									href="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement"
+									style="color: #000000;">后台登录</ a> <a
+										href="<%=request.getContextPath()%>/Logout"
+										style="color: #000000;">注销</ a> <%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+											<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
+												a> <a
+												href="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage"
+												style="color: #000000;">后台登录</ a> <a
+													href="<%=request.getContextPath()%>/Logout"
+													style="color: #000000;">注销</ a> <%} %> <% if(user == null) {%><a
+														href="<%=request.getContextPath()%>/show/dist/html/login.jsp"
+														style="color: #000000;">登录</ a> <a
+															href="<%=request.getContextPath()%>/admin/login.jsp"
+															style="color: #000000;">后台登录</ a> <%}; %> <a
+																href="<%=request.getContextPath()%>/show/dist/html/register.jsp"
+																style="color: #000000;">注册</ a> 
 							</div>
 						</div>
 					</div>
 				</div>
-				<!--topbar end-->
+			</div>
+			<!--topbar end-->
 
-				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
-					<!--header start-->
-					<div class="container" style="width: auto!important;">
-						<div class="header">
-							<div class="am-g">
-								<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
-									<div class="logo">
-										<a href="../index.jsp"><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;" /></a>
-									</div>
+			<div class="header-box" data-am-sticky
+				style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+				<!--header start-->
+				<div class="container" style="width: auto !important;">
+					<div class="header">
+						<div class="am-g">
+							<div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
+								<div class="logo">
+									<a href="../index.jsp"><img
+										src="../assets/img/index/logo_top.png" alt=""
+										style="width: auto;" /></a>
 								</div>
-								<div class="am-u-lg-8 am-u-md-12">
-									<div class="header-right am-fr">
-										<div class="header-contact">
-											<div class="nav-contain" style="border: none;box-shadow: none;">
-												<div class="nav-inner">
-													<ul class="am-nav am-nav-pills am-nav-justify">
-														<li class="">
-															<a href="../index.jsp">首页</a>
-														</li>
-														<li>
-															<a href="cultureSystem.jsp">项目概况</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="cultureSystem.jsp">培养体系</a>
-																</li>
-																<li class="menu-item">
-																	<a href="solution.jsp">解决方案</a>
-																</li>
-																<li class="menu-item">
-																	<a href="teachingMaterialSystem.jsp">教材体系</a>
-																</li>
-																<li class="menu-item">
-																	<a href="taxCollectionFund.jsp">领税基金</a>
-																</li>
-																<li class="menu-item">
-																	<a href="expertTeam.jsp">专家团队</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="regulationsClasses.jsp">规定班次</a>
-														</li>
-														<li>
-															<a href="customizedClasses.jsp" style="color: #FF2F2F;">定制班次</a>
-														</li>
-														<li>
-															<a href="onlineClasses.jsp">拼班</a>
-														</li>
-														<li>
-															<a href="incumbencyStudent.jsp">在职研</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="incumbencyStudent.jsp">招生简章</a>
-																</li>
-																<li class="menu-item">
-																	<a href="onlineApplication.jsp">在线报名</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="newsNotice.jsp">新闻公告</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="newsNotice.jsp">通知公告</a>
-																</li>
-																<li class="menu-item">
-																	<a href="newsTrain.jsp">培训新闻</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="centerOverview.jsp" >关于我们</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="centerOverview.jsp">概况</a>
-																</li>
-																<li class="menu-item">
-																	<a href="organization.jsp">师资招聘</a>
-																</li>
-																<!-- <li class="menu-item">
+							</div>
+							<div class="am-u-lg-8 am-u-md-12">
+								<div class="header-right am-fr">
+									<div class="header-contact">
+										<div class="nav-contain"
+											style="border: none; box-shadow: none;">
+											<div class="nav-inner">
+												<ul class="am-nav am-nav-pills am-nav-justify">
+													<li class=""><a href="<%=request.getContextPath() %>/">首页</a>
+													</li>
+													<li><a href="cultureSystem.jsp">项目概况</a> <!-- sub-menu start-->
+														<ul class="sub-menu">
+															<li class="menu-item"><a href="cultureSystem.jsp">培养体系</a>
+															</li>
+															<li class="menu-item"><a href="solution.jsp">解决方案</a>
+															</li>
+															<li class="menu-item"><a
+																href="teachingMaterialSystem.jsp">教材体系</a></li>
+															<li class="menu-item"><a
+																href="taxCollectionFund.jsp">领税基金</a></li>
+															<li class="menu-item"><a href="expertTeam.jsp">专家团队</a>
+															</li>
+														</ul> <!-- sub-menu end--></li>
+													<li><a href="regulationsClasses.jsp">自主报名</a></li>
+													<li><a href="customizedClasses.jsp"
+														style="color: #FF2F2F;">定制班次</a></li>
+													<li><a href="onlineClasses.jsp">拼班</a></li>
+													<li><a href="incumbencyStudent.jsp">在职研</a> <!-- sub-menu start-->
+														<ul class="sub-menu">
+															<li class="menu-item"><a
+																href="incumbencyStudent.jsp">招生简章</a></li>
+															<li class="menu-item"><a
+																href="onlineApplication.jsp">在线报名</a></li>
+														</ul> <!-- sub-menu end--></li>
+													<li><a href="newsNotice.jsp">新闻公告</a> <!-- sub-menu start-->
+														<ul class="sub-menu">
+															<li class="menu-item"><a href="newsNotice.jsp">通知公告</a>
+															</li>
+															<li class="menu-item"><a href="newsTrain.jsp">培训新闻</a>
+															</li>
+														</ul> <!-- sub-menu end--></li>
+													<li><a href="centerOverview.jsp">关于我们</a> <!-- sub-menu start-->
+														<ul class="sub-menu">
+															<li class="menu-item"><a href="centerOverview.jsp">概况</a>
+															</li>
+															<li class="menu-item"><a href="organization.jsp">师资招聘</a>
+															</li>
+															<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-													</ul>
-												</div>
+														</ul> <!-- sub-menu end--></li>
+												</ul>
 											</div>
 										</div>
 									</div>
@@ -268,396 +256,414 @@
 							</div>
 						</div>
 					</div>
-					<!--header end-->
-
 				</div>
+				<!--header end-->
+
 			</div>
+		</div>
 
-			<!--mobile header start-->
-			<div class="m-header">
-				<div class="am-g am-show-sm-only">
-					<div class="am-u-sm-2">
-						<div class="menu-bars">
-							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
-							<!-- 侧边栏内容 -->
-							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
-								<a href="javascript: void(0)" class="am-menu-toggle"></a>
+		<!--mobile header start-->
+		<div class="m-header">
+			<div class="am-g am-show-sm-only">
+				<div class="am-u-sm-2">
+					<div class="menu-bars">
+						<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i
+							class="am-menu-toggle-icon am-icon-bars"></i></a>
+						<!-- 侧边栏内容 -->
+						<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1"
+							data-am-menu-offcanvas>
+							<a href="javascript: void(0)" class="am-menu-toggle"></a>
 
-								<div class="am-offcanvas">
-									<div class="am-offcanvas-bar">
+							<div class="am-offcanvas">
+								<div class="am-offcanvas-bar">
 
 
-										<ul class="am-menu-nav am-avg-sm-1">
-											<li>
-												<a href="../index.jsp">首页</a>
-											</li>
-											<li class="am-parent">
-												<a href="cultureSystem.jsp">项目概况</a>
-												<ul class="am-menu-sub am-collapse ">
-													<li class="">
-														<a href="cultureSystem.jsp">培养体系</a>
-													</li>
-													<li class="">
-														<a href="solution.jsp">解决方案</a>
-													</li>
-													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
-													</li>
-													<li class="">
-														<a href="taxCollectionFund.jsp" class="">领税基金</a>
-													</li>
-													<li class="">
-														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
-												</ul>
-											</li>
-											<li class="">
-												<a href="regulationsClasses.jsp">规定班次</a>
-											</li>
-											<li class="">
-												<a href="customizedClasses.jsp"  style="color: #FF2F2F;">定制班次</a>
-											</li>
-											<li class="">
-												<a href="onlineClasses.jsp">拼班</a>
-											</li>
+									<ul class="am-menu-nav am-avg-sm-1">
+										<li><a href="<%=request.getContextPath() %>/">首页</a></li>
+										<li class="am-parent"><a href="cultureSystem.jsp">项目概况</a>
+											<ul class="am-menu-sub am-collapse ">
+												<li class=""><a href="cultureSystem.jsp">培养体系</a></li>
+												<li class=""><a href="solution.jsp">解决方案</a></li>
+												<li class=""><a href="teachingMaterialSystem.jsp"
+													class="">教材体系</a></li>
+												<li class=""><a href="taxCollectionFund.jsp" class="">领税基金</a>
+												</li>
+												<li class=""><a href="expertTeam.jsp" class="">专家团队</a>
+												</li>
+											</ul></li>
+										<li class=""><a href="regulationsClasses.jsp">自主报名</a></li>
+										<li class=""><a href="customizedClasses.jsp"
+											style="color: #FF2F2F;">定制班次</a></li>
+										<li class=""><a href="onlineClasses.jsp">拼班</a></li>
 
-											<li class="am-parent">
-												<a href="incumbencyStudent.jsp">在职研</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="incumbencyStudent.jsp">招生简章</a>
-													</li>
-													<li class="menu-item">
-														<a href="onlineApplication.jsp">在线报名</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="newsNotice.jsp">新闻公告</a>
-												<ul class="am-menu-sub am-collapse  ">
-													<li class="menu-item">
-														<a href="newsNotice.jsp">通知公告</a>
-													</li>
-													<li class="menu-item">
-														<a href="newsTrain.jsp">培训新闻</a>
-													</li>
-												</ul>
-											</li>
-											<li class="am-parent">
-												<a href="centerOverview.jsp">关于我们</a>
-															<!-- sub-menu start-->
-															<ul class="am-menu-sub am-collapse">
-																<li class="menu-item">
-																	<a href="centerOverview.jsp">概况</a>
-																</li>
-																<li class="menu-item">
-																	<a href="organization.jsp">师资招聘</a>
-																</li>
-																<!-- <li class="menu-item">
+										<li class="am-parent"><a href="incumbencyStudent.jsp">在职研</a>
+											<ul class="am-menu-sub am-collapse  ">
+												<li class="menu-item"><a href="incumbencyStudent.jsp">招生简章</a>
+												</li>
+												<li class="menu-item"><a href="onlineApplication.jsp">在线报名</a>
+												</li>
+											</ul></li>
+										<li class="am-parent"><a href="newsNotice.jsp">新闻公告</a>
+											<ul class="am-menu-sub am-collapse  ">
+												<li class="menu-item"><a href="newsNotice.jsp">通知公告</a>
+												</li>
+												<li class="menu-item"><a href="newsTrain.jsp">培训新闻</a>
+												</li>
+											</ul></li>
+										<li class="am-parent"><a href="centerOverview.jsp">关于我们</a>
+											<!-- sub-menu start-->
+											<ul class="am-menu-sub am-collapse">
+												<li class="menu-item"><a href="centerOverview.jsp">概况</a>
+												</li>
+												<li class="menu-item"><a href="organization.jsp">师资招聘</a>
+												</li>
+												<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-															</ul>
-											</li>
-											<li class="">
-												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
-													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
-												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
-													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
-													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
-												<%} %>
-												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
-													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
-												<%}; %>
-											</li>
-											<li class="">
-												<a href="register.jsp" class="">注册</a>
-											</li>
-										</ul>
+											</ul></li>
+										<li class="">
+											<% if(user != null&&"1".equals(user.getIsadmin())) {%><a
+											style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
+												a> <a href="/admin/pages/wise/adminPage/noticeAnnouncement"
+												style="color: #FFF;">后台登录</ a> <a
+													href="<%=request.getContextPath()%>/Logout"
+													style="color: #FFF;">注销</ a> <%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+														<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
+															a> <a
+															href="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage"
+															style="color: #FFF;">后台登录</ a> <a
+																href="<%=request.getContextPath()%>/Logout"
+																style="color: #FFF;">注销</ a> <%} %> <% if(user == null) {%><a
+																	href="login.jsp" style="color: #FFF;">登录</ a> <a
+																		href="<%=request.getContextPath()%>/admin/login.jsp"
+																		style="color: #FFFFFF;">后台登录</ a> <%}; %>
+										</li>
+										<li class=""><a href="register.jsp" class="">注册</a></li>
+									</ul>
 
-									</div>
 								</div>
-							</nav>
+							</div>
+						</nav>
 
-						</div>
-					</div>
-					<div class="am-u-sm-5 am-u-end">
-						<div class="m-logo">
-							<a href=""><img src="../assets/img/index/logo_top.png" alt="" style="width: auto;"></a>
-						</div>
 					</div>
 				</div>
-				<!--mobile header end-->
+				<div class="am-u-sm-5 am-u-end">
+					<div class="m-logo">
+						<a href=""><img src="../assets/img/index/logo_top.png" alt=""
+							style="width: auto;"></a>
+					</div>
+				</div>
+			</div>
+			<!--mobile header end-->
+		</div>
+
+		<!--===========layout-container================-->
+		<div class="layout-container">
+			<div class="page-header regulations_bannerbg"
+				style="background: url('../assets/img/banner/dingzhi.jpg'); background-size: 100% 100%;">
 			</div>
 
-			<!--===========layout-container================-->
-			<div class="layout-container">
-				<div class="page-header regulations_bannerbg"  style="background:url('../assets/img/banner/dingzhi.jpg');background-size:100% 100%;">
-				</div>
-
-				<div class="am-g am-g-fixed myFixedSiderbar">
-					<!--正文-->
-					<div class="am-u-md-9 am-u-md-push-3 mainBody" style="padding-right: 5%;">
-						<div class="breadcrumb-box">
-							<div class="am-container">
-								<ol class="am-breadcrumb">
-									<li>
-										<a href="../index.jsp">首页</a>
-									</li>
-									<li class="am-active">定制班次</li>
-								</ol>
-							</div>
+			<div class="am-g am-g-fixed myFixedSiderbar">
+				<!--正文-->
+				<div class="am-u-md-9 am-u-md-push-3 mainBody"
+					style="padding-right: 5%;">
+					<div class="breadcrumb-box">
+						<div class="am-container">
+							<ol class="am-breadcrumb">
+								<li><a href="<%=request.getContextPath() %>/">首页</a></li>
+								<li class="am-active">定制班次</li>
+							</ol>
 						</div>
-						<div class="am-g">
-							<div data-am-widget="tabs" class="am-tabs am-tabs-d2">
-								<ul class="am-tabs-nav am-cf">
-									<li class="am-active">
-										<a href="[data-tab-panel-0]">方案定制</a>
-									</li>
-									<li class="">
-										<a href="[data-tab-panel-1]">课程定制</a>
-									</li>
-									<li class="">
-										<a href="[data-tab-panel-2]">自由定制</a>
-									</li>
-								</ul>
-								<div class="am-tabs-bd">
-									<div data-tab-panel-0 class="am-tab-panel am-active" style="min-height:230px;overflow-y:scroll;">
-										<div class="am-u-sm-11 am-u-sm-centered">
-											<div class="am-cf am-article tableTextAlign">
-												<div style="text-align:left;margin-top:10px;">
-													<label >注：方案定制仅能选择一种方案</label>
-												</div>
-												<div class="table-responsive table-responsive_vis" id="sample-table-2" style="padding-left: 10px;padding-right: 10px;margin-top:-10px;">
-													<table id="LAY_table_user2" lay-filter="user2"  class="am-table am-table-compact am-table-centered littleFontSize example1_x" style="margin-top: 20px!important;">
-														<thead>
-															
-														</thead>
-														<tbody>
-															
-														</tbody>
-													</table>
-													
-												</div>
+					</div>
+					<div class="am-g">
+						<div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+							<ul class="am-tabs-nav am-cf">
+								<li class="am-active"><a href="[data-tab-panel-0]">方案定制</a>
+								</li>
+								<li class=""><a href="[data-tab-panel-1]">课程定制</a></li>
+								<li class=""><a href="[data-tab-panel-2]">自由定制</a></li>
+							</ul>
+							<div class="am-tabs-bd">
+								<div data-tab-panel-0 class="am-tab-panel am-active"
+									style="min-height: 230px; overflow-y: scroll;">
+									<div class="am-u-sm-11 am-u-sm-centered">
+										<div class="am-cf am-article tableTextAlign">
+											<div style="text-align: left; margin-top: 10px;">
+												<label>注：方案定制仅能选择一种方案</label>
+											</div>
+											<div class="table-responsive table-responsive_vis"
+												id="sample-table-2"
+												style="padding-left: 10px; padding-right: 10px; margin-top: -10px;">
+												<table id="LAY_table_user2" lay-filter="user2"
+													class="am-table am-table-compact am-table-centered littleFontSize example1_x"
+													style="margin-top: 20px !important;">
+													<thead>
 
-												
-												<!--<button type="button" class="am-btn am-btn-primary am-round subBtn" style="margin-top: 20px;">提交</button>-->
-											</div>
-										</div>
-									</div> 
-									<div data-tab-panel-1 class="am-tab-panel" style="min-height:230px;overflow-y:scroll;">
-										<div class="am-u-sm-11 am-u-sm-centered">
-											<div class="screeningConditions">
-												<div class="form-group">
-													 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-														<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-															 <div class="layui-inline selectObj">
-															    <label for="" class="control-label" style="float: left;">一级目录：</label>
-																<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-															        <option value="全部">全部</option>
-															   </select>
-															  </div>
-															  <div class="layui-inline selectObj">
-															    <label for="" class="control-label" style="float: left;">二级目录：</label>
-																<select id="secondObj" class="select" onclick="secondSelect(this);"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
-															        <option value="全部">全部</option>
-															   </select>
-															  </div>
-															<button class="layui-btn selectBtn" data-type="reload" style="height:23px;line-height:15px;background-color:#0e90d2;border-radius:3px;">搜索</button>
-														</div>
-													</div>	
-												</div>
-											</div>
-											<div class="am-cf am-article tableTextAlign">
-												<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-													<table id="LAY_table_user" lay-filter="user" class="table am-table am-table-compact am-table-centered littleFontSize table-bordered  table-hover example1_x" style="margin-top: 20px!important;">
-														<thead>
-														</thead>
-														<tbody>
-														</tbody>
-													</table>
-													
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div data-tab-panel-2 class="am-tab-panel" style="min-height:230px;overflow-y:scroll;">
-										<div class="am-u-sm-11 am-u-sm-centered">
-											<div class="am-cf am-article tableTextAlign">
-												
-												<table class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
+													</thead>
 													<tbody>
-														<tr>
-															<td class="tableLeftTd3">举办天数:<span style="color:red;">*<span></td>
-															<td class="tableRightTd3">
-																<input type="text" id="hostingDay" style="width:100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-															</td>
-														</tr>
-														<tr>
-															<td class="tableLeftTd3">备注：<span style="color:red;">*<span></td>
-															<td class="tableRightTd3">
-																<textarea placeholder="请输入您的学习方向、学习时间等信息" style="width: 100%;height: 150px;border-radius:5px;"></textarea>
-																<!--<input class="onlineInput" type="text" placeholder="请输入您的学习方向、学习时间等信息" />-->
-																<!-- <td>2012-10-01</td> -->
-														</tr>
+
 													</tbody>
 												</table>
-												
+
+											</div>
+
+
+											<!--<button type="button" class="am-btn am-btn-primary am-round subBtn" style="margin-top: 20px;">提交</button>-->
+										</div>
+									</div>
+								</div>
+								<div data-tab-panel-1 class="am-tab-panel"
+									style="min-height: 230px; overflow-y: scroll;">
+									<div class="am-u-sm-11 am-u-sm-centered">
+										<div class="screeningConditions">
+											<div class="form-group">
+												 <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
+													<div class="demoTable">
+													  <!-- 搜索ID： -->
+													  <div class="layui-inline selectObj">
+													   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
+													    <label for="" class="control-label" style="float: left;">一级目录：</label>
+														<select id="firstObj" class="select" onclick="firstSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+													        <option value="全部">全部</option>
+													   </select>
+													  </div>
+													  <div class="layui-inline selectObj">
+													    <label for="" class="control-label" style="float: left;">二级目录：</label>
+														<select id="secondObj" class="select" onclick="secondSelect(this);" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+													        <option value="全部">全部</option>
+													   </select>
+													  </div>
+													  <button class="layui-btn selectBtn" data-type="reload" style="height: 23px; line-height: 15px; background-color: #0e90d2; border-radius: 3px;">搜索</button>
+													</div>
+												</div>	
+											</div>
+										</div>
+										<div class="am-cf am-article tableTextAlign">
+											<div class="table-responsive table-responsive_vis"
+												id="sample-table-1"
+												style="padding-left: 10px; padding-right: 10px;">
+												<table id="LAY_table_user" lay-filter="user"
+													class="table am-table am-table-compact am-table-centered littleFontSize table-bordered  table-hover example1_x"
+													style="margin-top: 20px !important;">
+													<thead>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+
 											</div>
 										</div>
 									</div>
 								</div>
+
+								<div data-tab-panel-2 class="am-tab-panel"
+									style="min-height: 230px; overflow-y: scroll;">
+									<div class="am-u-sm-11 am-u-sm-centered">
+										<div class="am-cf am-article tableTextAlign">
+
+											<table
+												class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
+												<tbody>
+													<tr>
+														<td class="tableLeftTd3">举办天数:<span
+															style="color: red;">*<span></td>
+														<td class="tableRightTd3"><input type="text"
+															id="hostingDay"
+															style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+														</td>
+													</tr>
+													<tr>
+														<td class="tableLeftTd3">备注：<span style="color: red;">*<span></td>
+														<td class="tableRightTd3"><textarea
+																placeholder="请输入您的学习方向、学习时间等信息"
+																style="width: 100%; height: 150px; border-radius: 5px;"></textarea>
+															<!--<input class="onlineInput" type="text" placeholder="请输入您的学习方向、学习时间等信息" />-->
+															<!-- <td>2012-10-01</td> -->
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+									</div>
+								</div>
 							</div>
-							
-							<div style="margin:10px;">
-								<table class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
+						</div>
+
+						<div style="margin: 10px;">
+							<table
+								class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
+								<tbody>
+									<tr>
+										<td class="tableLeftTd3">班级名称:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="classesName"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">预计举办日期:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input id="hostDate"
+											name="newsDate" placeholder="YYYY-MM-DD" type="text" class=""
+											style="height: 23px; width: 252px; cursor: pointer; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">计划参加人数:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="planNumOfEntries" onBlur="judgesNumber(this);"
+											placeholder="请选择人数大于50人，低于50人，将发布到拼班项目"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+
+									<tr>
+										<td class="tableLeftTd3">预计举办地点:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">联系人员:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="contactPersonnel"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">联系电话:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="contactNumber"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">联系办公电话:<span style="color: red;">*<span></td>
+										<td class="tableRightTd3"><input type="text"
+											id="contactWorkNumber"
+											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
+										</td>
+									</tr>
+									<tr>
+										<td class="tableLeftTd3">相关资料:</td>
+										<td class="tableRightTd3">
+											<div class="layui-upload-list">
+												<table class="layui-table">
+													<thead>
+														<tr>
+															<th>文件名</th>
+															<th>大小</th>
+															<th>操作</th>
+														</tr>
+													</thead>
+													<tbody id="demoList"></tbody>
+												</table>
+											</div>
+											<button type="button" class="layui-btn layui-btn-normal"
+												id="testList">选择多文件</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="table-responsive table-responsive_vis"
+								id="sample-table-00" style="display: none;">
+								<table id="branchTable2"
+									class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
 									<tbody>
 										<tr>
-											<td class="tableLeftTd3">班级名称:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input type="text" id="classesName" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
+											<td class="tableLeftTd3">拼班发起单位:<span
+												style="color: red;">*<span></td>
+											<td class="tableRightTd3" colspan="2"><input type="text"
+												value="" id="togetherClassesCompany" style="width: 100%;" />
 											</td>
+
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">预计举办日期:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
+											<td class="tableLeftTd3">班级容纳人数:<span
+												style="color: red;">*<span></td>
+											<td class="tableRightTd3" colspan="2"><input type="text"
+												value="" id="maxClassesNumber" style="width: 100%;" /></td>
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">计划参加人数:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input type="text" id="planNumOfEntries" onBlur="judgesNumber(this);" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
-										</tr>
-										
-										<tr>
-											<td class="tableLeftTd3">预计举办地点:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
+											<td class="tableLeftTd3">报名开始日期:<span
+												style="color: red;">*<span></td>
+											<td class="tableRightTd3" colspan="2"><input value=""
+												id="togetherClassesStartDate"
+												name="togetherClassesStartDate" autocomplete="off"
+												placeholder="YYYY-MM-DD" type="text" class=""
+												style="height: 23px; width: 252px; cursor: pointer;" /></td>
+
 										</tr>
 										<tr>
-											<td class="tableLeftTd3">联系人员:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-											<input type="text" id="contactPersonnel" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
+											<td class="tableLeftTd3">报名截止日期:<span
+												style="color: red;">*<span></td>
+											<td class="tableRightTd3" colspan="2"><input value=""
+												id="togetherClassesEndDate" name="togetherClassesEndDate"
+												autocomplete="off" placeholder="YYYY-MM-DD" type="text"
+												class=""
+												style="height: 23px; width: 252px; cursor: pointer;" /></td>
+
 										</tr>
+
 										<tr>
-											<td class="tableLeftTd3">联系电话:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input type="text" id="contactNumber" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
-										</tr>
-										<tr>
-											<td class="tableLeftTd3">联系办公电话:<span style="color:red;">*<span></td>
-											<td class="tableRightTd3">
-												<input type="text" id="contactWorkNumber" style="width: 100%;border:none;border-radius:5px;border:1px solid #a9a9a9;height:23px;" />
-											</td>
-										</tr>
-										<tr>
-											<td class="tableLeftTd3">相关资料:</td>
-											<td class="tableRightTd3" >
-												<div class="layui-upload-list">
-												    <table class="layui-table">
-												      <thead>
-												        <tr><th>文件名</th>
-												        <th>大小</th>
-												        <th>操作</th>
-												      </tr></thead>
-												      <tbody id="demoList"></tbody>
-												    </table>
-												 </div>
-												 <button type="button" class="layui-btn layui-btn-normal" id="testList" >选择多文件</button>
-											</td>
+											<td class="tableLeftTd3">预计结课日期:<span
+												style="color: red;">*<span></td>
+											<td class="tableRightTd3" colspan="2"><input value=""
+												id="classesEndDate" name="classesEndDate" autocomplete="off"
+												placeholder="YYYY-MM-DD" type="text" class=""
+												style="height: 23px; width: 252px; cursor: pointer;" /></td>
 										</tr>
 									</tbody>
 								</table>
-								<div class="table-responsive table-responsive_vis" id="sample-table-00" style="display:none;">
-									<table id="branchTable2" class="am-table am-table-bordered am-table-radius onlineTable littleFontSize">
-										<tbody>
-											<tr>
-												<td class="tableLeftTd3">拼班发起单位:<span style="color:red;">*<span></td>
-												<td class="tableRightTd3" colspan="2">
-													<input type="text" value="" id="togetherClassesCompany" style="width: 100%;" />
-												</td>
-	
-											</tr>
-											<tr>
-												<td class="tableLeftTd3">班级容纳人数:<span style="color:red;">*<span></td>
-												<td class="tableRightTd3" colspan="2">
-													<input type="text" value="" id="maxClassesNumber" style="width: 100%;" />
-												</td>
-											</tr>
-											<tr>
-												<td class="tableLeftTd3">报名开始日期:<span style="color:red;">*<span></td>
-												<td class="tableRightTd3" colspan="2">
-													<input value="" id="togetherClassesStartDate" name="togetherClassesStartDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
-												</td>
-	
-											</tr>
-											<tr>
-												<td class="tableLeftTd3">报名截止日期:<span style="color:red;">*<span></td>
-												<td class="tableRightTd3" colspan="2">
-													<input value="" id="togetherClassesEndDate" name="togetherClassesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
-												</td>
-	
-											</tr>
-											
-											<tr>
-												<td class="tableLeftTd3">预计结课日期:<span style="color:red;">*<span></td>
-												<td class="tableRightTd3" colspan="2">
-													<input value="" id="classesEndDate" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-						
-								<button type="button" class="am-btn am-btn-primary am-round subBtn" style="margin-top: 20px;line-height:10px;height:25px;font-size:14px;width:64px;border-radius:3px;margin-left:50%;" onclick="branchSub();">提交</button>
 							</div>
 
+							<button type="button"
+								class="am-btn am-btn-primary am-round subBtn"
+								style="margin-top: 20px; line-height: 10px; height: 25px; font-size: 14px; width: 64px; border-radius: 3px; margin-left: 50%;"
+								onclick="branchSub();">提交</button>
 						</div>
 
 					</div>
-					<!--侧边栏-->
-					<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
-						<div class="am-offcanvas" id="sidebar">
-							<div class="am-offcanvas-bar">
-								<ul class="am-nav">
-									<jsp:include   page="mainBodyRight.jsp" flush="true"/>
-								</ul>
-							</div>
+
+				</div>
+				<!--侧边栏-->
+				<div class="am-u-md-3 am-u-md-pull-9 my-sidebar mySiderbar">
+					<div class="am-offcanvas" id="sidebar">
+						<div class="am-offcanvas-bar">
+							<ul class="am-nav">
+								<jsp:include page="mainBodyRight.jsp" flush="true" />
+							</ul>
 						</div>
 					</div>
-					<a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
 				</div>
-
-				<!--===========layout-footer================-->
-				<div class="layout-footer">
-					<jsp:include   page="footer.jsp" flush="true"/>
-				</div>
+				<a href="#sidebar"
+					class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button"
+					data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
 			</div>
-			<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
-			<!--[if (gte IE 9)|!(IE)]><!-->
-			<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
-			<!--<![endif]-->
 
-			<!--[if lt IE 9]>
+			<!--===========layout-footer================-->
+			<div class="layout-footer">
+				<jsp:include page="footer.jsp" flush="true" />
+			</div>
+		</div>
+		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+		<!--<![endif]-->
+
+		<!--[if lt IE 9]>
 			<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 			<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 			<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 			<![endif]-->
-			<script src="../assets/js/amazeui.js" charset="utf-8"></script>
-			<script src="../assets/js/common.js" charset="utf-8"></script>
-			<!-- Bootstrap 3.3.5 -->
-			<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-			<!-- layui 2.3.0 -->
-			<script src="../assets/layui-v2.3.0/layui/layui.js"></script>
-			
-			<script>
+		<script src="../assets/js/amazeui.js" charset="utf-8"></script>
+		<script src="../assets/js/common.js" charset="utf-8"></script>
+		<!-- Bootstrap 3.3.5 -->
+		<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+		<!-- layui 2.3.0 -->
+		<script src="../assets/layui-v2.3.0/layui/layui.js"></script>
+
+		<script>
 			var firstObj="";
 			var secondObj="";
 			function firstSelect(obj){
@@ -756,7 +762,7 @@
 				})
 			}
 		</script>
-			<script type="text/javascript">
+		<script type="text/javascript">
 			layui.use('element', function() {
 				var element = layui.element;
 
@@ -964,8 +970,8 @@
 		</script>
 		<script>
 			function judgesNumber(obj){
-				if(obj.value<50){
-					alert("参加人数少于50人时会自动进行拼班！");
+				if(obj.value<60){
+					alert("参加人数少于60人时会自动进行拼班！");
 					$("#sample-table-00").css('display','block');
 				}else{
 					$("#sample-table-00").css('display','none');
@@ -1072,7 +1078,7 @@
 					return;
 				}
 				
-				if(planNumOfEntries<50){
+				if(planNumOfEntries<60){
 					var togetherClassesStartDate = $("#togetherClassesStartDate").val();
 					var togetherClassesEndDate = $("#togetherClassesEndDate").val(); 
 					var classesEndDate = $("#classesEndDate").val();
@@ -1193,30 +1199,35 @@
 	    			fd.append('Constom_gaoery', type);
 					$.ajax({
 						url:'<%=request.getContextPath()%>/Constom/addConstomnew',
-						type:'post',
-						encType: 'multipart/form-data', //表明上传类型为文件
-						processData: false,  //tell jQuery not to process the data
-	        			contentType: false,  //tell jQuery not to set contentType
-						data:fd,
-						success:function(data){
-							if(data.success == true){
-								if(data.message == "4"){
-									layer.confirm('保存成功!', { title:'提示'}, function(index){
-										window.parent.location.reload();
-										var index1 = parent.layer.getFrameIndex(window.name);
-										parent.layer.close(index1);
-									});
+								type : 'post',
+								encType : 'multipart/form-data', //表明上传类型为文件
+								processData : false, //tell jQuery not to process the data
+								contentType : false, //tell jQuery not to set contentType
+								data : fd,
+								success : function(data) {
+									if (data.success == true) {
+										if (data.message == "4") {
+											layer.confirm(
+															'保存成功!',
+															{
+																title : '提示'
+															},
+															function(index) {
+																window.parent.location.reload();
+																var index1 = parent.layer.getFrameIndex(window.name);
+																parent.layer.close(index1);
+															});
+										}
+									} else {
+										alert("保存失败！");
+									}
+								},
+								error : function(error) {
+									console.log(error);
 								}
-							}else{
-								alert("保存失败！");
-							}
-						},
-						error:function(error){
-								console.log(error);
-						}
-					})
+							})
 				}
-				
+
 			}
 		</script>
 		<script type="text/html" id="barDemo">
@@ -1226,15 +1237,35 @@
   			<a class="" lay-event="show2" >查看</a>
 		</script>
 		<script>
-			window.onload = function(){
-				<%if(user == null){%>
-					alert("请您登录!");
-				<%}%>
-				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
+			window.onload = function() {
+				$.ajax({
+					url:"<%=request.getContextPath()%>/Course/getFirst",
+					type:"post",
+					success:function(data){
+						if(data.success==true){
+							//document.getElementById("firstObj").innerHTML = '<option value="全部">全部</option>';
+							for(var i=0;i<data.data.length;i++){
+								document.getElementById("firstObj").innerHTML += '<option value='+data.data[i]+'>'+data.data[i]+'</option>';
+							}
+							
+						}else{
+							alert("没有数据！");
+						}
+					},
+					error:function(error){
+						alert("接口错误"+error);
+					}
+				})
+		<%if (user == null) {%>
+			alert("请您登录后进行报名操作，否则报名将会失败!");
+		<%}%>
+			$(".regulations_bannerbg").height(
+				$(".regulations_bannerbg").width() * 400 / 1581 - 172);//banner图高度
 			}
-			$(window).resize(function(){
-				$(".regulations_bannerbg").height($(".regulations_bannerbg").width()*400/1581-172);//banner图高度
-			});
+			$(window).resize(
+				function() {
+					$(".regulations_bannerbg").height($(".regulations_bannerbg").width() * 400 / 1581 - 172);//banner图高度
+				});
 		</script>
 		<script type="text/html" id="selected">
 			<select lay-ignore>
@@ -1247,8 +1278,7 @@
 				<option value="3.5">3.5天</option>
 				<option value="4">4天</option>
 			</select>
-		</script>	
-			
-	</body>
+		</script>
+</body>
 
 </html>

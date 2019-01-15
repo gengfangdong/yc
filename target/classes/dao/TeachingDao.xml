@@ -9,7 +9,7 @@
 		<result column="Teaching_KeyWords" jdbcType="VARCHAR" property="Teaching_KeyWords"/>
 		<result column="Teaching_Release_time" jdbcType="VARCHAR" property="Teaching_Release_time"/>
 		<result column="Teaching_status" jdbcType="VARCHAR" property="Teaching_status"/>
-		<result column="Teaching_context" jdbcType="VARCHAR" property="Teaching_context"/>
+		<result column="Teaching_context" javaType="String" jdbcType="VARBINARY" property="Teaching_context"/>
 		<result column="Teaching_Creater" jdbcType="VARCHAR" property="Teaching_Creater"/>
 		<result column="Teaching_Createtime" jdbcType="VARCHAR" property="Teaching_Createtime"/>
 	</resultMap>

@@ -9,7 +9,7 @@
 		<result column="Rules_KeyWords" jdbcType="VARCHAR" property="Rules_KeyWords"/>
 		<result column="Rules_Release_time" jdbcType="VARCHAR" property="Rules_Release_time"/>
 		<result column="Rules_status" jdbcType="VARCHAR" property="Rules_status"/>
-		<result column="Rules_context" jdbcType="VARCHAR" property="Rules_context"/>
+		<result column="Rules_context" javaType="String" jdbcType="VARBINARY" property="Rules_context"/>
 		<result column="Rules_Creater" jdbcType="VARCHAR" property="Rules_Creater"/>
 		<result column="Rules_Createtime" jdbcType="VARCHAR" property="Rules_Createtime"/>
 	</resultMap>

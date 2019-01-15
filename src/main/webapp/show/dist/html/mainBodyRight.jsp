@@ -13,17 +13,9 @@
         <i class="am-icon-phone" ></i>
       </span>-->
 			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
-				<dd><i class="am-icon-phone"></i> 010-83951097、83951120、83951104、13260122245
-				</dd>
-			</dl>
-		</li>
-		<li class="promo_detailed--list_item sidebarListLi">
-			<!--<span class="promo_detailed--list_item_icon noBorder">
-    <i class="am-icon-map-marker"></i>
-  </span>-->
-			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
-				<dd><i class="am-icon-map-marker"></i> 北京市丰台区樊羊路33号首都经济贸易大学华侨学院1层C104/C105办公室
-				</dd>
+				<dd style="padding-bottom:1.6rem;"><i class="am-icon-phone" style="margin-right:5px;"></i>010-62280881</dd>
+				<dd style="padding-bottom:1.6rem;"><i class="am-icon-phone" style="margin-right:5px;"></i>16601021525</dd>
+				<dd ><i class="am-icon-phone" style="margin-right:5px;"></i>16601021533</dd>
 			</dl>
 		</li>
 		<li class="promo_detailed--list_item sidebarListLi">
@@ -31,12 +23,12 @@
     <i class="am-icon-envelope-o" ></i>
   </span>-->
 			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
-				<dd><i class="am-icon-envelope-o"></i> pxjd@cueb.edu.cn
+				<dd><i class="am-icon-envelope-o"></i> lingshui100@163.com
 				</dd>
 			</dl>
 		</li>
-		<li class="promo_detailed--list_item sidebarListLi">
+		<!-- <li class="promo_detailed--list_item sidebarListLi">
 			<img src="../assets/img/index/wx_code.png" style="max-width: 170px;padding-left: 20px;" />
-		</li>
+		</li> -->
 	</body>
 </html>

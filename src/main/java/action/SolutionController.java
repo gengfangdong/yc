@@ -209,8 +209,10 @@ public class SolutionController {
 	public void bmpShow(HttpServletRequest request,HttpServletResponse response,@RequestParam("solution_id")String solution_id) throws IOException {
 		Solution solution = new Solution();
 		solution = solutionService.getSolutionDetailByid(solution_id);
-		 
-        String imagePath = request.getRealPath("/SolutionimagePage")+"/"+solution.getSolution_title_page();
+		String imagepath = request.getRealPath("/SolutionimagePage");
+		String newpath = imagepath.replace("ssmtest", "file");//上传到webapp下
+        String imagePath = newpath+"\\"+solution.getSolution_title_page();
+        //String imagePath = request.getRealPath("/SolutionimagePage")+"/"+solution.getSolution_title_page();
         response.reset();
         File file = new File(imagePath);
         if(file.exists()){   //如果文件存在  

@@ -9,7 +9,7 @@
 		<result column="Solution_KeyWords" jdbcType="VARCHAR" property="Solution_KeyWords"/>
 		<result column="Solution_Release_time" jdbcType="VARCHAR" property="Solution_Release_time"/>
 		<result column="Solution_status" jdbcType="VARCHAR" property="Solution_status"/>
-		<result column="Solution_context" jdbcType="VARCHAR" property="Solution_context"/>
+		<result column="Solution_context" javaType="String" jdbcType="VARBINARY" property="Solution_context"/>
 		<result column="Solution_Creater" jdbcType="VARCHAR" property="Solution_Creater"/>
 		<result column="Solution_Createtime" jdbcType="VARCHAR" property="Solution_Createtime"/>
 	</resultMap>

@@ -14,7 +14,7 @@ SSU_STATUS	N	VARCHAR2(2)	N			报名状态 0为成功 1为失败*/
 
 import java.io.Serializable;
 /**
- * 人员规定班次表
+ * 人员自主报名表
  * @author my
  *
  */
@@ -26,7 +26,7 @@ public class Ssuser implements Serializable{
 	private static final long serialVersionUID = -7986120098133723610L;
 	private String Ssu_id;//id
 	private String Ssu_userid;//用户id
-	private String Ssu_ssid;//规定班次id
+	private String Ssu_ssid;//自主报名id
 	private String Ssu_usernumber;//报名人数
 	private String Ssu_username;//联系人
 	private String Ssu_ydphone;//联系人移动电话
