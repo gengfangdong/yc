@@ -82,6 +82,9 @@ public class RotationPicController {
 			String RotationPic_context,HttpServletRequest request,HttpServletResponse response){
 		//返回结果
 		Map<String,Object> resultMap = new HashMap<String, Object>();
+		if ("".equals(RotationPic_KeyWords)) {
+			return resultMap;
+		}
 		if(file.isEmpty()){
 			resultMap.put("code", 2);//没有选择图片
 			return resultMap;
@@ -100,6 +103,8 @@ public class RotationPicController {
 		}
 		System.out.println(RotationPicName);
 		//构建轮播图片对象
+		
+		
 		RotationPic RotationPic = new RotationPic();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 		String RotationPic_Createtime = df.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
