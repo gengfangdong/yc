@@ -98,6 +98,7 @@
 <!-- 												<input type="text" placeholder="请输入50字以下文字" id="newsAbstract" style="width: 100%;" /> -->
 										        <select name="modules" lay-verify="required" lay-search="" id="newsKeyWords">
 										          <option value="">请选择链接地址</option>
+										          <option value="Nolink">无链接</option>
 										          <option value="cultureSystem.jsp">培养体系</option>
 										          <option value="solution.jsp">解决方案</option>
 										          <option value="teachingMaterialSystem.jsp">教材体系</option>
@@ -246,10 +247,14 @@
 // 							break;
 // 						}
 // 					}
+					var obj1 = $("#newsKeyWords option:selected");
+					var  artime_val  = obj1.val();
+					var  artime_text  = obj1.text();
 			    	this.data={
 			    	"RotationPic_Title": '',
-			    	"RotationPic_Introduction":'',
-					"RotationPic_KeyWords":document.getElementById("newsKeyWords").value,
+// 			    	"RotationPic_Introduction":document.getElementById("newsKeyWords").innerHTML,
+			    	"RotationPic_Introduction":artime_text,
+					"RotationPic_KeyWords":artime_val,
 					"RotationPic_Release_time":'',
 					"RotationPic_status":'',
 					"RotationPic_context":''
@@ -306,6 +311,8 @@
 // 					layer.alert("请填写简介！");
 // 					return;
 // 				}
+	
+				
 				if(newsKeyWords == "") {
 					layer.alert("请填链接地址！");
 					return;

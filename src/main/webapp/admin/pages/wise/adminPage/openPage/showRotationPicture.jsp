@@ -102,6 +102,7 @@
 <!-- 												<input type="text" placeholder="链接地址" id="newsKeyWords" readonly="readonly"/> -->
 												 <select name="modules" lay-verify="required" lay-search="" id="newsKeyWords" readonly="readonly">
 										          <option value="">请选择链接地址</option>
+										          <option value="Nolink">无链接</option>
 										          <option value="cultureSystem.jsp">培养体系</option>
 										          <option value="solution.jsp">解决方案</option>
 										          <option value="teachingMaterialSystem.jsp">教材体系</option>
