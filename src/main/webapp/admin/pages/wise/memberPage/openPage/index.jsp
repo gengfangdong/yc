@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../../../../qrcodejs-master/qrcode.js"></script>
 </head>
 <body>
-<input id="text" type="text" value="http://39.96.70.152/show/dist/html/openPage/showOnlieClasses.jsp?figClass_id=<%=figClass_id %>" style="height:23px;line-height:23px;width:100%;border-radius:5px;border:1px solid #ccc;background:#fff;" disabled="disabled" /><br />
+<input id="text" type="text" value="http://www.taxlead.cn/show/dist/html/openPage/showOnlieClasses.jsp?figClass_id=<%=figClass_id %>" style="height:23px;line-height:23px;width:100%;border-radius:5px;border:1px solid #ccc;background:#fff;" disabled="disabled" /><br />
 <div id="qrcode" style=" margin-top:15px;margin-left:35%;"></div>
 
 <script type="text/javascript">

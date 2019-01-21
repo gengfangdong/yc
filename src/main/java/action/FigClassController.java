@@ -19,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -108,7 +109,7 @@ public class FigClassController {
 		figClass.setFigClass_person(figClass_person);
 		figClass.setFigClass_phone(figClass_phone);
 		figClass.setFigClass_start_date(figClass_start_date);
-		figClass.setFigClass_status("0");
+		figClass.setFigClass_status("1");//状态直接为审核通过  ------2019-01-18 新修改
 		figClass.setFigClass_updater(iUser.getUser_id());
 		figClass.setFigClass_updatetime(date);
 		
@@ -179,6 +180,27 @@ public class FigClassController {
 		resultMap.put("message", "1");//导入成功
 		return resultMap;
 	}
+	
+	/**
+	 * 课程带天数的拼班
+	 * @param figClass_name
+	 * @param figClass_deparment
+	 * @param figClass_address
+	 * @param figClass_start_date
+	 * @param figClass_end_date
+	 * @param figClass_class_start
+	 * @param contactWorkNumber
+	 * @param figClass_class_end
+	 * @param figClass_pernum
+	 * @param figClass_phone
+	 * @param figClass_person
+	 * @param figClass_caogery
+	 * @param figClass_outline
+	 * @param figClass_day
+	 * @param files
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/addFignew")
 	public Map<String,Object> addFigClassnew(String figClass_name, String figClass_deparment, String figClass_address,
 			String figClass_start_date, String figClass_end_date, String figClass_class_start,String contactWorkNumber,
@@ -216,7 +238,7 @@ public class FigClassController {
 		figClass.setFigClass_person(figClass_person);
 		figClass.setFigClass_phone(figClass_phone);
 		figClass.setFigClass_start_date(figClass_start_date);
-		figClass.setFigClass_status("0");
+		figClass.setFigClass_status("1");//直接为审核通过  --------2019-01-18
 		figClass.setFigClass_updater(iUser.getUser_id());
 		figClass.setFigClass_updatetime(date);
 		figClass.setFigClass_worknum(contactWorkNumber);
@@ -292,7 +314,7 @@ public class FigClassController {
 		
 		try{
 			figClassService.insertFig(figClass, figfiles);
-			
+			resultMap.put("figid", figClass);
 		}catch(Exception e){
 			e.printStackTrace();
 			resultMap.put("success", false);
@@ -457,13 +479,13 @@ public class FigClassController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		// 获取是否登录
-		IUser iUser = new IUser();
+		/*IUser iUser = new IUser();
 		iUser = (IUser) request.getSession().getAttribute("user");
 		if (iUser == null) {
 			resultMap.put("success", false);
 			resultMap.put("message", "0");// 未登录
 			return resultMap;
-		}
+		}*/
 		/*// 获取定制班次实例
 		Free_constom free_constom = new Free_constom();
 		free_constom = constomService.getDetailByid(Constom_id);
@@ -516,6 +538,17 @@ public class FigClassController {
 		return resultMap;
 	}
 
+	/**
+	 * 拼班报名
+	 * @param figClass_id
+	 * @param Fiu_number
+	 * @param Fiu_username
+	 * @param Fiu_ydphone
+	 * @param Fiu_phone
+	 * @param Fiu_department
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/apply")
 	public Map<String, Object> applyFig(String figClass_id, String Fiu_number, String Fiu_username, String Fiu_ydphone,
 			String Fiu_phone, String Fiu_department,HttpServletRequest request) {
@@ -568,6 +601,7 @@ public class FigClassController {
 		figUser.setFiu_id(UUIDUtil.getUUid("fiu"));
 		try{
 			figClassService.applyFig(figUser);
+			resultMap.put("figid", figClass);
 		}catch(Exception e){
 			e.printStackTrace();
 			resultMap.put("success", false);
@@ -579,6 +613,12 @@ public class FigClassController {
 		return resultMap;
 	}
 
+	/**
+	 * 取消拼班报名
+	 * @param Fiu_id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/cancelbm")
 	public Map<String, Object> cancelFigUser(String Fiu_id,HttpServletRequest request) {
 		// 结果map
@@ -603,6 +643,13 @@ public class FigClassController {
 		resultMap.put("message", "2");// 取消成功
 		return resultMap;
 	}
+	/**
+	 * 获取报名拼班的人
+	 * @param page
+	 * @param limit
+	 * @param figClass_id
+	 * @return
+	 */
 	@RequestMapping("/LayFu/{figClass_id}")
 	public LayuiDataTable<FigUser> getFuByPage(@RequestParam("page")int page,@RequestParam("limit")int limit,@PathVariable String figClass_id){
 		LayuiDataTable<FigUser> fDataTable = new LayuiDataTable<FigUser>();
@@ -761,6 +808,28 @@ public class FigClassController {
 		resultMap.put("message", "5");//修改成功!
 		return resultMap;
 	}
+	/**
+	 * 修改拼班
+	 * @param figClass_id
+	 * @param file
+	 * @param oldfilename
+	 * @param figClass_name
+	 * @param figClass_deparment
+	 * @param figClass_address
+	 * @param figClass_start_date
+	 * @param figClass_end_date
+	 * @param figClass_class_start
+	 * @param contactWorkNumber
+	 * @param figClass_class_end
+	 * @param figClass_pernum
+	 * @param figClass_phone
+	 * @param figClass_person
+	 * @param figClass_caogery
+	 * @param figClass_outline
+	 * @param figClass_day
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/updateFigClassnew")
 	@ResponseBody
 	public Map<String,Object> updateFigClassnew(String figClass_id,@RequestParam("file") MultipartFile[] file,String[] oldfilename,
@@ -900,6 +969,7 @@ public class FigClassController {
 		//constomService.updateConstom(free_constom);
 		try{
 			figClassService.updateFig(figClass);
+			resultMap.put("figid", figClass);
 		}catch(Exception e){
 			e.printStackTrace();
 			resultMap.put("success", false);
@@ -929,7 +999,14 @@ public class FigClassController {
     }
     
 
-	@RequestMapping("/Review")
+	/** 审核拼班  没有拼版审核
+	 * @param figclass_id
+	 * @param request
+	 * @param review_result
+	 * @param result
+	 * @return
+	 */
+    @RequestMapping("/Review")
 	public Map<String,Object> ReviewFigclass(String figclass_id,HttpServletRequest request,String review_result,String result){
 		//结果map
 		Map<String,Object> resultMap = new HashMap<String, Object>();
@@ -999,6 +1076,12 @@ public class FigClassController {
 		return resultMap;
 	}
 	
+	/**
+	 * 导出拼班的人
+	 * @param request
+	 * @param response
+	 * @param figclass_id
+	 */
 	@RequestMapping("/exportUser/{figclass_id}")
 	public void ExportUser(HttpServletRequest request,HttpServletResponse response,@PathVariable String figclass_id){
 		//获取登录用户
@@ -1070,6 +1153,12 @@ public class FigClassController {
 	   
 	}
 	
+	/**
+	 * 管理员导出拼班名单
+	 * @param request
+	 * @param response
+	 * @param figclass_id
+	 */
 	@RequestMapping("/exportUserad/{figclass_id}")
 	public void ExportUserad(HttpServletRequest request,HttpServletResponse response,@PathVariable String figclass_id){
 		//获取登录用户
@@ -1141,6 +1230,12 @@ public class FigClassController {
 		}
 	   
 	}
+	/**
+	 * 删除拼班
+	 * @param figclass_id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/deleteFig/{figclass_id}")
 	public Map<String,Object> deleteFig(@PathVariable String figclass_id,HttpServletRequest request){
 		//返回结果集
@@ -1166,6 +1261,12 @@ public class FigClassController {
 		resultMap.put("message", "2");//删除成功
 		return resultMap;
 	}
+	/**
+	 * 开课
+	 * @param figClass_id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/openClass/{figClass_id}")
 	public Map<String,Object> openClass(@PathVariable String figClass_id,HttpServletRequest request){
 		//
@@ -1230,6 +1331,12 @@ public class FigClassController {
 		return resultmap;
 	}
 	
+	/**
+	 * 结束
+	 * @param figClass_id
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/endClass/{figClass_id}")
 	public Map<String,Object> endClass(@PathVariable String figClass_id,HttpServletRequest request){
 		//
@@ -1268,5 +1375,26 @@ public class FigClassController {
 		resultmap.put("message", "3");//开课成功
 		return resultmap;
 	}
-	
+	@RequestMapping("/gedetailbm")
+	public Map<String,Object> getbm(String figClass_id,HttpServletRequest request){
+		Map<String,Object> resultmap = new HashMap<>();
+		IUser iuser = new IUser();
+		iuser = (IUser)request.getSession().getAttribute("user");
+		if(iuser == null){
+			resultmap.put("success", false);
+			resultmap.put("message", "0");//未登录
+			return resultmap;
+		}
+		FigUser figuser = new FigUser();
+		try{
+			figuser = figClassService.getfiguser(figClass_id, iuser.getUser_id());
+		}catch(Exception e){
+			resultmap.put("success", false);
+			resultmap.put("message", "1");//未登录
+			return resultmap;
+		}
+		resultmap.put("success", true);
+		resultmap.put("figuser", figuser);
+		return resultmap;
+	}
 }

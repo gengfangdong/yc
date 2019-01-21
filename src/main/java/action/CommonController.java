@@ -53,6 +53,27 @@ public class CommonController {
 		resultmap.put("url", path+"?filename="+filenewName);
 		return resultmap;
 	}
+	@RequestMapping("/uploadFilen")
+	@ResponseBody
+	public Map<String,Object> uploadfile(@RequestParam("upload") MultipartFile file,HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultmap=new HashMap<String, Object>();
+		String pathname = request.getSession().getServletContext().getRealPath("/");
+		String newpath = pathname.replace("ssmtest", "file");
+		logger.info(newpath);
+		String path=PropertiesUtil.getProperty("ckeditor_uploadurl");
+		FileUtil fileUtil = new FileUtil();
+		String filenewName="";
+		try {
+			filenewName=fileUtil.uploadFile(file, file.getOriginalFilename(),newpath+"\\"+"uploadFile");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resultmap.put("uploaded", "1");
+		resultmap.put("fileName", filenewName);
+		resultmap.put("url", path+"?filename="+filenewName);
+		return resultmap;
+	}
 	
 	/**
 	 * 查看新闻的封面图片

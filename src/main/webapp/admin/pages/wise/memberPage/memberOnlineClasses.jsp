@@ -720,8 +720,8 @@ String caogery = (String)session.getAttribute("isad");
 				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
+				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 				{{#  if(d.user_status == "1"){ }}
-					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}
@@ -753,11 +753,11 @@ String caogery = (String)session.getAttribute("isad");
 
 		<script type="text/html" id="typestatus">
 	     {{#  if(d.figClass_status == "0"){ }}
-	                            未审核
+	                            报名未开始
 	     {{#  }else if(d.figClass_status=="1"){ }}
-	     	审核通过
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="2"){ }}
-	     	审核未通过
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="3"){ }}
 	     	报名未开始
 	     {{#  }else if(d.figClass_status=="4"){ }}

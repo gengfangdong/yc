@@ -28,14 +28,14 @@ public class MessageUtil {
 		map.put("content", "【领税】"+content);
 		map.put("signature", "1670d2d8a7d8d7d17780dfbec4011f89");
         OkHttpClient httpClient = new OkHttpClient();
-        RequestBody requestBody = RequestBody.create(JSON, new Gson().toJson(map));
-        Request request = new Request.Builder().url(URL).post(requestBody).build();
-        Response response = httpClient.newCall(request).execute();
-        String resultjson = response.body().string();
-        Message message = new Gson().fromJson(resultjson, Message.class);
-        if("error".equals(message.getStatus())){
-        	return "0";
-        }
+        //RequestBody requestBody = RequestBody.create(JSON, new Gson().toJson(map));
+        //Request request = new Request.Builder().url(URL).post(requestBody).build();
+        //Response response = httpClient.newCall(request).execute();
+        //String resultjson = response.body().string();
+        //Message message = new Gson().fromJson(resultjson, Message.class);
+        //if("error".equals(message.getStatus())){
+        	//return "0";
+        //}
         //System.out.println(new JSONObject(map).toString());
         return "1";
     }

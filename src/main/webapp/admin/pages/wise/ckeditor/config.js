@@ -14,7 +14,8 @@ CKEDITOR.editorConfig = function( config ) {
     config.font_names='宋体/SimSun;新宋体/NSimSun;仿宋_GB2312/FangSong_GB2312;楷体_GB2312/KaiTi_GB2312;黑体/SimHei;微软雅黑/Microsoft YaHei;'+ config.font_names;
     /**配置工具栏*/
     config.image_previewText=' '; //预览区域显示内容
-    config.filebrowserImageUploadUrl= 'http://39.96.70.152/Common/uploadFile ';
+    config.filebrowserImageUploadUrl= 'http://localhost:8081/Common/uploadFile ';
+    config.filebrowserUploadUrl='http://localhost:8081/Common/uploadFilen';
     /*
     config.toolbar = 'Basic';
     config.toolbar_Basic =

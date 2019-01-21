@@ -52,7 +52,7 @@
 									<% if(user == null) {%><a href="html/login.jsp" style="color: #000;">登录</a>
 										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000;">后台登录</a>
 									<%}; %>
-									<a href="html/register.jsp" style="color: #000000;">注册</a>
+									<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</a>
 								</div>
 							</div>
 						</div>
@@ -60,7 +60,7 @@
 				</div>
 				<!--topbar end-->
 
-				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;z-index: 999999;">
 					<!--header start-->
 					<div class="container" style="width: auto!important;">
 						<div class="header">
@@ -76,10 +76,10 @@
 											<div class="nav-contain" style="border: none;box-shadow: none;">
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
-														<li class="">
+														<li class="" style="min-width:90px;">
 															<a href="#" style="color: #FF2F2F;">首页</a>
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="/show/dist/html/cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -101,16 +101,16 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/regulationsClasses.jsp">自主报名</a>
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/customizedClasses.jsp">定制班次</a>
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/onlineClasses.jsp">拼班</a>
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/incumbencyStudent.jsp">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -123,7 +123,7 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -136,7 +136,7 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li>
+														<li style="min-width:90px;">
 															<a href="../show/dist/html/centerOverview.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -316,9 +316,11 @@
 								<ul class="promo_detailed--list noPadding_li" id="newsNoticeUl">
 									<li class="promo_detailed--list_item">
 										<dl>
-											<dt><a href="newsNotice_content.jsp">东岳集团举行2019产业链合作年会，绘就千亿...</a></dt>
+											<dt>
+												<!-- <a href="newsNotice_content.jsp">东岳集团举行2019产业链合作年会，绘就千亿...</a> -->
+											</dt>
 											<dd>
-												2018-11-19
+												<!-- 2018-11-19 -->
 											</dd>
 										</dl>
 									</li>
@@ -444,7 +446,7 @@
 		<!--===========layout-footer================-->
 		<div class="layout-footer">
 			<div class="footer">
-			<div style="background-color:#054371" class="footer--bg"></div>
+				<div style="background-color:#054371" class="footer--bg"></div>
 				<div class="footer--inner">
 					<div class="container">
 						<div class="footer_main">
@@ -452,16 +454,17 @@
 								<div class="am-u-md-12">
 									<div class="footer_main--column am-u-md-12" style="margin-top:0;">
 										<ul class="footer_contact_info">
-											<li class="footer_contact_info--item" style="margin-left:11%;">
-												<img alt="logo" src="../show/dist/assets/img/logo_bottom.png" style="width: 30px">
-											</li>
-											<li class="footer_contact_info--item"><span>联系方式</span></li>
-											<li class="footer_contact_info--item"><i class="am-icon-phone"></i>
-												<span>办公电话010-62280881 </span>
-												<span>移动电话16601021525/16601021533</span>
+											<li class="footer_contact_info--item" >
+												<img alt="logo" src="show/dist/assets/img/logo_bottom.png"  style="width: 30px">
 											</li>
 											<li class="footer_contact_info--item">
-												<i class="am-icon-envelope-o"></i><span>E-mail：lingshui100@163.com</span>
+												<i class="am-icon-home"></i><span style="padding:0 0 0 15px;">北京市海淀区中关村大街59号中国人民大学财政金融学院</span>
+											</li>
+											<li class="footer_contact_info--item"><i class="am-icon-phone"></i>
+												<span style="padding:0 0 0 15px;">联系电话：16601021525&nbsp;16601021533&nbsp;16601021611 </span>
+											</li>
+											<li class="footer_contact_info--item">
+												<i class="am-icon-envelope-o"></i><span style="padding:0 0 0 15px;">E-mail：lingshui100@163.com</span>
 											</li>
 										</ul>
 									</div>
@@ -580,7 +583,7 @@
 			});
 			
 			
-			 $.ajax({
+			$.ajax({
 				url : '<%=request.getContextPath()%>/Show/findAllRotation',
 				type : 'post',
 				async:false,
@@ -600,7 +603,12 @@
 					for(var i=0;i<datas.length;i++){
 						var getSlide = function() {
 							var lis="";
-								lis = lis+'<li><a href="../show/dist/html/'+datas[i].rotationPic_KeyWords+'"><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></a></li>';
+							var li='<li><a href="<%=request.getContextPath()%>/show/dist/html/'+datas[i].rotationPic_KeyWords+'"><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></a></li>';
+							if(datas[i].rotationPic_KeyWords=='Nolink'){
+								 li='<li><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></li>';
+							}
+							
+								lis = lis+li;
 						   return lis;
 						};
 						$slider.flexslider('addSlide', getSlide());

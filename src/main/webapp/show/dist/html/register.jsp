@@ -23,6 +23,17 @@
         input{
         	border-radius:10px!important;
         }
+        #getCode:hover{
+        	color:#1E9FFF;
+        }
+        #getCode{
+        	width:30%;
+        	margin-left:2%;
+        	height:37px;
+        	border-radius:5px;
+        	border:1px solid #ccc;
+        	background:#fafafa;
+        }
     </style>
 </head>
 <body class="register-container">
@@ -63,7 +74,7 @@
         </div>
         <!--topbar end-->
 
-        <div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
+        <div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;z-index: 999999;">
             <!--header start-->
             <div class="container" style="width: auto!important;">
                 <div class="header">
@@ -80,10 +91,10 @@
                                     <div class="nav-contain" style="border: none;box-shadow: none;">
                                         <div class="nav-inner">
                                             <ul class="am-nav am-nav-pills am-nav-justify">
-                                                <li class="">
+                                                <li class="" style="min-width:90px;">
                                                     <a href="<%=request.getContextPath() %>/">首页</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="cultureSystem.jsp">项目概况</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
@@ -105,16 +116,16 @@
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="regulationsClasses.jsp">自主报名</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="customizedClasses.jsp">定制班次</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="onlineClasses.jsp">拼班</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="incumbencyStudent.jsp">在职研</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
@@ -127,7 +138,7 @@
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="newsNotice.jsp">新闻公告</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
@@ -140,7 +151,7 @@
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                    <a href="centerOverview.jsp">关于我们</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -290,7 +301,7 @@
 
     <!--===========layout-container================-->
     <div class="register-box" style="width: 550px;margin: 40px auto 0;">
-        <form action="" class="am-form" data-am-validator>
+        <div  class="am-form" data-am-validator>
             <fieldset>
                 <legend style="color: #14426a;font-size: 24px;font-weight: 600;">注册用户</legend>
 
@@ -302,6 +313,17 @@
                         <div class="am-u-md-10">
                             <input type="text" id="register_phone" minlength="11" maxlength="11"
                                    placeholder="请输入您的手机号" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-g">
+                        <div class="am-u-md-2 am-padding-0 am-text-right">
+                            <label for="register_userName" class="register-name register_userName"><span style="color:red;">*</span>验证码</label>
+                        </div>
+                        <div class="am-u-md-10">
+                            <input type="text" id="register_verifyCode" maxlength="6" placeholder="请输入6位验证码" required style="width:67%;float:left;"/>
+                            <button type="button" id="getCode"  >获取验证码</button>
                         </div>
                     </div>
                 </div>
@@ -329,7 +351,7 @@
                 </div>
                 <div class="am-form-group">
                     <div class="am-g">
-                        <div class="am-u-md-2 am-padding-0 am-text-right">
+                        <div class="am-u-md-2 am-padding-0 am-text-right"> 	
                             <label for="register_email" class="register-name register_email">联系邮箱</label>
                         </div>
                         <div class="am-u-md-10">
@@ -411,7 +433,7 @@
                 <div class="am-g">
                     <div class="am-u-md-12" style="display: flex;justify-content: center;align-items: center;">
                         <button class="am-btn am-btn-secondary am-btn-primary"
-                                type="submit" style="margin: 0;background: #1E9FFF;border-color: #1E9FFF;" onclick="submitRegister();">注册
+                                type="" style="margin: 0;background: #1E9FFF;border-color: #1E9FFF;" onclick="submitRegister();">注册
                         </button>
                     </div>
                 </div>
@@ -432,7 +454,7 @@
                 </div>-->
 
             </fieldset>
-        </form>
+        </div>
     </div>
 
 </div>
@@ -450,8 +472,60 @@
 <![endif]-->
 <script src="../assets/js/amazeui.js" charset="utf-8"></script>
 <script>
+	$("#getCode").on("click", function(){
+        var register_phone = $('#register_phone').val();
+        var testPhone = /^1\d{10}$/;
+		if(register_phone==""){
+            alert("请输入登录名称！");
+            return;
+        }else if(testPhone.test(register_phone)==false){
+            alert("请输入正确的登录名称！");
+            return;
+        }
+		 $.ajax({
+			url:'<%=request.getContextPath()%>/IUser/sendMess',
+			type:'post',
+			dataType:'json',
+			data:{
+				"phone":register_phone
+			},
+			success:function(data){
+				if(data.success == true){
+					if(data.message == "2"){
+						//alert("发送成功!");
+						var countdown=60;  
+					    var getCode = $("#getCode");
+					    settime();
+					    function settime() {  
+					      if (countdown == 0) {  
+					       // getCode.attr("disabled",false);  
+					         $("#getCode")[0].innerHTML="获取短信验证码";  
+					        countdown = 60;  
+					        return false;  
+					      } else {  
+					        $("#getCode").attr("disabled", true);  
+					        $("#getCode")[0].innerHTML=countdown + 's后重新发送';  
+					        countdown--;  
+					      }  
+					      setTimeout(function() {  
+					        settime();  
+					      },1000);  
+					    } 
+						return;
+					}
+	        	}else{
+	        		if(data.message == "1"||data.message == "0"){
+						alert("发送失败!");
+						return;
+					}
+	        	}
+
+			}
+		})
+	});
     function submitRegister() {
         var register_phone = $('#register_phone').val();
+        var register_verifyCode = $("#register_verifyCode").val();
         var register_userName = $('#register_userName').val();
         var register_tel = $("#register_tel").val();
         var register_email = $("#register_email").val();
@@ -471,17 +545,26 @@
             alert("请输入正确的登录名称！");
             return;
         }
+        if(register_verifyCode==""){
+        	alert("请输入验证码!");
+        	return;
+        }else if($("#register_verifyCode")[0].value.length<6||$("#register_verifyCode")[0].value.length>6){
+        	alert("请输入6位验证码!");
+        	return;
+        }else if(register_verifyCode){
+        	
+        }
         if(register_userName==""){
             alert("请输入您的姓名！");
             return;
         }
-	if(register_tel==""){
-		alert("请输入办公电话！");
-		return;
-	}else if(testTel.test(register_tel)==false){
-		alert("请输入有效的办公电话！");
-		return;
-	}
+		if(register_tel==""){
+			alert("请输入办公电话！");
+			return;
+		}else if(testTel.test(register_tel)==false){
+			alert("请输入有效的办公电话！");
+			return;
+		}
         if(register_email!="" && testEmail.test(register_email)==false){
             alert("请输入正确的邮箱！");
             return;
@@ -518,29 +601,6 @@
             return;
         }
 
-       /* var successRegister = '<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">' +
-            '                    <div class="am-modal-dialog">' +
-            '                        <div class="am-modal-bd">' +
-            '                            注册成功！' +
-            '                        </div>' +
-            '                        <div class="am-modal-footer">' +
-            '                            <span class=""><a href="login.html">登录</a></span>' +
-            '                            <span class="am-modal-btn">取消</span>' +
-            '                        </div>' +
-            '                    </div>' +
-            '                </div>';
-
-        var errorRegister = '<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">' +
-            '                    <div class="am-modal-dialog">' +
-            '                        <div class="am-modal-bd">' +
-            '                            注册失败！' +
-            '                        </div>' +
-            '                        <div class="am-modal-footer">' +
-            '                            <span class="am-modal-btn">确定</span>' +
-            '                        </div>' +
-            '                    </div>' +
-            '                </div>';*/
-
         $.ajax({
             url:'<%=request.getContextPath()%>/IUser/regist',
             data:{
@@ -552,7 +612,8 @@
                 "User_department":register_department,
                 "User_job":"",
                 "User_hold":register_post,
-                "User_password":register_password1
+                "User_password":register_password1,
+                "appid":$("#register_verifyCode")[0].value
             },
             dateType:"json",
             type:"post",
@@ -563,7 +624,8 @@
                     if(r==true){
                     	/* window.open('','_self','');
                     	window.close(); */
-                    	window.open('<%=request.getContextPath()%>/show/dist/html/login.jsp','_self');
+                    	
+                    	javascript:location.href='<%=request.getContextPath()%>/show/dist/html/login.jsp';
                     }else{
                         return;
                     }
@@ -573,9 +635,12 @@
                         alert("登录名存在!");
                         return;
                     }
-                    else{
-                        alert("参数错误!");
+                    else if(data.msg == "4"){
+                        alert("验证码错误!");
                         return;
+                    }else{
+                    	alert("参数错误!");
+                    	return;
                     }
                 }
             },error:function(e){

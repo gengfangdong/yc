@@ -773,11 +773,11 @@ String caogery = (String)session.getAttribute("isad");
 
 		<script type="text/html" id="typestatus">
 	     {{#  if(d.figClass_status == "0"){ }}
-	                            未审核
+	                           报名未开始
 	     {{#  }else if(d.figClass_status=="1"){ }}
-	     	审核通过
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="2"){ }}
-	     	审核未通过
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="3"){ }}
 	     	报名未开始
 	     {{#  }else if(d.figClass_status=="4"){ }}

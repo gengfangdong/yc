@@ -18,7 +18,8 @@
     <div class="logo-img">
       <img src="../assets/img/logo.png" alt="" />
     </div>
-    <form action="" class="am-form" data-am-validator>
+    <div  class="am-form" data-am-validator>
+   
       <div class="am-form-group" style="border-bottom: 2px #1E9FFF solid;">
         <label for="register_loginName"><i class="am-icon-user" style="color: #1E9FFF;"></i></label>
         <input type="text" id="register_loginName" minlength="11" maxlength="11" placeholder="输入登录名称" required/>
@@ -30,7 +31,7 @@
       </div>
       <button class="am-btn am-btn-secondary"  onclick="login();"  style="background: #1E9FFF;border-color: #1E9FFF;">登录</button>
       <button class="am-btn am-btn-secondary"  onclick="register();"  style="background: #1E9FFF;border-color: #1E9FFF;margin:10px auto 0;">注册</button>
-    </form>
+     </div>
   </div>
 
   <script>
@@ -51,7 +52,7 @@
 					<%-- javascript:location.href='<%=request.getContextPath()%>/show/dist/';
 					return false; --%>
 					
-               		window.open('<%=request.getContextPath()%>/','_blank');
+					javascript:location.href='<%=request.getContextPath()%>/';
 				}
 				
 			},
@@ -61,7 +62,7 @@
 		});
   }
   function register(){
-	  window.open('<%=request.getContextPath()%>/show/dist/html/register.jsp','_self');
+	  javascript:location.href='<%=request.getContextPath()%>/show/dist/html/register.jsp';
   }
   
   </script>

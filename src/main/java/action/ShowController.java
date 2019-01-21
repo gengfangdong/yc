@@ -214,6 +214,7 @@ public class ShowController {
 		datatablesViewPage.setDraw(1);
 		return datatablesViewPage;
 	}
+	
 	/**
 	 * 查询全部培养
 	 * @return

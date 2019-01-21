@@ -52,7 +52,7 @@
 									<% if(user == null) {%><a href="html/login.jsp" style="color: #000;">登录</a>
 										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000;">后台登录</a>
 									<%}; %>
-									<a href="html/register.jsp" style="color: #000000;">注册</a>
+									<a href="<%=request.getContextPath()%>/html/register.jsp" style="color: #000000;">注册</a>
 								</div>
 							</div>
 						</div>

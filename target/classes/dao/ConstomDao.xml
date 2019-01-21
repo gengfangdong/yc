@@ -27,16 +27,16 @@
 	<update id="startScheduledco">
 		 update FREE_COSTOM s
 		    set s.Freeco_STATUS = (case
-		                               when SYSDATE &gt;=
-		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &gt;=
+		                                    Freeco_DATA then
 		                                '3'
-		                                when SYSDATE &gt;=
-		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;=
-		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                                when to_char(sysdate,'YYYY-MM-DD') &gt;=
+		                                    Freeco_DATA AND
+		                                    to_char(sysdate,'YYYY-MM-DD') &lt;=
+		                                    Freeco_DATA then
 		                                '3'
-		                                when SYSDATE &gt;
-		                                    TO_DATE(Freeco_DATA, 'YYYY-MM-DD') then
+		                                when to_char(sysdate,'YYYY-MM-DD') &gt;
+		                                    Freeco_DATA then
 		                                '4'
 		                             end)
 		  where S.Freeco_ISDELETE = '0'

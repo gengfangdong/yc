@@ -427,7 +427,7 @@ String caogery = (String)session.getAttribute("isad");
 		                	     return startIndex+meta.row+1;
 		                }},
 		                {"data": "rotationPic_id"},
-		                {"data": "rotationPic_KeyWords"},
+		                {"data": "rotationPic_Introduction"},
 // 		                {"data": "rotationPic_Release_time"},
 // 		                {"data": "rotationPic_status",
 // 			              "render":function(data,type,row,meta){

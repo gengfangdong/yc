@@ -24,7 +24,7 @@
 	</insert>
 	<update id="deleteFiu" parameterType="String">
 		UPDATE FIGUSER T 
-			SET T.FIU_ISDELETE = '1',
+			SET T.FIU_ISDELETE = '1'
 				WHERE T.FIU_ID = #{fiu_id}
 	</update>
 	

@@ -132,7 +132,8 @@
 									</tbody>
 								</table>
 								<div style="text-align: center;margin-top: 0px;">
-									<button class="picSave" onclick="Baoming();">保存</button>
+									<button class="picSave" onclick="Baoming();" id="save">保存</button>
+									<button class="picSave" onclick="parent.layer.close(parent.layer.getFrameIndex(window.name));" id="close">关闭</button>
 								</div>
 							</div>
 
@@ -261,6 +262,45 @@
 					}
 				})
 		}
+		</script>
+		<script type="text/javascript">
+			window.onload=function getbm(){
+				$.ajax({
+					url:'<%=request.getContextPath()%>/FigClass/gedetailbm',
+					type:'post',
+					data:{
+						figClass_id:'<%=figClass_id%>'
+					},
+					success:function(data){
+						if(data.success == true){
+							var number = document.getElementById("numOfParticipants");
+							var name = document.getElementById("contactPersonName");
+				        	var workPhone = document.getElementById("contactWorkTel");
+				        	var phone = document.getElementById("contactPhone");
+				        	var department = document.getElementById("companyInformation");
+				        	number.value=data.figuser.fiu_number;
+				        	name.value = data.figuser.fiu_username;
+				        	workPhone.value=data.figuser.fiu_phone;
+				        	phone.value=data.figuser.fiu_ydphone;
+				        	department.value=data.figuser.fiu_department;
+				        	if(data.figuser!=null){
+				        		$("#save").css('display','none');
+				        	}
+						}
+						else{
+							if(data.message == "0"){
+								layer.alert("未登录!");
+							}else if(data.message == "1"){
+								layer.alert("获取异常!");
+							}
+
+						}
+					},
+					error:function(data){
+						layer.alert("保存失败!");
+					}
+				})
+			}
 		</script>
 	</body>
 </html>

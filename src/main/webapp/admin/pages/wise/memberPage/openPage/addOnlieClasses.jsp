@@ -811,11 +811,26 @@
 					success:function(data){
 						if(data.success == true){
 							if(data.message == "1"){
-								layer.confirm('保存成功!', { title:'提示'}, function(index){				
-									window.parent.location.reload();
+								
+									  
+								 layer.confirm('保存成功!', { title:'提示'}, function(index){	
+									layer.open({
+												type: 2, //此处以iframe举例
+												title: '查看二维码',
+												area: ['70%', '530px'],
+												shade: 0,
+												maxmin: true,
+												offset: ['10%', '15%'],
+												content: 'index.jsp?figClass_id='+data.figid.figClass_id,
+												zIndex: layer.zIndex, //重点1
+												success: function(layero) {
+													layer.setTop(layero); //重点2
+												}
+											});
+									/*window.parent.location.reload();
 									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
-								});
+									parent.layer.close(index1);*/
+								}); 
 							}
 						}else{
 							layer.alert('保存失败！');

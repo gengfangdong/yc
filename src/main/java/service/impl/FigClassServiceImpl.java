@@ -299,6 +299,10 @@ public class FigClassServiceImpl implements FigClassService {
 		SimpleDateFormat APP = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String APPLYDATE = APP.format(new Date());// Date()为获取当前系统时间，也可使用当前时间戳
 		//figClassDao.deleteFig(figclass_id, user_id, APPLYDATE);
+		List<FigUser> figUsers = figUserDao.getByFigClassidanduserid(figclass_id, user_id);
+		if(figUsers!=null&&figUsers.size()>0){
+			figUserDao.deleteFiu(figUsers.get(0).getFiu_id());
+		}
 		user_FigClassDao.deleteFig(user_id, APPLYDATE, figclass_id, user_id);
 		
 	}
@@ -648,6 +652,17 @@ public class FigClassServiceImpl implements FigClassService {
 	public List<FigUser> getBynoPage(String figClass_id) {
 		// TODO Auto-generated method stub
 		return figUserDao.getBynoPage(figClass_id);
+	}
+
+	@Override
+	public FigUser getfiguser(String figclass_id, String user_id) {
+		// TODO Auto-generated method stub
+		List<FigUser> figUsers = new ArrayList<>();
+		figUsers = figUserDao.getByFigClassidanduserid(figclass_id, user_id);
+		if(figUsers!=null&&figUsers.size()>0){
+			return figUsers.get(0);
+		}
+		return null;
 	}
 	
 	

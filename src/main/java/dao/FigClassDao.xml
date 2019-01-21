@@ -36,18 +36,18 @@
 	<update id="startScheduledFig">
 		 update FIGCLASS f
 		    set f.FIGCLASS_STATUS = (case
-		                                when SYSDATE &lt;
-		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') then 
+		                                when to_char(sysdate,'YYYY-MM-DD') &lt;
+		                                    FIGCLASS_START_DATE then 
 		                                '3'
-		                               when SYSDATE &gt;=
-		                                    TO_DATE(FIGCLASS_START_DATE, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;=
-		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &gt;=
+		                                    FIGCLASS_START_DATE AND
+		                                    to_char(sysdate,'YYYY-MM-DD') &lt;=
+		                                    FIGCLASS_END_DATE then
 		                                '4' 
-		                               when SYSDATE &gt;
-		                                    TO_DATE(FIGCLASS_END_DATE, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;
-		                                    TO_DATE(FIGCLASS_CLASS_START, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &gt;
+		                                    FIGCLASS_END_DATE AND
+		                                    to_char(sysdate,'YYYY-MM-DD') &lt;=
+		                                    FIGCLASS_CLASS_START then
 		                                '5'
 		                             end)
 		  where f.FIGCLASS_ISDELETE = '0'

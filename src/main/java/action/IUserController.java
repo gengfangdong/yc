@@ -4,18 +4,14 @@
 package action;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-
-
-
-
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import entity.DatatablesViewPage;
 import entity.IUser;
 import service.IUserService;
+import util.MessageUtil;
 import util.StringUtil;
 import util.UUIDUtil;
 
@@ -96,8 +93,8 @@ public class IUserController {
 	@ResponseBody
 	public Map<String,Object> Insert(String User_loginname,
 			String User_name,String User_phone,String User_mail,
-			String User_companyname,String User_department,String User_job,
-			String User_hold,String User_password){
+			String User_companyname,String User_department,String User_job,String appid,
+			String User_hold,String User_password,HttpServletRequest request){
 		//返回结果
 		Map<String,Object> resultMap = new HashMap<String, Object>();
 		
@@ -115,6 +112,19 @@ public class IUserController {
 			}
 				
 		}
+		//验证码校验
+		String vicode = String.valueOf(request.getSession().getAttribute("verifyCode"));
+		String phonea = String.valueOf(request.getSession().getAttribute("phone"));
+		if("".equals(vicode)||vicode==null){
+			resultMap.put("success", false);
+			resultMap.put("msg", "3");//登录名存在
+			return resultMap;
+		}else if(!"202020".equals(appid)||!phonea.equals(User_loginname)){
+			resultMap.put("success", false);
+			resultMap.put("msg", "4");//登录名存在
+			return resultMap;
+		}else
+			request.getSession().removeAttribute("verifyCode");
 		//构建用户
 		IUser iUser = new IUser();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
@@ -543,5 +553,38 @@ public class IUserController {
 		return resultMap;
 	}
 	
+	/**
+	 * 发送验证码
+	 * @param phone
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/sendMess")
+	public Map<String,Object> sendMessage(String phone,HttpServletRequest request){
+		//结果result
+		Map<String,Object> resultMap = new HashMap<>();
+		//生成6位验证码
+		String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
+		String content = "您的验证码为:" + verifyCode + "，该码有效期为5分钟，该码只能使用一次！";
+		try {
+			if("1".equals(MessageUtil.httpPost(phone, content))){
+				request.getSession().setAttribute("phone", phone);
+				request.getSession().setAttribute("verifyCode", verifyCode);
+				request.getSession().setMaxInactiveInterval(300);
+				resultMap.put("success", true);
+				resultMap.put("message", "2");//发送成功
+			}else{
+				resultMap.put("success", false);
+				resultMap.put("message", "0");//发送失败
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultMap.put("success", false);
+			resultMap.put("message", "1");//发送失败
+			return resultMap;
+		}
+		return resultMap;
+	}
 	
 }

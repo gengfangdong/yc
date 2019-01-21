@@ -83,24 +83,25 @@
 	<update id="startScheduled">
 		 update SCHEDULEDSHIFT s
 		    set s.SCHEDULED_STATUS = (case
-		                               when SYSDATE &lt;
-		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &lt;
+		                                    SCHEDULED_START then
 		                                '0'
-		                               when SYSDATE &gt;=
-		                                    TO_DATE(SCHEDULED_START, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;=
-		                                    TO_DATE(SCHEDULED_END, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &gt;=
+		                                    SCHEDULED_START AND
+		                                    to_char(sysdate,'YYYY-MM-DD') &lt;=
+		                                    SCHEDULED_END then
 		                                '1'
-		                               when SYSDATE &gt;
-		                                    TO_DATE(SCHEDULED_END, 'YYYY-MM-DD') AND
-		                                    SYSDATE &lt;
-		                                    TO_DATE(SCHEDULED_CLASS_START, 'YYYY-MM-DD') then
+		                               when to_char(sysdate,'YYYY-MM-DD') &gt;
+		                                    SCHEDULED_END AND
+		                                    to_char(sysdate,'YYYY-MM-DD') &lt;=
+		                                    SCHEDULED_CLASS_START then
 		                                '2'
 		                                
 		                             end)
 		  where S.ISDELETE = '0'
 		  and s.SCHEDULED_STATUS &lt;&gt; '4'
 		  and s.SCHEDULED_STATUS &lt;&gt; '3'
+		  and s.SCHEDULED_STATUS &lt;&gt; '2'
 	</update>
 	
 	<select id="getLastNumber" parameterType="String" resultType="java.util.Map">
