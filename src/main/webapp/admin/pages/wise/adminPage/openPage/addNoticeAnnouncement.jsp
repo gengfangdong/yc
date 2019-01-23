@@ -182,6 +182,7 @@
 			  //执行一个laydate实例
 			  	laydate.render({
 			    	elem: '#newsDate' //指定元素
+					,type:'datetime'
 			  	});
 			});
 		</script>
@@ -203,10 +204,6 @@
 			      });
 			    },
 			    before:function(obj){
-			    	if("" == document.getElementById("newsTitle").value){
-			    		layer.alert("未输入标题!");
-			    		return false;
-			    	}
 			    	var noticeStatus = document.getElementsByName("newsStates");
 			    	var notice_status="";
 					for(var i=0;i<noticeStatus.length;i++){
@@ -253,7 +250,12 @@
 			   	}
 			    },
 			    error: function(res){
-			      
+			      //演示失败状态，并实现重传
+			      var demoText = $('#demoText');
+			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			      demoText.find('.demo-reload').on('click', function(){
+			        uploadInst.upload();
+			      });
 			    }
 			  });
 		 });

@@ -184,6 +184,7 @@
 			  //执行一个laydate实例
 			  	laydate.render({
 			    	elem: '#newsDate' //指定元素
+					,type:'datetime'
 			  	});
 			});
 		</script>

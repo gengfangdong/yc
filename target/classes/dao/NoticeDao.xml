@@ -24,7 +24,7 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (SELECT * FROM NOTICE) A  
+			FROM (SELECT * FROM NOTICE order by NOTICE_RELEASE_TIME desc) A  
 			WHERE ROWNUM &lt;= #{length}
 		)  
 		WHERE RN &gt; #{start}  
@@ -58,6 +58,6 @@
 	</delete>
 	
 	<select id = "findAllNotice" resultMap="notice">
-		SELECT * FROM  NOTICE order by NOTICE_RELEASE_TIME desc
+		SELECT * FROM  NOTICE where Notice_status='1' order by NOTICE_RELEASE_TIME desc
 	</select>
 </mapper>

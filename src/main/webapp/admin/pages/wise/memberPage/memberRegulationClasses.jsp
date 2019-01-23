@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -205,36 +206,51 @@ String caogery = (String)session.getAttribute("isad");
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
 															<div class="row">
 																<div class="col-sm-12 col-md-12">
-																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
+																	<div class="" style="margin-top: 5px;height: 80px;line-height: 32px;padding-left:10px;">
 																		<div class="demoTable">
 																		  <!-- 搜索ID： -->
-																		  <div class="layui-inline selectObj">
+																		  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
 																		   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
 																		    <label for="" class="control-label" style="float: left;">班次状态：</label>
-																			<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 																			        <option value="全部">全部</option>
 																			        <option value="报名未开始">报名未开始</option>
 																			        <option value="报名进行中">报名进行中</option>
 																			        <option value="未开课">未开课</option>
-																			        <option value="自主报名">自主报名</option>
+																			        <option value="开课中">开课中</option>
 																			        <option value="已结课">已结课</option>
 																			  </select>
 																		  </div>
-																		  <div class="layui-inline selectObj">
+																		  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
 																		    <label for="" class="control-label" style="float: left;">是否报名：</label>
-																			<select id="secondObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																			<select id="secondObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 																		        <option value="全部">全部</option>
 																		        <option value="已报名">已报名</option>
 																		        <option value="未报名">未报名</option>
 																		   </select>
 																		  </div>
-																		  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
+																		  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+																				  <label for="" class="control-label"  style="float: left;">班次名称：</label>
+																				  <input id="classname"  type="text"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+																			  </div>
+																			  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+																				  <label for="" class="control-label"   style="float: left;">起始时间：</label>
+																				  <input id="starttime"  type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;"  />
+																			  </div>
+																			  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+																				  <label for="" class="control-label"  style="float: left;">截止时间：</label>
+																				  <input id="endtime"    type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+																			  </div>
+																			  <div style="text-align:center;">
+																				  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
+																				  <button class="layui-btn selectBtn"   data-type="reset">重置</button>
+																			  </div>
 																		</div>
 																	</div> 
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;" lay-filter="user">
+																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" style="margin-top: 0px!important;" lay-filter="user">
 																					<thead>
 																						<tr>
 																							
@@ -308,6 +324,22 @@ String caogery = (String)session.getAttribute("isad");
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
 		
+			<script type="text/javascript">
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#starttime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#endtime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			});
+		</script>
+		
 		<script>
 			var firstObj="";
 			var secondObj="";
@@ -333,7 +365,7 @@ String caogery = (String)session.getAttribute("isad");
 			  //方法级渲染
 			  table.render({
 			    elem: '#LAY_table_user',
-			    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses',
+			    url: '<%=request.getContextPath()%>/ScheduledShift/getmemberRegulationClasses?memstatus=1',
 			    cols: [[
 				  {type:'numbers',title:"序号",minWidth:60},
 
@@ -530,7 +562,7 @@ String caogery = (String)session.getAttribute("isad");
 						status = 1;
 					}else if(status == '未开课'){
 						status = 2;
-					}else if(status == '自主报名'){
+					}else if(status == '开课中'){
 						status = 3;
 					}else if(status == '已结课'){
 						status = 4;
@@ -545,6 +577,10 @@ String caogery = (String)session.getAttribute("isad");
 			    	  secondObj = "2";
 			      }
 			      
+		    	    var classname = $("#classname").val();
+					var starttime = $("#starttime").val();
+					var endtime = $("#endtime").val();
+			      
 			      //执行重载
 			      table.reload('testReload', {
 			        page: {
@@ -553,7 +589,32 @@ String caogery = (String)session.getAttribute("isad");
 			        method:'post',
 			        where: {
 			        	    scstatus:status,
-							memstatus:secondObj
+							memstatus:secondObj,
+							 classname:classname,
+				        	starttime:starttime,
+				        	endtime:endtime
+			        }
+			      });
+			    },
+			    reset: function(){
+			    	 $("#firstObj").val('全部');
+			    	 $("#secondObj").val('全部');
+					$("#classname").val('');
+					$("#starttime").val('');
+					$("#endtime").val('');
+					
+			      //执行重载
+			      table.reload('testReload', {
+			        page: {
+			          curr: 1 //重新从第 1 页开始
+			        },
+			        method:'post',
+			        where: {
+			        	scstatus:'',
+			        	memstatus:'',
+			        	classname:'',
+			        	starttime:'',
+			        	endtime:''
 			        }
 			      });
 			    }

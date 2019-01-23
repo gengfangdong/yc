@@ -119,15 +119,15 @@
                     <div class="am-u-md-4">
                         <div class="topbar-right am-text-right am-fr">
                           <% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%} %>
 									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
-										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">个人中心</ a>
 									<%}; %>
 										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>                      </div>
                     </div>
@@ -152,11 +152,11 @@
                                     <div class="nav-contain" style="border: none;box-shadow: none;">
                                         <div class="nav-inner">
                                             <ul class="am-nav am-nav-pills am-nav-justify">
-                                                <li class="">
+                                                <li class="" style="min-width:90px;">
                                                     <a href="<%=request.getContextPath() %>/">首页</a>
                                                 </li>
-                                                <li>
-                                                    <a href="cultureSystem.jsp" style="color: #FF2F2F;">项目概况</a>
+                                                <li style="min-width:90px;">
+                                                    <a href="cultureSystem.jsp" >项目概况</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
@@ -164,30 +164,30 @@
                                                                >培养体系</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="solution.jsp" style="color: #FF2F2F;">解决方案</a>
+                                                            <a href="solution.jsp"  style="color: #FF2F2F;">特色项目</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="teachingMaterialSystem.jsp">教材体系</a>
+                                                            <a href="teachingMaterialSystem.jsp">往期回顾</a>
                                                         </li>
-                                                        <li class="menu-item">
+                                                        <!-- <li class="menu-item">
                                                             <a href="taxCollectionFund.jsp">领税基金</a>
                                                         </li>
                                                         <li class="menu-item">
                                                             <a href="expertTeam.jsp">专家团队</a>
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="regulationsClasses.jsp">自主报名</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="customizedClasses.jsp">定制班次</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="onlineClasses.jsp">拼班</a>
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="incumbencyStudent.jsp">在职研</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
@@ -200,7 +200,7 @@
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
+                                                <li style="min-width:90px;">
                                                     <a href="newsNotice.jsp">新闻公告</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
@@ -213,20 +213,19 @@
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
-                                                <li>
-                                                    <a href="centerOverview.jsp">关于我们</a>
+                                                <li style="min-width:90px;">
+                                                    <a href="centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="am-menu-sub am-collapse">
+															<!-- <ul class="am-menu-sub am-collapse">
 																<li class="menu-item">
 																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="organization.jsp">师资招聘</a>
-																</li>
+																</li> -->
 																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-															</ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                             </ul>
@@ -262,23 +261,23 @@
 												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
-												<a href="cultureSystem.jsp"  style="color: #FF2F2F;">项目概况</a>
+												<a href="cultureSystem.jsp"  >项目概况</a>
 												<ul class="am-menu-sub am-collapse ">
 													<li class="">
 														<a href="cultureSystem.jsp" >培养体系</a>
 													</li>
 													<li class="">
-														<a href="solution.jsp" style="color: #FF2F2F;">解决方案</a>
+														<a href="solution.jsp"  style="color: #FF2F2F;">特色项目</a>
 													</li>
 													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+														<a href="teachingMaterialSystem.jsp" class="">往期回顾</a>
 													</li>
-													<li class="">
+													<!-- <li class="">
 														<a href="taxCollectionFund.jsp" class="">领税基金</a>
 													</li>
 													<li class="">
 														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
+													</li> -->
 												</ul>
 											</li>
 											<li class="">
@@ -314,31 +313,31 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="centerOverview.jsp">关于我们</a>
+												<a href="centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="sub-menu">
+															<!-- <ul class="sub-menu">
 																<li class="menu-item">
 																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<!-- <li class="menu-item">
+																<li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li> -->
-															</ul>
+																</li>
+															</ul> -->
 											</li>
 											<li class="">
 												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%} %>
 												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
-													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">个人中心</ a>
 												<%}; %>
 											</li>
 											<li class="">
@@ -363,10 +362,7 @@
 
     <!--===========layout-container================-->
     <div class="layout-container">
-        <div class="page-header news_bannerBg">
-            <div class="am-container">
-                <h1 class="page-header-title">解决方案</h1>
-            </div>
+        <div class="page-header news_bannerBg" style="background:url('../assets/img/banner/tesexiangmu.jpg');background-size:100% 100%;">
         </div>
 
     </div>
@@ -381,7 +377,7 @@
                             <a href="<%=request.getContextPath() %>/">首页</a>
                         </li>
                         <li class="am-active">项目概况</li>
-                        <li class="am-active">解决方案</li>
+                        <li class="am-active">特色项目</li>
                     </ol>
                 </div>
             </div>
@@ -434,15 +430,15 @@
                         </li>
                         <li class="promo_detailed--list_item sidebarListLi"
                             style="text-align: center;padding: 5px 0 0px 0;">
-                            <a href="solution.jsp" style="font-weight: 600;color: #FF2F2F;">解决方案</a>
+                            <a href="solution.jsp" style="font-weight: 600;color: #FF2F2F;">特色项目</a>
                         </li>
 
                         <li class="promo_detailed--list_item sidebarListLi"
                             style="text-align: center;padding: 5px 0 0px 0;">
-                            <a href="teachingMaterialSystem.jsp" style="color: #000;">教材体系</a>
+                            <a href="teachingMaterialSystem.jsp" style="color: #000;">往期回顾</a>
                         </li>
 
-                        <li class="promo_detailed--list_item sidebarListLi"
+                        <!-- <li class="promo_detailed--list_item sidebarListLi"
                             style="text-align: center;padding: 5px 0 0px 0;">
                             <a href="taxCollectionFund.jsp" style="color: #000;">领税基金</a>
                         </li>
@@ -450,7 +446,7 @@
                         <li class="promo_detailed--list_item sidebarListLi"
                             style="border-bottom: 1px solid #001A35;text-align: center;padding: 5px 0 10px 0;">
                             <a href="expertTeam.jsp" style="color: #000;">专家团队</a>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="am-nav">
                         <jsp:include   page="mainBodyRight.jsp" flush="true"/>
@@ -492,7 +488,7 @@
 							 '<div style="text-align: center;">'+'<h1 class="am-article-title">'+data.data.solution_titile+'</h1>'+
 		 						'<p class="am-article-meta" style="border-bottom: 1px solid #999999;border-top: 1px solid #999999;">'+
 		 						'<label style="padding-right: 3%;">作者：'+data.data.solution_Creater+'</label>'+
-		 						'<label style="padding-left: 3%;">时间：'+data.data.solution_Release_time+'</label>'+solution_context;
+		 						'<label style="padding-left: 3%;">时间：'+data.data.solution_Release_time+'</label></div><div>'+solution_context;
 					}
 				},
 				error : function(error) {

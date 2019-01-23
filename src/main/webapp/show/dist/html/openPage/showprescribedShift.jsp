@@ -168,24 +168,6 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">单位名称:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_dname" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
-											<td class="leftTd">开户银行:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_yh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
-											<td class="leftTd">账号:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_zh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
 											<div class="layui-upload-list">
 											    <table class="layui-table">
 											      <thead>
@@ -195,6 +177,7 @@
 											      <tbody id="demoList"></tbody>
 											    </table>
 											 </div>
+											 
 										</tr>
 									</tbody>
 								</table>
@@ -212,8 +195,8 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="">
-												<textarea name="description" id="syllabus" disabled="disabled"/></textarea>
+											<td class="" id="syllabus">
+												<!-- <textarea name="description" id="syllabus" disabled="disabled"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -231,8 +214,8 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="">
-												<textarea name="description" id="otherInformation" disabled="disabled"/></textarea>
+											<td class="" id="otherInformation">
+												<!-- <textarea name="description" id="otherInformation" disabled="disabled"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -377,8 +360,8 @@
 		<script type="text/javascript">
 
 			 window.onload = function(){
-        		CKEDITOR.replace('syllabus');
-        		CKEDITOR.replace('otherInformation');
+        		//CKEDITOR.replace('syllabus',{ toolbarCanCollapse: true, toolbarStartupExpanded: false, toolbar: [[]]});
+        		//CKEDITOR.replace('otherInformation',{ toolbarCanCollapse: true, toolbarStartupExpanded: false, toolbar: [[]] });
         		$.ajax({
         			url:'<%=request.getContextPath()%>/ScheduledShift/getDetailByid',
         			type:"POST",
@@ -397,9 +380,6 @@
         					var scheduled_class_pnumber = data.data.scheduled_class_pnumber;
         					var scheduled_class_context = data.data.scheduled_class_context;
         					var scheduled_other_context = data.data.scheduled_other_context;
-							var scheduled_dname = data.data.scheduled_dname;
-							var scheduled_yh = data.data.scheduled_yh;
-							var scheduled_zh = data.data.scheduled_zh;
         					var memotr = "";
 							var files=new Array();
         					files = data.data.scheduleds;
@@ -411,12 +391,11 @@
         					document.getElementById("startClassDate").value=scheduled_class_start;
         					document.getElementById("endClassDate").value=scheduled_class_end;
         					document.getElementById("peopleNum").value=scheduled_class_pnumber;
-        					document.getElementById("scheduled_dname").value=scheduled_dname;
-        					document.getElementById("scheduled_yh").value=scheduled_yh;
-        					document.getElementById("scheduled_zh").value=scheduled_zh;
+        					$("#syllabus")[0].innerHTML = scheduled_class_context;
+        					$("#otherInformation")[0].innerHTML = scheduled_other_context;
         					
-        					CKEDITOR.instances.syllabus.setData(scheduled_class_context);
-        					CKEDITOR.instances.otherInformation.setData(scheduled_other_context);
+        					//CKEDITOR.instances.syllabus.setData(scheduled_class_context);
+        					//CKEDITOR.instances.otherInformation.setData(scheduled_other_context);
 
         					for(var i = 0 ;i<files.length;i++){
 

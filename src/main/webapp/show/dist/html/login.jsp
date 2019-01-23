@@ -1,5 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%
+	String figClass_id = request.getParameter("figclass_id");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +21,7 @@
     <div class="logo-img">
       <img src="../assets/img/logo.png" alt="" />
     </div>
-    <div  class="am-form" data-am-validator>
-   
+    <div class="am-form" data-am-validator>
       <div class="am-form-group" style="border-bottom: 2px #1E9FFF solid;">
         <label for="register_loginName"><i class="am-icon-user" style="color: #1E9FFF;"></i></label>
         <input type="text" id="register_loginName" minlength="11" maxlength="11" placeholder="输入登录名称" required/>
@@ -31,7 +33,7 @@
       </div>
       <button class="am-btn am-btn-secondary"  onclick="login();"  style="background: #1E9FFF;border-color: #1E9FFF;">登录</button>
       <button class="am-btn am-btn-secondary"  onclick="register();"  style="background: #1E9FFF;border-color: #1E9FFF;margin:10px auto 0;">注册</button>
-     </div>
+    </div>
   </div>
 
   <script>
@@ -51,9 +53,15 @@
 				if(data.success == true){
 					<%-- javascript:location.href='<%=request.getContextPath()%>/show/dist/';
 					return false; --%>
+						<% if(figClass_id!=null){%>
+								javascript:location.href='<%=request.getContextPath()%>/show/dist/html/openPage/showOnlieClasses.jsp?figClass_id=<%=figClass_id%>';
+							<%}else{%>
+								javascript:location.href='<%=request.getContextPath()%>/';
+						<%}%>
+               		
+				}else
+					alert("登录失败!");
 					
-					javascript:location.href='<%=request.getContextPath()%>/';
-				}
 				
 			},
 			error : function(error) {

@@ -214,8 +214,8 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="">
-												<textarea name="description" id="syllabus" disabled="disabled"/></textarea>
+											<td class="" id="syllabus">
+												<!-- <textarea name="description" id="syllabus" disabled="disabled"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -233,8 +233,8 @@
 								<table id="branchTable" class="table table-bordered table-hover example1_x">
 									<tbody>
 										<tr>
-											<td class="">
-												<textarea name="description" id="otherInformation" disabled="disabled"/></textarea>
+											<td class="" id="otherInformation">
+												<!-- <textarea name="description" id="otherInformation" disabled="disabled"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -425,8 +425,8 @@
 		<script type="text/javascript">
 
 			 window.onload = function(){
-        		CKEDITOR.replace('syllabus');
-        		CKEDITOR.replace('otherInformation');
+        		//CKEDITOR.replace('syllabus');
+        		//CKEDITOR.replace('otherInformation');
         		$.ajax({
         			url:'<%=request.getContextPath()%>/ScheduledShift/getDetailByid',
         			type:"POST",
@@ -461,10 +461,12 @@
         					document.getElementById("peopleNum").value=scheduled_class_pnumber;
         					document.getElementById("scheduled_dname").value=scheduled_dname;
         					document.getElementById("scheduled_yh").value=scheduled_yh;
-        					document.getElementById("scheduled_zh").value=scheduled_zh;
+							document.getElementById("scheduled_zh").value=scheduled_zh;
+							$("#syllabus")[0].innerHTML = scheduled_class_context;
+							$("#otherInformation")[0].innerHTML = scheduled_other_context;
         					
-        					CKEDITOR.instances.syllabus.setData(scheduled_class_context);
-        					CKEDITOR.instances.otherInformation.setData(scheduled_other_context);
+        					//CKEDITOR.instances.syllabus.setData(scheduled_class_context);
+        					//CKEDITOR.instances.otherInformation.setData(scheduled_other_context);
 
         					for(var i = 0 ;i<files.length;i++){
 

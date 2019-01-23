@@ -188,7 +188,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办日期:<span style="color:red;">*<span></td>
+											<td class="leftTd">举办日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="hostDate" style="width: 100%;" />
 											</td>
@@ -209,7 +209,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办地点:<span style="color:red;">*<span></td>
+											<td class="leftTd">举办地点:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
 											</td>
@@ -223,7 +223,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">联系电话:<span style="color:red;">*<span></td>
+											<td class="leftTd">联系手机:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactNumber" style="width: 100%;" />
 											</td>
@@ -284,7 +284,7 @@
 										</tr>
 										
 										<tr>
-											<td class="leftTd">预计结课日期:<span style="color:red;">*<span></td>
+											<td class="leftTd">结课日期:<span style="color:red;">*<span></td>
 											<td class="rightTd" colspan="2">
 												<input value="" id="classesEndDate" name="classesEndDate"  autocomplete="off"  placeholder="YYYY-MM-DD" type="text" class="" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
@@ -881,7 +881,7 @@
 					return;
 				}
 				if(hostDate==""){
-					alert("请选择预计举办日期！");
+					alert("请选择举办日期！");
 					return;
 				}
 				if(planNumOfEntries==""){
@@ -889,7 +889,7 @@
 					return;
 				}
 				if(planHostAddress==""){
-					alert("请填写预计举办地点！");
+					alert("请填写举办地点！");
 					return;
 				}
 				if(contactPersonnel==""){
@@ -897,10 +897,10 @@
 					return;
 				}
 				if(contactNumber==""){
-					alert("请填写联系电话！");
+					alert("请填写联系手机！");
 					return;
 				}else if(testPhone.test(contactNumber)==false){
-					alert("请输入有效的联系电话！");
+					alert("请输入有效的联系手机！");
 					return;
 				}
 				if(contactWorkNumber==""){
@@ -1003,7 +1003,7 @@
 						return;
 					}
 					if(classesEndDate==""){
-						alert("请选择预计结课日期！");
+						alert("请选择结课日期！");
 						return;
 					}
 					if(togetherClassesEndDate>hostDate){

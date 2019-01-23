@@ -22,4 +22,10 @@ public interface ScheduledshiftDao {
 	public List<Map<String,Object>> getAdminLastNumber(@Param("start")int start,@Param("length")int limit,@Param("status")String status);
 	public int getAdminCountLastNumber(@Param("status")String status);
 	public void updateStatus(Scheduledshift scheduledshift);
+	public List<Map<String, Object>> getAdminLastNumber1(@Param("start")int start,@Param("length")int limit,@Param("status")String status,@Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
+	public int getAdminCountLastNumber1(@Param("status")String status,@Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
+	public List<Map<String, Object>> getLastNumber1(@Param("start")int start,@Param("length")int limit,@Param("user_id")String user_id,
+			@Param("scstatus")String scstatus,@Param("memstatus")String memstatus,@Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
+	public int getCountLastNumber1(@Param("user_id")String user_id,
+			@Param("scstatus")String scstatus,@Param("memstatus")String memstatus,@Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
 }

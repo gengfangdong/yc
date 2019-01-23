@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -141,9 +142,9 @@ String caogery = (String)session.getAttribute("isad");
 										<li>
 											<a href="projectOverview.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 项目概况</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
-										</li>
+										</li> -->
 										
 									</ul>
 								</li>
@@ -172,6 +173,9 @@ String caogery = (String)session.getAttribute("isad");
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+										</li>
+										<li>
+											<a href="fileTab.jsp"><i class="fa fa-square-o"></i> 附件中心</a>
 										</li>
 									</ul>
 								</li>

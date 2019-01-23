@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="cultureDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="cultureDescription">
+												<!-- <textarea name="description" id="cultureDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('cultureDescription');
+        		//CKEDITOR.replace('cultureDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Culture/getCulturedetailByid',
 				type : 'GET',
@@ -191,7 +191,8 @@
 						cultureKeyWords.value=culture_KeyWords;//关键字
 						cultureDate.value=culture_Rlease_time;//发布日期
 						cultureTitle.value=culture_titile;//状态
-						culturecontext.setData(culture_context);//内容
+						$("#cultureDescription")[0].innerHTML = culture_context
+						//culturecontext.setData(culture_context);//内容
 
 						if(culture_status == "1"||culture_status == "2"){
 							cultureStatus[0].checked = true;

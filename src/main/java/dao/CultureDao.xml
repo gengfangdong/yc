@@ -24,7 +24,7 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (SELECT * FROM CULTURE) A  
+			FROM (SELECT * FROM CULTURE  order by Culture_Release_time desc) A  
 			WHERE ROWNUM &lt;= #{length}
 		)  
 		WHERE RN &gt; #{start}  
@@ -58,6 +58,6 @@
 	</delete>
 	
 	<select id = "findAllCulture" resultMap="culture">
-		SELECT * FROM   CULTURE where CULTURE_STATUS='1'
+		SELECT * FROM   CULTURE where CULTURE_STATUS='1'  order by Culture_Release_time desc
 	</select>
 </mapper>

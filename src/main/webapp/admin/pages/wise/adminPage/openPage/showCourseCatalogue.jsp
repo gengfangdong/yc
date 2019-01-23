@@ -113,8 +113,8 @@
 										</tr>
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">简介:<span style="color:red;">*<span></td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="newsDescription" disabled="disabled" /></textarea>
+											<td class="rightTd" colspan="2" id="newsDescription">
+												<!-- <textarea name="description" id="newsDescription" disabled="disabled" /></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -166,7 +166,7 @@
 		</script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+        		//CKEDITOR.replace('newsDescription');
         		$.ajax({
 					url:'<%=request.getContextPath()%>/Course/getCoursedetailByid',
 					type:'POST',
@@ -178,7 +178,8 @@
 							document.getElementById("firstLevel").value=data.data.first_course;
 							document.getElementById("secondLevel").value=data.data.second_course;
 							document.getElementById("thirdLevel").value=data.data.third_course;
-							CKEDITOR.instances.newsDescription.setData(data.data.course_context);
+							$("#newsDescription")[0].innerHTML = data.data.course_context;
+							//CKEDITOR.instances.newsDescription.setData(data.data.course_context);
 						}
 					},
 					error:function(data){

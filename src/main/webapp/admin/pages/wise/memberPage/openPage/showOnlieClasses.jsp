@@ -458,6 +458,7 @@
 			  });
 			  $('table.layui-table thead tr th:eq(0)').addClass('layui-hide');
 			});
+			
 		</script>
 		<script>
 		var filelist = [];

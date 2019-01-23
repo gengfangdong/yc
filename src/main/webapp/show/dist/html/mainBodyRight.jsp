@@ -13,9 +13,8 @@
         <i class="am-icon-phone" ></i>
       </span>-->
 			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
-				<dd style="padding-bottom:1.6rem;"><i class="am-icon-phone" style="margin-right:5px;"></i>010-62280881</dd>
-				<dd style="padding-bottom:1.6rem;"><i class="am-icon-phone" style="margin-right:5px;"></i>16601021525</dd>
-				<dd ><i class="am-icon-phone" style="margin-right:5px;"></i>16601021533</dd>
+				<dd><i class="am-icon-home"></i> 北京市海淀区中关村大街59号中国人民大学财政金融学院
+				</dd>
 			</dl>
 		</li>
 		<li class="promo_detailed--list_item sidebarListLi">
@@ -23,7 +22,16 @@
     <i class="am-icon-envelope-o" ></i>
   </span>-->
 			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
-				<dd><i class="am-icon-envelope-o"></i> lingshui100@163.com
+				<dd><i class="am-icon-phone" style="margin-right:5px;"></i>16601021525 16601021533 16601021561
+				</dd>
+			</dl>
+		</li>
+		<li class="promo_detailed--list_item sidebarListLi">
+			<!--<span class="promo_detailed--list_item_icon noBorder">
+    <i class="am-icon-envelope-o" ></i>
+  </span>-->
+			<dl style="margin:0 0 1.6rem 0;font-size:16px;">
+				<dd><i class="am-icon-envelope-o"></i> tzcpx001@163.com
 				</dd>
 			</dl>
 		</li>

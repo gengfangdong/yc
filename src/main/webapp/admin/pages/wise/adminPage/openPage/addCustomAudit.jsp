@@ -97,7 +97,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办日期:</td>
+											<td class="leftTd">举办日期:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="hostDate" style="width: 100%;" />
 											</td>
@@ -118,7 +118,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办地点:</td>
+											<td class="leftTd">举办地点:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" />
 											</td>
@@ -140,7 +140,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">联系电话:</td>
+											<td class="leftTd">联系手机:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactNumber" style="width: 100%;" />
 											</td>

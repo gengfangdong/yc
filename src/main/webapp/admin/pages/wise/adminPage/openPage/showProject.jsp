@@ -87,8 +87,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">项目内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="projectListDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="projectListDescription">
+												<!-- <textarea name="description" id="projectListDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -129,7 +129,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('projectListDescription');
+        		//CKEDITOR.replace('projectListDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Project/getProjectdetailByid',
 				type : 'GET',
@@ -140,7 +140,7 @@
 					if(data.success == true){
 						var projectname = document.getElementById("projectListTitle");
 						var projectdate = document.getElementById("addProjectListDate");
-						var projectcontext = CKEDITOR.instances.projectListDescription;
+						//var projectcontext = CKEDITOR.instances.projectListDescription;
 
 						var project_name = data.data.project_name;
 						var project_date = data.data.project_date;
@@ -148,7 +148,8 @@
 						
 						projectname.value=project_name; //名字
 						projectdate.value=project_date;//日期
-						projectcontext.setData(project_context);//内容
+						$("#projectListDescription")[0].innerHTML = project_context;
+						//projectcontext.setData(project_context);//内容
 
 					}
 					

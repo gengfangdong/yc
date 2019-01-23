@@ -89,7 +89,7 @@
 														注2：保存后，封面才会修改
 											</td>
 											<td style="width: 20%;">
-												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;">
+												<button type="button" class="layui-btn lay_btn" id="test1" style="width: 95px;background-color:#1e9fff;">
 												  <i class="layui-icon">&#xe67c;</i>浏览
 												</button>
 											</td>
@@ -176,6 +176,7 @@
 		  //执行一个laydate实例
 		  laydate.render({
 		    elem: '#newsDate' //指定元素
+			,type:'datetime'
 		  });
 		});
 		</script>

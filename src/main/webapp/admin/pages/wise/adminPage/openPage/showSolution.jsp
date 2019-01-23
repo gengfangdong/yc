@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="solutionDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="solutionDescription">
+												<!-- <textarea name="description" id="solutionDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('solutionDescription');
+        		//CKEDITOR.replace('solutionDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Solution/getSolutiondetailByid',
 				type : 'GET',
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var solutioncontext = CKEDITOR.instances.solutionDescription;
+						//var solutioncontext = CKEDITOR.instances.solutionDescription;
 						var solutionTitle = document.getElementById("solutionTitle");
 						var solutionAbstract = document.getElementById("solutionAbstract");
 						var solutionKeyWords = document.getElementById("solutionKeyWords");
@@ -191,7 +191,8 @@
 						solutionKeyWords.value=solution_KeyWords;//关键字
 						solutionDate.value=solution_Rlease_time;//发布日期
 						solutionTitle.value=solution_titile;//状态
-						solutioncontext.setData(solution_context);//内容
+						$("#solutionDescription")[0].innerHTML = solution_context;
+						//solutioncontext.setData(solution_context);//内容
 
 						if(solution_status == "1"||solution_status == "2"){
 							solutionStatus[0].checked = true;

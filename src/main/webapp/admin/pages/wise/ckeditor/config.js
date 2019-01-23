@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
     /**配置工具栏*/
     config.image_previewText=' '; //预览区域显示内容
     config.filebrowserImageUploadUrl= 'http://localhost:8081/Common/uploadFile ';
-    config.filebrowserUploadUrl='http://localhost:8081/Common/uploadFilen';
+    config.filebrowserUploadUrl='http://localhost:8081/Common/uploadFileceditor';
     /*
     config.toolbar = 'Basic';
     config.toolbar_Basic =

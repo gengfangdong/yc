@@ -178,7 +178,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办日期:</td>
+											<td class="leftTd">举办日期:</td>
 											<td class="rightTd" colspan="2">
 												<input id="hostDate" name="newsDate" placeholder="YYYY-MM-DD" type="text"  disabled="disabled" class="disabledInput" style="height: 23px;width:252px;cursor:pointer;" />
 											</td>
@@ -194,12 +194,12 @@
 										<tr>
 											<td class="leftTd">计划参加人数:</td>
 											<td class="rightTd" colspan="2">
-												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于50人，低于50人，将发布到拼班项目" style="width: 100%;"  disabled="disabled" class="disabledInput"/>
+												<input type="text" id="planNumOfEntries" placeholder="请选择人数大于60人，低于60人，将发布到拼班项目" style="width: 100%;"  disabled="disabled" class="disabledInput"/>
 											</td>
 
 										</tr>
 										<tr>
-											<td class="leftTd">预计举办地点:</td>
+											<td class="leftTd">举办地点:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>
@@ -213,7 +213,7 @@
 
 										</tr>
 										<tr>
-											<td class="leftTd">联系电话:</td>
+											<td class="leftTd">联系手机:</td>
 											<td class="rightTd" colspan="2">
 												<input type="text" id="contactNumber" style="width: 100%;" disabled="disabled" class="disabledInput" />
 											</td>

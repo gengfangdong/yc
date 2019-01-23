@@ -188,6 +188,78 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 		sLayuiDataTable.setCount(count);
 		return sLayuiDataTable;
 	}
+	
+	public LayuiDataTable<ScheduledShiftShow> getScByPage1(int start, int limit,String user_id,String scstatus,String memstatus,String classname,String starttime,String endtime) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<ScheduledShiftShow> sLayuiDataTable = new LayuiDataTable<ScheduledShiftShow>();
+		List<ScheduledShiftShow> scheduledShiftShows = new ArrayList<ScheduledShiftShow>();
+		List<Map<String,Object>> scheduledMap = new ArrayList<Map<String, Object>>();
+		scheduledMap = scheduledshiftDao.getLastNumber1((start-1)*limit, start*limit,user_id,scstatus,memstatus,classname,starttime,endtime);
+		List<Ssuser> ssusers = new ArrayList<Ssuser>();
+		Map<String,Object> ssuserMap = new HashMap<String, Object>();
+		ssusers = ssuserDao.getSsuserByUserId(user_id);
+		if(ssusers!=null&&ssusers.size()>0){
+			for (Ssuser ssuser : ssusers) {
+				ssuserMap.put(ssuser.getSsu_ssid(), ssuser);
+			}
+		}
+		int count = 0;
+		count = scheduledshiftDao.getCountLastNumber1(user_id,scstatus,memstatus,classname,starttime,endtime);
+		if(scheduledMap!=null&&scheduledMap.size()>0){
+			for (Map<String, Object> map : scheduledMap) {
+				//构建对象
+				Scheduledshift scheduledshift = new Scheduledshift();
+				ScheduledShiftShow scheduledShiftShow = new ScheduledShiftShow();
+				String num="0";
+				if(map.get("PNUM")!=null&&!"".equals(map.get("PNUM"))){
+					num = ((BigDecimal)map.get("PNUM")).toString();
+				}
+				scheduledshift.setScheduled_id((String)map.get("SCHEDULED_ID"));
+				scheduledshift.setScheduled_class_start((String)map.get("SCHEDULED_CLASS_START"));
+				scheduledshift.setScheduled_class_end((String)map.get("SCHEDULED_CLASS_END"));
+				scheduledshift.setScheduled_start((String)map.get("SCHEDULED_START"));
+				scheduledshift.setScheduled_end((String)map.get("SCHEDULED_END"));
+				scheduledshift.setScheduled_name((String)map.get("SCHEDULED_NAME"));
+				scheduledshift.setScheduled_address((String)map.get("SCHEDULED_ADDRESS"));
+				scheduledshift.setScheduled_class_pnumber((String)map.get("SCHEDULED_CLASS_PNUMBER"));
+				String createtime = (String)map.get("CREATETIME");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					scheduledshift.setCreatetime(simpleDateFormat.format(simpleDateFormat.parse(createtime)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				scheduledshift.setScheduled_status((String)map.get("SCHEDULED_STATUS"));
+				scheduledShiftShow.setDataNumber(""+StringUtil.getDataSub(scheduledshift.getScheduled_class_start(), scheduledshift.getScheduled_class_end()));
+				scheduledShiftShow.setScheduledshift(scheduledshift);
+				scheduledShiftShow.setNumber(num);//暂时无用
+				int lave = ssuserDao.getLavenumber((String)map.get("SCHEDULED_ID"));
+				scheduledShiftShow.setNumber(""+lave);
+				String project_id = (String)map.get("SCHEDULED_ID");
+				Ssuser ssuser = new Ssuser();
+				String status = "0";
+				if(ssuserMap.get(project_id)!=null){
+					ssuser = (Ssuser) ssuserMap.get(project_id);
+					scheduledShiftShow.setCreate_status("0");
+					scheduledShiftShow.setSuuid(ssuser.getSsu_id());
+					status = ssuser.getSsu_status();
+				}
+				else
+					scheduledShiftShow.setCreate_status("");
+				
+				
+				scheduledShiftShow.setNumfilestatus(status);
+				scheduledShiftShows.add(scheduledShiftShow);
+				
+			}
+			
+			
+		}
+		sLayuiDataTable.setData(scheduledShiftShows);
+		sLayuiDataTable.setCount(count);
+		return sLayuiDataTable;
+	}
 
 	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage(int start, int limit, String status) {
 		// TODO Auto-generated method stub
@@ -197,6 +269,55 @@ public class ScheduledshiftServiceImpl implements ScheduledshiftService{
 		scheduledMap = scheduledshiftDao.getAdminLastNumber((start-1)*limit, start*limit,status);
 		int count = 0;
 		count = scheduledshiftDao.getAdminCountLastNumber(status);
+		if(scheduledMap!=null&&scheduledMap.size()>0){
+			for (Map<String, Object> map : scheduledMap) {
+				//构建对象
+				Scheduledshift scheduledshift = new Scheduledshift();
+				ScheduledShiftShow scheduledShiftShow = new ScheduledShiftShow();
+				String num="0";
+				if(map.get("PNUM")!=null&&!"".equals(map.get("PNUM"))){
+					num = ((BigDecimal)map.get("PNUM")).toString();
+				}
+				scheduledshift.setScheduled_id((String)map.get("SCHEDULED_ID"));
+				scheduledshift.setScheduled_class_start((String)map.get("SCHEDULED_CLASS_START"));
+				scheduledshift.setScheduled_class_end((String)map.get("SCHEDULED_CLASS_END"));
+				scheduledshift.setScheduled_start((String)map.get("SCHEDULED_START"));
+				scheduledshift.setScheduled_end((String)map.get("SCHEDULED_END"));
+				scheduledshift.setScheduled_name((String)map.get("SCHEDULED_NAME"));
+				scheduledshift.setScheduled_address((String)map.get("SCHEDULED_ADDRESS"));
+				scheduledshift.setScheduled_class_pnumber((String)map.get("SCHEDULED_CLASS_PNUMBER"));
+				
+				
+				String createtime = (String)map.get("CREATETIME");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					scheduledshift.setCreatetime(simpleDateFormat.format(simpleDateFormat.parse(createtime)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				scheduledshift.setScheduled_status((String)map.get("SCHEDULED_STATUS"));
+				scheduledShiftShow.setScheduledshift(scheduledshift);
+				scheduledShiftShow.setDataNumber(""+StringUtil.getDataSub(scheduledshift.getScheduled_class_start(), scheduledshift.getScheduled_class_end()));
+				scheduledShiftShow.setNumber(num);
+				int lave = ssuserDao.getLavenumber((String)map.get("SCHEDULED_ID"));
+				scheduledShiftShow.setNumber(""+lave);
+				scheduledShiftShows.add(scheduledShiftShow);				
+			}	
+			
+		}
+		sLayuiDataTable.setData(scheduledShiftShows);
+		sLayuiDataTable.setCount(count);
+		return sLayuiDataTable;
+	}
+	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage1(int start, int limit, String status,String classname,String starttime,String endtime) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<ScheduledShiftShow> sLayuiDataTable = new LayuiDataTable<ScheduledShiftShow>();
+		List<ScheduledShiftShow> scheduledShiftShows = new ArrayList<ScheduledShiftShow>();
+		List<Map<String,Object>> scheduledMap = new ArrayList<Map<String, Object>>();
+		scheduledMap = scheduledshiftDao.getAdminLastNumber1((start-1)*limit, start*limit,status,classname,starttime,endtime);
+		int count = 0;
+		count = scheduledshiftDao.getAdminCountLastNumber1(status,classname,starttime,endtime);
 		if(scheduledMap!=null&&scheduledMap.size()>0){
 			for (Map<String, Object> map : scheduledMap) {
 				//构建对象

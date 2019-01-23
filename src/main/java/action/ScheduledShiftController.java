@@ -307,6 +307,8 @@ public class ScheduledShiftController {
 	@ResponseBody
 	public LayuiDataTable<ScheduledShiftShow> getMemBer(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="scstatus",defaultValue="",required=false)String scstatus,@RequestParam(value="memstatus",defaultValue="",required=false)String memstatus,
+			@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,
 			HttpServletRequest request){
 		//结果集
 		LayuiDataTable<ScheduledShiftShow> sDataTable = new LayuiDataTable<ScheduledShiftShow>();
@@ -317,7 +319,7 @@ public class ScheduledShiftController {
 		if(iUser == null){
 			return null;
 		}
-		sDataTable = scheduledshiftService.getScByPage(page, limit, iUser.getUser_id(),scstatus,memstatus);
+		sDataTable = scheduledshiftService.getScByPage1(page, limit, iUser.getUser_id(),scstatus,memstatus,classname,starttime,endtime);
 		sDataTable.setCode(0);
 		sDataTable.setMsg("");
 		return sDataTable;
@@ -326,7 +328,9 @@ public class ScheduledShiftController {
 	@RequestMapping("/getRegulationClasses")
 	@ResponseBody
 	public LayuiDataTable<ScheduledShiftShow> getAdminBer(@RequestParam("page")int page,@RequestParam("limit")int limit,
-			@RequestParam(value="status",required=false,defaultValue="")String status,HttpServletRequest request){
+			@RequestParam(value="status",required=false,defaultValue="")String status,
+			@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,HttpServletRequest request){
 		//结果集
 		LayuiDataTable<ScheduledShiftShow> sDataTable = new LayuiDataTable<ScheduledShiftShow>();
 		
@@ -336,7 +340,7 @@ public class ScheduledShiftController {
 		if(iUser == null){
 			return null;
 		}
-		sDataTable = scheduledshiftService.getAdminScByPage(page, limit, status);
+		sDataTable = scheduledshiftService.getAdminScByPage1(page, limit, status,classname,starttime,endtime);
 		sDataTable.setCode(0);
 		sDataTable.setMsg("");
 		return sDataTable;
@@ -441,7 +445,7 @@ public class ScheduledShiftController {
 				try {
 
 					for (Ssuser figUser : ssusers) {
-						String context = "您报名的规定班次: " + scheduledshift.getScheduled_name() + " 开课成功!";
+						String context = "您报名的自主报名培训班: " + scheduledshift.getScheduled_name() + " 开课成功!";
 						String phone = figUser.getSsu_ydphone();
 						if ("0".equals(MessageUtil.httpPost(phone, context))) {
 							resultmap.put("success", false);

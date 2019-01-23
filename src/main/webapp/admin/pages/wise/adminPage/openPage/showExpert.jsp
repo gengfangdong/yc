@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="expertDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="expertDescription">
+												<!-- <textarea name="description" id="expertDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('expertDescription');
+        		//CKEDITOR.replace('expertDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Expert/getExpertdetailByid',
 				type : 'GET',
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var expertcontext = CKEDITOR.instances.expertDescription;
+						//var expertcontext = CKEDITOR.instances.expertDescription;
 						var expertTitle = document.getElementById("expertTitle");
 						var expertAbstract = document.getElementById("expertAbstract");
 						var expertKeyWords = document.getElementById("expertKeyWords");
@@ -191,7 +191,8 @@
 						expertKeyWords.value=expert_KeyWords;//关键字
 						expertDate.value=expert_Rlease_time;//发布日期
 						expertTitle.value=expert_titile;//状态
-						expertcontext.setData(expert_context);//内容
+						$("#expertDescription")[0].innerHTML = expert_context
+						//expertcontext.setData(expert_context);//内容
 
 						if(expert_status == "1"||expert_status == "2"){
 							expertStatus[0].checked = true;

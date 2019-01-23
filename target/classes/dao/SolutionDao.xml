@@ -24,7 +24,7 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (SELECT * FROM SOLUTION) A  
+			FROM (SELECT * FROM SOLUTION order by SOLUTION_RELEASE_TIME desc) A  
 			WHERE ROWNUM &lt;= #{length}
 		)  
 		WHERE RN &gt; #{start}  
@@ -57,6 +57,6 @@
 		WHERE N.SOLUTION_ID = #{solution_id}
 	</delete>
 	<select id = "findAllSolution" resultMap="solution">
-		SELECT * FROM   SOLUTION where SOLUTION_STATUS='1'
+		SELECT * FROM   SOLUTION where SOLUTION_STATUS='1' order by SOLUTION_RELEASE_TIME desc
 	</select>
 </mapper>

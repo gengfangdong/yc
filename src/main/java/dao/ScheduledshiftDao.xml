@@ -140,6 +140,54 @@
 		WHERE RN &gt; #{start}
 		
 	</select>
+	<select id="getLastNumber1" parameterType="String" resultType="java.util.Map">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+					  from scheduledshift cc
+					  left join (select u.project_id, count(u.project_id) as pnum
+				               from (user_project u left join ssuser s on
+				                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+				                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+				                      
+				              group by u.project_id) H
+					    on cc.scheduled_id = H.project_id
+					   and cc.isdelete = '0'
+					 where cc.isdelete = '0'
+					 <if test="scstatus != '' and scstatus != null">
+					 	and cc.scheduled_status = #{scstatus}
+					 </if>
+					 <if test="classname != '' and classname != null">
+					 	and cc.Scheduled_name LIKE concat(concat('%',#{classname}),'%')
+					 </if>
+					 <if test="starttime != '' and starttime != null">
+					 	and cc.Scheduled_class_start &gt; = #{starttime} 
+					 </if>
+					 <if test="endtime != '' and endtime != null">
+					 	and cc.Scheduled_class_end &lt;=#{endtime} 
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == 1">
+					 	and cc.scheduled_id in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == 2">
+					 	and cc.scheduled_id not in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 order by cc.Scheduled_class_start
+		         ) A  
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}
+		
+	</select>
+	
+	
 	<!-- and s.ssu_userid=#{user_id}   , s.ssu_id  , s.ssu_id-->
 	<select id="getCountLastNumber" resultType="int">
 		select count(*) from (select *
@@ -172,6 +220,47 @@
 		 )
 	</select>
 	
+	<select id="getCountLastNumber1" resultType="int">
+		select count(*) from (select *
+				  from scheduledshift cc
+						  left join (select u.project_id, count(u.project_id) as pnum
+		               from (user_project u left join ssuser s on
+		                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+		                     
+		                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+		                       
+		              group by u.project_id) H
+				    on cc.scheduled_id = H.project_id
+				   and cc.isdelete = '0'
+				 where cc.isdelete = '0'
+				 <if test="scstatus != '' and scstatus != null">
+					 	and cc.scheduled_status = #{scstatus}
+					 </if>
+					 <if test="classname != '' and classname != null">
+					 	and cc.Scheduled_name LIKE concat(concat('%',#{classname}),'%')
+					 </if>
+					 <if test="starttime != '' and starttime != null">
+					 	and cc.Scheduled_class_start &gt; = #{starttime} 
+					 </if>
+					 <if test="endtime != '' and endtime != null">
+					 	and cc.Scheduled_class_end &lt;=#{endtime} 
+					 </if>
+				 <if test="memstatus != '' and memstatus != null and memstatus == 1">
+					 	and cc.scheduled_id in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 <if test="memstatus != '' and memstatus != null and memstatus == 2">
+					 	and cc.scheduled_id not in (
+						     select ss.ssu_ssid from yc.ssuser ss 
+						            where ss.ssu_isdelete ='0' and ss.ssu_userid=#{user_id}
+						 )
+					 </if>
+					 order by cc.Scheduled_class_start
+		 )
+	</select>
+	
 	<select id="getAdminLastNumber" parameterType="String" resultType="java.util.Map">
 		SELECT * FROM  
 		(  
@@ -189,9 +278,43 @@
 					 <if test="status != '' and status != null">
 					 	and cc.scheduled_status = #{status}
 					 </if>
-					 
+					 order by cc.Scheduled_class_start
 		         ) A  
 			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start}
+		
+	</select>
+	
+	<select id="getAdminLastNumber1" parameterType="String" resultType="java.util.Map">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+					  from scheduledshift cc
+					  left join (select u.project_id, count(u.project_id) as pnum
+				               from (user_project u left join ssuser s on
+				                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+				                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+				              group by u.project_id) H
+					    on cc.scheduled_id = H.project_id
+					   and cc.isdelete = '0'
+					 where cc.isdelete = '0' 
+					 <if test="status != '' and status != null">
+					 	and cc.scheduled_status = #{status}
+					 </if>
+					 <if test="classname != '' and classname != null">
+					 	and cc.Scheduled_name LIKE concat(concat('%',#{classname}),'%')
+					 </if>
+					 <if test="starttime != '' and starttime != null">
+					 	and cc.Scheduled_class_start &gt; = #{starttime} 
+					 </if>
+					 <if test="endtime != '' and endtime != null">
+					 	and cc.Scheduled_class_end &lt;=#{endtime} 
+					 </if>
+					 order by cc.Scheduled_class_start
+		         ) A  
+			WHERE ROWNUM &lt;= #{length} 
 		)  
 		WHERE RN &gt; #{start}
 		
@@ -211,6 +334,31 @@
 				 <if test="status != '' and status != null">
 					 and cc.scheduled_status = #{status}
 				 </if> )
+	</select>
+	<select id="getAdminCountLastNumber1" resultType="int" parameterType="String">
+		select count(*) from (select *
+				  from scheduledshift cc
+						  left join (select u.project_id, count(u.project_id) as pnum
+		               from (user_project u left join ssuser s on
+		                     u.ssu_id = s.ssu_id and u.isdelete = '0' and
+		                     s.ssu_isdelete = '0' ) where u.isdelete ='0' and s.ssu_isdelete = '0'
+		              group by u.project_id) H
+				    on cc.scheduled_id = H.project_id
+				   and cc.isdelete = '0'
+				 where cc.isdelete = '0' 
+				 <if test="status != '' and status != null">
+					 and cc.scheduled_status = #{status}
+				 </if> 
+				  <if test="classname != '' and classname != null">
+					 	and cc.Scheduled_name LIKE  concat(concat('%',#{classname}),'%')
+				 </if>
+			 	 <if test="starttime != '' and starttime != null">
+				 	and cc.Scheduled_class_start &lt;= #{starttime} 
+				 </if>
+				 <if test="endtime != '' and endtime != null">
+					 	and cc.Scheduled_class_end &gt; = #{endtime} 
+				 </if>
+				 )
 	</select>
 	
 	<update id="updateStatus" parameterType="Scheduledshift">

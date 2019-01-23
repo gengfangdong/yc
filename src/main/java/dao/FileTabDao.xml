@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.FileTabDao">
+	<resultMap type="entity.FileTab" id="FileTab">
+		<result column="FILEID" jdbcType="VARCHAR" property="fileid"/>
+		<result column="FILENAME" jdbcType="VARCHAR" property="filename"/>
+		<result column="FILENEW" jdbcType="VARCHAR" property="filenew"/>
+		<result column="FILEOLD" jdbcType="VARCHAR" property="fileold"/>
+		<result column="FILEISDELETE" jdbcType="VARCHAR" property="fileisdelete"/>
+		<result column="FILECREATER" jdbcType="VARCHAR" property="filecreater"/>
+		<result column="FILECREATETIME" jdbcType="VARCHAR" property="filecreatetime"/>
+		<result column="FILEFLAG" jdbcType="VARCHAR" property="fileflag"/>
+		
+	</resultMap>
+	<insert id="insertFile" parameterType="FileTab">
+		insert into FILETAB(FILEID,FILENEW,FILEOLD,FILEISDELETE,FILECREATER,FILECREATETIME,FILEFLAG,FILENAME) VALUES(#{fileid},#{filenew},#{fileold},#{fileisdelete},
+		#{filecreater},#{filecreatetime},#{fileflag},#{filename,jdbcType=VARCHAR})
+	</insert>
+	<update id="deleteFile" parameterType="String">
+		update FILETAB
+			SET FILEISDELETE = '1'
+				WHERE FILEID = #{fileid}
+	</update>
+	<select id="getlistByPage" resultType="FileTab">
+		SELECT * FROM  
+		(
+			SELECT A.*, ROWNUM RN  
+			FROM (select * from FILETAB F WHERE F.FILEISDELETE ='0'
+		<if test="fileflag != null and fileflag != ''">
+			and F.FILEFLAG = #{fileflag}
+		</if>
+		<if test="filename != null and filename != ''">
+			and F.FILENAME = #{filename}
+		</if> order by F.FILECREATETIME desc) A  
+			WHERE ROWNUM &lt;= #{limit}
+	   )WHERE RN &gt; #{start}  
+	</select>
+	<select id="getcount" resultType="int">
+		select count(*) from (
+			select * from FILETAB F WHERE F.FILEISDELETE ='0'
+		<if test="fileflag != null and fileflag != ''">
+			and F.FILEFLAG = #{fileflag}
+		</if>
+		<if test="filename != null and filename != ''">
+			and F.FILENAME = #{filename}
+		</if>
+		) A 
+	</select>
+	<select id="getBynew" resultType="FileTab">
+		select * from FILETAB F WHERE F.FILEISDELETE ='0'
+		<if test="filenew != null and filenew != ''">
+			and F.FILENEW = #{filenew}
+		</if>
+	</select>
+	<select id="getbyid" resultType="FileTab">
+		select * from FILETAB F WHERE F.FILEISDELETE ='0'
+		<if test="fileid != null and fileid != ''">
+			and F.FILEID = #{fileid}
+		</if>
+	</select>
+	<update id="updateFile">
+		UPDATE FILETAB F
+			SET F.FILENEW = #{filenew},
+				F.FILEOLD = #{fileold},
+				F.FILENAME = #{filename}
+					WHERE F.FILEID = #{fileid}
+	</update>
+</mapper>

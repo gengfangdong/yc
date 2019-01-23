@@ -134,15 +134,15 @@
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%} %>
 									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
-										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">个人中心</ a>
 									<%}; %>
 										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
 								</div>
@@ -163,88 +163,88 @@
 									</div>
 								</div>
 								<div class="am-u-lg-8 am-u-md-12">
-									<div class="header-right am-fr">
-										<div class="header-contact">
-											<div class="nav-contain" style="border: none;box-shadow: none;">
-												<div class="nav-inner">
-													<ul class="am-nav am-nav-pills am-nav-justify">
-														<li class="">
-															<a href="<%=request.getContextPath() %>/">首页</a>
-														</li>
-														<li>
-															<a href="cultureSystem.jsp">项目概况</a>
+                            <div class="header-right am-fr">
+                                <div class="header-contact">
+                                    <div class="nav-contain" style="border: none;box-shadow: none;">
+                                        <div class="nav-inner">
+                                            <ul class="am-nav am-nav-pills am-nav-justify">
+                                                <li class="" style="min-width:90px;">
+                                                    <a href="<%=request.getContextPath() %>/">首页</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="cultureSystem.jsp" >项目概况</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="cultureSystem.jsp"
+                                                               >培养体系</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="solution.jsp" >特色项目</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="teachingMaterialSystem.jsp">往期回顾</a>
+                                                        </li>
+                                                        <!-- <li class="menu-item">
+                                                            <a href="taxCollectionFund.jsp">领税基金</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="expertTeam.jsp">专家团队</a>
+                                                        </li> -->
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="regulationsClasses.jsp">自主报名</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="customizedClasses.jsp">定制班次</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="onlineClasses.jsp" style="color: #FF2F2F;">拼班</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="incumbencyStudent.jsp">在职研</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="incumbencyStudent.jsp">招生简章</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="onlineApplication.jsp">在线报名</a>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="newsNotice.jsp">新闻公告</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="newsNotice.jsp">通知公告</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="newsTrain.jsp">培训新闻</a>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="cultureSystem.jsp">培养体系</a>
-																</li>
-																<li class="menu-item">
-																	<a href="solution.jsp">解决方案</a>
-																</li>
-																<li class="menu-item">
-																	<a href="teachingMaterialSystem.jsp">教材体系</a>
-																</li>
-																<li class="menu-item">
-																	<a href="taxCollectionFund.jsp">领税基金</a>
-																</li>
-																<li class="menu-item">
-																	<a href="expertTeam.jsp">专家团队</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="regulationsClasses.jsp">自主报名</a>
-														</li>
-														<li>
-															<a href="customizedClasses.jsp">定制班次</a>
-														</li>
-														<li>
-															<a href="onlineClasses.jsp" style="color: #FF2F2F;">拼班</a>
-														</li>
-														<li>
-															<a href="incumbencyStudent.jsp">在职研</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="incumbencyStudent.jsp">招生简章</a>
-																</li>
-																<li class="menu-item">
-																	<a href="onlineApplication.jsp">在线报名</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="newsNotice.jsp">新闻公告</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
-																<li class="menu-item">
-																	<a href="newsNotice.jsp">通知公告</a>
-																</li>
-																<li class="menu-item">
-																	<a href="newsTrain.jsp">培训新闻</a>
-																</li>
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-														<li>
-															<a href="centerOverview.jsp">关于我们</a>
-															<!-- sub-menu start-->
-															<ul class="sub-menu">
+															<!-- <ul class="am-menu-sub am-collapse">
 																<li class="menu-item">
 																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="organization.jsp">师资招聘</a>
-																</li>
+																</li> -->
 																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-															</ul>
-															<!-- sub-menu end-->
-														</li>
-													</ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                            </ul>
 												</div>
 											</div>
 										</div>
@@ -283,21 +283,21 @@
 														<a href="cultureSystem.jsp" >培养体系</a>
 													</li>
 													<li class="">
-														<a href="solution.jsp">解决方案</a>
+														<a href="solution.jsp" >特色项目</a>
 													</li>
 													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+														<a href="teachingMaterialSystem.jsp" class="">往期回顾</a>
 													</li>
-													<li class="">
+													<!-- <li class="">
 														<a href="taxCollectionFund.jsp" class="">领税基金</a>
 													</li>
 													<li class="">
 														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
+													</li> -->
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp">自主报名</a>
+												<a href="regulationsClasses.jsp" >自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -329,31 +329,31 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="centerOverview.jsp">关于我们</a>
-													<!-- sub-menu start-->
-													<ul class="am-menu-sub am-collapse">
-														<li class="menu-item">
-															<a href="centerOverview.jsp" >概况</a>
-														</li>
-														<li class="menu-item">
-															<a href="organization.jsp">师资招聘</a>
-														</li>
-														<!-- <li class="menu-item">
-															<a href="aboutSchool.jsp">学校介绍</a>
-														</li> -->
-													</ul>
+												<a href="centerOverview.jsp">下载中心</a>
+															<!-- sub-menu start-->
+															<!-- <ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<li class="menu-item">
+																	<a href="aboutSchool.jsp">学校介绍</a>
+																</li>
+															</ul> -->
 											</li>
 											<li class="">
 												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%} %>
 												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
-													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">个人中心</ a>
 												<%}; %>
 											</li>
 											<li class="">
@@ -403,11 +403,8 @@
 										  <div class="layui-inline selectObj">
 										   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
 										    <label for="" class="control-label" style="float: left;">班次状态：</label>
-											<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+											<select id="firstObj" class="select"  style="min-width: 172px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 										        <option value="全部">全部</option>
-										        <option value="待审核">待审核</option>
-										        <option value="审核未通过">审核未通过</option>
-										        <option value="审核通过">审核通过</option>
 										        <option value="报名未开始">报名未开始</option>
 										        <option value="报名进行中">报名进行中</option>
 										        <option value="待开课">待开课</option>
@@ -417,19 +414,33 @@
 										  </div>
 										  <div class="layui-inline selectObj">
 										    <label for="" class="control-label" style="float: left;">是否已报名：</label>
-											<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+											<select id="secondObj" class="select" style="min-width: 172px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 										        <option value="全部">全部</option>
 										        <option value="已报名">已报名</option>
 										        <option value="未报名">未报名</option>
 										   </select>
 										  </div>
-										  <button class="layui-btn selectBtn" data-type="reload" style="border-radius:5px;height:23px;line-height:15px;background-color:#1e9fff;">搜索</button>
+										  <div class="layui-inline selectObj">
+												  <label for="" class="control-label"  style="float: left;">班次名称：</label>
+												  <input id="classname"  type="text"  style="height:23px;border-radius:5px;border:1px solid #ccc;min-width:172px;" />
+											  </div>
+											  <br/>
+											  <div class="layui-inline selectObj">
+												  <label for="" class="control-label"   style="float: left;">起始时间：</label>
+												  <input id="starttime"  type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="height:23px;border-radius:5px;border:1px solid #ccc;"  />
+											  </div>
+											  <div class="layui-inline selectObj">
+												  <label for="" class="control-label"  style="float: left;">&nbsp;-&nbsp;截止时间：</label>
+												  <input id="endtime"    type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="height:23px;border-radius:5px;border:1px solid #ccc;" />
+											  </div>
+										  		<button class="layui-btn selectBtn" data-type="reload" style="border-radius:5px;height:23px;line-height:15px;background-color:#1e9fff;margin-bottom:4px;margin-left:10px;">搜索</button>
+											  <button class="layui-btn selectBtn" style="border-radius:5px;height:23px;line-height:15px;background-color:#1e9fff;margin-bottom:4px;margin-left:10px;" data-type="reset">重置</button>
 										</div>
 									</div>
 									<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
 										<div class="demoTable">
 										  <div class="layui-inline selectObj">
-										    <label for="" class="control-label" style="float: left;">注：用户可在后台管理页面创建自己的拼班</label>
+										    <label for="" class="control-label" style="float: left;">注：用户可在个人中心创建自己的拼班</label>
 										  </div>
 										</div>
 									</div>
@@ -480,7 +491,21 @@
 			<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 			<!-- layui 2.3.0 -->
 			<script src="../assets/layui-v2.3.0/layui/layui.js"></script>
-			
+			<script type="text/javascript">
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#starttime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#endtime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			});
+		</script>
 			<script>
 		layui.use('table', function(){
 			var table = layui.table;
@@ -500,7 +525,7 @@
 			      {field:'figClass_number',sort:true, title: '可拼人数',minWidth:120},
 			      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
 			      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
-			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
+			      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200,fixed: 'right'}
 			    ]],
 			    id: 'testReload',
 			    page: true
@@ -521,7 +546,7 @@
 		      {field:'figClass_number',sort:true, title: '可拼人数',minWidth:120},
 		      {field:'figClass_status', title: '班次状态',templet:'#typestatus',minWidth:120},
 		      {field:'bmstatus', title: '是否已报名',templet:'#typebmstatus',minWidth:120},
-		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:200}
+		      {field:'figClass_id', title: '操作',toolbar: '#barDemo',minWidth:230,fixed: 'right'}
 		    ]],
 		    id: 'testReload',
 		    page: true
@@ -534,10 +559,10 @@
 		    	layer.open({
 					type: 2, //此处以iframe举例
 					title: '查看',
-					area: ['1063px', '530px'],
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: '../../../../admin/pages/wise/memberPage/openPage/showOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -634,10 +659,10 @@
 		    	layer.open({
 					type: 2, //此处以iframe举例
 					title: '修改',
-					area: ['1063px', '530px'],
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: '../../../../admin/pages/wise/memberPage/openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -651,7 +676,7 @@
 					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: '../../../../admin/pages/wise/memberPage/openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -661,12 +686,12 @@
 		    }else if(obj.event === 'showcode'){
 		    	layer.open({
 					type: 2, //此处以iframe举例
-					title: '报名',
+					title: '查看二维码',
 					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
-					content: '../../../../admin/pages/wise/memberPage/openPage/index.jsp?figClass_id='+data.figClass_id,
+					offset: ['10%', '15%'],
+					content: '../../../admin/pages/wise/memberPage/openPage/index.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
 						layer.setTop(layero); //重点2
@@ -776,6 +801,10 @@
 			}else if(isEntry=="已报名"){
 				isEntry = '1';
 			}
+	        var classname = $("#classname").val();
+			var starttime = $("#starttime").val();
+			var endtime = $("#endtime").val();
+	        
 		      //执行重载
 		      table.reload('testReload', {
 		        page: {
@@ -784,7 +813,32 @@
 		        method:'post',
 		        where: {
 	        	    status:status,
-					isbm:isEntry
+					isbm:isEntry,
+					classname:classname,
+		        	starttime:starttime,
+		        	endtime:endtime
+		        }
+		      });
+		    },
+		    reset: function(){
+		    	 $("#firstObj").val('全部');
+		    	 $("#secondObj").val('全部')
+				$("#classname").val('');
+				$("#starttime").val('');
+				$("#endtime").val('');
+				
+		      //执行重载
+		      table.reload('testReload', {
+		        page: {
+		          curr: 1 //重新从第 1 页开始
+		        },
+		        method:'post',
+		        where: {
+		        	isbm:'',
+		        	scstatus:'',
+		        	classname:'',
+		        	starttime:'',
+		        	endtime:''
 		        }
 		      });
 		    }

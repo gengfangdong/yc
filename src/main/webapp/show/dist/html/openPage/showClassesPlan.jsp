@@ -99,8 +99,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="newsDescription" disabled="disabled" /></textarea>
+											<td class="rightTd" colspan="2" id="newsDescription">
+												
 											</td>
 										</tr>
 										
@@ -203,9 +203,9 @@
 		
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+        		//CKEDITOR.replace('newsDescription');
         		var classplanname = document.getElementById("classesName");
-        		var classescontext = CKEDITOR.instances.newsDescription;
+        		//var classescontext = CKEDITOR.instances.newsDescription;
         		$.ajax({
         			url:'<%=request.getContextPath()%>/ClassPlan/getClassPlandetailByid',
         			type:'POST',
@@ -223,7 +223,8 @@
 								var classPlanname = data.data.classplan_name;
 								var classPlancontext = data.data.classplan_context;
 								classplanname.value=classPlanname;
-								classescontext.setData(classPlancontext);
+								//classescontext.setData(classPlancontext);
+								document.getElementById("newsDescription").innerHTML=classPlancontext;
 							}
 
 						}

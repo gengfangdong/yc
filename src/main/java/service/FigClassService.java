@@ -36,4 +36,7 @@ public interface FigClassService {
 	public List<FigUser> getBynoPage(String figClass_id);
 	public void updateStatus(FigClass figClass);
 	public FigUser getfiguser(String figclass_id,String user_id);
+	public LayuiDataTable<FigClassshowVo> getListBypage1(String string,
+			String status, String caogery, int page, int limit, String string2,
+			String classname, String starttime, String endtime);
 }

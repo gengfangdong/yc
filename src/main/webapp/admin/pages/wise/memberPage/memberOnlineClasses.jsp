@@ -71,6 +71,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -202,18 +203,15 @@ String caogery = (String)session.getAttribute("isad");
 											<!-- <ul class="f-sort-ul">
 												<li><button href="#" class="add" onclick="addBranch(this);">新增</button></li>
 											</ul> -->
-											<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
+											<div class="" style="margin-top: 5px;height: 80px;line-height: 32px;padding-left:10px;">
 												<div class="demoTable">
-													<button href="#" class="add layui-btn" onclick="addBranch(this);" style="margin-left:15px;margin-top:3px;">新增</button>
+													<!-- <button href="#" class="add layui-btn" onclick="addBranch(this);" style="margin-left:15px;margin-top:3px;">新增</button> -->
 												  <!-- 搜索ID： -->
-												  <div class="layui-inline selectObj">
+												  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
 												   <!--  <input class="layui-input" name="id" id="demoReload" autocomplete="off"> -->
 												    <label for="" class="control-label" style="float: left;">班次状态：</label>
-													<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+													<select id="firstObj" class="select"  style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 												        <option value="全部">全部</option>
-												        <option value="待审核">待审核</option>
-												        <option value="审核未通过">审核未通过</option>
-												        <option value="审核通过">审核通过</option>
 												        <option value="报名未开始">报名未开始</option>
 												        <option value="报名进行中">报名进行中</option>
 												        <option value="待开课">待开课</option>
@@ -221,15 +219,31 @@ String caogery = (String)session.getAttribute("isad");
 												        <option value="已结课">已结课</option>
 												   </select>
 												  </div>
-												  <div class="layui-inline selectObj">
+												  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
 												    <label for="" class="control-label" style="float: left;">是否已报名：</label>
-													<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+													<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 												        <option value="全部">全部</option>
 												        <option value="已报名">已报名</option>
 												        <option value="未报名">未报名</option>
 												   </select>
 												  </div>
-												  <button class="layui-btn selectBtn" data-type="reload">搜索</button>
+												  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+												  <label for="" class="control-label"  style="float: left;">班次名称：</label>
+												  <input id="classname"  type="text" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;"  />
+												  </div>
+												  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+													  <label for="" class="control-label"   style="float: left;">起始时间：</label>
+													  <input id="starttime"  type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+												  </div>
+												  <div class="layui-inline selectObj" style="padding:5px 0 0 0;">
+													  <label for="" class="control-label"  style="float: left;">截止时间：</label>
+													  <input id="endtime"    type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+												  </div>
+												  <div style="text-align:center;">
+												  	  <button href="#" class="add layui-btn selectBtn" onclick="addBranch(this);" style="margin-left:15px;margin-top:3px;">新增</button>
+		  									  		  <button class="layui-btn selectBtn" data-type="reload"  >搜索</button>
+													  <button class="layui-btn selectBtn"   data-type="reset">重置</button>
+												  </div>
 												</div>
 											</div> 
 											<div class="row" >
@@ -248,7 +262,7 @@ String caogery = (String)session.getAttribute("isad");
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="LAY_table_user"  lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user"  lay-filter="user" class="table table-bordered table-hover example1_x" style="margin-top: 0px!important;">
 																					<thead>
 																						
 																					</thead>
@@ -326,7 +340,21 @@ String caogery = (String)session.getAttribute("isad");
 			var firstObj="";
 			var secondObj="";
 		</script>
-		
+			<script type="text/javascript">
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#starttime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#endtime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			});
+		</script>
 		<script>
 		layui.use('table', function(){
 			var table = layui.table;
@@ -366,7 +394,7 @@ String caogery = (String)session.getAttribute("isad");
 					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: 'openPage/showOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -463,10 +491,10 @@ String caogery = (String)session.getAttribute("isad");
 		    	layer.open({
 					type: 2, //此处以iframe举例
 					title: '修改',
-					area: ['1063px', '530px'],
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: 'openPage/editOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -477,10 +505,10 @@ String caogery = (String)session.getAttribute("isad");
 		    	layer.open({
 					type: 2, //此处以iframe举例
 					title: '上传名单',
-					area: ['1063px', '530px'],
+					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: 'openPage/updateOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -494,7 +522,7 @@ String caogery = (String)session.getAttribute("isad");
 					area: ['70%', '530px'],
 					shade: 0,
 					maxmin: true,
-					offset: [100, 200],
+					offset: ['10%', '15%'],
 					content: 'openPage/applyOnlieClasses.jsp?figClass_id='+data.figClass_id,
 					zIndex: layer.zIndex, //重点1
 					success: function(layero) {
@@ -619,6 +647,10 @@ String caogery = (String)session.getAttribute("isad");
 			}else if(isEntry=="已报名"){
 				isEntry = '1';
 			}
+	        
+	        var classname = $("#classname").val();
+			var starttime = $("#starttime").val();
+			var endtime = $("#endtime").val();
 		      //执行重载
 		      table.reload('testReload', {
 		        page: {
@@ -627,7 +659,32 @@ String caogery = (String)session.getAttribute("isad");
 		        method:'post',
 		        where: {
 	        	    status:status,
-					isbm:isEntry
+					isbm:isEntry,
+					classname:classname,
+		        	starttime:starttime,
+		        	endtime:endtime
+		        }
+		      });
+		    },
+		    reset: function(){
+		    	 $("#firstObj").val('全部');
+		    	 $("#secondObj").val('全部')
+				$("#classname").val('');
+				$("#starttime").val('');
+				$("#endtime").val('');
+				
+		      //执行重载
+		      table.reload('testReload', {
+		        page: {
+		          curr: 1 //重新从第 1 页开始
+		        },
+		        method:'post',
+		        where: {
+		        	isbm:'',
+		        	scstatus:'',
+		        	classname:'',
+		        	starttime:'',
+		        	endtime:''
 		        }
 		      });
 		    }
@@ -660,10 +717,10 @@ String caogery = (String)session.getAttribute("isad");
 			        	layer.open({
 					        type: 2, //此处以iframe举例
 					        title: '新增',
-					        area: ['1063px', '530px'],
+					        area: ['70%', '530px'],
 					        shade: 0,
 					        maxmin: true,
-					        offset: [100,'20%'] ,
+					        offset: ['10%','15%'] ,
 					        content: 'openPage/addOnlieClasses.jsp',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
@@ -720,8 +777,8 @@ String caogery = (String)session.getAttribute("isad");
 				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 			{{#  } else if(d.figClass_status == "5"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
-				<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 				{{#  if(d.user_status == "1"){ }}
+					<a class="" lay-event="showcode" style="margin-right:10px; cursor: pointer;">查看二维码</a>	
 					<a class="" lay-event="download" style="margin-right:10px; cursor: pointer;" href="<%=request.getContextPath()%>/FigClass/exportUser/{{d.figClass_id}}">下载名单</a>
 				{{#  } }}
 			{{#  } else if(d.figClass_status == "6"){ }}

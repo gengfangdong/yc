@@ -461,8 +461,8 @@
 				var Scheduled_class_context = CKEDITOR.instances.syllabus.getData();
 				var Scheduled_other_context = CKEDITOR.instances.otherInformation.getData();
 				var scheduled_dname = $("#scheduled_dname").val();
-				var scheduled_yh = $("#scheduled_dname").val();
-				var scheduled_zh = $("#scheduled_dname").val();
+				var scheduled_yh = $("#scheduled_yh").val();
+				var scheduled_zh = $("#scheduled_zh").val();
 				if(className==""){
 					alert("请输入班次名称！");
 					return;

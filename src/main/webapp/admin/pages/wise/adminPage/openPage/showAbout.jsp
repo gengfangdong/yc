@@ -123,8 +123,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="newsDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="newsDescription">
+												<!-- <textarea name="description" id="newsDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -165,7 +165,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+        		//CKEDITOR.replace('newsDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/About/getAboutdetailByid',
 				type : 'GET',
@@ -195,7 +195,8 @@
 						newsKeyWords.value=about_KeyWords;//关键字
 						newsDate.value=about_Rlease_time;//发布日期
 						newsTitle.value=about_titile;//状态
-						newscontext.setData(about_context);//内容
+						$("#newsDescription")[0].innerHTML = about_context
+						//newscontext.setData(about_context);//内容
 
 						if(about_status == "1"||about_status == "2"){
 							newsStatus[0].checked = true;

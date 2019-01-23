@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="newsDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="newsDescription">
+												<!-- <textarea name="description" id="newsDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var newscontext = CKEDITOR.instances.newsDescription;
+						//var newscontext = CKEDITOR.instances.newsDescription;
 						var newsTitle = document.getElementById("newsTitle");
 						var newsAbstract = document.getElementById("newsAbstract");
 						var newsKeyWords = document.getElementById("newsKeyWords");
@@ -191,7 +191,8 @@
 						newsKeyWords.value=news_KeyWords;//关键字
 						newsDate.value=news_Rlease_time;//发布日期
 						newsTitle.value=news_titile;//状态
-						newscontext.setData(news_context);//内容
+						$("#newsDescription")[0].innerHTML = news_context;
+						//newscontext.setData(news_context);//内容
 
 						if(news_status == "1"||news_status == "2"){
 							newsStatus[0].checked = true;

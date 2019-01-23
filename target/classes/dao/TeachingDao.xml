@@ -24,7 +24,7 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (SELECT * FROM TEACHING) A  
+			FROM (SELECT * FROM TEACHING order by TEACHING_RELEASE_TIME desc) A  
 			WHERE ROWNUM &lt;= #{length}
 		)  
 		WHERE RN &gt; #{start}  
@@ -57,6 +57,6 @@
 		WHERE N.TEACHING_ID = #{teaching_id}
 	</delete>
 	<select id = "findAllTeaching" resultMap="teaching">
-		SELECT * FROM   TEACHING where TEACHING_STATUS='1'
+		SELECT * FROM   TEACHING where TEACHING_STATUS='1' order by TEACHING_RELEASE_TIME desc
 	</select>
 </mapper>

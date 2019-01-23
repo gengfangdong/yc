@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="teachingDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="teachingDescription">
+												<!-- <textarea name="description" id="teachingDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('teachingDescription');
+        		//CKEDITOR.replace('teachingDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Teaching/getTeachingdetailByid',
 				type : 'GET',
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var teachingcontext = CKEDITOR.instances.teachingDescription;
+						//var teachingcontext = CKEDITOR.instances.teachingDescription;
 						var teachingTitle = document.getElementById("teachingTitle");
 						var teachingAbstract = document.getElementById("teachingAbstract");
 						var teachingKeyWords = document.getElementById("teachingKeyWords");
@@ -191,7 +191,8 @@
 						teachingKeyWords.value=teaching_KeyWords;//关键字
 						teachingDate.value=teaching_Rlease_time;//发布日期
 						teachingTitle.value=teaching_titile;//状态
-						teachingcontext.setData(teaching_context);//内容
+						$("#teachingDescription")[0].innerHTML = teaching_context;
+						//teachingcontext.setData(teaching_context);//内容
 
 						if(teaching_status == "1"||teaching_status == "2"){
 							teachingStatus[0].checked = true;

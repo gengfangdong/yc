@@ -185,6 +185,70 @@ public class FigClassServiceImpl implements FigClassService {
 		return fDataTable;
 	}
 	
+	public LayuiDataTable<FigClassshowVo> getListBypage1(String isbm,String status, String caogery, int page, int limit, String user_id,String classname,String starttime,String endtime) {
+		// TODO Auto-generated method stub
+		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
+		List<FigClass> figClasses = new ArrayList<FigClass>();
+		int count = 0;
+		figClasses = figClassDao.getListBypage1(isbm,user_id,status, caogery, (page-1)*limit, (page-1)*limit+limit,classname,starttime,endtime);
+		List<FigClassshowVo> figClassshowVos = new ArrayList<FigClassshowVo>();
+		if(figClasses!=null&&figClasses.size()>0){
+			for (FigClass figClass : figClasses) {
+				FigClassshowVo figClassshowVo = tranfrom(figClass);
+				//获取创建人
+				String user_name = iUserDao.getDetailByid(figClass.getFigClass_creater()).get(0).getUser_name();
+				figClassshowVo.setFigClass_updatetime(figClass.getFigClass_updatetime());
+				figClassshowVo.setFigClass_creater(user_name);
+				/*int num = 0;
+				num = user_FigClassDao.getCountByid(null, figClassshowVo.getFigClass_id());*/				
+				int lave = 0;	
+				lave = figClassDao.getlaveNum(figClassshowVo.getFigClass_id());
+				figClassshowVo.setFigClass_number(lave);
+				List<String> userids = new ArrayList<String>();
+				userids = figUserDao.getPage(figClassshowVo.getFigClass_id());
+				List<String> ids = new ArrayList<String>();
+				ids = user_FigClassDao.getUserByid(figClassshowVo.getFigClass_id());
+				if(userids != null && userids.size()>=0){
+					if(userids.contains(user_id)){
+						figClassshowVo.setBmstatus("1");
+						if(ids != null && ids.size()>=0){
+							if(ids.contains(user_id)){
+								figClassshowVo.setUser_status("1");
+							}
+							else
+								figClassshowVo.setUser_status("0");
+						}
+						else
+							figClassshowVo.setUser_status("0");
+					}
+					else{
+						figClassshowVo.setBmstatus("0");
+						figClassshowVo.setUser_status("0");
+					}
+				}
+				else{
+					figClassshowVo.setBmstatus("0");
+					figClassshowVo.setUser_status("0");
+				}
+				if("".equals(user_id)){
+					figClassshowVo.setIsdelete("1");//可删除
+				}else{
+					if(user_id.equals(figClass.getFigClass_creater())){
+						figClassshowVo.setIsdelete("1");
+					}
+					else
+						figClassshowVo.setIsdelete("0");
+				}
+				figClassshowVos.add(figClassshowVo);
+				
+			}
+		}
+		fDataTable.setData(figClassshowVos);
+		count = figClassDao.getListCount1(isbm,user_id,caogery, status,classname,starttime,endtime);
+		fDataTable.setCount(count);
+		return fDataTable;
+	}
+	
 	
 	private FigClassshowVo tranfrom(FigClass figClasss){
 		FigClassshowVo figClassshowVos = new FigClassshowVo();

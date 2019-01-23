@@ -311,8 +311,6 @@
 // 					layer.alert("请填写简介！");
 // 					return;
 // 				}
-	
-				
 				if(newsKeyWords == "") {
 					layer.alert("请填链接地址！");
 					return;

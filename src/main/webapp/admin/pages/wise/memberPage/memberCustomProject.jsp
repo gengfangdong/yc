@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -338,9 +339,9 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'freeco_creater',title:'发起人',minWidth:120,sort:true},
 			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
 			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120,sort: true},
-			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:160,sort: true},
+			      {field:'freeco_datanum', title: '举办天数',templet:'#typedatanum',minWidth:160,sort: true},
 			      {field:'freeco_pernum', title: '计划参加人数',minWidth:160,sort: true},
-			      {field:'freeco_data', title: '预计开始时间',minWidth:120,sort: true},
+			      {field:'freeco_data', title: '开始时间',minWidth:120,sort: true},
 			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120,sort: true},
 			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:250}
 			    ]],

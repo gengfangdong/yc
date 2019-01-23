@@ -163,19 +163,19 @@
 									style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
 									a> <a
 									href="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement"
-									style="color: #000000;">后台登录</ a> <a
+									style="color: #000000;">个人中心</ a> <a
 										href="<%=request.getContextPath()%>/Logout"
 										style="color: #000000;">注销</ a> <%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 											<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
 												a> <a
 												href="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage"
-												style="color: #000000;">后台登录</ a> <a
+												style="color: #000000;">个人中心</ a> <a
 													href="<%=request.getContextPath()%>/Logout"
 													style="color: #000000;">注销</ a> <%} %> <% if(user == null) {%><a
 														href="<%=request.getContextPath()%>/show/dist/html/login.jsp"
 														style="color: #000000;">登录</ a> <a
 															href="<%=request.getContextPath()%>/admin/login.jsp"
-															style="color: #000000;">后台登录</ a> <%}; %> <a
+															style="color: #000000;">个人中心</ a> <%}; %> <a
 																href="<%=request.getContextPath()%>/show/dist/html/register.jsp"
 																style="color: #000000;">注册</ a> 
 							</div>
@@ -199,56 +199,88 @@
 								</div>
 							</div>
 							<div class="am-u-lg-8 am-u-md-12">
-								<div class="header-right am-fr">
-									<div class="header-contact">
-										<div class="nav-contain"
-											style="border: none; box-shadow: none;">
-											<div class="nav-inner">
-												<ul class="am-nav am-nav-pills am-nav-justify">
-													<li class=""><a href="<%=request.getContextPath() %>/">首页</a>
-													</li>
-													<li><a href="cultureSystem.jsp">项目概况</a> <!-- sub-menu start-->
-														<ul class="sub-menu">
-															<li class="menu-item"><a href="cultureSystem.jsp">培养体系</a>
-															</li>
-															<li class="menu-item"><a href="solution.jsp">解决方案</a>
-															</li>
-															<li class="menu-item"><a
-																href="teachingMaterialSystem.jsp">教材体系</a></li>
-															<li class="menu-item"><a
-																href="taxCollectionFund.jsp">领税基金</a></li>
-															<li class="menu-item"><a href="expertTeam.jsp">专家团队</a>
-															</li>
-														</ul> <!-- sub-menu end--></li>
-													<li><a href="regulationsClasses.jsp">自主报名</a></li>
-													<li><a href="customizedClasses.jsp"
-														style="color: #FF2F2F;">定制班次</a></li>
-													<li><a href="onlineClasses.jsp">拼班</a></li>
-													<li><a href="incumbencyStudent.jsp">在职研</a> <!-- sub-menu start-->
-														<ul class="sub-menu">
-															<li class="menu-item"><a
-																href="incumbencyStudent.jsp">招生简章</a></li>
-															<li class="menu-item"><a
-																href="onlineApplication.jsp">在线报名</a></li>
-														</ul> <!-- sub-menu end--></li>
-													<li><a href="newsNotice.jsp">新闻公告</a> <!-- sub-menu start-->
-														<ul class="sub-menu">
-															<li class="menu-item"><a href="newsNotice.jsp">通知公告</a>
-															</li>
-															<li class="menu-item"><a href="newsTrain.jsp">培训新闻</a>
-															</li>
-														</ul> <!-- sub-menu end--></li>
-													<li><a href="centerOverview.jsp">关于我们</a> <!-- sub-menu start-->
-														<ul class="sub-menu">
-															<li class="menu-item"><a href="centerOverview.jsp">概况</a>
-															</li>
-															<li class="menu-item"><a href="organization.jsp">师资招聘</a>
-															</li>
-															<!-- <li class="menu-item">
+                            <div class="header-right am-fr">
+                                <div class="header-contact">
+                                    <div class="nav-contain" style="border: none;box-shadow: none;">
+                                        <div class="nav-inner">
+                                            <ul class="am-nav am-nav-pills am-nav-justify">
+                                                <li class="" style="min-width:90px;">
+                                                    <a href="<%=request.getContextPath() %>/">首页</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="cultureSystem.jsp" >项目概况</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="cultureSystem.jsp"
+                                                               >培养体系</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="solution.jsp" >特色项目</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="teachingMaterialSystem.jsp">往期回顾</a>
+                                                        </li>
+                                                        <!-- <li class="menu-item">
+                                                            <a href="taxCollectionFund.jsp">领税基金</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="expertTeam.jsp">专家团队</a>
+                                                        </li> -->
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="regulationsClasses.jsp">自主报名</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="customizedClasses.jsp" style="color: #FF2F2F;">定制班次</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="onlineClasses.jsp">拼班</a>
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="incumbencyStudent.jsp">在职研</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="incumbencyStudent.jsp">招生简章</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="onlineApplication.jsp">在线报名</a>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="newsNotice.jsp">新闻公告</a>
+                                                    <!-- sub-menu start-->
+                                                    <ul class="sub-menu">
+                                                        <li class="menu-item">
+                                                            <a href="newsNotice.jsp">通知公告</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="newsTrain.jsp">培训新闻</a>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                                <li style="min-width:90px;">
+                                                    <a href="centerOverview.jsp">下载中心</a>
+															<!-- sub-menu start-->
+															<!-- <ul class="am-menu-sub am-collapse">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li> -->
+																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-														</ul> <!-- sub-menu end--></li>
-												</ul>
+                                                    <!-- sub-menu end-->
+                                                </li>
+                                            </ul>
 											</div>
 										</div>
 									</div>
@@ -264,82 +296,106 @@
 
 		<!--mobile header start-->
 		<div class="m-header">
-			<div class="am-g am-show-sm-only">
-				<div class="am-u-sm-2">
-					<div class="menu-bars">
-						<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i
-							class="am-menu-toggle-icon am-icon-bars"></i></a>
-						<!-- 侧边栏内容 -->
-						<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1"
-							data-am-menu-offcanvas>
-							<a href="javascript: void(0)" class="am-menu-toggle"></a>
+				<div class="am-g am-show-sm-only">
+					<div class="am-u-sm-2">
+						<div class="menu-bars">
+							<a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i class="am-menu-toggle-icon am-icon-bars"></i></a>
+							<!-- 侧边栏内容 -->
+							<nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+								<a href="javascript: void(0)" class="am-menu-toggle"></a>
 
-							<div class="am-offcanvas">
-								<div class="am-offcanvas-bar">
+								<div class="am-offcanvas">
+									<div class="am-offcanvas-bar">
 
 
-									<ul class="am-menu-nav am-avg-sm-1">
-										<li><a href="<%=request.getContextPath() %>/">首页</a></li>
-										<li class="am-parent"><a href="cultureSystem.jsp">项目概况</a>
-											<ul class="am-menu-sub am-collapse ">
-												<li class=""><a href="cultureSystem.jsp">培养体系</a></li>
-												<li class=""><a href="solution.jsp">解决方案</a></li>
-												<li class=""><a href="teachingMaterialSystem.jsp"
-													class="">教材体系</a></li>
-												<li class=""><a href="taxCollectionFund.jsp" class="">领税基金</a>
-												</li>
-												<li class=""><a href="expertTeam.jsp" class="">专家团队</a>
-												</li>
-											</ul></li>
-										<li class=""><a href="regulationsClasses.jsp">自主报名</a></li>
-										<li class=""><a href="customizedClasses.jsp"
-											style="color: #FF2F2F;">定制班次</a></li>
-										<li class=""><a href="onlineClasses.jsp">拼班</a></li>
+										<ul class="am-menu-nav am-avg-sm-1">
+											<li>
+												<a href="<%=request.getContextPath() %>/">首页</a>
+											</li>
+											<li class="am-parent">
+												<a href="cultureSystem.jsp"  >项目概况</a>
+												<ul class="am-menu-sub am-collapse ">
+													<li class="">
+														<a href="cultureSystem.jsp" >培养体系</a>
+													</li>
+													<li class="">
+														<a href="solution.jsp" >特色项目</a>
+													</li>
+													<li class="">
+														<a href="teachingMaterialSystem.jsp" class="">往期回顾</a>
+													</li>
+													<!-- <li class="">
+														<a href="taxCollectionFund.jsp" class="">领税基金</a>
+													</li>
+													<li class="">
+														<a href="expertTeam.jsp" class="">专家团队</a>
+													</li> -->
+												</ul>
+											</li>
+											<li class="">
+												<a href="regulationsClasses.jsp" >自主报名</a>
+											</li>
+											<li class="">
+												<a href="customizedClasses.jsp" style="color: #FF2F2F;">定制班次</a>
+											</li>
+											<li class="">
+												<a href="onlineClasses.jsp">拼班</a>
+											</li>
 
-										<li class="am-parent"><a href="incumbencyStudent.jsp">在职研</a>
-											<ul class="am-menu-sub am-collapse  ">
-												<li class="menu-item"><a href="incumbencyStudent.jsp">招生简章</a>
-												</li>
-												<li class="menu-item"><a href="onlineApplication.jsp">在线报名</a>
-												</li>
-											</ul></li>
-										<li class="am-parent"><a href="newsNotice.jsp">新闻公告</a>
-											<ul class="am-menu-sub am-collapse  ">
-												<li class="menu-item"><a href="newsNotice.jsp">通知公告</a>
-												</li>
-												<li class="menu-item"><a href="newsTrain.jsp">培训新闻</a>
-												</li>
-											</ul></li>
-										<li class="am-parent"><a href="centerOverview.jsp">关于我们</a>
-											<!-- sub-menu start-->
-											<ul class="am-menu-sub am-collapse">
-												<li class="menu-item"><a href="centerOverview.jsp">概况</a>
-												</li>
-												<li class="menu-item"><a href="organization.jsp">师资招聘</a>
-												</li>
-												<!-- <li class="menu-item">
+											<li class="am-parent">
+												<a href="incumbencyStudent.jsp">在职研</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="incumbencyStudent.jsp">招生简章</a>
+													</li>
+													<li class="menu-item">
+														<a href="onlineApplication.jsp">在线报名</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="newsNotice.jsp">新闻公告</a>
+												<ul class="am-menu-sub am-collapse  ">
+													<li class="menu-item">
+														<a href="newsNotice.jsp">通知公告</a>
+													</li>
+													<li class="menu-item">
+														<a href="newsTrain.jsp">培训新闻</a>
+													</li>
+												</ul>
+											</li>
+											<li class="am-parent">
+												<a href="centerOverview.jsp">下载中心</a>
+															<!-- sub-menu start-->
+															<!-- <ul class="sub-menu">
+																<li class="menu-item">
+																	<a href="centerOverview.jsp">概况</a>
+																</li>
+																<li class="menu-item">
+																	<a href="organization.jsp">师资招聘</a>
+																</li>
+																<li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li> -->
-											</ul></li>
-										<li class="">
-											<% if(user != null&&"1".equals(user.getIsadmin())) {%><a
-											style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
-												a> <a href="/admin/pages/wise/adminPage/noticeAnnouncement"
-												style="color: #FFF;">后台登录</ a> <a
-													href="<%=request.getContextPath()%>/Logout"
-													style="color: #FFF;">注销</ a> <%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
-														<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</
-															a> <a
-															href="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage"
-															style="color: #FFF;">后台登录</ a> <a
-																href="<%=request.getContextPath()%>/Logout"
-																style="color: #FFF;">注销</ a> <%} %> <% if(user == null) {%><a
-																	href="login.jsp" style="color: #FFF;">登录</ a> <a
-																		href="<%=request.getContextPath()%>/admin/login.jsp"
-																		style="color: #FFFFFF;">后台登录</ a> <%}; %>
-										</li>
-										<li class=""><a href="register.jsp" class="">注册</a></li>
-									</ul>
+																</li>
+															</ul> -->
+											</li>
+											<li class="">
+												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">个人中心</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
+													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">个人中心</ a>
+													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
+												<%} %>
+												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">个人中心</ a>
+												<%}; %>
+											</li>
+											<li class="">
+												<a href="register.jsp" class="">注册</a>
+											</li>
+										</ul>
 
 								</div>
 							</div>
@@ -501,7 +557,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="tableLeftTd3">预计举办日期:<span style="color: red;">*<span></td>
+										<td class="tableLeftTd3">举办日期:<span style="color: red;">*<span></td>
 										<td class="tableRightTd3"><input id="hostDate"
 											name="newsDate" placeholder="YYYY-MM-DD" type="text" class=""
 											style="height: 23px; width: 252px; cursor: pointer; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
@@ -511,13 +567,13 @@
 										<td class="tableLeftTd3">计划参加人数:<span style="color: red;">*<span></td>
 										<td class="tableRightTd3"><input type="text"
 											id="planNumOfEntries" onBlur="judgesNumber(this);"
-											placeholder="请选择人数大于50人，低于50人，将发布到拼班项目"
+											placeholder="请选择人数大于60人，低于60人，将发布到拼班项目"
 											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
 										</td>
 									</tr>
 
 									<tr>
-										<td class="tableLeftTd3">预计举办地点:<span style="color: red;">*<span></td>
+										<td class="tableLeftTd3">举办地点:<span style="color: red;">*<span></td>
 										<td class="tableRightTd3"><input type="text"
 											id="planHostAddress" placeholder="请精确到所在市区县，如：北京市海淀区"
 											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
@@ -531,7 +587,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="tableLeftTd3">联系电话:<span style="color: red;">*<span></td>
+										<td class="tableLeftTd3">联系手机:<span style="color: red;">*<span></td>
 										<td class="tableRightTd3"><input type="text"
 											id="contactNumber"
 											style="width: 100%; border: none; border-radius: 5px; border: 1px solid #a9a9a9; height: 23px;" />
@@ -606,7 +662,7 @@
 										</tr>
 
 										<tr>
-											<td class="tableLeftTd3">预计结课日期:<span
+											<td class="tableLeftTd3">结课日期:<span
 												style="color: red;">*<span></td>
 											<td class="tableRightTd3" colspan="2"><input value=""
 												id="classesEndDate" name="classesEndDate" autocomplete="off"
@@ -643,7 +699,7 @@
 
 			<!--===========layout-footer================-->
 			<div class="layout-footer">
-				<jsp:include page="footer.jsp" flush="true" />
+				<jsp:include   page="footer.jsp" flush="true"/>
 			</div>
 		</div>
 		<script src="../assets/js/jquery-2.1.0.js" charset="utf-8"></script>
@@ -810,7 +866,8 @@
 			      {field:'course_id', title: '操作',toolbar: '#barDemo',minWidth:90}
 			    ]],
 			    id: 'testReload',
-			    page: false
+			    page: false,
+			    height:300
 			  });
 			  
 			//监听工具条
@@ -1048,7 +1105,7 @@
 					return;
 				}
 				if(hostDate==""){
-					alert("请选择预计举办日期！");
+					alert("请选择举办日期！");
 					return;
 				}
 				if(planNumOfEntries==""){
@@ -1064,10 +1121,10 @@
 					return;
 				}
 				if(contactNumber==""){
-					alert("请填写联系电话！");
+					alert("请填写联系手机！");
 					return;
 				}else if(testPhone.test(contactNumber)==false){
-					alert("请输入有效的联系电话！");
+					alert("请输入有效的联系手机！");
 					return;
 				}
 				if(contactWorkNumber==""){
@@ -1119,7 +1176,7 @@
 						return;
 					}
 					if(classesEndDate==""){
-						alert("请选择预计结课日期！");
+						alert("请选择结课日期！");
 						return;
 					}
 					if(togetherClassesEndDate>hostDate){
@@ -1161,12 +1218,25 @@
 						success:function(data){
 							if(data.success == true){
 								if(data.message == "1"){
-									layer.confirm('保存成功!', { title:'提示'}, function(index){
+									layer.alert('保存成功!')
+										layer.open({
+												type: 2, //此处以iframe举例
+												title: '查看二维码',
+												area: ['70%', '530px'],
+												shade: 0,
+												maxmin: true,
+												offset: ['10%', '15%'],
+												content: '../../../admin/pages/wise/memberPage/openPage/index.jsp?figClass_id='+data.figid.figClass_id,
+												zIndex: layer.zIndex, //重点1
+												success: function(layero) {
+													layer.setTop(layero); //重点2
+												}
+											});
 										  
-										window.parent.location.reload();
-										var index1 = parent.layer.getFrameIndex(window.name);
-										parent.layer.close(index1);
-									});
+										//window.parent.location.reload();
+									//	var index1 = parent.layer.getFrameIndex(window.name);
+									//	parent.layer.close(index1);
+									
 								}
 							}else{
 								layer.alert("保存失败！");

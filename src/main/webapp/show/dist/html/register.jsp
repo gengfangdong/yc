@@ -27,7 +27,7 @@
         	color:#1E9FFF;
         }
         #getCode{
-        	width:30%;
+        	width:37%;
         	margin-left:2%;
         	height:37px;
         	border-radius:5px;
@@ -56,15 +56,15 @@
                     <div class="am-u-md-4">
                         <div class="topbar-right am-text-right am-fr">
                           <% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">后台登录</ a>
+										<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000000;">个人中心</ a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000000;">注销</ a>
 									<%} %>
 									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000000;">登录</ a>
-										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">后台登录</ a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000000;">个人中心</ a>
 									<%}; %>
 										<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</ a>
                         </div>
@@ -81,7 +81,7 @@
                     <div class="am-g">
                         <div class="am-u-lg-2 am-u-md-12 am-u-sm-12">
                             <div class="logo">
-                                <a href="../index.html"><img src="../assets/img/index/logo_top.png" alt=""
+                                <a href="<%=request.getContextPath() %>/"><img src="../assets/img/index/logo_top.png" alt=""
                                                              style="width: auto;"/></a>
                             </div>
                         </div>
@@ -95,24 +95,25 @@
                                                     <a href="<%=request.getContextPath() %>/">首页</a>
                                                 </li>
                                                 <li style="min-width:90px;">
-                                                    <a href="cultureSystem.jsp">项目概况</a>
+                                                    <a href="cultureSystem.jsp" >项目概况</a>
                                                     <!-- sub-menu start-->
                                                     <ul class="sub-menu">
                                                         <li class="menu-item">
-                                                            <a href="cultureSystem.jsp">培养体系</a>
+                                                            <a href="cultureSystem.jsp"
+                                                               >培养体系</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="solution.jsp">解决方案</a>
+                                                            <a href="solution.jsp" >特色项目</a>
                                                         </li>
                                                         <li class="menu-item">
-                                                            <a href="teachingMaterialSystem.jsp">教材体系</a>
+                                                            <a href="teachingMaterialSystem.jsp">往期回顾</a>
                                                         </li>
-                                                        <li class="menu-item">
+                                                        <!-- <li class="menu-item">
                                                             <a href="taxCollectionFund.jsp">领税基金</a>
                                                         </li>
                                                         <li class="menu-item">
                                                             <a href="expertTeam.jsp">专家团队</a>
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                     <!-- sub-menu end-->
                                                 </li>
@@ -152,19 +153,18 @@
                                                     <!-- sub-menu end-->
                                                 </li>
                                                 <li style="min-width:90px;">
-                                                   <a href="centerOverview.jsp">关于我们</a>
+                                                    <a href="centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="sub-menu">
+															<!-- <ul class="am-menu-sub am-collapse">
 																<li class="menu-item">
 																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="organization.jsp">师资招聘</a>
-																</li>
+																</li> -->
 																<!-- <li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
 																</li> -->
-															</ul>
                                                     <!-- sub-menu end-->
                                                 </li>
                                             </ul>
@@ -199,27 +199,27 @@
 												<a href="<%=request.getContextPath() %>/">首页</a>
 											</li>
 											<li class="am-parent">
-												<a href="cultureSystem.jsp" >项目概况</a>
+												<a href="cultureSystem.jsp"  >项目概况</a>
 												<ul class="am-menu-sub am-collapse ">
 													<li class="">
 														<a href="cultureSystem.jsp" >培养体系</a>
 													</li>
 													<li class="">
-														<a href="solution.jsp">解决方案</a>
+														<a href="solution.jsp" >特色项目</a>
 													</li>
 													<li class="">
-														<a href="teachingMaterialSystem.jsp" class="">教材体系</a>
+														<a href="teachingMaterialSystem.jsp" class="">往期回顾</a>
 													</li>
-													<li class="">
+													<!-- <li class="">
 														<a href="taxCollectionFund.jsp" class="">领税基金</a>
 													</li>
 													<li class="">
 														<a href="expertTeam.jsp" class="">专家团队</a>
-													</li>
+													</li> -->
 												</ul>
 											</li>
 											<li class="">
-												<a href="regulationsClasses.jsp">自主报名</a>
+												<a href="regulationsClasses.jsp" >自主报名</a>
 											</li>
 											<li class="">
 												<a href="customizedClasses.jsp">定制班次</a>
@@ -251,31 +251,31 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="centerOverview.jsp">关于我们</a>
+												<a href="centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="am-menu-sub am-collapse">
+															<!-- <ul class="sub-menu">
 																<li class="menu-item">
 																	<a href="centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="organization.jsp">师资招聘</a>
 																</li>
-																<!-- <li class="menu-item">
+																<li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li> -->
-															</ul>
+																</li>
+															</ul> -->
 											</li>
 											<li class="">
 												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</ a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</ a>
-													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">个人中心</ a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</ a>
 												<%} %>
 												<% if(user == null) {%><a href="login.jsp" style="color: #FFF;">登录</ a>
-													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</ a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">个人中心</ a>
 												<%}; %>
 											</li>
 											<li class="">
@@ -300,8 +300,8 @@
 
 
     <!--===========layout-container================-->
-    <div class="register-box" style="width: 550px;margin: 40px auto 0;">
-        <div  class="am-form" data-am-validator>
+   <div class="register-box" style="width: 550px;margin: 40px auto 0;">
+        <div class="am-form" data-am-validator>
             <fieldset>
                 <legend style="color: #14426a;font-size: 24px;font-weight: 600;">注册用户</legend>
 
@@ -313,17 +313,6 @@
                         <div class="am-u-md-10">
                             <input type="text" id="register_phone" minlength="11" maxlength="11"
                                    placeholder="请输入您的手机号" required/>
-                        </div>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <div class="am-g">
-                        <div class="am-u-md-2 am-padding-0 am-text-right">
-                            <label for="register_userName" class="register-name register_userName"><span style="color:red;">*</span>验证码</label>
-                        </div>
-                        <div class="am-u-md-10">
-                            <input type="text" id="register_verifyCode" maxlength="6" placeholder="请输入6位验证码" required style="width:67%;float:left;"/>
-                            <button type="button" id="getCode"  >获取验证码</button>
                         </div>
                     </div>
                 </div>
@@ -351,7 +340,7 @@
                 </div>
                 <div class="am-form-group">
                     <div class="am-g">
-                        <div class="am-u-md-2 am-padding-0 am-text-right"> 	
+                        <div class="am-u-md-2 am-padding-0 am-text-right">
                             <label for="register_email" class="register-name register_email">联系邮箱</label>
                         </div>
                         <div class="am-u-md-10">
@@ -433,7 +422,7 @@
                 <div class="am-g">
                     <div class="am-u-md-12" style="display: flex;justify-content: center;align-items: center;">
                         <button class="am-btn am-btn-secondary am-btn-primary"
-                                type="" style="margin: 0;background: #1E9FFF;border-color: #1E9FFF;" onclick="submitRegister();">注册
+                                type="submit" style="margin: 0;background: #1E9FFF;border-color: #1E9FFF;" onclick="submitRegister();">注册
                         </button>
                     </div>
                 </div>
@@ -472,60 +461,8 @@
 <![endif]-->
 <script src="../assets/js/amazeui.js" charset="utf-8"></script>
 <script>
-	$("#getCode").on("click", function(){
-        var register_phone = $('#register_phone').val();
-        var testPhone = /^1\d{10}$/;
-		if(register_phone==""){
-            alert("请输入登录名称！");
-            return;
-        }else if(testPhone.test(register_phone)==false){
-            alert("请输入正确的登录名称！");
-            return;
-        }
-		 $.ajax({
-			url:'<%=request.getContextPath()%>/IUser/sendMess',
-			type:'post',
-			dataType:'json',
-			data:{
-				"phone":register_phone
-			},
-			success:function(data){
-				if(data.success == true){
-					if(data.message == "2"){
-						//alert("发送成功!");
-						var countdown=60;  
-					    var getCode = $("#getCode");
-					    settime();
-					    function settime() {  
-					      if (countdown == 0) {  
-					       // getCode.attr("disabled",false);  
-					         $("#getCode")[0].innerHTML="获取短信验证码";  
-					        countdown = 60;  
-					        return false;  
-					      } else {  
-					        $("#getCode").attr("disabled", true);  
-					        $("#getCode")[0].innerHTML=countdown + 's后重新发送';  
-					        countdown--;  
-					      }  
-					      setTimeout(function() {  
-					        settime();  
-					      },1000);  
-					    } 
-						return;
-					}
-	        	}else{
-	        		if(data.message == "1"||data.message == "0"){
-						alert("发送失败!");
-						return;
-					}
-	        	}
-
-			}
-		})
-	});
     function submitRegister() {
         var register_phone = $('#register_phone').val();
-        var register_verifyCode = $("#register_verifyCode").val();
         var register_userName = $('#register_userName').val();
         var register_tel = $("#register_tel").val();
         var register_email = $("#register_email").val();
@@ -542,29 +479,20 @@
             alert("请输入登录名称！");
             return;
         }else if(testPhone.test(register_phone)==false){
-            alert("请输入正确的登录名称！");
+            alert("请输入正确的登录名称（手机号）！");
             return;
-        }
-        if(register_verifyCode==""){
-        	alert("请输入验证码!");
-        	return;
-        }else if($("#register_verifyCode")[0].value.length<6||$("#register_verifyCode")[0].value.length>6){
-        	alert("请输入6位验证码!");
-        	return;
-        }else if(register_verifyCode){
-        	
         }
         if(register_userName==""){
             alert("请输入您的姓名！");
             return;
         }
-		if(register_tel==""){
-			alert("请输入办公电话！");
-			return;
-		}else if(testTel.test(register_tel)==false){
-			alert("请输入有效的办公电话！");
-			return;
-		}
+	if(register_tel==""){
+		alert("请输入办公电话！");
+		return;
+	}else if(testTel.test(register_tel)==false){
+		alert("请输入有效的办公电话！");
+		return;
+	}
         if(register_email!="" && testEmail.test(register_email)==false){
             alert("请输入正确的邮箱！");
             return;
@@ -601,6 +529,29 @@
             return;
         }
 
+       /* var successRegister = '<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">' +
+            '                    <div class="am-modal-dialog">' +
+            '                        <div class="am-modal-bd">' +
+            '                            注册成功！' +
+            '                        </div>' +
+            '                        <div class="am-modal-footer">' +
+            '                            <span class=""><a href="login.html">登录</a></span>' +
+            '                            <span class="am-modal-btn">取消</span>' +
+            '                        </div>' +
+            '                    </div>' +
+            '                </div>';
+
+        var errorRegister = '<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">' +
+            '                    <div class="am-modal-dialog">' +
+            '                        <div class="am-modal-bd">' +
+            '                            注册失败！' +
+            '                        </div>' +
+            '                        <div class="am-modal-footer">' +
+            '                            <span class="am-modal-btn">确定</span>' +
+            '                        </div>' +
+            '                    </div>' +
+            '                </div>';*/
+
         $.ajax({
             url:'<%=request.getContextPath()%>/IUser/regist',
             data:{
@@ -612,8 +563,7 @@
                 "User_department":register_department,
                 "User_job":"",
                 "User_hold":register_post,
-                "User_password":register_password1,
-                "appid":$("#register_verifyCode")[0].value
+                "User_password":register_password1
             },
             dateType:"json",
             type:"post",
@@ -624,7 +574,6 @@
                     if(r==true){
                     	/* window.open('','_self','');
                     	window.close(); */
-                    	
                     	javascript:location.href='<%=request.getContextPath()%>/show/dist/html/login.jsp';
                     }else{
                         return;
@@ -635,12 +584,9 @@
                         alert("登录名存在!");
                         return;
                     }
-                    else if(data.msg == "4"){
-                        alert("验证码错误!");
+                    else{
+                        alert("参数错误!");
                         return;
-                    }else{
-                    	alert("参数错误!");
-                    	return;
                     }
                 }
             },error:function(e){

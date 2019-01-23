@@ -14,7 +14,14 @@
 <script type="text/javascript" src="../../../../qrcodejs-master/qrcode.js"></script>
 </head>
 <body>
+
 <input id="text" type="text" value="http://www.taxlead.cn/show/dist/html/openPage/showOnlieClasses.jsp?figClass_id=<%=figClass_id %>" style="height:23px;line-height:23px;width:100%;border-radius:5px;border:1px solid #ccc;background:#fff;" disabled="disabled" /><br />
+<div>
+	<p>提交成功！</p>
+	<p>您可以使用微信扫描此二维码，发送到您的工作群或朋友圈，请相关单位参与拼班</p>
+	<p>平台上同时将您的拼班信息发布在“拼班”模块</p>
+	<p>其他用户登录平台也可以在上述模块参与您发起的拼班</p>
+</div>
 <div id="qrcode" style=" margin-top:15px;margin-left:35%;"></div>
 
 <script type="text/javascript">

@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -149,9 +150,9 @@ String caogery = (String)session.getAttribute("isad");
 										<li>
 											<a href="rotationPicture.jsp"><i class="fa fa-square-o"></i> 轮播图片</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -162,17 +163,17 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="cultureSystem.jsp"><i class="fa fa-square-o"></i> 培养体系</a>
 										</li>
 										<li>
-											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+											<a href="solution.jsp"><i class="fa fa-square-o"></i> 特色项目</a>
 										</li>
 										<li>
-											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 往期回顾</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
 										</li>
 										<li>
 											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -201,6 +202,9 @@ String caogery = (String)session.getAttribute("isad");
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+										</li>
+										<li>
+											<a href="fileTab.jsp"><i class="fa fa-square-o"></i> 附件中心</a>
 										</li>
 									</ul>
 								</li>
@@ -267,6 +271,7 @@ String caogery = (String)session.getAttribute("isad");
 																		</div>
 																	</div> -->
 																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
+																		<div class="demoTable">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<div class="layui-inline selectObj">
 																				<label for="" class="control-label" style="float: left;">定制类别：</label>
@@ -287,6 +292,7 @@ String caogery = (String)session.getAttribute("isad");
 																				</select>
 																			</div>
 																			<button class="layui-btn selectBtn" data-type="reload">搜索</button>
+																		</div>
 																		</div>
 																	</div>	
 																	<div class="row">
@@ -388,9 +394,9 @@ String caogery = (String)session.getAttribute("isad");
 			      {field:'freeco_creater',title:'发起人',minWidth:120,sort:true},
 			      {field:'freeco_updatetime',title:'发起时间',minWidth:180,sort: true},
 			      {field:'freeco_gaoery', title: '定制类别',templet:'#typecaogery',minWidth:120,sort:true},
-			      {field:'freeco_datanum', title: '计划举办天数',templet:'#typedatanum',minWidth:90,sort: true},
+			      {field:'freeco_datanum', title: '举办天数',templet:'#typedatanum',minWidth:90,sort: true},
 			      {field:'freeco_pernum', title: '计划参加人数',minWidth:90,sort: true},
-			      {field:'freeco_data', title: '预计开始时间',minWidth:120,sort: true},
+			      {field:'freeco_data', title: '开始时间',minWidth:120,sort: true},
 			      {field:'freeco_status', title: '状态',templet:'#typestatus',minWidth:120,sort:true},
 			      {field:'freeco_id', title: '操作',toolbar: '#barDemo',minWidth:300}
 			    ]],
@@ -490,24 +496,22 @@ String caogery = (String)session.getAttribute("isad");
 			    reload: function(){
 				    var status = $("#firstObj").val();
 				    var category = $("#secondObj").val();
-					if(status == '报名未开始'){
+					if(status == "全部"){
+						status ="";
+					}else if(status == '未审核'){
+						status = 0;
+					}else if(status == '已通过'){
 						status = 1;
-					}else if(status == '报名进行中'){
+					}else if(status == '未通过'){
 						status = 2;
-					}else if(status == '未开课'){
-						status = 3;
-					}else if(status == '已结课'){
-						status = 4;
-					}else if(status == '全部'){
-						status = "";
 					}
 					if(category=="全部"){
 						category = "";
 					}else if(category=="课程定制"){
-						category = 0;
-					}else if(category=="方案定制"){
 						category = 1;
-					}else if(category=="目录定制"){
+					}else if(category=="方案定制"){
+						category = 0;
+					}else if(category=="自由定制"){
 						category = 2;
 					}
 				      
@@ -519,7 +523,7 @@ String caogery = (String)session.getAttribute("isad");
 				        method:'post',
 				        where: {
 				        	    status:status,
-				        	    category:category
+				        	    caogery:category
 				        }
 				      });	
 			    }
@@ -545,7 +549,7 @@ String caogery = (String)session.getAttribute("isad");
 					        shade: 0,
 					        maxmin: true,
 					        offset: ['10%', '15%'] ,
-					        content: 'openPage/addCustomAudit.html',
+					        content: 'openPage/addCustomAudit.jsp',
 					        zIndex: layer.zIndex, //重点1
 					        success: function(layero){
 					          layer.setTop(layero); //重点2

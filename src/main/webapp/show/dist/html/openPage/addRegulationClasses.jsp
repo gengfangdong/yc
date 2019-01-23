@@ -161,24 +161,6 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="leftTd">单位名称:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_dname" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
-											<td class="leftTd">开户银行:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_yh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
-											<td class="leftTd">账号:</td>
-											<td class="rightTd" colspan="2">
-												<input type="text" id="scheduled_zh" class="disabledStyle" placeholder="" style="width: 100%;" disabled="disabled" />
-											</td>
-										</tr>
-										<tr>
 											<div class="layui-upload-list">
 											    <table class="layui-table">
 											      <thead>
@@ -432,9 +414,6 @@
         					var scheduled_class_pnumber = data.data.scheduled_class_pnumber;
         					var scheduled_class_context = data.data.scheduled_class_context;
         					var scheduled_other_context = data.data.scheduled_other_context;
-							var scheduled_dname = data.data.scheduled_dname;
-							var scheduled_yh = data.data.scheduled_yh;
-							var scheduled_zh = data.data.scheduled_zh;
         					var memotr = "";
 							var files=new Array();
         					files = data.data.scheduleds;
@@ -445,9 +424,6 @@
         					document.getElementById("classesStartDate").value=scheduled_class_start;
         					document.getElementById("classesEndDate").value=scheduled_class_end;
         					document.getElementById("maxClassesNumber").value=scheduled_class_pnumber;
-        					document.getElementById("scheduled_dname").value=scheduled_dname;
-        					document.getElementById("scheduled_yh").value=scheduled_yh;
-        					document.getElementById("scheduled_zh").value=scheduled_zh;
         					$("#syllabus").html(scheduled_class_context);
 							$("#syllabusother").html(scheduled_class_context);
         					for(var i = 0 ;i<files.length;i++){

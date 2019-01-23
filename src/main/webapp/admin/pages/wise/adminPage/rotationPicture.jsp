@@ -11,6 +11,7 @@ String caogery = (String)session.getAttribute("isad");
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>领税教育网</title>
+		<link rel="icon" href="../../../image/logo.ico" type="image/x-icon"/>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<link rel="stylesheet" href="../../../bootstrap/css/bootstrap.min.css">
@@ -67,6 +68,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -146,9 +148,9 @@ String caogery = (String)session.getAttribute("isad");
 										<li>
 											<a href="rotationPicture.jsp" style="color: #ffffff;"><i class="fa fa-square-o"></i> 轮播图片</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -159,17 +161,17 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="cultureSystem.jsp" ><i class="fa fa-square-o"></i> 培养体系</a>
 										</li>
 										<li>
-											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+											<a href="solution.jsp"><i class="fa fa-square-o"></i> 特色项目</a>
 										</li>
 										<li>
-											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 往期回顾</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
 										</li>
 										<li>
 											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -198,6 +200,9 @@ String caogery = (String)session.getAttribute("isad");
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+										</li>
+										<li>
+											<a href="fileTab.jsp"><i class="fa fa-square-o"></i> 附件中心</a>
 										</li>
 									</ul>
 								</li>

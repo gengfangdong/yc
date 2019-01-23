@@ -8,6 +8,9 @@ import java.util.List;
 
 
 
+
+
+
 import entity.DatatablesViewPage;
 import entity.EUser;
 import entity.LayuiDataTable;
@@ -27,4 +30,9 @@ public interface ScheduledshiftService {
 	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage(int start,int limit,String status);
 	public List<EUser> getListUserByid(String user_id, String scheduled_id);
 	public void updateStatus(Scheduledshift scheduledshift);
+	public LayuiDataTable<ScheduledShiftShow> getAdminScByPage1(int page,
+			int limit, String status, String classname, String starttime, String endtime);
+	public LayuiDataTable<ScheduledShiftShow> getScByPage1(int page, int limit,
+			String user_id, String scstatus, String memstatus,
+			String classname, String starttime, String endtime);
 }

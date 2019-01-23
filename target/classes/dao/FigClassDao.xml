@@ -88,21 +88,21 @@
 				 where  fg.figclass_isdelete = '0'
 				 <if test='isbm != null and isbm == "1" '> 
 				 	 and fg.figclass_id in
-				       (select distinct(f.figclass_id)
-				          from user_figclass f
-				         where f.isdelete = '0'
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
 				           <if test="user!=null and user!=''">
-				         	and f.creater = #{user}
+				         	and f.fiu_userid = #{user}
 				         </if>)
 				   
 				</if>
 				<if test='isbm!=null and isbm =="0"'>
 					 and fg.figclass_id not in
-				       (select distinct(f.figclass_id)
-				          from user_figclass f
-				         where f.isdelete = '0'
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
 				         <if test="user!=null and user!=''">
-				         	and f.creater = #{user}
+				         	and f.fiu_userid = #{user}
 				         </if>
 				           )
 				</if>
@@ -118,27 +118,76 @@
 		WHERE RN &gt; #{start} 
 	</select>
 	
+	<select id="getListBypage1" resultMap="FigClass">
+		SELECT * FROM  
+		(  
+			SELECT A.*, ROWNUM RN  
+			FROM (select *
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.fiu_userid = #{user}
+				         </if>)
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.fiu_userid = #{user}
+				         </if>
+				           )
+				</if>
+			<if test="caogery != null and caogery != '' ">
+				and fg.FIGCLASS_CAOGERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and fg.FIGCLASS_STATUS = #{status}
+			</if>
+			<if test="classname != '' and classname != null">
+		 	and fg.FIGCLASS_NAME LIKE concat(concat('%',#{classname}),'%')
+			 </if>
+			 <if test="starttime != '' and starttime != null">
+			 	and fg.FigClass_class_start &gt; = #{starttime} 
+			 </if>
+			 <if test="endtime != '' and endtime != null">
+			 	and fg.FigClass_class_end &lt;=#{endtime} 
+			 </if>
+			 order by fg.FigClass_class_start
+			) A
+			WHERE ROWNUM &lt;= #{length}
+		)  
+		WHERE RN &gt; #{start} 
+	</select>
+	
 	<select id="getListCount" resultType="int">
 		select count(*)
 				  from figclass fg
 				 where  fg.figclass_isdelete = '0'
 				 <if test='isbm != null and isbm == "1" '> 
 				 	 and fg.figclass_id in
-				       (select distinct(f.figclass_id)
-				          from user_figclass f
-				         where f.isdelete = '0'
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
 				           <if test="user!=null and user!=''">
-				         	and f.creater = #{user}
+				         	and f.fiu_userid = #{user}
 				         </if>)
 				   
 				</if>
 				<if test='isbm!=null and isbm =="0"'>
 					 and fg.figclass_id not in
-				       (select distinct(f.figclass_id)
-				          from user_figclass f
-				         where f.isdelete = '0'
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
 				         <if test="user!=null and user!=''">
-				         	and f.creater = #{user}
+				         	and f.fiu_userid = #{user}
 				         </if>
 				           )
 				</if>
@@ -149,6 +198,47 @@
 				and fg.FIGCLASS_STATUS = #{status}
 			</if>
 	</select>
+	<select id="getListCount1" resultType="int">
+		select count(*)
+				  from figclass fg
+				 where  fg.figclass_isdelete = '0'
+				 <if test='isbm != null and isbm == "1" '> 
+				 	 and fg.figclass_id in
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
+				           <if test="user!=null and user!=''">
+				         	and f.fiu_userid = #{user}
+				         </if>)
+				   
+				</if>
+				<if test='isbm!=null and isbm =="0"'>
+					 and fg.figclass_id not in
+				       (select distinct(f.fiu_figid)
+				          from figuser f
+				         where f.fiu_isdelete = '0'
+				         <if test="user!=null and user!=''">
+				         	and f.fiu_userid = #{user}
+				         </if>
+				           )
+				</if>
+			<if test="caogery != null and caogery != '' ">
+				and fg.FIGCLASS_CAOGERY = #{caogery}
+			</if>
+			<if test="status != null and status != '' ">
+				and fg.FIGCLASS_STATUS = #{status}
+			</if>
+			<if test="classname != '' and classname != null">
+		 	and fg.FIGCLASS_NAME LIKE concat(concat('%',#{classname}),'%')
+			 </if>
+			 <if test="starttime != '' and starttime != null">
+			 	and fg.FigClass_class_start &gt; = #{starttime} 
+			 </if>
+			 <if test="endtime != '' and endtime != null">
+			 	and fg.FigClass_class_end &lt;=#{endtime} 
+			 </if>
+	</select>
+	
 	<select id="getFigbyidanduser" parameterType="String">
 		select * from FIGCLASS F where F.FIGCLASS_ISDELETE = '0' AND F.FIGCLASS_ID = #{figClass_id} AND F.FIGCLASS_CREATER = #{User_id} AND F.FIGCLASS_NUMSTATUS = '1'
 	</select>

@@ -432,13 +432,15 @@ public class FigClassController {
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
 			@RequestParam(value = "status", required = false, defaultValue = "") String status,
 			@RequestParam(value = "isbm", required = false, defaultValue = "") String isbm,
+			@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,
 			HttpServletRequest request) {
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
 		// 获取是否登录
 		IUser iUser = new IUser();
 		iUser = (IUser) request.getSession().getAttribute("user");
 		if(iUser != null)
-			fDataTable = figClassService.getListBypage(isbm,status, caogery, page, limit, iUser.getUser_id());
+			fDataTable = figClassService.getListBypage1(isbm,status, caogery, page, limit, iUser.getUser_id(),classname,starttime,endtime);
 		fDataTable.setCode(0);
 		fDataTable.setMsg("");
 		return fDataTable;
@@ -456,13 +458,15 @@ public class FigClassController {
 	public LayuiDataTable<FigClassshowVo> getLayBypagead(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
 			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,
 			HttpServletRequest request) {
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
 		// 获取是否登录
 		IUser iUser = new IUser();
 		iUser = (IUser) request.getSession().getAttribute("user");
 		if(iUser != null)
-			fDataTable = figClassService.getListBypage("",status, caogery, page, limit, "");
+			fDataTable = figClassService.getListBypage1("",status, caogery, page, limit, "",classname,starttime,endtime);
 		fDataTable.setCode(0);
 		fDataTable.setMsg("");
 		return fDataTable;

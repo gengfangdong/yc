@@ -25,4 +25,6 @@ public interface FigClassDao {
 	public void startScheduledFig();
 	public int getlaveNum(@Param("figClass_id")String figClass_id);
 	public void updateStatus(FigClass figClass);
+	public List<FigClass> getListBypage1(@Param("isbm")String isbm,@Param("user")String user,@Param("status")String status,@Param("caogery")String caogery,@Param("start")int start,@Param("length")int limit, @Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
+	public int getListCount1(@Param("isbm")String isbm,@Param("user")String user,@Param("caogery")String caogery,@Param("status")String status,@Param("classname")String classname, @Param("starttime")String starttime, @Param("endtime")String endtime);
 }

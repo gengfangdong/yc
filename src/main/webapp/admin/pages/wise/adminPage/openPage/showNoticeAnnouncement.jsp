@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="newsDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="newsDescription">
+												<!-- <textarea name="description" id="newsDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('newsDescription');
+        		//CKEDITOR.replace('newsDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Notice/getNoticedetailByid',
 				type : 'GET',
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var newscontext = CKEDITOR.instances.newsDescription;
+						//var newscontext = CKEDITOR.instances.newsDescription;
 						var newsTitle = document.getElementById("newsTitle");
 						var newsAbstract = document.getElementById("newsAbstract");
 						var newsKeyWords = document.getElementById("newsKeyWords");
@@ -193,7 +193,8 @@
 						newsKeyWords.value=notice_KeyWords;//关键字
 						newsDate.value=notice_Rlease_time;//发布日期
 						newsTitle.value=notice_titile;//状态
-						newscontext.setData(notice_context);//内容
+						$("#newsDescription")[0].innerHTML = notice_context;
+						//newscontext.setData(notice_context);//内容
 
 						if(notice_status == "1"||notice_status == "2"){
 							newsStatus[0].checked = true;

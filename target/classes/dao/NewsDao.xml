@@ -24,7 +24,7 @@
 		SELECT * FROM  
 		(  
 			SELECT A.*, ROWNUM RN  
-			FROM (SELECT * FROM NEWS) A  
+			FROM (SELECT * FROM NEWS order by NEWS_RELEASE_TIME desc) A  
 			WHERE ROWNUM &lt;= #{length}
 		)  
 		WHERE RN &gt; #{start}  
@@ -57,6 +57,6 @@
 		WHERE N.NEWS_ID = #{news_id}
 	</delete>
 	<select id="findAllNews" resultType="news">
-		select * from NEWS order by NEWS_RELEASE_TIME desc
+		select * from NEWS  where News_status = '1' order by NEWS_RELEASE_TIME desc
 	</select>
 </mapper>

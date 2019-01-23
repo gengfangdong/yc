@@ -29,13 +29,14 @@
 							<div class="am-u-md-12">
 								<div class="footer_main--column am-u-md-12" style="margin-top:0;">
 									<ul class="footer_contact_info">
-										<li class="footer_contact_info--item" style="margin-left:11%;">
+										<li class="footer_contact_info--item" >
 											<img alt="logo" src="../assets/img/logo_bottom.png"  style="width: 30px">
 										</li>
-										<li class="footer_contact_info--item">联系方式</li>
+										<li class="footer_contact_info--item">
+											<i class="am-icon-home"></i><span style="padding:0 0 0 15px;">北京市海淀区中关村大街59号中国人民大学财政金融学院</span>
+										</li>
 										<li class="footer_contact_info--item"><i class="am-icon-phone"></i>
-											<span style="padding:0 0 0 15px;">办公电话010-62280881 </span>
-											<span style="padding:0 0 0 15px;">移动电话16601021525/16601021533</span>
+											<span style="padding:0 0 0 15px;">联系电话：16601021525&nbsp;16601021533&nbsp;16601021561 </span>
 										</li>
 										<li class="footer_contact_info--item">
 											<i class="am-icon-envelope-o"></i><span style="padding:0 0 0 15px;">E-mail：lingshui100@163.com</span>

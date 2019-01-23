@@ -35,22 +35,22 @@
 							<div class="am-u-md-8">
 								<div class="topbar-left">
 									<div class="am-dropdown" data-am-dropdown style="height: 35px;line-height: 35px;color: #000000;">
-										联系电话010--62280881/16601021525
+										联系电话010--62280881&nbsp;16601021525
 									</div>
 								</div>
 							</div>
 							<div class="am-u-md-4">
 								<div class="topbar-right am-text-right am-fr">
 									<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000;">后台登录</a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#000;">个人中心</a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000;">注销</a>
 									<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 										<a style="color: #000;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000;">后台登录</a>
+										<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#000;">个人中心</a>
 										<a href="<%=request.getContextPath()%>/Logout" style="color: #000;">注销</a>
 									<%} %>
-									<% if(user == null) {%><a href="html/login.jsp" style="color: #000;">登录</a>
-										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000;">后台登录</a>
+									<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #000;">登录</a>
+										<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#000;">个人中心</a>
 									<%}; %>
 									<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" style="color: #000000;">注册</a>
 								</div>
@@ -60,7 +60,7 @@
 				</div>
 				<!--topbar end-->
 
-				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;z-index: 999999;">
+				<div class="header-box" data-am-sticky style="box-shadow: rgb(136, 136, 136) 0px 1px 5px;">
 					<!--header start-->
 					<div class="container" style="width: auto!important;">
 						<div class="header">
@@ -76,10 +76,10 @@
 											<div class="nav-contain" style="border: none;box-shadow: none;">
 												<div class="nav-inner">
 													<ul class="am-nav am-nav-pills am-nav-justify">
-														<li class="" style="min-width:90px;">
+														<li class="">
 															<a href="#" style="color: #FF2F2F;">首页</a>
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="/show/dist/html/cultureSystem.jsp">项目概况</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -87,30 +87,30 @@
 																	<a href="../show/dist/html/cultureSystem.jsp">培养体系</a>
 																</li>
 																<li class="menu-item">
-																	<a href="../show/dist/html/solution.jsp">解决方案</a>
+																	<a href="../show/dist/html/solution.jsp">特色项目</a>
 																</li>
 																<li class="menu-item">
-																	<a href="../show/dist/html/teachingMaterialSystem.jsp">教材体系</a>
+																	<a href="../show/dist/html/teachingMaterialSystem.jsp">往期回顾</a>
 																</li>
-																<li class="menu-item">
+																<!-- <li class="menu-item">
 																	<a href="../show/dist/html/taxCollectionFund.jsp">领税基金</a>
 																</li>
 																<li class="menu-item">
 																	<a href="../show/dist/html/expertTeam.jsp">专家团队</a>
-																</li>
+																</li> -->
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="../show/dist/html/regulationsClasses.jsp">自主报名</a>
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="../show/dist/html/customizedClasses.jsp">定制班次</a>
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="../show/dist/html/onlineClasses.jsp">拼班</a>
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="../show/dist/html/incumbencyStudent.jsp">在职研</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -123,7 +123,7 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li style="min-width:90px;">
+														<li>
 															<a href="../show/dist/html/newsNotice.jsp">新闻公告</a>
 															<!-- sub-menu start-->
 															<ul class="sub-menu">
@@ -136,20 +136,20 @@
 															</ul>
 															<!-- sub-menu end-->
 														</li>
-														<li style="min-width:90px;">
-															<a href="../show/dist/html/centerOverview.jsp">关于我们</a>
+														<li>
+															<a href="../show/dist/html/centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="sub-menu">
+															<!-- <ul class="sub-menu">
 																<li class="menu-item">
 																	<a href="../show/dist/html/centerOverview.jsp">概况</a>
 																</li>
 																<li class="menu-item">
 																	<a href="../show/dist/html/organization.jsp">师资招聘</a>
 																</li>
-																<!-- <li class="menu-item">
+																<li class="menu-item">
 																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li> -->
-															</ul>
+																</li>
+															</ul> -->
 															<!-- sub-menu end-->
 														</li>
 													</ul>
@@ -190,16 +190,10 @@
 														<a href="../show/dist/html/cultureSystem.jsp">培养体系</a>
 													</li>
 													<li class="">
-														<a href="../show/dist/html/solution.jsp">解决方案</a>
+														<a href="../show/dist/html/solution.jsp">特色项目</a>
 													</li>
 													<li class="">
-														<a href="../show/dist/html/teachingMaterialSystem.jsp" class="">教材体系</a>
-													</li>
-													<li class="">
-														<a href="../show/dist/html/taxCollectionFund.jsp" class="">领税基金</a>
-													</li>
-													<li class="">
-														<a href="../show/dist/html/expertTeam.jsp" class="">专家团队</a>
+														<a href="../show/dist/html/teachingMaterialSystem.jsp" class="">往期回顾</a>
 													</li>
 												</ul>
 											</li>
@@ -236,35 +230,25 @@
 												</ul>
 											</li>
 											<li class="am-parent">
-												<a href="../show/dist/html/centerOverview.jsp">关于我们</a>
+												<a href="../show/dist/html/centerOverview.jsp">下载中心</a>
 															<!-- sub-menu start-->
-															<ul class="am-menu-sub am-collapse ">
-																<li class="menu-item">
-																	<a href="../show/dist/html/centerOverview.jsp">概况</a>
-																</li>
-																<li class="menu-item">
-																	<a href="../show/dist/html/organization.jsp">师资招聘</a>
-																</li>
-																<!-- <li class="menu-item">
-																	<a href="aboutSchool.jsp">学校介绍</a>
-																</li> -->
-															</ul>
+															
 											</li>
 											<li class="">
 												<% if(user != null&&"1".equals(user.getIsadmin())) {%><a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">后台登录</a>
+													<a href ="/admin/pages/wise/adminPage/noticeAnnouncement" style="color:#FFF;">个人中心</a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</a>
 												<%}else if(user != null&&"0".equals(user.getIsadmin())){ %>
 													<a style="color: #FFF;">欢迎 &nbsp;&nbsp; <%=user.getUser_name()%>&nbsp;</a>
-													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">后台登录</a>
+													<a href ="<%=request.getContextPath()%>/admin/pages/wise/memberPage/memberMessage" style="color:#FFF;">个人中心</a>
 													<a href="<%=request.getContextPath()%>/Logout" style="color: #FFF;">注销</a>
 												<%} %>
-												<% if(user == null) {%><a href="html/login.jsp" style="color: #FFF;">登录</a>
-													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">后台登录</a>
+												<% if(user == null) {%><a href="<%=request.getContextPath()%>/show/dist/html/login.jsp" style="color: #FFF;">登录</a>
+													<a href ="<%=request.getContextPath()%>/admin/login.jsp" style="color:#FFFFFF;">个人中心</a>
 												<%}; %>
 											</li>
 											<li class="">
-												<a href="../show/dist/html/register.jsp" class="" style="color:#FFF;">注册</a>
+												<a href="<%=request.getContextPath()%>/show/dist/html/register.jsp" class="" style="color:#FFF;">注册</a>
 											</li>
 										</ul>
 
@@ -283,7 +267,6 @@
 				<!--mobile header end-->
 			</div>
 
-			<!--===========layout-container================-->
 			<div class="layout-container">
 				<div class="index-page" style='height:100%;border-bottom:none;'>
 					<div data-am-widget="tabs" class="am-tabs am-tabs-default"  style='height:100%;'>
@@ -292,7 +275,11 @@
 								<div class="" style='height:100%;'>
 									<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}' id="demo-slider-0" style='height:100%;'>
 										<ul class="am-slides" id="pic">
-											<li><img src="../show/dist/assets/img/index/lunbo.png"></li>
+											<li style="">
+												<a href="http://www.taxlead.cn/show/dist/html/newsNotice_content.jsp?notice_id=notice9ebc8ea2cecc4e9f852cb83e0e8c91e8" style="">
+													<img src="../show/dist/assets/img/index/lunbo.png" style="">
+												</a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -327,7 +314,7 @@
 								</ul>
 							</div>
 
-							<div class="am-u-md-6 trainNews" style="max-height: 360px;padding-right: 1rem;padding-left:1rem;">
+							<div class="am-u-md-6 trainNews " style="max-height: 360px;padding-right: 1rem;padding-left:1rem;">
 								<div class="promo_detailed--cta">
 									<h2 class="news">■培训新闻</h2>
 										<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 2.5%;" id="showNewsList">
@@ -340,6 +327,21 @@
 									</ul>
 								</div>
 							</div>
+							
+							
+							<!-- <div class="am-g am-show-sm-only">
+								<div class="promo_detailed--cta">
+									<h2 class="news">■培训新闻</h2>
+										<ul class="promo_detailed--list rePadding_li" style="padding:0 0 0 2.5%;" id="showNewsList">
+										<li class="promo_detailed--list_item">
+											
+										</li>
+										<li class="promo_detailed--list_item">
+											
+										</li>
+									</ul>
+								</div>
+							</div> -->
 
 						</div>
 					</div>
@@ -363,13 +365,13 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/cultureSystem.jsp" ><img src="../show/dist/assets/img/index/a03.jpg" alt="" style="width: 100%;" /></a>
+												<a href="../show/dist/html/advantage1.jsp" ><img src="../show/dist/assets/img/index/a03.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/cultureSystem.jsp" style="color: #333333;">国内领先的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/advantage1.jsp" style="color: #333333;">以培训需求为导向</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="../show/dist/html/cultureSystem.jsp" style="font-weight: 400;color: #333333;">税务培训基地</a></p>
+												<p style="text-align: center;"><a href="../show/dist/html/advantage1.jsp" style="font-weight: 400;color: #333333;">建立多元化师资团队</a></p>
 											</div>
 										</div>
 									</div>
@@ -378,26 +380,26 @@
 									<div class="am-u-lg-4 am-u-md-4  am-u-end about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/solution.jsp" ><img src="../show/dist/assets/img/index/a05.jpg" alt="" style="width: 100%;" /></a>
+												<a href="../show/dist/html/advantage2.jsp" ><img src="../show/dist/assets/img/index/a05.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/solution.jsp" style="color: #333333;">精英小班</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/advantage2.jsp" style="color: #333333;">以人才培养为目标</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="../show/dist/html/solution.jsp" style="font-weight: 400;color: #333333;">学习社交平台</a></p>
+												<p style="text-align: center;"><a href="../show/dist/html/advantage2.jsp" style="font-weight: 400;color: #333333;">健全多层次一站式培养体系</a></p>
 											</div>
 										</div>
 									</div>
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/teachingMaterialSystem.jsp"><img src="../show/dist/assets/img/index/a02.jpg" alt="" style="width: 100%;" /></a>
+												<a href="../show/dist/html/advantage3.jsp"><img src="../show/dist/assets/img/index/a02.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/teachingMaterialSystem.jsp" style="color: #333333;">全面实用的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/advantage3.jsp" style="color: #333333;">以岗位培训为入口</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="../show/dist/html/teachingMaterialSystem.jsp.jsp" style="font-weight: 400;color: #333333;">管理会计体系</a></p>
+												<p style="text-align: center;"><a href="../show/dist/html/advantage3.jsp" style="font-weight: 400;color: #333333;">提供细分领域整体解决方案</a></p>
 											</div>
 										</div>
 									</div>
@@ -405,26 +407,26 @@
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a href="html/taxCollectionFund.jsp" ><img src="../show/dist/assets/img/index/a04.jpg" alt="" style="width: 100%;" /></a>
+												<a href="../show/dist/html/advantage4.jsp" ><img src="../show/dist/assets/img/index/a04.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/taxCollectionFund.jsp" style="color: #333333;">聚焦本土</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/advantage4.jsp" style="color: #333333;">以科技创新为依托</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="../show/dist/html/taxCollectionFund.jsp" style="font-weight: 400;color: #333333;">最佳实现</a></p>
+												<p style="text-align: center;"><a href="../show/dist/html/advantage4.jsp" style="font-weight: 400;color: #333333;">破解税务培训工作难点痛点</a></p>
 											</div>
 										</div>
 									</div>
 									<div class="am-u-lg-4 am-u-md-4 about_center" style="width: 20%;">
 										<div class="article">
 											<div class="article-img">
-												<a  href="html/expertTeam.jsp"><img src="../show/dist/assets/img/index/a01.jpg" alt="" style="width: 100%;" /></a>
+												<a  href="../show/dist/html/advantage5.jsp"><img src="../show/dist/assets/img/index/a01.jpg" alt="" style="width: 100%;" /></a>
 											</div>
 											<div class="article-header">
-												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/expertTeam.jsp" style="color: #333333;">国内一流顶尖的</a></h6>
+												<h6 style="text-align: center;margin-bottom: 0;"><a href="../show/dist/html/advantage5.jsp" style="color: #333333;">以共建共生为路径</a></h6>
 											</div>
 											<div class="article-container">
-												<p style="text-align: center;"><a href="../show/dist/html/expertTeam.jsp" style="font-weight: 400;color: #333333;">讲师团队</a></p>
+												<p style="text-align: center;"><a href="../show/dist/html/advantage5.jsp" style="font-weight: 400;color: #333333;">推进税收生态系统建设</a></p>
 											</div>
 										</div>
 									</div>
@@ -461,10 +463,10 @@
 												<i class="am-icon-home"></i><span style="padding:0 0 0 15px;">北京市海淀区中关村大街59号中国人民大学财政金融学院</span>
 											</li>
 											<li class="footer_contact_info--item"><i class="am-icon-phone"></i>
-												<span style="padding:0 0 0 15px;">联系电话：16601021525&nbsp;16601021533&nbsp;16601021611 </span>
+												<span style="padding:0 0 0 15px;">联系电话：16601021525&nbsp;16601021533&nbsp;16601021561 </span>
 											</li>
 											<li class="footer_contact_info--item">
-												<i class="am-icon-envelope-o"></i><span style="padding:0 0 0 15px;">E-mail：lingshui100@163.com</span>
+												<i class="am-icon-envelope-o"></i><span style="padding:0 0 0 15px;">E-mail：tzcpx001@163.com</span>
 											</li>
 										</ul>
 									</div>
@@ -527,25 +529,44 @@
 					        return msg;
 						}
 						
-						if(content.length>22){
-			  				var content=content.substring(0, 22)+'...';
+						if(content.length>50){
+			  				var content=content.substring(0, 50)+'...';
 			  			}else{
 			  				var content=content;
 			  			}
 			  			
-				  		zz[i]='<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">'+
+			  			if(window.outerWidth<640){
+			  				zz[i]='<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic" style="width:100%!important;margin-bottom:20px;text-align:center;">'+
 								'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
-										'<img src="<%=request.getContextPath()%>/Show/News_title_page_Show?news_id='+datas[i].news_id+'" title=\"'+datas[i].news_titile+'\" alt=\"'+datas[i].news_titile+'\" style="height: 100px;width: 100px;" />'+
+										'<img src="<%=request.getContextPath()%>/Show/News_title_page_Show?news_id='+datas[i].news_id+'" title=\"'+datas[i].news_titile+'\" alt=\"'+datas[i].news_titile+'\" style="height: 100px;width: 162px;" />'+
 								'</a>'+
 							'</span>'+'<dl>'+'<dt>'+
-								'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+datas[i].news_titile+'</a>'+
-										'</dt><dd>'+'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+								'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\" style=\"color:#333;\">'+datas[i].news_titile+'</a>'+
+										'</dt><dd>'+'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_content+'\" style=\"color:#333;\">'+
 										content+
 										'</a>'+'</dd>'+'<dd class="timeRight">'+
-										'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+										'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_Release_time+'\" style=\"color:#333;\">'+
 										datas[i].news_Release_time+'</a>'+
 								'</dd>'+
 							'</dl>';
+			  			}else{
+			  				zz[i]='<span class="promo_detailed--list_item_icon promo_detailed--list_item_pic">'+
+								'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\">'+
+										'<img src="<%=request.getContextPath()%>/Show/News_title_page_Show?news_id='+datas[i].news_id+'" title=\"'+datas[i].news_titile+'\" alt=\"'+datas[i].news_titile+'\" style="height: 100px;width: 162px;" />'+
+								'</a>'+
+							'</span>'+'<dl>'+'<dt>'+
+								'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_titile+'\" style=\"color:#333;\">'+datas[i].news_titile+'</a>'+
+										'</dt><dd>'+'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_content+'\" style=\"color:#333;\">'+
+										content+
+										'</a>'+'</dd>'+'<dd class="timeRight">'+
+										'<a href=\"../show/dist/html/news_content.jsp?news_id='+datas[i].news_id+'\" target="_blank" title=\"'+datas[i].news_Release_time+'\" style=\"color:#333;\">'+
+										datas[i].news_Release_time+'</a>'+
+								'</dd>'+
+							'</dl>';
+			  			}
+
+
+				  		
 								
 					} //div的字符串数组付给zz
 					var pageno=1 ;              //当前页
@@ -583,7 +604,7 @@
 			});
 			
 			
-			$.ajax({
+			 $.ajax({
 				url : '<%=request.getContextPath()%>/Show/findAllRotation',
 				type : 'post',
 				async:false,
@@ -603,9 +624,9 @@
 					for(var i=0;i<datas.length;i++){
 						var getSlide = function() {
 							var lis="";
-							var li='<li><a href="<%=request.getContextPath()%>/show/dist/html/'+datas[i].rotationPic_KeyWords+'"><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></a></li>';
+							var li='<li style=""><a href="<%=request.getContextPath()%>/show/dist/html/'+datas[i].rotationPic_KeyWords+'" style=""><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'" style=""></img></a></li>';
 							if(datas[i].rotationPic_KeyWords=='Nolink'){
-								 li='<li><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'"></img></li>';
+								 li='<li style=""><img src="<%=request.getContextPath()%>/Show/Rotation_title_page_Show?rotation_id='+datas[i].rotationPic_id+'" style=""></img></li>';
 							}
 							
 								lis = lis+li;
@@ -649,12 +670,12 @@
 							        msg = msg.replace(/&npsp;/ig, ''); //去掉npsp
 							        return msg;
 								}
-								if(content.length>22){
-					  				var content=content.substring(0, 22)+'...';
+								if(content.length>40){
+					  				var content=content.substring(0, 40)+'...';
 					  			}else{
 					  				var content=content;
 					  			}
-								zz[i]= '<dl><dt><a href="../show/dist/html/newsNotice_content.jsp?notice_id='+datas[i].notice_id+'">'+content+'</a></dt><dd style="text-align:right;">'+datas[i].notice_Release_time+'</dd></dl>';
+								zz[i]= '<dl style="margin-bottom:0.6rem;"><dt><a href="../show/dist/html/newsNotice_content.jsp?notice_id='+datas[i].notice_id+'" style="color:#333;">'+content+'</a></dt><dd style="text-align:left;margin-top:0;">'+datas[i].notice_Release_time+'</dd></dl>';
 						    } //div的字符串数组付给zz
 							var pageno=1 ;              //当前页
 							var pagesize=4;            //每页多少条信息
@@ -698,8 +719,9 @@
 				    	var newsBlockHeight = $(".newsBlock").height()+330;
 				        $(".newsBlock").css("height",newsBlockHeight);
 				        //20190112-2121
-				        $("#showNewsList li").height(120);
-				        $(".promo_detailed--cta").height($(".promo_detailed--cta h2").height()+20+$(".promo_detailed--cta ul").height());
+				       // $("#showNewsList li").height(120);
+				        $("#showNewsList li").height($(".promo_detailed--cta ul li span").height()+$(".promo_detailed--cta ul li dl dt a").height()+$($(".promo_detailed--cta ul li dl dd a")[0]).height()+$($(".promo_detailed--cta ul li dl dd a")[1]).height())
+				        $(".promo_detailed--cta").height($(".promo_detailed--cta h2").height()+40+$(".promo_detailed--cta ul").height());
 				        $(".newsBlock").height($(".promo_detailed--cta").height());
 				        
 				    }
@@ -734,5 +756,6 @@
 		
 		
 	</script>
+
 
 </html>

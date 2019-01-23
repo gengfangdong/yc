@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -214,7 +215,7 @@ String caogery = (String)session.getAttribute("isad");
 																			<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
 																			        <option value="全部">全部</option>
 																			        <option value="定制项目">定制项目</option>
-																			        <option value="规定项目">规定项目</option>
+																			        <option value="自主报名">自主报名</option>
 																			        <option value="拼班项目">拼班项目</option>
 																			  </select>
 																		  </div>
@@ -866,7 +867,7 @@ String caogery = (String)session.getAttribute("isad");
 			      var status = $("#firstObj").val();
 				  if(status == '定制项目'){
 						status = 0;
-					}else if(status == '规定项目'){
+					}else if(status == '自主报名'){
 						status = 1;
 					}else if(status == '拼班项目'){
 						status = 2;

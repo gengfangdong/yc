@@ -119,8 +119,8 @@
 										
 										<tr>
 											<td class="leftTd" style="vertical-align: middle;">内容:</td>
-											<td class="rightTd" colspan="2">
-												<textarea name="description" id="taxDescription" readonly="readonly"/></textarea>
+											<td class="rightTd" colspan="2" id="taxDescription">
+												<!-- <textarea name="description" id="taxDescription" readonly="readonly"/></textarea> -->
 											</td>
 										</tr>
 									</tbody>
@@ -161,7 +161,7 @@
 		<script src="../../ckeditor/ckeditor.js"></script>
 		<script type="text/javascript">
 			 window.onload = function(){
-        		CKEDITOR.replace('taxDescription');
+        		//CKEDITOR.replace('taxDescription');
         		$.ajax({
 				url : '<%=request.getContextPath()%>/Tax/getTaxdetailByid',
 				type : 'GET',
@@ -170,7 +170,7 @@
 				},
 				success : function(data) {
 					if(data.success == true){
-						var taxcontext = CKEDITOR.instances.taxDescription;
+						//var taxcontext = CKEDITOR.instances.taxDescription;
 						var taxTitle = document.getElementById("taxTitle");
 						var taxAbstract = document.getElementById("taxAbstract");
 						var taxKeyWords = document.getElementById("taxKeyWords");
@@ -191,7 +191,8 @@
 						taxKeyWords.value=tax_KeyWords;//关键字
 						taxDate.value=tax_Rlease_time;//发布日期
 						taxTitle.value=tax_titile;//状态
-						taxcontext.setData(tax_context);//内容
+						$("#taxDescription")[0].innerHTML = tax_context;
+						//taxcontext.setData(tax_context);//内容
 
 						if(tax_status == "1"||tax_status == "2"){
 							taxStatus[0].checked = true;

@@ -31,6 +31,7 @@ import entity.DatatablesViewPage;
 import entity.Expert;
 import entity.FigClassVo;
 import entity.FigClassshowVo;
+import entity.FileTab;
 import entity.IUser;
 import entity.LayuiDataTable;
 import entity.News;
@@ -50,6 +51,7 @@ import service.CourseService;
 import service.CultureService;
 import service.ExpertService;
 import service.FigClassService;
+import service.FileTabService;
 import service.NewsService;
 import service.NoticeService;
 import service.ProjectService;
@@ -67,7 +69,8 @@ public class ShowController {
 	private CultureService cultureService;
 	@Autowired
 	private SolutionService solutionService;
-	
+	@Autowired
+	private FileTabService fileTabService;
 	@Autowired
 	private TeachingService teachingService;
 	@Autowired
@@ -626,9 +629,11 @@ public class ShowController {
 	public LayuiDataTable<FigClassshowVo> getLayBypagead(@RequestParam("page")int page,@RequestParam("limit")int limit,
 			@RequestParam(value="caogery",required=false,defaultValue="")String caogery,
 			@RequestParam(value = "status", required = false, defaultValue = "") String status,
+			@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,
 			HttpServletRequest request) {
 		LayuiDataTable<FigClassshowVo> fDataTable = new LayuiDataTable<FigClassshowVo>();
-		fDataTable = figClassService.getListBypage("",status, caogery, page, limit, "");
+		fDataTable = figClassService.getListBypage1("",status, caogery, page, limit, "",classname,starttime,endtime);
 		fDataTable.setCode(0);
 		fDataTable.setMsg("");
 		return fDataTable;
@@ -637,12 +642,13 @@ public class ShowController {
 	@RequestMapping("/getRegulationClasses")
 	@ResponseBody
 	public LayuiDataTable<ScheduledShiftShow> getAdminBer(@RequestParam("page")int page,@RequestParam("limit")int limit,
-			@RequestParam(value="status",required=false,defaultValue="")String status,HttpServletRequest request){
+			@RequestParam(value="status",required=false,defaultValue="")String status,@RequestParam(value="classname",required=false,defaultValue="")String classname,
+			@RequestParam(value="starttime",required=false,defaultValue="")String starttime,@RequestParam(value="endtime",required=false,defaultValue="")String endtime,HttpServletRequest request){
 		//结果集
 		LayuiDataTable<ScheduledShiftShow> sDataTable = new LayuiDataTable<ScheduledShiftShow>();
 		
 		
-		sDataTable = scheduledshiftService.getAdminScByPage(page, limit, status);
+		sDataTable = scheduledshiftService.getAdminScByPage1(page, limit, status,classname,starttime,endtime);
 		sDataTable.setCode(0);
 		sDataTable.setMsg("");
 		return sDataTable;
@@ -859,4 +865,28 @@ public class ShowController {
 		datatablesViewPage1.setRecordsTotal(datatablesViewPage.getRecordsTotal());
 		return datatablesViewPage1;
 	}
+	/**
+     * 分页获取附件
+     * @param page
+     * @param limit
+     * @param filename
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getfilelistBypage")
+    public LayuiDataTable<FileTab> getListBypage(@RequestParam("page")int page,@RequestParam("limit")int limit,
+			@RequestParam(value="filename",required=false,defaultValue="")String filename,
+			HttpServletRequest request){
+    	LayuiDataTable<FileTab> fDataTable = new LayuiDataTable<>();
+    	try{
+    		fDataTable = fileTabService.getlistByPage(page, limit, filename, "1");
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		fDataTable.setCount(0);
+    		return fDataTable;
+    	}
+    	fDataTable.setCode(0);
+    	fDataTable.setMsg("");
+    	return fDataTable;
+    }
 }

@@ -137,6 +137,14 @@
 		<version>3.14</version>
 	</dependency>
 	<!-- 解析Excel文件的jar包 -->
+	<!-- 解析word -->
+	<!-- word -->
+	<dependency>
+   		<groupId>org.apache.poi</groupId>
+    	<artifactId>poi-scratchpad</artifactId>
+    	<version>3.14</version>
+	</dependency>
+	<!-- 解析word -->
     <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
 	<dependency>
 	    <groupId>com.squareup.okhttp</groupId>

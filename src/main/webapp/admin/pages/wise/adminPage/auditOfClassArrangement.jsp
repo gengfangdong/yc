@@ -70,6 +70,7 @@ String caogery = (String)session.getAttribute("isad");
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<!-- User Account: style can be found in dropdown.less -->
+							<li class="goHome"><a href="<%=request.getContextPath()%>/" style="color:#fff;">返回首页</a></li>
 							<li class="dropdown user user-menu">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<img src="../../../dist/img/1.png" class="user-image" alt="User Image">
@@ -149,9 +150,9 @@ String caogery = (String)session.getAttribute("isad");
 										<li>
 											<a href="rotationPicture.jsp"><i class="fa fa-square-o"></i> 轮播图片</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="aboutUs.jsp"><i class="fa fa-square-o"></i> 关于我们</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -162,17 +163,17 @@ String caogery = (String)session.getAttribute("isad");
 											<a href="cultureSystem.jsp"><i class="fa fa-square-o"></i> 培养体系</a>
 										</li>
 										<li>
-											<a href="solution.jsp"><i class="fa fa-square-o"></i> 解决方案</a>
+											<a href="solution.jsp"><i class="fa fa-square-o"></i> 特色项目</a>
 										</li>
 										<li>
-											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 教材体系</a>
+											<a href="teachingMaterialSystem.jsp"><i class="fa fa-square-o"></i> 往期回顾</a>
 										</li>
-										<li>
+										<!-- <li>
 											<a href="taxCollectionFund.jsp"><i class="fa fa-square-o"></i> 领税基金</a>
 										</li>
 										<li>
 											<a href="expertTeam.jsp"><i class="fa fa-square-o"></i> 专家团队</a>
-										</li>
+										</li> -->
 
 									</ul>
 								</li>
@@ -201,6 +202,9 @@ String caogery = (String)session.getAttribute("isad");
 										</li>
 										<li>
 											<a href="membershipManagement.jsp"><i class="fa fa-square-o"></i> 会员管理</a>
+										</li>
+										<li>
+											<a href="fileTab.jsp"><i class="fa fa-square-o"></i> 附件中心</a>
 										</li>
 									</ul>
 								</li>
@@ -243,22 +247,12 @@ String caogery = (String)session.getAttribute("isad");
 								<div class="box-body" style="padding: 0px;">
 									<div class="row">
 										<div class="col-sm-12">
-											<!-- <div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;">
-												<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-													<label for="" class="control-label" style="float: left;">筛选：</label>
-													<ul class="f-sort-ul">
-														<li><a href="#" class>未审核</a></li>
-														<li><a href="#" class>已通过</a></li>
-														<li><a href="#" class>未通过</a></li>
-													</ul>
-												</div>
-											</div> -->
 											<div class="row" >
 												<div class="col-sm-12 col-md-12">
 													<div id="myTabContent" class="tab-content common-inline" style="padding-top: 0;">
 														<div class="tab-pane fade in active" id="taxpayerAnalysis">
 															<div class="row">
-																<div class="col-sm-12 col-md-12">
+																<div class="col-sm-12 col-md-12" style="padding-right:0;">
 																	<!-- <div class="form-group" style="width: 100%;margin-top: 5px;height: 32px;line-height: 32px;">
 																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
 																			<ul class="f-sort-ul">
@@ -266,20 +260,22 @@ String caogery = (String)session.getAttribute("isad");
 																			</ul>
 																		</div>
 																	</div> -->
-																	<div class="form-group" style="margin-top: 5px;height: 32px;line-height: 32px;margin-bottom: 0;">
-																		<div class="col-sm-10" style="height: 32px;line-height: 32px;">
-																			<div class="layui-inline selectObj">
+																	
+																			<div class="demoTable">
+																	<div class="form-group" style="margin-top: 5px;height: 80px;line-height: 32px;margin-bottom: 0;">
+																		<div class="col-sm-12" style="height: 32px;line-height: 32px;">
+																			<div class="layui-inline selectObj" style="padding: 5px 0px 0 0px;">
 																				<label for="" class="control-label" style="float: left;">拼班类别：</label>
-																				<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																				<select id="secondObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 																			        <option value="全部">全部</option>
 																			        <option value="方案定制">方案定制</option>
 																			        <option value="课程定制">课程定制</option>
 																			        <option value="自由定制">自由定制</option>
 																				</select>
 																			</div>
-																			<div class="layui-inline selectObj">
+																			<div class="layui-inline selectObj" style="padding: 5px 0px 0 0px;">
 																				<label for="" class="control-label" style="float: left;">状态：</label>
-																				<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;">
+																				<select id="firstObj" class="select" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;">
 																			        <option value="全部">全部</option>
 																			        <option value="待审核">待审核</option>
 																			        <option value="审核未通过">审核未通过</option>
@@ -291,13 +287,29 @@ String caogery = (String)session.getAttribute("isad");
 																			        <option value="已结课">已结课</option>
 																				</select>
 																			</div>
-																			<button class="layui-btn selectBtn" data-type="reload">搜索</button>
+																			 <div class="layui-inline selectObj"  style="padding: 5px 0px 0 0px;">
+																			  <label for="" class="control-label"  style="float: left;">班次名称：</label>
+																			  <input id="classname"  type="text" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;"  />
+																			  </div>
+																			  <div class="layui-inline selectObj"  style="padding: 5px 0px 0 0px;">
+																				  <label for="" class="control-label"   style="float: left;">起始时间：</label>
+																				  <input id="starttime"  type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+																			  </div>
+																			  <div class="layui-inline selectObj" style="padding: 5px 0px 0 0px;">
+																				  <label for="" class="control-label"  style="float: left;">截止时间：</label>
+																				  <input id="endtime"    type="text"  placeholder="YYYY-MM-DD"  autocomplete="off" style="min-width: 150px;border-radius: 5px;border: 1px solid #cccccc;height:23px;" />
+																			  </div>
+																			  <div style="text-align:center;">
+																			  	  <button class="layui-btn selectBtn" data-type="reload"  >搜索</button>
+																				  <button class="layui-btn selectBtn"   data-type="reset">重置</button>
+																			  </div>
 																		</div>
 																	</div>	
+																	</div>
 																	<div class="row">
 																		<div class="col-sm-12 col-md-12">
 																			<div class="table-responsive table-responsive_vis" id="sample-table-1" style="padding-left: 10px;padding-right: 10px;">
-																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" lay-filter="user" style="margin-top: 20px!important;">
+																				<table id="LAY_table_user" class="table table-bordered table-hover example1_x" lay-filter="user" style="margin-top: 0px!important;">
 																					<thead>
 																					</thead>
 																					<tbody>
@@ -366,7 +378,21 @@ String caogery = (String)session.getAttribute("isad");
 		<!-- <script type="text/javascript" src="../../My97DatePicker/WdatePicker.js"></script> -->
 		<!--切换选中样式-->
 		<script type="text/javascript" src="../../../js/changeSelectStyle.js"></script>
-
+	<script type="text/javascript">
+			layui.use('laydate', function(){
+			  	var laydate = layui.laydate;
+			  
+			  //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#starttime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			  	laydate.render({
+			    	elem: '#endtime' //指定元素
+			  	});
+			  	 //执行一个laydate实例
+			});
+		</script>
 		<script type="text/javascript">
 			/* 日期控件，执行多个laydate实例 begin */
 			layui.use('laydate', function() {
@@ -598,6 +624,30 @@ String caogery = (String)session.getAttribute("isad");
 					});
 			    }
 			  });
+			
+// 				function addBranch(obj,id) {
+// 					var sText = obj.innerHTML;
+// 					if(sText=='新增'){
+// 						layui.use('layer',function(){
+// 				        	var $ = layui.jquery,
+// 				        	layer = layui.layer;
+// 				        	layer.open({
+// 						        type: 2, //此处以iframe举例
+// 						        title: '新增',
+// 						        area: ['1063px', '530px'],
+// 						        shade: 0,
+// 						        maxmin: true,
+// 						        offset: [100,200] ,
+// 						        content: 'openPage/addCustomAudit.html',
+// 						        zIndex: layer.zIndex, //重点1
+// 						        success: function(layero){
+// 						          layer.setTop(layero); //重点2
+// 						        }
+// 						    });
+// 				        })
+// 					}
+// 				}
+			
 			  var $ = layui.$, active = {
 			    reload: function(){
 				    var demoReload = $('#demoReload');
@@ -606,11 +656,11 @@ String caogery = (String)session.getAttribute("isad");
 					if(status == '报名未开始'){
 						status = 1;
 					}else if(status == '报名进行中'){
-						status = 2;
-					}else if(status == '未开课'){
-						status = 3;
-					}else if(status == '已结课'){
 						status = 4;
+					}else if(status == '待开课'){
+						status = 5;
+					}else if(status == '已结课'){
+						status = 6;
 					}else if(status == '全部'){
 						status = "";
 					}
@@ -620,9 +670,12 @@ String caogery = (String)session.getAttribute("isad");
 						category = 0;
 					}else if(category=="方案定制"){
 						category = 1;
-					}else if(category=="目录定制"){
+					}else if(category=="自由定制"){
 						category = 2;
 					}
+					var classname = $("#classname").val();
+					var starttime = $("#starttime").val();
+					var endtime = $("#endtime").val();
 				      
 				      //执行重载
 				      table.reload('testReload', {
@@ -632,9 +685,34 @@ String caogery = (String)session.getAttribute("isad");
 				        method:'post',
 				        where: {
 				        	    status:status,
-				        	    category:category
+				        	    caogery:category,
+				        	    classname:classname,
+					        	starttime:starttime,
+					        	endtime:endtime
 				        }
 				      });	
+			    },
+			    reset: function(){
+			    	 $("#firstObj").val('全部');
+			    	 $("#secondObj").val('全部')
+					$("#classname").val('');
+					$("#starttime").val('');
+					$("#endtime").val('');
+					
+			      //执行重载
+			      table.reload('testReload', {
+			        page: {
+			          curr: 1 //重新从第 1 页开始
+			        },
+			        method:'post',
+			        where: {
+			        	caogery:'',
+			        	status:'',
+			        	classname:'',
+			        	starttime:'',
+			        	endtime:''
+			        }
+			      });
 			    }
 			  };
 			  
@@ -720,7 +798,6 @@ String caogery = (String)session.getAttribute("isad");
 			{{#  if(d.figClass_status == '0'){ }}  
 		        <a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				<a class="" lay-event="edit" style="margin-right:10px; cursor: pointer;">修改</a>
-				<a class="" lay-event="review" style="margin-right:10px; cursor: pointer;">审核</a>
 	        {{#  } else if(d.figClass_status == "1"){ }}
 				<a class="" lay-event="show" style="margin-right:10px; cursor: pointer;">查看</a>
 				{{# if(d.figClass_number<= d.figClass_pernum && d.figClass_number>0){ }}
@@ -773,7 +850,7 @@ String caogery = (String)session.getAttribute("isad");
 
 		<script type="text/html" id="typestatus">
 	     {{#  if(d.figClass_status == "0"){ }}
-	                           报名未开始
+	     	报名未开始
 	     {{#  }else if(d.figClass_status=="1"){ }}
 	     	报名未开始
 	     {{#  }else if(d.figClass_status=="2"){ }}

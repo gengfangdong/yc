@@ -1,6 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@page import="entity.IUser" %>
 <%
+IUser user = (IUser)session.getAttribute("user");
 	String figClass_id = request.getParameter("figClass_id");
 	String number = request.getParameter("number");
 %>
@@ -234,10 +236,22 @@
 						if(data.success == true){
 							if(data.message == "2"){
 								layer.confirm('报名成功!', { title:'提示'}, function(index){
-									  
-									window.parent.location.reload();
-									var index1 = parent.layer.getFrameIndex(window.name);
-									parent.layer.close(index1);
+									  layer.open({
+												type: 2, //此处以iframe举例
+												title: '查看二维码',
+												area: ['70%', '530px'],
+												shade: 0,
+												maxmin: true,
+												offset: ['10%','15%'],
+												content: 'index.jsp?figClass_id=<%=figClass_id%>',
+												zIndex: layer.zIndex, //重点1
+												success: function(layero) {
+													layer.setTop(layero); //重点2
+												}
+											});
+									//window.parent.location.reload();
+									//var index1 = parent.layer.getFrameIndex(window.name);
+									//parent.layer.close(index1);
 									
 								});
 							}
@@ -265,6 +279,10 @@
 		</script>
 		<script type="text/javascript">
 			window.onload=function getbm(){
+				<% if(user==null){%>
+					alert('您未登陆！即将前往登陆页面！');
+					window.open('<%=request.getContextPath()%>/show/dist/html/login.jsp?figclass_id=<%=figClass_id%>','_self');		
+				<%}%>
 				$.ajax({
 					url:'<%=request.getContextPath()%>/FigClass/gedetailbm',
 					type:'post',
